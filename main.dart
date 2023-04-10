@@ -1,5 +1,5 @@
-import 'package:arzan_tm/config/themes/my_theme.dart';
-import 'package:arzan_tm/presentation/providers/view/provider_theme.dart';
+import '/config/themes/my_theme.dart';
+import '/presentation/providers/view/provider_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'config/routes/my_route.dart';

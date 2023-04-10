@@ -1,12 +1,11 @@
-
-import 'package:arzan_tm/config/themes/colors.dart';
-import 'package:arzan_tm/config/themes/styles.dart';
+import '/config/vars/colors.dart';
+import '/config/vars/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData darkTheme() {
-  //  final providerTheme = Provider.of<ProviderTheme>(context);
   return ThemeData(
+    brightness: Brightness.dark,
     textTheme: const TextTheme(
       bodyMedium: TextStyle(),
     ).apply(
