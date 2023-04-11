@@ -17,7 +17,6 @@ class CustomNavigationBar extends StatefulWidget {
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   int _selectIndex = 3;
 
-
   @override
   Widget build(BuildContext context) {
     MyOrientation.enableSystemUI;
@@ -46,9 +45,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             ThemeP.of(context, listen: false).myIcons.navigationIcons.length,
             (index) => BottomNavigationBarItem(
                 activeIcon: MyContainer(
-                  color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .unselectedItemColor,
                   shape: MySize.arentir * 0.1,
-                  padding: const EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(7),
                   child: ThemeP.of(context).myIcons.navigationIcons[index],
                 ),
                 icon: ThemeP.of(context).myIcons.navigationIcons[index],
