@@ -20,7 +20,8 @@ class _LogoPageState extends State<LogoPage> {
   void initState() {
     super.initState();
     Future.delayed(Dutrations.logoTime).then((value) {
-      //if (_selectedIndex != 5) _goHome;
+      // ThemeP.of(context).isLightSystem(context);
+      if (_selectedIndex != 5) _goHome;
     });
   }
 

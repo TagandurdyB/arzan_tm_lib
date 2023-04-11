@@ -3,10 +3,12 @@ import '/presentation/providers/view/provider_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'config/routes/my_route.dart';
+import 'config/system_info/my_orientation.dart';
 import 'injector.dart';
 
 void main() {
   runApp(const Injector(router: MyApp()));
+  MyOrientation.systemUiOverlayStyle();
 }
 
 class MyApp extends StatelessWidget {
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       themeMode: ThemeP.of(context).mode,
       theme: MyTheme.light,

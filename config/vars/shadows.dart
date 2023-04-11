@@ -1,12 +1,10 @@
+// ignore_for_file: overridden_fields
+
 import 'package:flutter/material.dart';
 
-class Shadows {
-  static List<BoxShadow> appBar = [
-    BoxShadow(
-        color: Colors.grey[800]!,
-        offset: const Offset(0, 5),
-        blurRadius: 10,
-        spreadRadius: 0.5)
+class ShadowsLight {
+  List<BoxShadow> appBar = [
+    const BoxShadow(offset: Offset(0, 1), blurRadius: 0.2, spreadRadius: 0.1)
   ];
   static List<BoxShadow> all = [
     BoxShadow(color: Colors.grey[800]!, blurRadius: 10, spreadRadius: 0.5)
@@ -20,14 +18,10 @@ class Shadows {
   ];
 }
 
-class ShadowsDark extends Shadows {
+class ShadowsDark extends ShadowsLight {
   @override
-  static List<BoxShadow> appBar = [
-    BoxShadow(
-        color: Colors.grey[600]!,
-        offset: const Offset(0, 5),
-        blurRadius: 10,
-        spreadRadius: 0.5)
+  List<BoxShadow> appBar = [
+    const BoxShadow(offset: Offset(0, 1), blurRadius: 0.2, spreadRadius: 0.1)
   ];
   @override
   static List<BoxShadow> all = [

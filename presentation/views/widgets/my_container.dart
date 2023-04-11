@@ -27,7 +27,7 @@ class MyContainer extends StatelessWidget {
       this.shape = 0.0,
       this.borderWidth = 0.0,
       this.color = Colors.white,
-      this.borderColor = Colors.grey,
+      this.borderColor = Colors.transparent,
       this.colors,
       this.padding,
       this.margin,

@@ -1,4 +1,9 @@
-import '/config/vars/styles.dart';
+import 'package:arzan_tm/config/vars/shadows.dart';
+
+import '../../../config/system_info/my_orientation.dart';
+import '../../../config/themes/colors.dart';
+import '../../../config/vars/my_icons.dart';
+import '../../../config/themes/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,23 +16,46 @@ class ThemeP extends ChangeNotifier {
       Brightness brightness = MediaQuery.of(context).platformBrightness;
       _isLight = brightness == Brightness.light;
     }
+    MyOrientation.systemNavigationBarMode(_isLight);
     notifyListeners();
   }
 
   bool _isLight = true;
   bool get isLight => _isLight;
+  bool isLightSystem(BuildContext context) {
+    if (_isSystem) {
+      Brightness brightness = MediaQuery.of(context).platformBrightness;
+      _isLight = brightness == Brightness.light;
+      debugPrint("Theme MOD now :=$_isLight");
+    }
+    notifyListeners();
+    return _isLight;
+  }
+
   void tongleTheme() {
     _isLight = !_isLight;
+    MyOrientation.systemNavigationBarMode(_isLight);
     notifyListeners();
   }
 
-  ThemeMode get mode => _isSystem
-      ? ThemeMode.system
-      : _isLight
-          ? ThemeMode.light
-          : ThemeMode.dark;
+  void changeTheme(bool isLight) {
+    _isLight = isLight;
+    MyOrientation.systemNavigationBarMode(_isLight);
+    notifyListeners();
+  }
+
+  ThemeMode get mode {
+    return _isSystem
+        ? ThemeMode.system
+        : _isLight
+            ? ThemeMode.light
+            : ThemeMode.dark;
+  }
 
   StylesLight get styles => _isLight ? StylesLight() : StylesLight();
+  ColorsLight get colors => _isLight ? ColorsLight() : ColorsDark();
+  IconsLight get myIcons => _isLight ? IconsLight() : IconsDark();
+  ShadowsLight get shadows => _isLight ? ShadowsLight() : ShadowsDark();
 
   static ThemeP of(BuildContext context, {listen = false}) =>
       Provider.of<ThemeP>(context, listen: listen);
