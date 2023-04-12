@@ -17,4 +17,6 @@ class Dutrations {
 
 class Tags {
   static const String mainSearch = "Main Search";
+  static const String hiveBase = "Hive Theme Base";
+  
 }

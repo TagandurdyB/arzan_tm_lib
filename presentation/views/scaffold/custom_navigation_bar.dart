@@ -42,7 +42,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           }
         },
         items: List.generate(
-            ThemeP.of(context, listen: false).myIcons.navigationIcons.length,
+            ThemeP.of(context, listen: false).icons.navigationIcons.length,
             (index) => BottomNavigationBarItem(
                 activeIcon: MyContainer(
                   color: Theme.of(context)
@@ -50,9 +50,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       .unselectedItemColor,
                   shape: MySize.arentir * 0.1,
                   padding: const EdgeInsets.all(7),
-                  child: ThemeP.of(context).myIcons.navigationIcons[index],
+                  child: ThemeP.of(context).icons.navigationIcons[index],
                 ),
-                icon: ThemeP.of(context).myIcons.navigationIcons[index],
+                icon: ThemeP.of(context).icons.navigationIcons[index],
                 label: "")));
   }
 }

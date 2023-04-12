@@ -5,14 +5,27 @@ import 'styles.dart';
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  static ThemeData light = theme(ColorsLight(), StylesLight());
-  static ThemeData dark = theme(ColorsDark(), StylesDark());
+  static ThemeData light = theme(ColorsLight(), StylesLight(), Brightness.dark);
+  static ThemeData dark = theme(ColorsDark(), StylesDark(), Brightness.light);
 
-  static ThemeData theme(ColorsLight colors, StylesLight styles) {
+  static ThemeData theme(
+    ColorsLight colors,
+    StylesLight styles,
+    Brightness brightness,
+  ) {
     return ThemeData(
       brightness: Brightness.dark,
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(),
+      iconTheme: IconThemeData(color: colors.text),
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.resolveWith((states) =>
+            states.contains(MaterialState.selected)
+                ? const Color(0xff15872E)
+                : const Color(0xff364857)),
+        trackColor: MaterialStateProperty.all(const Color(0xffD9D9D9)),
+      //  materialTapTargetSize: MaterialTapTargetSize.values,
+      ),
+      textTheme: TextTheme(
+        bodyMedium: TextStyle(color: colors.text),
       ).apply(
         bodyColor: colors.text,
         // displayColor: Colors.blue,
@@ -20,11 +33,11 @@ class MyTheme {
       primarySwatch: Colors.blue,
       canvasColor: colors.canvas,
       appBarTheme: AppBarTheme(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.black,
-          statusBarIconBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.black,
-          systemNavigationBarIconBrightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: colors.statusBarColor,
+          statusBarIconBrightness: brightness,
+          systemNavigationBarColor: colors.systemNavigationBarColor,
+          systemNavigationBarIconBrightness: brightness,
         ),
         color: colors.appbarbg,
         shadowColor: colors.appBarShadow,

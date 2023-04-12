@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'custom_app_bar.dart';
+import 'custom_drawer.dart';
 import 'custom_navigation_bar.dart';
 
 class MyScaffold extends StatelessWidget {
@@ -18,6 +19,7 @@ class MyScaffold extends StatelessWidget {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(appbarHeight),
           child: const CustomAppBar()),
+      drawer:  CustomDrawer(),
       bottomNavigationBar: const CustomNavigationBar(),
       body: body,
     );

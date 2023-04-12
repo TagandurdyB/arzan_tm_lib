@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 
 class ColorsLight {
+  Color statusBarColor = Colors.white;
+  Color systemNavigationBarColor = Colors.white;
   Color text = Colors.black;
   Color canvas = Colors.white;
   Color appbarbg = Colors.white;
@@ -16,7 +18,11 @@ class ColorsLight {
 
 class ColorsDark extends ColorsLight {
   @override
-  Color text = Colors.black;
+  Color statusBarColor = Colors.black;
+  @override
+  Color systemNavigationBarColor = Colors.black;
+  @override
+  Color text = Colors.white;
   @override
   Color canvas = Colors.black;
   @override

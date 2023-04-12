@@ -54,7 +54,7 @@ class ThemeP extends ChangeNotifier {
 
   StylesLight get styles => _isLight ? StylesLight() : StylesLight();
   ColorsLight get colors => _isLight ? ColorsLight() : ColorsDark();
-  IconsLight get myIcons => _isLight ? IconsLight() : IconsDark();
+  IconsLight get icons => _isLight ? IconsLight() : IconsDark();
   ShadowsLight get shadows => _isLight ? ShadowsLight() : ShadowsDark();
 
   static ThemeP of(BuildContext context, {listen = false}) =>

@@ -1,3 +1,6 @@
+import 'package:arzan_tm/domanin/entities/theme_entity.dart';
+
+import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/routes/my_route.dart';
@@ -14,13 +17,20 @@ class LogoPage extends StatefulWidget {
 }
 
 class _LogoPageState extends State<LogoPage> {
+  late DataThemeProvider themeProvider;
   int _selectedIndex = 0;
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      themeProvider = DataThemeProvider.of(context, listen: false);
+      if (themeProvider.entity == ThemeEntity.empty()) {
+        themeProvider
+            .save(ThemeEntity(isSystem: true, isLight: true, isDark: false));
+      }
+    });
     super.initState();
     Future.delayed(Dutrations.logoTime).then((value) {
-      // ThemeP.of(context).isLightSystem(context);
       if (_selectedIndex != 5) _goHome;
     });
   }
