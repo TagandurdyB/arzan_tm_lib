@@ -1,8 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:arzan_tm/data/models/theme_model.dart';
-
-import '../../domanin/entities/theme_entity.dart';
 import '../../domanin/repositories/hive_repository.dart';
 import '../datasourses/local/hive_local_datacource.dart';
 
@@ -12,9 +9,9 @@ class HiveThemeRepositoryImpl implements HiveThemeRepository {
   HiveThemeRepositoryImpl(this.hiveThemeLocalDataSource);
 
   @override
-  ThemeEntity? getThemeMod() {
+  bool? getThemeMod(String tag) {
     try {
-      final themeMode = hiveThemeLocalDataSource.getHiveThemeMode();
+      final bool? themeMode = hiveThemeLocalDataSource.getHiveTheme(tag);
       return themeMode;
     } catch (err) {
       print("Error on data repository Theme get!!!");
@@ -24,10 +21,9 @@ class HiveThemeRepositoryImpl implements HiveThemeRepository {
   }
 
   @override
-  void saveThemeMod(ThemeEntity entity) {
+  void saveThemeMod(bool value, String tag) {
     try {
-      final model = ThemeModel.fromEntety(entity);
-      hiveThemeLocalDataSource.saveHiveThemeMode(model);
+      hiveThemeLocalDataSource.saveHiveTheme(value, tag);
     } catch (err) {
       print("Error on data repository Theme save!!!");
       print("Error :$err");

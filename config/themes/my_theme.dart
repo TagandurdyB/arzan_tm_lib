@@ -17,12 +17,13 @@ class MyTheme {
       brightness: Brightness.dark,
       iconTheme: IconThemeData(color: colors.text),
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith((states) =>
-            states.contains(MaterialState.selected)
-                ? const Color(0xff15872E)
-                : const Color(0xff364857)),
-        trackColor: MaterialStateProperty.all(const Color(0xffD9D9D9)),
-      //  materialTapTargetSize: MaterialTapTargetSize.values,
+        thumbColor: MaterialStateProperty.resolveWith(
+          (states) => states.contains(MaterialState.selected)
+              ? colors.switchActiv
+              : colors.switchUnActiv,
+        ),
+        trackColor: MaterialStateProperty.all(colors.switchBg),
+        //  materialTapTargetSize: MaterialTapTargetSize.values,
       ),
       textTheme: TextTheme(
         bodyMedium: TextStyle(color: colors.text),

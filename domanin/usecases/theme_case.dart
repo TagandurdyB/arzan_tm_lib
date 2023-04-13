@@ -1,12 +1,10 @@
-import 'package:arzan_tm/domanin/entities/theme_entity.dart';
-
 import '../repositories/hive_repository.dart';
 
 class ThemeCase {
   final HiveThemeRepository repository;
   ThemeCase(this.repository);
 
-  ThemeEntity? read() => repository.getThemeMod();
+  bool? read(String tag) => repository.getThemeMod(tag);
 
-  void save(ThemeEntity entity) => repository.saveThemeMod(entity);
+  void save(bool value,String tag) => repository.saveThemeMod(value,tag);
 }

@@ -1,12 +1,14 @@
-
+import 'package:flutter/material.dart';
 
 class Carroussel extends StatefulWidget {
+  const Carroussel({super.key});
+
   @override
-  _CarrousselState createState() => new _CarrousselState();
+  _CarrousselState createState() => _CarrousselState();
 }
 
 class _CarrousselState extends State<Carroussel> {
-  PageController controller;
+  late PageController controller;
   int currentpage = 0;
 
   @override
@@ -49,7 +51,7 @@ class _CarrousselState extends State<Carroussel> {
       builder: (context, child) {
         double value = 1.0;
         if (controller.position.haveDimensions) {
-          value = controller.page - index;
+          value = controller.page! - index;
           value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
         }
 

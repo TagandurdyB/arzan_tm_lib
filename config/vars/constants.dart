@@ -4,7 +4,7 @@ class Nums {
   static const int logoTime = 5;
   static double site = MySize.arentir * 0.07;
   static double siteSub = MySize.arentir * 0.027;
-   double bell = MySize.arentir * 0.3;
+  double bell = MySize.arentir * 0.3;
 }
 
 class Words {
@@ -17,6 +17,7 @@ class Dutrations {
 
 class Tags {
   static const String mainSearch = "Main Search";
-  static const String hiveBase = "Hive Theme Base";
-  
+  static const String hiveTheme = "Hive Theme Base";
+  static const String themeSystem = "Hive Theme System";
+  static const String themeLight = "Hive Theme Light";
 }

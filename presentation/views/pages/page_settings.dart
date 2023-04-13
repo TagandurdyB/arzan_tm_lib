@@ -1,9 +1,10 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_print
 
 import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/domanin/entities/theme_entity.dart';
 import 'package:arzan_tm/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/custom_switch_list_tile.dart';
 
 class SettingsPage extends StatelessWidget {
   SettingsPage({super.key});
@@ -48,32 +49,29 @@ class SettingsContent extends StatelessWidget {
   late BuildContext context;
   @override
   Widget build(BuildContext context) {
-    final DataThemeProvider providT = DataThemeProvider.of(context);
-    final DataThemeProvider providTdo =
-        DataThemeProvider.of(context, listen: false);
+    final providT = DataThemeProvider.of(context);
+    final providTdo = DataThemeProvider.of(context, listen: false);
     this.context = context;
     return Column(
       children: [
         ModeSwitchBtn(
           iconD: Icons.phonelink_setup,
           text: "Systema režim",
-          startVal: providT.entity.isSystem,
+          startVal: providT.isSystem,
           onChange: (bool val) {
-            providTdo
-                .save(ThemeEntity(isDark: true, isSystem: false, isLight: val));
+            providTdo.tongleSystem;
             print("skdasdjaskd $val");
           },
         ),
-        Opacity(
-          opacity: providT.entity.isSystem ? 0.2 : 1,
-          child: ModeSwitchBtn(
-            iconD: Icons.light_mode_outlined,
-            text: "Gijeki režim",
-            startVal: !providT.entity.isSystem && providT.entity.isLight,
-            onChange: (bool val) {
-              print("skdasdjaskd $val");
-            },
-          ),
+        ModeSwitchBtn(
+          iconD: Icons.light_mode_outlined,
+          text: "Gijeki režim",
+          startVal: !providT.isLight,
+          isLocked: providT.isSystem,
+          onChange: (bool val) {
+            providTdo.tongleLight;
+            print("skdasdjaskd $val");
+          },
         ),
       ],
     );
@@ -84,10 +82,12 @@ class ModeSwitchBtn extends StatefulWidget {
   final IconData iconD;
   final String text;
   final bool startVal;
+  final bool isLocked;
   final Function? onChange;
   const ModeSwitchBtn({
     required this.iconD,
     this.text = "",
+    this.isLocked = false,
     this.startVal = false,
     this.onChange,
     super.key,
@@ -108,27 +108,25 @@ class _ModeSwitchBtnState extends State<ModeSwitchBtn> {
 
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile.adaptive(
-        contentPadding: const EdgeInsets.all(10),
-        dense: true,
-        title: buildSwitchTitle,
-        value: _isDark,
-        onChanged: (bool val) {
-          if (widget.onChange != null) widget.onChange!(val);
-          setState(() {
-            _isDark = !_isDark;
-          });
-        });
-  }
-
-  Widget get buildSwitchTitle => Row(
-        children: [
-          Icon(widget.iconD),
-          const SizedBox(width: 10),
-          Text(widget.text,
+    return Opacity(
+      opacity: widget.isLocked ? 0.2 : 1,
+      child: CustomSwitchListTile(
+          mode: Mode.cupertino,
+          contentPadding: const EdgeInsets.all(10),
+          title: Text(widget.text,
               style: TextStyle(
                   color: Theme.of(context).textTheme.bodyMedium!.color,
                   fontSize: MySize.arentir * 0.045)),
-        ],
-      );
+          secondary: Icon(widget.iconD),
+          value: _isDark,
+          onChanged: (bool val) {
+            if (!widget.isLocked) {
+              if (widget.onChange != null) widget.onChange!(val);
+              setState(() {
+                _isDark = !_isDark;
+              });
+            }
+          }),
+    );
+  }
 }

@@ -1,5 +1,3 @@
-import 'package:arzan_tm/domanin/entities/theme_entity.dart';
-
 import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -22,13 +20,6 @@ class _LogoPageState extends State<LogoPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      themeProvider = DataThemeProvider.of(context, listen: false);
-      if (themeProvider.entity == ThemeEntity.empty()) {
-        themeProvider
-            .save(ThemeEntity(isSystem: true, isLight: true, isDark: false));
-      }
-    });
     super.initState();
     Future.delayed(Dutrations.logoTime).then((value) {
       if (_selectedIndex != 5) _goHome;

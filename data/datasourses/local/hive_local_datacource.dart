@@ -1,29 +1,23 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, avoid_print
 
-import 'package:arzan_tm/data/models/theme_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../config/vars/constants.dart';
 
 abstract class HiveThemeLocalDataSource {
-  ThemeModel? getHiveThemeMode();
-  void saveHiveThemeMode(ThemeModel model);
+  bool? getHiveTheme(String tag);
+  void saveHiveTheme(bool value, String tag);
 }
 
 class HiveThemeLocalDataSourceImpl implements HiveThemeLocalDataSource {
-  final myBase = Hive.box(Tags.hiveBase);
+  final myBase = Hive.box(Tags.hiveTheme);
 
   @override
-  ThemeModel? getHiveThemeMode() {
+  bool? getHiveTheme(String tag) {
     try {
-      final bool _isDark = myBase.get("isDark");
-      final bool _isLight = myBase.get("isLight");
-      final bool _isSystem = myBase.get("isSystem");
-      return ThemeModel(
-        isDark: _isDark,
-        isLight: _isLight,
-        isSystem: _isSystem,
-      );
+      final bool _value = myBase.get(tag);
+      print("$tag geted success!");
+      return _value;
     } catch (err) {
       print("Error on Hive Theme get!!!");
       print("Error :$err");
@@ -32,11 +26,10 @@ class HiveThemeLocalDataSourceImpl implements HiveThemeLocalDataSource {
   }
 
   @override
-  void saveHiveThemeMode(ThemeModel model) {
+  void saveHiveTheme(bool value, String tag) {
     try {
-      myBase.put("isDark", model.isDark);
-      myBase.put("isLight", model.isLight);
-      myBase.put("isSystem", model.isSystem);
+      myBase.put(tag, value);
+      print("$tag savad success!");
     } catch (err) {
       print("Error on Hive Theme save!!!");
       print("Error :$err");

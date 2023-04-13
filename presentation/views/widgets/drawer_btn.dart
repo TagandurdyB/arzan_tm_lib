@@ -1,7 +1,4 @@
-import 'package:arzan_tm/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
-
-import '../../../domanin/entities/theme_entity.dart';
 import 'my_container.dart';
 
 class DrawerBtn extends StatelessWidget {
@@ -28,11 +25,7 @@ class DrawerBtn extends StatelessWidget {
       onTap: () {
         if (onTap != null) onTap!();
         if (route != null && route != activePage) {
-          print("route:=$route");
-          final themeProvider = DataThemeProvider.of(context,listen: false);
-          themeProvider
-              .save(ThemeEntity(isSystem: true, isLight: true, isDark: false));
-          
+          debugPrint("route:=$route");
           Navigator.pushNamed(context, route!);
         } else {
           Navigator.pop(this.context);

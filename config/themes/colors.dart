@@ -14,6 +14,10 @@ class ColorsLight {
   Color navigatActiveIcon = const Color(0xff3E9851);
   Color navigatUnactiveIcon = const Color(0xff384854);
   Color navigatActiveIconBg = const Color(0xffDBEDE0);
+    Color switchBg = const Color(0xffD9D9D9);
+    Color switchUnActiv = const Color(0xff364857);
+    Color switchActiv = const Color(0xff15872E);
+    
 }
 
 class ColorsDark extends ColorsLight {

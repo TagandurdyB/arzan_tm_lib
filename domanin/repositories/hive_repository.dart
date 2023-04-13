@@ -1,6 +1,4 @@
-import 'package:arzan_tm/domanin/entities/theme_entity.dart';
-
 abstract class HiveThemeRepository {
-  ThemeEntity? getThemeMod();
-  void saveThemeMod(ThemeEntity entity);
+  bool? getThemeMod(String tag);
+  void saveThemeMod(bool value, String tag);
 }
