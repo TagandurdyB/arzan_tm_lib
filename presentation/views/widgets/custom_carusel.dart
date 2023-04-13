@@ -1,71 +1,83 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-class Carroussel extends StatefulWidget {
-  const Carroussel({super.key});
+class CustomCarusel extends StatefulWidget {
+  final double width;
+  final double height;
+  final List<Widget> items;
+  final EdgeInsetsGeometry padding;
+  final double borderRadius;
+  final Duration duration, transition;
+  const CustomCarusel({
+    required this.items,
+    this.duration = const Duration(seconds: 5),
+    this.transition = const Duration(milliseconds: 200),
+    this.borderRadius = 8,
+    this.padding = const EdgeInsets.all(0),
+    this.width = double.infinity,
+    this.height = 200,
+    super.key,
+  });
 
   @override
-  _CarrousselState createState() => _CarrousselState();
+  State<CustomCarusel> createState() => _CustomCaruselState();
 }
 
-class _CarrousselState extends State<Carroussel> {
+class _CustomCaruselState extends State<CustomCarusel> {
   late PageController controller;
-  int currentpage = 0;
+  late Timer timer;
 
   @override
-  initState() {
-    super.initState();
+  void initState() {
     controller = PageController(
-      initialPage: currentpage,
-      keepPage: false,
-      viewportFraction: 0.5,
+      initialPage: 1,
+      keepPage: true,
     );
+    timer = Timer.periodic(widget.duration, (time) {
+      setState(() {
+        controller.nextPage(duration: widget.transition, curve: Curves.easeIn);
+      });
+    });
+    super.initState();
   }
 
   @override
-  dispose() {
+  void dispose() {
     controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          child: PageView.builder(
-              onPageChanged: (value) {
-                setState(() {
-                  currentpage = value;
-                });
-              },
-              controller: controller,
-              itemBuilder: (context, index) => builder(index)),
-        ),
-      ),
-    );
-  }
-
-  builder(int index) {
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (context, child) {
-        double value = 1.0;
-        if (controller.position.haveDimensions) {
-          value = controller.page! - index;
-          value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
-        }
-
-        return Center(
-          child: SizedBox(
-            height: Curves.easeOut.transform(value) * 300,
-            width: Curves.easeOut.transform(value) * 250,
-            child: child,
-          ),
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.all(8.0),
-        color: index % 2 == 0 ? Colors.blue : Colors.red,
+    final length = widget.items.length;
+    return Container(
+      padding: widget.padding,
+      decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius))),
+      width: widget.width,
+      height: widget.height,
+      child: PageView.builder(
+        controller: controller,
+        onPageChanged: (int pageIndex) {
+          setState(() {
+            if (pageIndex == length + 1) {
+              controller.jumpToPage(1);
+            } else if (pageIndex == 0) {
+              controller.jumpToPage(length);
+            }
+          });
+        },
+        itemCount: length + 2,
+        itemBuilder: (context, index) {
+          int reightIndex = index == 0
+              ? length - 1
+              : index == length + 1
+                  ? 0
+                  : index - 1;
+          return widget.items[reightIndex];
+        },
       ),
     );
   }
