@@ -23,7 +23,6 @@ class ShadowsDark extends ShadowsLight {
   List<BoxShadow> appBar = [
     const BoxShadow(offset: Offset(0, 1), blurRadius: 0.2, spreadRadius: 0.1)
   ];
-  @override
   static List<BoxShadow> all = [
     BoxShadow(color: Colors.grey[600]!, blurRadius: 10, spreadRadius: 0.5)
   ];

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/config/system_info/my_orientation.dart';
+import '../../providers/view/provider_navigation.dart';
+import '/config/system_info/my_orientation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/system_info/my_size.dart';
@@ -15,7 +16,7 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  int _selectIndex = 3;
+  //int _selectIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +24,25 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     return BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        currentIndex: _selectIndex,
-        // onTap: (index) {
-        //   setState(() {
-        //     _selectIndex = index;
-        //   });
-        //   ProcessNavigation(context).screenIndex(index);
-        // },
+        currentIndex: ProviderNavigation.of(context).selectScreen,//_selectIndex,
         onTap: (index) {
-          debugPrint("Index:= $index");
-          if (index > 1) {
-            setState(() {
-              _selectIndex = index;
-            });
-          }
-          if (index == 0) {
-            Scaffold.of(context).openDrawer();
-          }
+          // setState(() {
+          //   _selectIndex = index;
+          // });
+          final provid = ProviderNavigation.of(context, listen: false);
+          provid.changeScreen(index);
         },
+        // onTap: (index) {
+        //   debugPrint("Index:= $index");
+        //   if (index > 1) {
+        //     setState(() {
+        //       _selectIndex = index;
+        //     });
+        //   }
+        //   if (index == 0) {
+        //     Scaffold.of(context).openDrawer();
+        //   }
+        // },
         items: List.generate(
             ThemeP.of(context, listen: false).icons.navigationIcons.length,
             (index) => BottomNavigationBarItem(

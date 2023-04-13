@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, unnecessary_null_comparison
 
-import 'package:arzan_tm/config/vars/constants.dart';
+import '/config/vars/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

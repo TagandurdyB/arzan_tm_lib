@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/providers/data/data_provider_theme.dart';
+import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '/config/themes/my_theme.dart';

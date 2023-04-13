@@ -18,7 +18,7 @@ class MyScaffold extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(appbarHeight),
-          child: const CustomAppBar()),
+          child:  CustomAppBar(height:appbarHeight)),
       drawer: CustomDrawer(),
       bottomNavigationBar: const CustomNavigationBar(),
       body: body,

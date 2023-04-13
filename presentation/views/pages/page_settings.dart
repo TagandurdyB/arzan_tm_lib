@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, avoid_print
 
-import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/presentation/providers/data/data_provider_theme.dart';
+import '/config/system_info/my_size.dart';
+import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_switch_list_tile.dart';

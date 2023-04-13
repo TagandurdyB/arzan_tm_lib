@@ -1,4 +1,4 @@
-import 'package:arzan_tm/config/themes/colors.dart';
+import '/config/themes/colors.dart';
 import 'package:flutter/services.dart';
 
 import 'styles.dart';

@@ -1,6 +1,5 @@
-import 'package:arzan_tm/config/vars/shadows.dart';
+import '/config/vars/shadows.dart';
 
-import '../../../config/system_info/my_orientation.dart';
 import '../../../config/themes/colors.dart';
 import '../../../config/vars/my_icons.dart';
 import '../../../config/themes/styles.dart';

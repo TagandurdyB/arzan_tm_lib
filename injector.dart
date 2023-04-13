@@ -7,6 +7,7 @@ import 'data/datasourses/local/hive_local_datacource.dart';
 import 'data/repositories/hive_repository_impl.dart';
 import 'domanin/usecases/theme_case.dart';
 import 'presentation/providers/data/data_provider_theme.dart';
+import 'presentation/providers/view/provider_navigation.dart';
 
 class Injector extends StatelessWidget {
   final Widget router;
@@ -20,7 +21,9 @@ class Injector extends StatelessWidget {
                     getThemeModeCase: ThemeCase(HiveThemeRepositoryImpl(
                         HiveThemeLocalDataSourceImpl())),
                   )),
-          ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP())
+          ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP()),
+          ChangeNotifierProvider<ProviderNavigation>(
+              create: (context) => ProviderNavigation()),
         ],
         child: router,
       );
