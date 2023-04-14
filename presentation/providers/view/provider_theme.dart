@@ -41,6 +41,6 @@ class ThemeP extends ChangeNotifier {
   IconsLight get icons => _isLight ? IconsLight() : IconsDark();
   ShadowsLight get shadows => _isLight ? ShadowsLight() : ShadowsDark();
 
-  static ThemeP of(BuildContext context, {listen = false}) =>
+  static ThemeP of(BuildContext context, {bool listen = true}) =>
       Provider.of<ThemeP>(context, listen: listen);
 }

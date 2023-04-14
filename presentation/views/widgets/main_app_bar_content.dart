@@ -24,7 +24,7 @@ class MainAppBarContent extends StatelessWidget {
             SizedBox(
               width: MySize.arentir * 0.77,
               child: const ReadyInput(
-                tag: Tags.mainSearch,
+                tag: Tags.rIMainSearch,
                 borderRad: 4,
                 shape: true,
               ),
@@ -38,7 +38,7 @@ class MainAppBarContent extends StatelessWidget {
 
   Widget buildBell() {
     return MyContainer(
-      color: Colors.transparent,
+        color: Colors.transparent,
         margin: const EdgeInsets.all(2),
         onTap: () {},
         child: Icon(

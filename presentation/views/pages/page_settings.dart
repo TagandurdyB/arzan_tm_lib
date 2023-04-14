@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, avoid_print
 
+import 'package:arzan_tm/presentation/views/scaffold/no_app_bar_scaffold.dart';
+
 import '/config/system_info/my_size.dart';
 import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +16,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     this.context = context;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(0),
-        child: AppBar(elevation: 0),
-      ),
+    return ScaffoldNo(
       body: Container(
         padding: const EdgeInsets.all(16),
         child: Column(children: [

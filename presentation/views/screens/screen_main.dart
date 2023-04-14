@@ -1,7 +1,9 @@
+import 'package:arzan_tm/config/system_info/my_size.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../providers/view/provider_navigation.dart';
-import '../scaffold/my_scaffold.dart';
+import '../scaffold/my_app_bar.dart';
 import '../widgets/custom_carusel.dart';
 
 final List<String> imgs = [
@@ -17,44 +19,70 @@ class ScreenMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyScaffold(
-       appbarHeight: kToolbarHeight + 10,
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          Container(
-            alignment: Alignment.topCenter,
-            padding: const EdgeInsets.all(16),
-            child: CustomCarusel(
-              dotColor: Colors.black26,
-              activDotColor: const Color(0xff0EC243),
-              items: [
-                buildContent(0),
-                buildContent(1),
-                buildContent(2),
-                buildContent(3),
-                buildContent(4),
-              ],
-            ),
+    return Column(
+      children: [
+         MyAppBar(),
+        Expanded(
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                padding: const EdgeInsets.all(16),
+                child: CustomCarusel(
+                  dotColor: Colors.black26,
+                  activDotColor: const Color(0xff0EC243),
+                  borderRadius: MySize.arentir * 0.02,
+                  items: [
+                    buildContent(0),
+                    buildContent(1),
+                    buildContent(2),
+                    buildContent(3),
+                    buildContent(4),
+                  ],
+                ),
+              ),
+              Container(
+                color: Colors.blue,
+                height: 50,
+                child: Text(
+                    " Page ${ProviderNavigation.of(context).selectScreen}"),
+              ),
+              Column(
+                children: List.generate(
+                    100,
+                    (index) => Container(
+                          margin: const EdgeInsets.all(8),
+                          color: Colors.orange,
+                          width: double.infinity,
+                          height: 50,
+                        )),
+              )
+            ],
           ),
-        Container(
-              color: Colors.blue,
-              height: 50,child: Text(" Page ${ProviderNavigation.of(context).selectScreen}"),)
-       ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget buildContent(int index) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            fit: BoxFit.cover, image: NetworkImage(imgs[index])),
-      ),
-      //child: Text("$index", style: const TextStyle(fontSize: 60)),
+    return Image.network(
+      imgs[index],
+      fit: BoxFit.cover,
+      loadingBuilder: (context, child, placeholder) {
+        if (placeholder == null) return child;
+        return Container(color: Colors.grey);
+      },
+      errorBuilder: (context, obj, stack) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey.withOpacity(0.25),
+          highlightColor: Colors.grey.withOpacity(0.6),
+          enabled: true,
+          direction: ShimmerDirection.ltr,
+          period: const Duration(seconds: 1),
+          child: Container(color: Colors.grey.withOpacity(0.5)),
+        );
+      },
     );
   }
 }

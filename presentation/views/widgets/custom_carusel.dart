@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import '../../../config/vars/shadows.dart';
 
 class CustomCarusel extends StatefulWidget {
   final double width;
@@ -20,18 +19,18 @@ class CustomCarusel extends StatefulWidget {
   final bool isDotsOut;
   const CustomCarusel({
     required this.items,
-    this.isDotsOut=false,
+    this.isDotsOut = false,
     this.dotRadius = 8,
     this.activDotRadius = 9,
     this.dotColor = Colors.grey,
     this.activDotColor = Colors.blue,
-    this.dotsAlignment=Alignment.centerRight,
+    this.dotsAlignment = Alignment.centerRight,
     this.showDots = true,
     this.duration = const Duration(seconds: 5),
     this.transition = const Duration(milliseconds: 200),
     this.borderRadius = 8,
     this.padding = const EdgeInsets.all(0),
-    this.dotsMargin=const EdgeInsets.all(5),
+    this.dotsMargin = const EdgeInsets.all(5),
     this.width = double.infinity,
     this.height = 200,
     super.key,
@@ -64,6 +63,7 @@ class _CustomCaruselState extends State<CustomCarusel> {
   @override
   void dispose() {
     controller.dispose();
+    timer.cancel();
     super.dispose();
   }
 
@@ -78,14 +78,14 @@ class _CustomCaruselState extends State<CustomCarusel> {
           alignment: Alignment.bottomCenter,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius)),
+              borderRadius:
+                  BorderRadius.all(Radius.circular(widget.borderRadius)),
               child: Container(
                 padding: widget.padding,
                 decoration: BoxDecoration(
-                  boxShadow: ShadowsLight.all,
-                    color: Colors.red,
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(widget.borderRadius))),
+                  //  boxShadow: ShadowsLight.all,
+                  color: Colors.grey.withOpacity(0.25),
+                ),
                 width: widget.width,
                 height: widget.height,
                 child: PageView.builder(
@@ -113,10 +113,13 @@ class _CustomCaruselState extends State<CustomCarusel> {
                 ),
               ),
             ),
-         Visibility(visible: widget.showDots&&!widget.isDotsOut, child: buildDots),
+            Visibility(
+                visible: widget.showDots && !widget.isDotsOut,
+                child: buildDots),
           ],
         ),
-        Visibility(visible: widget.showDots&&widget.isDotsOut, child: buildDots),
+        Visibility(
+            visible: widget.showDots && widget.isDotsOut, child: buildDots),
       ],
     );
   }

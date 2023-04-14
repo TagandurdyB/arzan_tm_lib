@@ -1,37 +1,37 @@
-import 'package:arzan/presentation/providers/view/provider_navigation.dart';
+import '/presentation/providers/view/provider_navigation.dart';
 import 'package:flutter/material.dart';
 
-import 'screen_login.dart';
+import 'register_screens.dart';
 import 'screen_main.dart';
 
 // ignore: must_be_immutable
 class HomeScreens extends StatelessWidget {
   HomeScreens({super.key});
 
-
-late BuildContext context;
+  late BuildContext context;
   @override
   Widget build(BuildContext context) {
-    this.context=context;
+    this.context = context;
     return buildScreens();
   }
 
   List<Widget> screens = [
     const ScreenMain(),
-    const ScreenLogin(),
+    const SizedBox(),
+    const SizedBox(),
+    const SizedBox(),
+    RegisterScreens(),
   ];
 
   Widget buildScreens() {
-    final provid=ProviderNavigation.of(context);
+    final provid = ProviderNavigation.of(context);
     return Stack(
       children: List.generate(
           screens.length,
           (index) => Builder(
                 builder: (context) => Offstage(
                   offstage: index != provid.selectScreen,
-                  child: Scaffold(
-                    body: screens[index],
-                  ),
+                  child: screens[index],
                 ),
               )),
     );

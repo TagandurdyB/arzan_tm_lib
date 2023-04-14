@@ -5,9 +5,10 @@ import '../vars/shadows.dart';
 import 'package:flutter/material.dart';
 
 class StylesLight {
-  TextStyle appBar = const TextStyle(color: Colors.black,fontWeight: FontWeight.bold);
+  TextStyle appBar =
+      const TextStyle(color: Colors.black, fontWeight: FontWeight.bold);
   TextStyle avatar = const TextStyle(color: Colors.orange);
-  TextStyle input = const TextStyle(color: Colors.purple);
+  TextStyle input = const TextStyle(color: Colors.black, fontSize: 14);
 
   TextStyle _site(double size) {
     return TextStyle(
@@ -23,5 +24,8 @@ class StylesLight {
 
 class StylesDark extends StylesLight {
   @override
-  TextStyle appBar = const TextStyle(color: Colors.white,fontWeight: FontWeight.bold);
+  TextStyle appBar =
+      const TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  @override
+  TextStyle input = const TextStyle(color: Colors.white, fontSize: 14);
 }

@@ -16,7 +16,9 @@ class Dutrations {
 }
 
 class Tags {
-  static const String mainSearch = "Main Search";
+  static const String rIMainSearch = "Ready Input Main Search";
+  static const String rILoginUser = "Ready Input Login username";
+  static const String rILoginPass = "Ready Input Login password";
   static const String hiveTheme = "Hive Theme Base";
   static const String themeSystem = "Hive Theme System";
   static const String themeLight = "Hive Theme Light";

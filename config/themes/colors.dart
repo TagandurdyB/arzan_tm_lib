@@ -14,10 +14,12 @@ class ColorsLight {
   Color navigatActiveIcon = const Color(0xff3E9851);
   Color navigatUnactiveIcon = const Color(0xff384854);
   Color navigatActiveIconBg = const Color(0xffDBEDE0);
-    Color switchBg = const Color(0xffD9D9D9);
-    Color switchUnActiv = const Color(0xff364857);
-    Color switchActiv = const Color(0xff15872E);
-    
+  Color switchBg = const Color(0xffD9D9D9);
+  Color switchUnActiv = const Color(0xff364857);
+  Color switchActiv = const Color(0xff15872E);
+  Color inputFocus = Colors.black;
+  Color inputEnable = const Color(0xff15872E);
+  Color inputText = Colors.black;
 }
 
 class ColorsDark extends ColorsLight {
@@ -43,4 +45,10 @@ class ColorsDark extends ColorsLight {
   Color navigatUnactiveIcon = const Color(0xff3A4753);
   @override
   Color navigatActiveIconBg = const Color(0xff031508);
+  @override
+  Color inputFocus = Colors.white;
+  @override
+  Color inputEnable = const Color(0xff15872E);
+  @override
+  Color inputText = Colors.white;
 }
