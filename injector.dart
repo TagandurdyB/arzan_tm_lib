@@ -1,3 +1,5 @@
+import '/presentation/providers/data/provider_revovery.dart';
+
 import '/presentation/providers/view/provider_theme.dart';
 
 import 'package:provider/provider.dart';
@@ -24,6 +26,8 @@ class Injector extends StatelessWidget {
           ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP()),
           ChangeNotifierProvider<ProviderNavigation>(
               create: (context) => ProviderNavigation()),
+                ChangeNotifierProvider<RecoveryP>(
+              create: (context) => RecoveryP()),
         ],
         child: router,
       );

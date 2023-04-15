@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../providers/view/provider_theme.dart';
 
 import 'ready_input_base.dart';
 

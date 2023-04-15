@@ -1,11 +1,15 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/presentation/views/widgets/ReadyInput/ready_input.dart';
 import 'package:arzan_tm/presentation/views/widgets/my_container.dart';
 import 'package:flutter/material.dart';
 
+import '../../../config/routes/my_route.dart';
 import '../../../config/vars/constants.dart';
+import '../../providers/data/provider_revovery.dart';
+import '../widgets/ReadyInput/login_arzan_input.dart';
+import '../widgets/ReadyInput/ready_input_base.dart';
+import '../widgets/form_error_message.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,10 +21,35 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool isPassShow = false;
   bool isPressBefore = false;
+  bool haveError = false;
 
   @override
   late BuildContext context;
   final formKey = GlobalKey<FormState>();
+
+  String? _haveAnyValid() {
+    if (isPressBefore) {
+      if (RIBase.getText(Tags.rILoginPass).length < 5) {
+        //return "Enter min 7 char at Name";
+        return "";
+      }
+    }
+    return null;
+  }
+
+  void _loginFunc() {
+    setState(() {
+      isPressBefore = true;
+      final bool isValidForm = formKey.currentState!.validate();
+      if (isValidForm) {
+        //Login post
+        haveError = false;
+        Navigator.pushNamed(context, Rout.user);
+      } else {
+        haveError = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +59,31 @@ class _LoginScreenState extends State<LoginScreen> {
         key: formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
-          const ArzanLoginInputs(
+          LoginArzanInputs(
+            validator: (String? value) {
+              return _haveAnyValid();
+            },
             tag: Tags.rILoginUser,
             iconD: Icons.assignment_ind_outlined,
             label: "Ulanyjy ady",
+            hidden: "Ulanyjy ady",
           ),
           const SizedBox(height: 20),
-          const ArzanLoginInputs(
+          LoginArzanInputs(
+            validator: (String? value) {
+              return _haveAnyValid();
+            },
             tag: Tags.rILoginPass,
             iconD: Icons.vpn_key_outlined,
             label: "Açar sözi",
-            isPass: true,
+            hidden: "Açar sözi",
+            type: TextInputType.visiblePassword,
           ),
+          const SizedBox(height: 20),
+          FormErrorMessage(
+              visible: haveError,
+              message: "Ulanyjy ady ýada açar sözi nädogry girizildi!"),
+          buildBottomSide,
           const SizedBox(height: 20),
           ElevatedButton(onPressed: _loginFunc, child: const Text("Ulgama gir"))
         ]),
@@ -49,148 +91,70 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _loginFunc() {
-    final bool isValidForm = formKey.currentState!.validate();
-    if (isValidForm) {
-      //Login post
-    }
-    setState(() {
-      isPressBefore = true;
-    });
-  }
-
-  Widget buildInput(String tag, IconData iconD, String label, Type type) {
-    final themeColors = Theme.of(context).inputDecorationTheme;
-    return MyContainer(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      borderWidth: 1,
-      borderColor: const Color(0xffAAAAAA),
-      shape: MySize.arentir * 0.02,
-      height: MySize.arentir * 0.12,
+  Widget get buildBottomSide {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      //  color: Colors.orange,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Icon(iconD),
-          ),
-          Expanded(
-            child: ReadyInput(
-              maxline: 1,
-              maxLength: 15,
-              type: isPassShow ? Type.text : type,
-              cursorColor: Colors.grey,
-              inputStyle: themeColors.counterStyle!,
-              enabledBorderColor: themeColors.fillColor!,
-              focusedBorderColor: themeColors.focusColor!,
-              labelColor: const Color(0xffC4C4C4),
-              hintColor: const Color(0xffC4C4C4),
-              label: label,
-              hidden: label,
-              // autoFocus: true,
-              reightWidget: const SizedBox(),
-              tag: tag,
-              // shape: true,
-              borderRad: 8,
-            ),
-          ),
-          Visibility(
-              visible: tag == Tags.rILoginPass,
-              child: GestureDetector(
-                  onTap: () => setState(() {
-                        isPassShow = !isPassShow;
-                      }),
-                  child: Icon(isPassShow
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined)))
+          buildRememberMe,
+          buildRecovery,
         ],
       ),
     );
   }
-}
 
-class ArzanLoginInputs extends StatefulWidget {
-  final String tag;
-  final IconData iconD;
-  final String label;
-  final bool isPass;
-  const ArzanLoginInputs({
-    super.key,
-    required this.tag,
-    required this.iconD,
-    this.label = "",
-    this.isPass = false,
-  });
-
-  @override
-  State<ArzanLoginInputs> createState() => _ArzanLoginInputsState();
-}
-
-class _ArzanLoginInputsState extends State<ArzanLoginInputs> {
-  bool isPassShow = false;
-  bool isPressBefore = false;
-  final FocusNode focusNode = FocusNode();
-  Color borderColor = Colors.grey;
-
-  @override
-  void initState() {
-    super.initState();
-    focusNode.addListener(() {
-      setState(() {
-        borderColor = focusNode.hasFocus ? Colors.orange : Colors.grey;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: borderColor,
-          width: 100,
-          height: 20,
-        ),
-        buildFormInput(),
-      ],
+  bool isRemember = true;
+  Widget get buildRememberMe {
+    return InkWell(
+      onTap: _funcRememberMe,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MyContainer(
+            shape: MySize.arentir * 0.01,
+            width: MySize.arentir * 0.05,
+            height: MySize.arentir * 0.05,
+            color: isRemember ? const Color(0xff0EC243) : Colors.transparent,
+            borderWidth: 1,
+            borderColor: isRemember ? Colors.green : Colors.grey,
+            child: Visibility(
+              visible: isRemember,
+              child: Icon(
+                Icons.check,
+                color: Colors.white,
+                size: MySize.arentir * 0.04,
+              ),
+            ),
+          ),
+          SizedBox(width: MySize.arentir * 0.02),
+          Text("Ýatda sakla",
+              style: TextStyle(fontSize: MySize.arentir * 0.043)),
+        ],
+      ),
     );
   }
 
-  Widget buildFormInput() {
-    return TextFormField(
-      focusNode: focusNode,
-      obscureText: widget.isPass && !isPassShow,
-      obscuringCharacter: "*",
-      style: const TextStyle(color: Colors.black),
-      decoration: InputDecoration(
-          labelStyle: const TextStyle(color: Colors.green),
-          prefixIcon: Icon(widget.iconD),
-          prefixIconColor: Colors.green,
-          suffixIcon: Visibility(
-              visible: widget.tag == Tags.rILoginPass,
-              child: GestureDetector(
-                  onTap: () => setState(() {
-                        isPassShow = !isPassShow;
-                      }),
-                  child: Icon(isPassShow
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined))),
-          suffixIconColor: Colors.green,
-          labelText: widget.label,
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey)),
-          focusColor: Colors.orange,
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.green)),
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            borderSide: BorderSide(color: Colors.grey),
-          )),
-      validator: (value) {
-        if (value != null && value.length < 7 && isPressBefore) {
-          return "Enter min 7 char at ${widget.tag}";
-        }
-        return null;
+  void _funcRememberMe() {
+    setState(() {
+      isRemember = !isRemember;
+    });
+  }
+
+  Widget get buildRecovery {
+    return TextButton(
+      onPressed: () {
+        RecoveryP.of(context, listen: false).resetPage;
+        Navigator.pushNamed(context, Rout.recovey);
       },
+      child: Text(
+        "Açar sözi unutdym",
+        style: TextStyle(
+            color: const Color(0xffAAAAAA),
+            decoration: TextDecoration.underline,
+            fontSize: MySize.arentir * 0.043),
+      ),
     );
   }
 }
