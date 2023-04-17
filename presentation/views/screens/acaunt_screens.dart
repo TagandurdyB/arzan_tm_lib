@@ -1,13 +1,13 @@
-import '/presentation/providers/view/provider_navigation.dart';
+import 'package:arzan_tm/presentation/providers/data/provider_acaunt.dart';
+
 import 'package:flutter/material.dart';
 
-import 'acaunt_screens.dart';
 import 'screen_register.dart';
-import 'screen_main.dart';
+import 'screen_user.dart';
 
 // ignore: must_be_immutable
-class HomeScreens extends StatelessWidget {
-  HomeScreens({super.key});
+class AcauntScreens extends StatelessWidget {
+  AcauntScreens({super.key});
 
   late BuildContext context;
   @override
@@ -17,21 +17,18 @@ class HomeScreens extends StatelessWidget {
   }
 
   List<Widget> screens = [
-    const ScreenMain(),
-    const SizedBox(),
-    const SizedBox(),
-    const SizedBox(),
-     AcauntScreens(),
+    const ScreenRegister(),
+    ScreenUser(),
   ];
 
   Widget buildScreens() {
-    final provid = ProviderNavigation.of(context);
+    final provid = AcauntP.of(context);
     return Stack(
       children: List.generate(
           screens.length,
           (index) => Builder(
                 builder: (context) => Offstage(
-                  offstage: index != provid.selectScreen,
+                  offstage: provid.isSing ? index != 1 : index != 0,
                   child: screens[index],
                 ),
               )),

@@ -17,12 +17,16 @@ class FormErrorMessage extends StatelessWidget {
       visible: visible,
       child: Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            "Nädogry belgi!",
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: MySize.arentir * 0.043,
-            ),
+          child: Column(
+            children: [
+              Text(
+                message,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: MySize.arentir * 0.043,
+                ),
+              ),
+            ],
           )),
     );
   }

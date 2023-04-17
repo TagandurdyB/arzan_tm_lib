@@ -1,29 +1,36 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/views/screens/screen_login.dart';
-import 'package:arzan_tm/presentation/views/screens/screen_sign_up.dart';
+import '/presentation/views/screens/screen_login.dart';
+import '/presentation/views/screens/screen_sign_up.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/system_info/my_size.dart';
 
-class RegisterScreens extends StatelessWidget {
-  RegisterScreens({super.key});
+class ScreenRegister extends StatefulWidget {
+  const ScreenRegister({super.key});
+
+  @override
+  State<ScreenRegister> createState() => _ScreenRegisterState();
+}
+
+class _ScreenRegisterState extends State<ScreenRegister> {
+  int _selectedScreen = 0;
 
   final List<Widget> screens = [
     const LoginScreen(),
     const SignUpScreen(),
   ];
 
-  late BuildContext context;
   @override
   Widget build(BuildContext context) {
-    this.context = context;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
           buildTopBar,
-          Expanded(child: RegisterChanger(screens: screens)),
+          buildPageChanger(_selectedScreen),
+          const SizedBox(height: 20),
+          Expanded(child: screens[_selectedScreen]),
         ],
       ),
     );
@@ -43,29 +50,6 @@ class RegisterScreens extends StatelessWidget {
           ],
         ),
       );
-}
-
-class RegisterChanger extends StatefulWidget {
-  final List<Widget> screens;
-  const RegisterChanger({required this.screens, super.key});
-
-  @override
-  State<RegisterChanger> createState() => _RegisterChangerState();
-}
-
-class _RegisterChangerState extends State<RegisterChanger> {
-  int _selectedScreen = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        buildPageChanger(_selectedScreen),
-        const SizedBox(height: 20),
-        Expanded(child: widget.screens[_selectedScreen]),
-      ],
-    );
-  }
 
   Widget buildPageChanger(int screenIndex) {
     return Row(

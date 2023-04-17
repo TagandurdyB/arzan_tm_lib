@@ -17,10 +17,23 @@ class Dutrations {
 
 class Tags {
   static const String rIMainSearch = "Ready Input Main Search";
+  //Login=======================================================================
   static const String rILoginUser = "Ready Input Login username";
   static const String rILoginPass = "Ready Input Login password";
-  static const String rIRecoveryPhone = "Ready Input Recovery Phone";
+  //Sign-Up=====================================================================
+  static const String rISignCall = "Ready Input Sign-Up Called num";
+  static const String rISignUser = "Ready Input Sign-Up username";
+  static const String rISignPhone = "Ready Input Phone for verify";
+  static const String rISignPass = "Ready Input Sign-Up user password";
+  static const String rISignPassAgain = "Ready Input Sign-Up user pass again";
+  //Recover=====================================================================
+  static const String rIPhone = "Ready Input Phone for verify";
+  static const String rIVerification = "Ready Input verification";
+  static const String rINewPass = "Ready Input New Password";
+  static const String rINewPassAgain = "Ready Input New Password Again";
+  //hive========================================================================
   static const String hiveTheme = "Hive Theme Base";
   static const String themeSystem = "Hive Theme System";
   static const String themeLight = "Hive Theme Light";
+  //============================================================================
 }

@@ -1,22 +1,24 @@
-import 'package:arzan_tm/presentation/providers/data/provider_revovery.dart';
-import 'package:arzan_tm/presentation/views/widgets/recovery_label.dart';
-import 'package:flutter/material.dart';
+// ignore_for_file: must_be_immutable, avoid_print
 
+import '../../../config/routes/my_route.dart';
 import '../../../config/system_info/my_size.dart';
 import '../../../config/vars/constants.dart';
+import '../scaffold/recovery_scaffold.dart';
+import 'package:flutter/material.dart';
+
 import '../widgets/ReadyInput/login_arzan_input.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/form_error_message.dart';
 import '../widgets/recovery_next_btn.dart';
 
-class RecoveryFirst extends StatefulWidget {
-  const RecoveryFirst({super.key});
+class RecoveryPhonePage extends StatefulWidget {
+  const RecoveryPhonePage({super.key});
 
   @override
-  State<RecoveryFirst> createState() => _RecoveryFirstState();
+  State<RecoveryPhonePage> createState() => _RecoveryPhonePageState();
 }
 
-class _RecoveryFirstState extends State<RecoveryFirst> {
+class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
   final formKey = GlobalKey<FormState>();
   bool isPressedBefore = false;
   bool haveError = false;
@@ -28,7 +30,8 @@ class _RecoveryFirstState extends State<RecoveryFirst> {
       if (isValidForm) {
         //Login post
         haveError = false;
-        RecoveryP.of(context, listen: false).nextPage;
+         Navigator.pushNamed(context, Rout.recoveryVerifi);
+        //RecoveryP.of(context, listen: false).nextPage;
       } else {
         haveError = true;
       }
@@ -37,7 +40,7 @@ class _RecoveryFirstState extends State<RecoveryFirst> {
 
   String? _haveError() {
     if (isPressedBefore) {
-      final String phone = RIBase.getText(Tags.rIRecoveryPhone);
+      final String phone = RIBase.getText(Tags.rIPhone);
       if (phone == "") {
         return "";
       } else if (phone.length < 8) {
@@ -51,7 +54,7 @@ class _RecoveryFirstState extends State<RecoveryFirst> {
 
   @override
   Widget build(BuildContext context) {
-    return RecoveryLabel(
+    return RecoveryScaffold(
       text: "Telefon belgiňizi giriziň:",
       content: Form(
         key: formKey,
@@ -71,7 +74,7 @@ class _RecoveryFirstState extends State<RecoveryFirst> {
   Widget get buildInput => LoginArzanInputs(
         maxLength: 8,
         type: TextInputType.phone,
-        tag: Tags.rIRecoveryPhone,
+        tag: Tags.rIPhone,
         prefix: Container(
             // color: Colors.red,
             width: MySize.arentir * 0.17,

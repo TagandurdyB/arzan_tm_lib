@@ -42,7 +42,6 @@ class _LoginArzanInputsState extends State<LoginArzanInputs> {
     RIBase.changeDate(widget.tag, TextEditingController(text: widget.startVal));
     RIBase.getControl(widget.tag).addListener(() => setState(() {
           isEmpty = RIBase.isEmpety(widget.tag);
-          enableBorderColor = isEmpty ? Colors.grey : Colors.black;
         }));
     focusNode.addListener(() {
       setState(() {
@@ -72,13 +71,16 @@ class _LoginArzanInputsState extends State<LoginArzanInputs> {
   }
 
   Widget buildFormInput() {
+    final themeInput = Theme.of(context).inputDecorationTheme;
+    enableBorderColor = (isEmpty ? Colors.grey : themeInput.focusColor)!;
     return TextFormField(
       controller: RIBase.getControl(widget.tag),
       focusNode: focusNode,
       obscureText: widget.type == TextInputType.visiblePassword && !isPassShow,
       obscuringCharacter: "*",
-      style: const TextStyle(
-          color: Colors.black,
+      style: TextStyle(
+          // color: Colors.black,
+          color: themeInput.hoverColor,
           fontSize: 16,
           letterSpacing: 1,
           decoration: TextDecoration.none,
@@ -89,10 +91,11 @@ class _LoginArzanInputsState extends State<LoginArzanInputs> {
       // decoration: const InputDecoration(
       //   border: InputBorder.none,
       // ),
-      maxLength: widget.maxLength,
+      maxLength: widget.type == TextInputType.phone ? 8 : widget.maxLength,
       keyboardType: widget.type,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
+        counter: const Offstage(),
         // un show label
         floatingLabelBehavior: FloatingLabelBehavior.never,
         labelText: widget.hidden,

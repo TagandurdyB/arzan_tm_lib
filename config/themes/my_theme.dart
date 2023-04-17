@@ -17,10 +17,10 @@ class MyTheme {
       brightness: Brightness.dark,
       iconTheme: IconThemeData(color: colors.text),
       inputDecorationTheme: InputDecorationTheme(
-        focusColor: colors.inputFocus,
-        fillColor: colors.inputEnable,
-        counterStyle: TextStyle(color: colors.inputText)
-      ),
+          focusColor: colors.inputFocus,
+          fillColor: colors.inputEnable,
+          hoverColor: colors.inputText,
+          counterStyle: TextStyle(color: colors.inputText)),
       switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.resolveWith(
           (states) => states.contains(MaterialState.selected)

@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 
 import '../../../config/routes/my_route.dart';
 import '../../../config/vars/constants.dart';
-import '../../providers/data/provider_revovery.dart';
+import '../../providers/data/provider_acaunt.dart';
 import '../widgets/ReadyInput/login_arzan_input.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/form_error_message.dart';
+import '../widgets/recovery_next_btn.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -44,7 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
       if (isValidForm) {
         //Login post
         haveError = false;
-        Navigator.pushNamed(context, Rout.user);
+        AcauntP.of(context, listen: false).logIn;
+        // Navigator.pushNamed(context, Rout.user);
       } else {
         haveError = true;
       }
@@ -55,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     this.context = context;
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Form(
         key: formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -85,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
               message: "Ulanyjy ady ýada açar sözi nädogry girizildi!"),
           buildBottomSide,
           const SizedBox(height: 20),
-          ElevatedButton(onPressed: _loginFunc, child: const Text("Ulgama gir"))
+          RecovertNextBtn(text: "Ulgama gir", func: _loginFunc),
         ]),
       ),
     );
@@ -107,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isRemember = true;
   Widget get buildRememberMe {
-    return InkWell(
+    return GestureDetector(
       onTap: _funcRememberMe,
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -145,8 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget get buildRecovery {
     return TextButton(
       onPressed: () {
-        RecoveryP.of(context, listen: false).resetPage;
-        Navigator.pushNamed(context, Rout.recovey);
+        //  AcauntP.of(context, listen: false).resetPage;
+        Navigator.pushNamed(context, Rout.recoveryPhone);
       },
       child: Text(
         "Açar sözi unutdym",
