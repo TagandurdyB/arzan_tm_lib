@@ -20,7 +20,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    MyOrientation.enableSystemUI;
+   // MyOrientation.enableSystemUI;
     return BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,

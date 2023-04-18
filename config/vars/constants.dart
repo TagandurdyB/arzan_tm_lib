@@ -9,6 +9,11 @@ class Nums {
 
 class Words {
   static const String avtor = "Tagandurdy Baýramdurdyýew Mekanowiç";
+  //Register====================================================================
+  static const String phone = "+993 61000000";
+  static const String vreification1 = "Tassyklama koduny al";
+  static const String vreification2 = "$phone belgä boş sms ugratmak";
+  //============================================================================
 }
 
 class Dutrations {

@@ -1,3 +1,4 @@
+import '/presentation/views/pages/page_send_sms.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/providers/data/provider_acaunt.dart';
@@ -23,6 +24,7 @@ class Rout {
   static const String recoveryVerifi = "/RecoveryVerificarionPage";
   static const String signUpVerifi = "/SignUpVerificarionPage";
   static const String newPass = "/NewPassPage";
+  static const String sendSMS = "/SendSmsPage";
 
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
@@ -41,11 +43,12 @@ class Rout {
           btnFunc: () {
             SuccessPop.pop(context, true);
             Future.delayed(const Duration(seconds: 2)).then((value) {
-              Navigator.popUntil(context, (route) => route.isFirst);
               AcauntP.of(context, listen: false).logIn;
+              Navigator.popUntil(context, (route) => route.isFirst);
             });
           },
         ),
     newPass: (context) => const NewPassPage(),
+    sendSMS: (context) => SendSmsPage(),
   };
 }

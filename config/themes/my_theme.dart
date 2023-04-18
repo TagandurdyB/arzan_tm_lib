@@ -40,9 +40,10 @@ class MyTheme {
       canvasColor: colors.canvas,
       appBarTheme: AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: colors.statusBarColor,
+          statusBarColor: Colors.transparent,
           statusBarIconBrightness: brightness,
-          systemNavigationBarColor: colors.systemNavigationBarColor,
+          systemNavigationBarColor:
+              Colors.transparent, //colors.systemNavigationBarColor,
           systemNavigationBarIconBrightness: brightness,
         ),
         color: colors.appbarbg,
