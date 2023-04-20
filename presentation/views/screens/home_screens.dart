@@ -17,7 +17,7 @@ class HomeScreens extends StatelessWidget {
   }
 
   List<Widget> screens = [
-    const ScreenMain(),
+     ScreenMain(),
     const SizedBox(),
     const SizedBox(),
     const SizedBox(),

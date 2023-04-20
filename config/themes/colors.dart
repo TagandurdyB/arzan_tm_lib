@@ -20,6 +20,9 @@ class ColorsLight {
   Color inputFocus = Colors.black;
   Color inputEnable = const Color(0xff15872E);
   Color inputText = Colors.black;
+//=======================================================================
+  Color shimmerBg = Colors.grey.withOpacity(0.25);
+  Color shimmerLine = Colors.grey.withOpacity(0.6);
 }
 
 class ColorsDark extends ColorsLight {
@@ -51,4 +54,5 @@ class ColorsDark extends ColorsLight {
   Color inputEnable = const Color(0xff15872E);
   @override
   Color inputText = Colors.white;
+  //=======================================================================
 }

@@ -9,7 +9,6 @@ import '../../presentation/views/pages/page_new_pass.dart';
 import '../../presentation/views/pages/page_recovery_phone.dart';
 import '../../presentation/views/pages/page_search.dart';
 import '../../presentation/views/pages/page_settings.dart';
-import '../../presentation/views/pages/page_user.dart';
 import '../../presentation/views/pages/page_verification.dart';
 import '../../presentation/views/widgets/success_pop.dart';
 
@@ -19,7 +18,6 @@ class Rout {
   static const String about = "/AboutPage";
   static const String settings = "/SettingsPage";
   static const String search = "/SearchPage";
-  static const String user = "/UserPage";
   static const String recoveryPhone = "/RecoveryPhonePage";
   static const String recoveryVerifi = "/RecoveryVerificarionPage";
   static const String signUpVerifi = "/SignUpVerificarionPage";
@@ -32,7 +30,6 @@ class Rout {
     about: (context) => const AboutPage(),
     settings: (context) => SettingsPage(),
     search: (context) => SearchPage(),
-    user: (context) => UserPage(),
     recoveryPhone: (context) => const RecoveryPhonePage(),
     recoveryVerifi: (context) => VerificarionPage(
           btnFunc: () => Navigator.pushNamed(context, Rout.newPass),

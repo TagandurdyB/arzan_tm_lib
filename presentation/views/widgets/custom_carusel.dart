@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../providers/view/provider_theme.dart';
+
 class CustomCarusel extends StatefulWidget {
   final double width;
   final double height;
@@ -60,6 +62,18 @@ class _CustomCaruselState extends State<CustomCarusel> {
     super.initState();
   }
 
+  void onPageChanged(int index) {
+    setState(() {
+      pageIndex = index - 1;
+      if (index == length + 1) {
+        pageIndex = 0;
+        controller.jumpToPage(1);
+      } else if (index == 0) {
+        controller.jumpToPage(length);
+      }
+    });
+  }
+
   @override
   void dispose() {
     controller.dispose();
@@ -84,23 +98,13 @@ class _CustomCaruselState extends State<CustomCarusel> {
                 padding: widget.padding,
                 decoration: BoxDecoration(
                   //  boxShadow: ShadowsLight.all,
-                  color: Colors.grey.withOpacity(0.25),
+                  color: ThemeP.of(context).colors.shimmerBg,
                 ),
                 width: widget.width,
                 height: widget.height,
                 child: PageView.builder(
                   controller: controller,
-                  onPageChanged: (int index) {
-                    setState(() {
-                      pageIndex = index - 1;
-                      if (index == length + 1) {
-                        pageIndex = 0;
-                        controller.jumpToPage(1);
-                      } else if (index == 0) {
-                        controller.jumpToPage(length);
-                      }
-                    });
-                  },
+                  onPageChanged: onPageChanged,
                   itemCount: length + 2,
                   itemBuilder: (context, index) {
                     int reightIndex = index == 0

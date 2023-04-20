@@ -10,22 +10,24 @@ class ScreenUser extends StatelessWidget {
   late BuildContext context;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(children: [
-        buildTopBar,
-        const SizedBox(height: 40),
-        // SettingsContent()
-      ]),
-    );
+    return Column(children: [
+      buildTopBar,
+      const SizedBox(height: 40),
+      // SettingsContent()
+    ]);
   }
 
-  Widget get buildTopBar => Row(
-        children: [
-          Text(
-            "Sahsy otag",
-            style: TextStyle(fontSize: MySize.arentir * 0.065),
-          ),
-        ],
+  Widget get buildTopBar => Container(
+        color: Colors.white54,
+        height: kToolbarHeight,
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          children: [
+            Text(
+              "Sahsy otag",
+              style: TextStyle(fontSize: MySize.arentir * 0.065),
+            ),
+          ],
+        ),
       );
 }

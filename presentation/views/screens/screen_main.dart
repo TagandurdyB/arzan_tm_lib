@@ -1,10 +1,12 @@
 import 'package:arzan_tm/config/system_info/my_size.dart';
+import 'package:arzan_tm/domanin/entities/chosen_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../providers/view/provider_navigation.dart';
 import '../scaffold/my_app_bar.dart';
+import '../widgets/chosen_page_view.dart';
 import '../widgets/custom_carusel.dart';
+import '../widgets/long_card.dart';
+import '../widgets/shimmer_img.dart';
 
 final List<String> imgs = [
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU",
@@ -15,49 +17,42 @@ final List<String> imgs = [
 ];
 
 class ScreenMain extends StatelessWidget {
-  const ScreenMain({super.key});
+  ScreenMain({super.key});
 
+  final double arentir = MySize.arentir;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-         MyAppBar(),
+        MyAppBar(),
         Expanded(
           child: ListView(
+            padding: EdgeInsets.all(arentir * 0.05),
             physics: const BouncingScrollPhysics(),
             children: [
-              Container(
-                alignment: Alignment.topCenter,
-                padding: const EdgeInsets.all(16),
-                child: CustomCarusel(
-                  dotColor: Colors.black26,
-                  activDotColor: const Color(0xff0EC243),
-                  borderRadius: MySize.arentir * 0.02,
-                  items: [
-                    buildContent(0),
-                    buildContent(1),
-                    buildContent(2),
-                    buildContent(3),
-                    buildContent(4),
-                  ],
-                ),
-              ),
-              Container(
-                color: Colors.blue,
-                height: 50,
-                child: Text(
-                    " Page ${ProviderNavigation.of(context).selectScreen}"),
-              ),
-              Column(
-                children: List.generate(
-                    100,
-                    (index) => Container(
-                          margin: const EdgeInsets.all(8),
-                          color: Colors.orange,
-                          width: double.infinity,
-                          height: 50,
-                        )),
-              )
+              buildSlider,
+              LongCard(
+                  counter: 4,
+                  imageUrl:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
+                  title: "Top hasaplar"),
+              LongCard(
+                  counter: 12,
+                  imageUrl:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
+                  title: "Galareýa"),
+              ChosenPageView(objs: [
+                ChosenEntity(
+                    name: "Name", imageUrl: "imageUrl", date: DateTime.now()),
+                ChosenEntity(
+                    name: "Name", imageUrl: "imageUrl", date: DateTime.now()),
+                ChosenEntity(
+                    name: "Name", imageUrl: "imageUrl", date: DateTime.now()),
+                ChosenEntity(
+                    name: "Name", imageUrl: "imageUrl", date: DateTime.now()),
+                ChosenEntity(
+                    name: "Name", imageUrl: "imageUrl", date: DateTime.now()),
+              ]),
             ],
           ),
         ),
@@ -65,24 +60,16 @@ class ScreenMain extends StatelessWidget {
     );
   }
 
-  Widget buildContent(int index) {
-    return Image.network(
-      imgs[index],
-      fit: BoxFit.cover,
-      loadingBuilder: (context, child, placeholder) {
-        if (placeholder == null) return child;
-        return Container(color: Colors.grey);
-      },
-      errorBuilder: (context, obj, stack) {
-        return Shimmer.fromColors(
-          baseColor: Colors.grey.withOpacity(0.25),
-          highlightColor: Colors.grey.withOpacity(0.6),
-          enabled: true,
-          direction: ShimmerDirection.ltr,
-          period: const Duration(seconds: 1),
-          child: Container(color: Colors.grey.withOpacity(0.5)),
-        );
-      },
+  Align get buildSlider {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: CustomCarusel(
+        dotColor: Colors.black26,
+        activDotColor: const Color(0xff0EC243),
+        borderRadius: MySize.arentir * 0.02,
+        items: List.generate(
+            imgs.length, (index) => ShimmerImg(imageUrl: imgs[index])),
+      ),
     );
   }
 }
