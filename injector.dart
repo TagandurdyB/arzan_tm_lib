@@ -1,3 +1,5 @@
+import 'package:arzan_tm/presentation/providers/view/provider_discaunts.dart';
+
 import 'presentation/providers/data/provider_acaunt.dart';
 
 import '/presentation/providers/view/provider_theme.dart';
@@ -27,6 +29,8 @@ class Injector extends StatelessWidget {
           ChangeNotifierProvider<ProviderNavigation>(
               create: (context) => ProviderNavigation()),
           ChangeNotifierProvider<AcauntP>(create: (context) => AcauntP()),
+          ChangeNotifierProvider<DiscountProvid>(
+              create: (context) => DiscountProvid()),
         ],
         child: router,
       );

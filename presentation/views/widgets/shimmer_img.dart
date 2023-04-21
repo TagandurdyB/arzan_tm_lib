@@ -5,14 +5,16 @@ import '../../providers/view/provider_theme.dart';
 
 class ShimmerImg extends StatelessWidget {
   final String imageUrl;
-  const ShimmerImg({super.key, required this.imageUrl});
+  final BoxFit fit;
+  const ShimmerImg(
+      {super.key, required this.imageUrl, this.fit = BoxFit.cover});
 
   @override
   Widget build(BuildContext context) {
     final themeColor = ThemeP.of(context).colors;
     return Image.network(
       imageUrl,
-      fit: BoxFit.cover,
+      fit: fit,
       loadingBuilder: (context, child, placeholder) {
         if (placeholder == null) return child;
         return Container(color: Colors.grey);

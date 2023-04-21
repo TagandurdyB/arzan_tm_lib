@@ -1,3 +1,5 @@
+import 'package:arzan_tm/presentation/views/pages/page_chosen.dart';
+
 import '/presentation/views/pages/page_send_sms.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +25,7 @@ class Rout {
   static const String signUpVerifi = "/SignUpVerificarionPage";
   static const String newPass = "/NewPassPage";
   static const String sendSMS = "/SendSmsPage";
+  static const String chosen = "/ChosenPage";
 
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
@@ -47,5 +50,6 @@ class Rout {
         ),
     newPass: (context) => const NewPassPage(),
     sendSMS: (context) => SendSmsPage(),
+    chosen: (context) => const ChosenPage(),
   };
 }

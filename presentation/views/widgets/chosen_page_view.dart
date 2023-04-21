@@ -2,43 +2,52 @@ import 'dart:async';
 
 import 'package:arzan_tm/config/system_info/my_size.dart';
 import 'package:arzan_tm/domanin/entities/chosen_entity.dart';
+import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
+
+import '../../providers/view/provider_theme.dart';
+import 'card_title.dart';
 
 class ChosenPageView extends StatefulWidget {
   final List<ChosenEntity> objs;
-  const ChosenPageView({super.key, required this.objs});
+  final String title;
+  final Function? allBtnOnTap;
+  const ChosenPageView(
+      {super.key,
+      required this.objs,
+      this.title = "Saýlananlar",
+      this.allBtnOnTap});
 
   @override
   State<ChosenPageView> createState() => _ChosenPageViewState();
 }
 
 class _ChosenPageViewState extends State<ChosenPageView> {
-  PageController controller = PageController();
+  PageController controller = PageController(
+    initialPage: 1,
+    viewportFraction: 0.34,
+  );
   final double arentir = MySize.arentir;
   late Timer timer;
   int index = 0;
   int length = 0;
+  List<ChosenEntity> objs = [];
 
   @override
   void initState() {
-    length = widget.objs.length;
+    objs = widget.objs;
+    length = objs.length < 3 ? 3 : objs.length;
+    rounder;
     super.initState();
-    if (widget.objs.isEmpty) {
-    } else if (widget.objs.length == 1) {
-      controller = PageController(
-        viewportFraction: 0.3,
-        initialPage: 0,
-      );
-    } else {
-      controller = PageController(
-        viewportFraction: 0.34,
-        initialPage: 1,
-      );
-    }
+  }
 
-    viewer();
-
-    if (widget.objs.length > 3) {
+  void get rounder {
+    if (length < 3) {
+      for (int i = 0; i < (3 - length); i++) {
+        objs.add(ChosenEntity.empty());
+      }
+    } else if (length > 3) {
+      //Timer
       timer = Timer.periodic(const Duration(seconds: 4), (timer) {
         setToNext();
       });
@@ -46,125 +55,132 @@ class _ChosenPageViewState extends State<ChosenPageView> {
   }
 
   void setToNext() {
-    // double offset = controller.offset;
-    // final offsetVal = (arentir * 0.31) + (offset);
-    // print("offset:=$offset");
-    // controller.animateTo(offsetVal,
-    //     duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-  }
+    final int page = controller.page!.toInt();
+    int newPage = 1;
+    if (length - (page + 1) > 3) {
+      newPage = page + 3;
+    } else if (length - (page + 1) > 1) {
+      newPage = page + (length - (page + 1) - 1);
+    } else {
+      newPage = length - 1;
+    }
 
-  void viewer() {
-    controller.addListener(() {
-      // controller.
-    });
+    controller.animateToPage(newPage,
+        duration: const Duration(seconds: 1), curve: Curves.easeInOut);
   }
 
   void onPageChanged(int index) {
-    setState(() {
-      // pageIndex = index - 1;
-      print("PageIndex:=$index");
-      if (index == 0) {
-        // pageIndex = 0;
-        controller.animateToPage(1,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut);
-      } else if (index == length - 1) {
-        controller.animateToPage(1,
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.easeInOut);
-      }
-    });
+    // debugPrint("onPageChanged:=$index");
+    if (index == 0) {
+      controller.animateToPage(1,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+    } else if (index == length - 1) {
+      controller.animateToPage(1,
+          duration: const Duration(milliseconds: 800), curve: Curves.easeInOut);
+    }
   }
 
   @override
   void dispose() {
+    if (length > 3) timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.blue,
       padding: EdgeInsets.symmetric(vertical: arentir * 0.04),
-      height: arentir * 0.45,
-      child: PageView.builder(
-        onPageChanged: onPageChanged,
-        controller: controller,
-        physics: const BouncingScrollPhysics(),
-        itemCount: widget.objs.length,
-        itemBuilder: (context, index) {
-          return buildCard(index);
-        },
+      height: arentir * 0.6,
+      child: Column(
+        children: [
+          buildTitle,
+          Flexible(
+            child: PageView.builder(
+              onPageChanged: onPageChanged,
+              controller: controller,
+              physics: const BouncingScrollPhysics(),
+              itemCount: objs.length,
+              itemBuilder: (context, index) {
+                return buildCard(index);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
+  Widget get buildTitle => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CardTitle(counter: widget.objs.length, title: widget.title),
+          TextButton(
+              onPressed: () {
+                if (widget.allBtnOnTap != null) widget.allBtnOnTap!();
+              },
+              child:
+                  const Text("Hemmesi", style: TextStyle(color: Colors.green)))
+        ],
+      );
+
   Widget buildCard(int index) {
-    return Container(
-      //color: Colors.red,
-      //width: arentir * 0.28,
+    return Visibility(
+      visible: !objs[index].isEmpty,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(arentir * 0.02),
-              // image: DecorationImage(
-              //   image: NetworkImage(widget.objs[index].imageUrl),
-              //   fit: BoxFit.cover,
-              // ),
-              color: Colors.green,
-            ),
-            //margin: EdgeInsets.all(arentir * 0.01),
-
-            width: arentir * 0.28,
-            alignment: Alignment.center,
-            child: Text(
-              "$index",
-              style: TextStyle(fontSize: arentir * 0.07),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(arentir * 0.02),
+            child: Container(
+              //margin: EdgeInsets.all(arentir * 0.01),
+              color: ThemeP.of(context).colors.shimmerBg,
+              width: arentir * 0.28,
+              alignment: Alignment.center,
+              child: AspectRatio(
+                  aspectRatio: 1 / 1.4,
+                  child: ShimmerImg(
+                      fit: BoxFit.fill, imageUrl: objs[index].imageUrl)),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(arentir * 0.02)),
-              // image: DecorationImage(
-              //   image: NetworkImage(widget.objs[index].imageUrl),
-              //   fit: BoxFit.cover,
-              // ),
-              color: Colors.black38,
-            ),
-            height: arentir * 0.09,
-            width: arentir * 0.28,
-            padding: EdgeInsets.symmetric(
-                vertical: arentir * 0.01, horizontal: arentir * 0.02),
-            child: Column(children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.objs[index].name,
-                    style: TextStyle(
-                        fontSize: arentir * 0.035, color: Colors.white),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.objs[index].formatDate,
-                    style: TextStyle(
-                        fontSize: arentir * 0.02,
-                        color: const Color(0xffC4C4C4)),
-                  ),
-                ),
-              ),
-            ]),
-          ),
+          buildBottom(index),
         ],
       ),
+    );
+  }
+
+  Container buildBottom(int index) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius:
+            BorderRadius.vertical(bottom: Radius.circular(arentir * 0.02)),
+        color: Colors.black54,
+      ),
+      height: arentir * 0.09,
+      width: arentir * 0.28,
+      padding: EdgeInsets.symmetric(
+          vertical: arentir * 0.01, horizontal: arentir * 0.02),
+      child: Column(children: [
+        Expanded(
+          flex: 2,
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              widget.objs[index].name,
+              style: TextStyle(fontSize: arentir * 0.035, color: Colors.white),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              widget.objs[index].formatDate,
+              style: TextStyle(
+                  fontSize: arentir * 0.02, color: const Color(0xffC4C4C4)),
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }

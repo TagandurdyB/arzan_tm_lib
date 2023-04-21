@@ -5,6 +5,7 @@ import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 import '../../providers/view/provider_theme.dart';
+import 'card_title.dart';
 
 class LongCard extends StatelessWidget {
   final String title;
@@ -24,32 +25,10 @@ class LongCard extends StatelessWidget {
     this.context = context;
     return Column(
       children: [
-        buildTitle,
+        CardTitle(counter: counter, title: title),
         buildCard,
       ],
     );
-  }
-
-  Container get buildTitle {
-    return Container(
-        padding: EdgeInsets.symmetric(vertical: arentir * 0.03),
-        // color: Colors.red,
-        child: Row(
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: arentir * 0.04, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              " (+$counter)",
-              style: TextStyle(
-                  fontSize: arentir * 0.04,
-                  color: const Color(0xff188A34),
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ));
   }
 
   Widget get buildCard {
@@ -58,7 +37,7 @@ class LongCard extends StatelessWidget {
       child: Container(
         color: ThemeP.of(context).colors.shimmerBg,
         width: double.infinity,
-        height: arentir * 0.25,
+        height: arentir * 0.3,
         child: ShimmerImg(imageUrl: imageUrl),
       ),
     );
