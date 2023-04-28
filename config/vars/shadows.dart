@@ -6,8 +6,16 @@ class ShadowsLight {
   List<BoxShadow> appBar = [
     const BoxShadow(offset: Offset(0, 1), blurRadius: 0.2, spreadRadius: 0.1)
   ];
-  static List<BoxShadow> all = [
+  List<BoxShadow> all = [
     BoxShadow(color: Colors.grey[800]!, blurRadius: 10, spreadRadius: 0.5)
+  ];
+
+  List<BoxShadow> discount = [
+    const BoxShadow(
+        color: Color(0xffF2F2F2),
+        offset: Offset(0, 3),
+        blurRadius: 4,
+        spreadRadius: 0.5)
   ];
   static List<BoxShadow> text = [
     const BoxShadow(
@@ -23,7 +31,8 @@ class ShadowsDark extends ShadowsLight {
   List<BoxShadow> appBar = [
     const BoxShadow(offset: Offset(0, 1), blurRadius: 0.2, spreadRadius: 0.1)
   ];
-  static List<BoxShadow> all = [
+  @override
+  List<BoxShadow> all = [
     BoxShadow(color: Colors.grey[600]!, blurRadius: 10, spreadRadius: 0.5)
   ];
 }

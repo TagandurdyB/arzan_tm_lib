@@ -34,22 +34,22 @@ class ScreenMain extends StatelessWidget {
       children: [
         MyAppBar(),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                SliverList(
-                    delegate: SliverChildListDelegate([
-                  buildSliverList(context),
-                ])),
-                SliverAppBar(
-                  pinned: true,
-                  leading: const SizedBox(),
-                  flexibleSpace:
-                      FlexibleSpaceBar(background: buildSliverTitle()),
-                ),
-                DiscountView(
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                buildSliverList(context),
+              ])),
+              SliverAppBar(
+                backgroundColor: Theme.of(context).canvasColor,
+                pinned: true,
+                leading: const SizedBox(),
+                flexibleSpace: FlexibleSpaceBar(background: buildSliverTitle()),
+              ),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
+                sliver: DiscountView(
                   objs: List.generate(
                       100,
                       (index) => DiscountEntity(
@@ -59,57 +59,60 @@ class ScreenMain extends StatelessWidget {
                           viewNum: 8,
                           date: DateTime.now())),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],
     );
   }
 
-  Column buildSliverList(BuildContext context) => Column(
-        children: [
-          buildSlider,
-          LongCard(
-              counter: 4,
-              imageUrl:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
-              title: "Top hasaplar"),
-          LongCard(
-              counter: 12,
-              imageUrl:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
-              title: "Galareýa"),
-          ChosenPageView(
-              allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
-              objs: [
-                ChosenEntity(
-                    name: "Name",
-                    imageUrl:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-WraasYZRSdEiwoepIVrHwXbcbvHAPvMjEA&usqp=CAU",
-                    date: DateTime.now()),
-                ChosenEntity(
-                    name: "Name",
-                    imageUrl:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
-                    date: DateTime.now()),
-                ChosenEntity(
-                    name: "Name",
-                    imageUrl:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
-                    date: DateTime.now()),
-                ChosenEntity(
-                    name: "Name",
-                    imageUrl:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
-                    date: DateTime.now()),
-                ChosenEntity(
-                    name: "Name",
-                    imageUrl:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
-                    date: DateTime.now()),
-              ]),
-        ],
+  Widget buildSliverList(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            buildSlider,
+            LongCard(
+                counter: 4,
+                imageUrl:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
+                title: "Top hasaplar"),
+            LongCard(
+                counter: 12,
+                imageUrl:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
+                title: "Galareýa"),
+            ChosenPageView(
+                allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
+                objs: [
+                  ChosenEntity(
+                      name: "Name",
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-WraasYZRSdEiwoepIVrHwXbcbvHAPvMjEA&usqp=CAU",
+                      date: DateTime.now()),
+                  ChosenEntity(
+                      name: "Name",
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
+                      date: DateTime.now()),
+                  ChosenEntity(
+                      name: "Name",
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
+                      date: DateTime.now()),
+                  ChosenEntity(
+                      name: "Name",
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
+                      date: DateTime.now()),
+                  ChosenEntity(
+                      name: "Name",
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
+                      date: DateTime.now()),
+                ]),
+          ],
+        ),
       );
 
   Align get buildSlider {
@@ -125,26 +128,29 @@ class ScreenMain extends StatelessWidget {
     );
   }
 
-  Row buildSliverTitle() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CardTitle(counter: 20, title: "Arzanladyşlar"),
-        Row(
-          children: [
-            GestureDetector(
-                onTap: () {
-                  DiscountProvid.of(context, listen: false).tongleColumn;
-                },
-                child: Icon(
-                    buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
-            TextButton(
-                onPressed: () {},
-                child: const Text("Hemmesi",
-                    style: TextStyle(color: Colors.green))),
-          ],
-        )
-      ],
+  Widget buildSliverTitle() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CardTitle(counter: 20, title: "Arzanladyşlar"),
+          Row(
+            children: [
+              GestureDetector(
+                  onTap: () {
+                    DiscountProvid.of(context, listen: false).tongleColumn;
+                  },
+                  child: Icon(
+                      buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
+              TextButton(
+                  onPressed: () {},
+                  child: const Text("Hemmesi",
+                      style: TextStyle(color: Colors.green))),
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -161,5 +167,4 @@ class ScreenMain extends StatelessWidget {
         return Icons.list;
     }
   }
-  
 }

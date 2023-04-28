@@ -2,80 +2,71 @@ import 'package:arzan_tm/presentation/providers/view/provider_discaunts.dart';
 import 'package:arzan_tm/presentation/views/widgets/discount/discount_1_card.dart';
 import 'package:arzan_tm/presentation/views/widgets/discount/discount_2_card.dart';
 import 'package:arzan_tm/presentation/views/widgets/discount/discount_3_card.dart';
+import 'package:entry/entry.dart';
 
 import '/config/system_info/my_size.dart';
 import '/domanin/entities/discount_entity.dart';
 import 'package:flutter/material.dart';
 
-class DiscountView extends StatelessWidget {
+class DiscountView extends StatefulWidget {
   final List<DiscountEntity> objs;
-  DiscountView({required this.objs, super.key});
+  const DiscountView({required this.objs, super.key});
 
+  @override
+  State<DiscountView> createState() => _DiscountViewState();
+}
+
+class _DiscountViewState extends State<DiscountView> {
   final double arentir = MySize.arentir;
+
   @override
   Widget build(BuildContext context) {
-    final int columnNum = DiscountProvid.of(context).cloumnCount;
-    final int oldColumnNum = columnNum > 1 ? columnNum - 1 : 3;
+    final providD = DiscountProvid.of(context);
     return SliverGrid.builder(
-        // physics: const NeverScrollableScrollPhysics(),
-        itemCount: objs.length,
-        gridDelegate: _delegate(columnNum),
+        itemCount: widget.objs.length,
+        gridDelegate: _delegateChanger(providD.cloumnCount),
         itemBuilder: (context, index) {
-          // return buildDiscountCard(index, columnNum);
-          return AnimatedCrossFade(
-              firstChild: buildDiscountCard(index, columnNum),
-              secondChild: buildDiscountCard(index, oldColumnNum),
-              crossFadeState: columnNum == 2
-                  ? CrossFadeState.showSecond
-                  : CrossFadeState.showFirst,
-              duration: const Duration(milliseconds: 1000));
+          return Entry.scale(
+              visible: providD.scaleVisible,
+              scale: 0,
+              curve: Curves.easeInOut,
+              delay: const Duration(milliseconds: 40),
+              duration: const Duration(milliseconds: 300),
+              child: buildDiscountCard(index, providD.cloumnCount));
         });
   }
 
-  SliverGridDelegate _delegate(int columnNum) {
+  SliverGridDelegate _delegateChanger(int columnNum) {
     switch (columnNum) {
       case 1:
-        return SliverGridDelegateWithMaxCrossAxisExtent(
-          mainAxisSpacing: arentir * 0.05,
-          mainAxisExtent: arentir * 0.48,
-          crossAxisSpacing: arentir * 0.05,
-          maxCrossAxisExtent: arentir * 1,
-        );
+        return _delegate(0.05, 0.29, 1);
       case 2:
-        return SliverGridDelegateWithMaxCrossAxisExtent(
-          mainAxisSpacing: arentir * 0.05,
-          mainAxisExtent: arentir * 0.48,
-          crossAxisSpacing: arentir * 0.05,
-          maxCrossAxisExtent: arentir * 0.5,
-        );
+        return _delegate(0.05, 0.48, 0.5);
       case 3:
-        return SliverGridDelegateWithMaxCrossAxisExtent(
-          mainAxisSpacing: arentir * 0.05,
-          mainAxisExtent: arentir * 0.48,
-          crossAxisSpacing: arentir * 0.05,
-          maxCrossAxisExtent: arentir * 0.4,
-        );
-
+        return _delegate(0.05, 0.37, 0.4);
       default:
-        return SliverGridDelegateWithMaxCrossAxisExtent(
-          mainAxisSpacing: arentir * 0.05,
-          mainAxisExtent: arentir * 0.48,
-          crossAxisSpacing: arentir * 0.05,
-          maxCrossAxisExtent: arentir * 0.5,
-        );
+        return _delegate(0.05, 0.46, 0.5);
     }
+  }
+
+  SliverGridDelegate _delegate(double mainSp, double mainEx, double crossEx) {
+    return SliverGridDelegateWithMaxCrossAxisExtent(
+      mainAxisSpacing: arentir * mainSp,
+      mainAxisExtent: arentir * mainEx,
+      maxCrossAxisExtent: arentir * crossEx,
+    );
   }
 
   Widget buildDiscountCard(int index, int columnNum) {
     switch (columnNum) {
       case 1:
-        return DiscountCardFirst(obj: objs[index]);
+        return DiscountCardFirst(obj: widget.objs[index]);
       case 2:
-        return DiscountCardSecond(obj: objs[index]);
+        return DiscountCardSecond(obj: widget.objs[index]);
       case 3:
-        return DiscountCardThird(obj: objs[index]);
+        return DiscountCardThird(obj: widget.objs[index]);
       default:
-        return DiscountCardSecond(obj: objs[index]);
+        return DiscountCardSecond(obj: widget.objs[index]);
     }
   }
 }
