@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/views/pages/page_chosen.dart';
+import '/presentation/views/pages/page_chosen.dart';
 
 import '/presentation/views/pages/page_send_sms.dart';
 import 'package:flutter/material.dart';

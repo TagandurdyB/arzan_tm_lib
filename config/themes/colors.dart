@@ -6,11 +6,11 @@ class ColorsLight {
   Color statusBarColor = Colors.white;
   Color systemNavigationBarColor = Colors.white;
   Color text = Colors.black;
-  Color canvas = Colors.white;
+  Color canvas = const Color(0xffF5F5F5);
   Color appbarbg = Colors.white;
   Color appBarShadow = const Color(0xffEAEAEA);
-  Color appBarIcon = Colors.black;
-  Color navigationBg = Colors.white;
+  Color appBarIcon = const Color(0xff00C52B);
+  Color navigationBg = const Color(0xff00C52B);
   Color navigatActiveIcon = const Color(0xff3E9851);
   Color navigatUnactiveIcon = const Color(0xff384854);
   Color navigatActiveIconBg = const Color(0xffDBEDE0);

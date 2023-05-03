@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+import '/config/system_info/my_size.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 import '../../providers/view/provider_theme.dart';
@@ -37,7 +37,7 @@ class LongCard extends StatelessWidget {
       child: Container(
         color: ThemeP.of(context).colors.shimmerBg,
         width: double.infinity,
-        height: arentir * 0.3,
+        height: arentir * 0.21,
         child: ShimmerImg(imageUrl: imageUrl),
       ),
     );

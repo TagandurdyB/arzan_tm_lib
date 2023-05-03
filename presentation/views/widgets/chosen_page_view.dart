@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/domanin/entities/chosen_entity.dart';
-import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+import '/config/system_info/my_size.dart';
+import '/domanin/entities/chosen_entity.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 import '../../providers/view/provider_theme.dart';

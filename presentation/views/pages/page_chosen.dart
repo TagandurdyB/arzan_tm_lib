@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/views/scaffold/no_app_bar_scaffold.dart';
+import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/system_info/my_size.dart';

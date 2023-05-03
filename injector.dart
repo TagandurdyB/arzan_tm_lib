@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/providers/view/provider_discaunts.dart';
+import '/presentation/providers/view/provider_discaunts.dart';
 
 import 'presentation/providers/data/provider_acaunt.dart';
 

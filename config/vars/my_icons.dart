@@ -1,7 +1,8 @@
+import 'package:arzan/config/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 class IconsLight {
-  Icon menu = const Icon(Icons.menu);
+  Icon menu =  Icon(Icons.menu,color: ColorsLight().appBarIcon);
   Icon location = const Icon(Icons.location_on_outlined);
 
   Icon home = const Icon(Icons.home_filled);

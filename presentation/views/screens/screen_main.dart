@@ -1,6 +1,5 @@
-import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/domanin/entities/chosen_entity.dart';
-import 'package:arzan_tm/presentation/providers/view/provider_discaunts.dart';
+import '/config/system_info/my_size.dart';
+import '/domanin/entities/chosen_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/routes/my_route.dart';
@@ -54,8 +53,7 @@ class ScreenMain extends StatelessWidget {
                       100,
                       (index) => DiscountEntity(
                           name: "Name",
-                          imageUrl:
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5jPfvb627CFjjKL-ohJyJxHmRfMC61F9vX-OLR9SiwcXwuO_AjKRbofEP8cZkeE2qDNU&usqp=CAU",
+                          imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
                           viewNum: 8,
                           date: DateTime.now())),
                 ),
@@ -137,12 +135,12 @@ class ScreenMain extends StatelessWidget {
           CardTitle(counter: 20, title: "Arzanladyşlar"),
           Row(
             children: [
-              GestureDetector(
-                  onTap: () {
-                    DiscountProvid.of(context, listen: false).tongleColumn;
-                  },
-                  child: Icon(
-                      buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
+              // GestureDetector(
+              //     onTap: () {
+              //       DiscountProvid.of(context, listen: false).tongleColumn;
+              //     },
+              //     child: Icon(
+              //         buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
               TextButton(
                   onPressed: () {},
                   child: const Text("Hemmesi",

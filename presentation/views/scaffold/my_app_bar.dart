@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/config/routes/my_route.dart';
-import 'package:arzan_tm/config/vars/constants.dart';
-import 'package:arzan_tm/presentation/views/widgets/my_container.dart';
+import 'package:arzan/config/system_info/my_size.dart';
+
+import '/config/routes/my_route.dart';
+import '/config/vars/constants.dart';
+import '/presentation/views/widgets/my_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../providers/view/provider_theme.dart';
@@ -15,7 +17,13 @@ class MyAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     this.context = context;
     return Container(
-      color: Theme.of(context).appBarTheme.backgroundColor,
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        color: Theme.of(context).appBarTheme.backgroundColor,
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(MySize.arentir * 0.02),
+        ),
+      ),
       height: kToolbarHeight,
       child: Row(
         children: [

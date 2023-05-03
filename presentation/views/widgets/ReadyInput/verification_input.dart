@@ -1,5 +1,5 @@
-import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/presentation/views/widgets/ReadyInput/ready_input_base.dart';
+import '/config/system_info/my_size.dart';
+import '/presentation/views/widgets/ReadyInput/ready_input_base.dart';
 import 'package:flutter/material.dart';
 
 class VerificationInput extends StatelessWidget {

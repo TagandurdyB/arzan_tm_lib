@@ -1,4 +1,4 @@
-import 'package:arzan_tm/config/system_info/my_size.dart';
+import '/config/system_info/my_size.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/vars/formater.dart';

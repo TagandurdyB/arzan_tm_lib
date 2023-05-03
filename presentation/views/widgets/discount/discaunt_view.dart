@@ -1,7 +1,7 @@
-import 'package:arzan_tm/presentation/providers/view/provider_discaunts.dart';
-import 'package:arzan_tm/presentation/views/widgets/discount/discount_1_card.dart';
-import 'package:arzan_tm/presentation/views/widgets/discount/discount_2_card.dart';
-import 'package:arzan_tm/presentation/views/widgets/discount/discount_3_card.dart';
+import '/presentation/providers/view/provider_discaunts.dart';
+import '/presentation/views/widgets/discount/discount_1_card.dart';
+import '/presentation/views/widgets/discount/discount_2_card.dart';
+import '/presentation/views/widgets/discount/discount_3_card.dart';
 import 'package:entry/entry.dart';
 
 import '/config/system_info/my_size.dart';
@@ -30,7 +30,7 @@ class _DiscountViewState extends State<DiscountView> {
               visible: providD.scaleVisible,
               scale: 0,
               curve: Curves.easeInOut,
-              delay: const Duration(milliseconds: 40),
+             // delay: const Duration(milliseconds: 40),
               duration: const Duration(milliseconds: 300),
               child: buildDiscountCard(index, providD.cloumnCount));
         });

@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/system_info/my_size.dart';
@@ -29,7 +29,7 @@ class DiscountCardSecond extends StatelessWidget {
             Container(
               color: ThemeP.of(context).colors.shimmerBg,
               height: arentir * 0.29,
-              child: ShimmerImg(imageUrl: obj.imageUrl),
+              child: ShimmerImg(imageUrl: obj.imageUrl, fit: BoxFit.contain),
             ),
             Expanded(
               child: Container(

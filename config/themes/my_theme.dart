@@ -54,16 +54,19 @@ class MyTheme {
         ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          unselectedItemColor: colors.navigatActiveIconBg,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: colors.canvas,
-          selectedIconTheme: IconThemeData(
-            color: colors.navigatActiveIcon,
-            //  size: MySize.arentir * 0.1,
-          ),
-          unselectedIconTheme: IconThemeData(
-            color: colors.navigatUnactiveIcon,
-          )),
+        unselectedItemColor: colors.navigatActiveIconBg,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: colors.navigationBg,
+        selectedIconTheme: IconThemeData(
+          color: colors.navigatActiveIcon,
+          //  size: MySize.arentir * 0.1,
+        ),
+        unselectedIconTheme: IconThemeData(
+          color: colors.navigatUnactiveIcon,
+        ),
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+      ),
     );
   }
 }

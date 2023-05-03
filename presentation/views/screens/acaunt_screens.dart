@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/providers/data/provider_acaunt.dart';
+import '/presentation/providers/data/provider_acaunt.dart';
 
 import 'package:flutter/material.dart';
 

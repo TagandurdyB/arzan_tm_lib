@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/domanin/entities/chosen_entity.dart';
+import '/config/system_info/my_size.dart';
+import '/domanin/entities/chosen_entity.dart';
 import 'package:flutter/material.dart';
 
 class ChosenView extends StatefulWidget {

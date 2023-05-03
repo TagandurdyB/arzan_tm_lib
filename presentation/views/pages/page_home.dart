@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/views/scaffold/custom_drawer.dart';
+import '/presentation/views/scaffold/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import '../scaffold/custom_navigation_bar.dart';
 import '../scaffold/no_app_bar_scaffold.dart';
