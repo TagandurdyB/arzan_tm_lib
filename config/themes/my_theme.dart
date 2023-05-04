@@ -53,6 +53,7 @@ class MyTheme {
           color: colors.appBarIcon,
         ),
       ),
+      navigationBarTheme: const NavigationBarThemeData(),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         unselectedItemColor: colors.navigatActiveIconBg,
         type: BottomNavigationBarType.fixed,

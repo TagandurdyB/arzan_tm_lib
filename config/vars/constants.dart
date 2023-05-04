@@ -14,6 +14,7 @@ class Words {
   static const String vreification1 = "Tassyklama koduny al";
   static const String vreification2 = "$phone belgä boş sms ugratmak";
   //============================================================================
+  static List<String> navigation=["Home","Widget","Add","Wallet","Profile"];
 }
 
 class Dutrations {

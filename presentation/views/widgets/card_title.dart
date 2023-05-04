@@ -10,15 +10,16 @@ class CardTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.centerLeft,
-        padding: EdgeInsets.symmetric(vertical: arentir * 0.03),
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.symmetric(vertical: arentir * 0.03, horizontal: 8),
         // color: Colors.red,
         child: Text(
           "$title (+$counter)",
           style: TextStyle(
-              fontSize: arentir * 0.04,
-              color: const Color(0xff188A34),
-              fontWeight: FontWeight.bold),
+            fontSize: arentir * 0.04,
+            color: const Color(0xff00C52B),
+            // fontWeight: FontWeight.bold,
+          ),
         ));
   }
 }

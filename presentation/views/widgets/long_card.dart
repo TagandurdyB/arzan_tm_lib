@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/views/widgets/all_btn.dart';
+
 import '/config/system_info/my_size.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +13,15 @@ class LongCard extends StatelessWidget {
   final String title;
   final int counter;
   final String imageUrl;
+  final Function? btnFunc;
+
   LongCard(
       {super.key,
       required this.title,
       required this.imageUrl,
-      required this.counter});
+      required this.counter,
+     
+      this.btnFunc});
 
   late BuildContext context;
 
@@ -25,7 +31,15 @@ class LongCard extends StatelessWidget {
     this.context = context;
     return Column(
       children: [
-        CardTitle(counter: counter, title: title),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CardTitle(counter: counter, title: title),
+            Visibility(
+                visible: btnFunc != null,
+                child: AllBtn(onTap: btnFunc,))
+          ],
+        ),
         buildCard,
       ],
     );

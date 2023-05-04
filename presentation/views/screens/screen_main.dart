@@ -1,3 +1,10 @@
+import 'package:arzan/domanin/entities/carusel_entity.dart';
+import 'package:arzan/domanin/entities/main_market_entity.dart';
+
+import '../widgets/all_btn.dart';
+import '../widgets/carusel_slider.dart';
+import '../widgets/double_card.dart';
+import '../widgets/main_markets_view.dart';
 import '/config/system_info/my_size.dart';
 import '/domanin/entities/chosen_entity.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +14,25 @@ import '../../../domanin/entities/discount_entity.dart';
 import '../scaffold/my_app_bar.dart';
 import '../widgets/card_title.dart';
 import '../widgets/chosen_page_view.dart';
-import '../widgets/custom_carusel.dart';
 import '../widgets/discount/discaunt_view.dart';
 import '../widgets/long_card.dart';
-import '../widgets/shimmer_img.dart';
 
-final List<String> imgs = [
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU",
+final List<CaruselEntity> imgs = [
+  CaruselEntity(
+      imageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+  CaruselEntity(
+      imageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+  CaruselEntity(
+      imageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+  CaruselEntity(
+      imageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+  CaruselEntity(
+      imageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
 ];
 
 class ScreenMain extends StatelessWidget {
@@ -38,6 +53,41 @@ class ScreenMain extends StatelessWidget {
             slivers: [
               SliverList(
                   delegate: SliverChildListDelegate([
+                buildSlider,
+                MainMarketsView(
+                  objs: [
+                    MainMarketEntity(
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                      num: 23,
+                      name: "100haryt.com",
+                    ),
+                    MainMarketEntity(
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                      num: 23,
+                      name: "Ynamdar",
+                    ),
+                    MainMarketEntity(
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                      num: 23,
+                      name: "Giper",
+                    ),
+                    MainMarketEntity(
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                      num: 23,
+                      name: "Balary",
+                    ),
+                    MainMarketEntity(
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                      num: 23,
+                      name: "Ak yol",
+                    ),
+                  ],
+                ),
                 buildSliverList(context),
               ])),
               SliverAppBar(
@@ -53,7 +103,8 @@ class ScreenMain extends StatelessWidget {
                       100,
                       (index) => DiscountEntity(
                           name: "Name",
-                          imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
+                          imageUrl:
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
                           viewNum: 8,
                           date: DateTime.now())),
                 ),
@@ -66,20 +117,15 @@ class ScreenMain extends StatelessWidget {
   }
 
   Widget buildSliverList(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            buildSlider,
             LongCard(
-                counter: 4,
+                counter: 65,
+                btnFunc: () {},
                 imageUrl:
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
-                title: "Top hasaplar"),
-            LongCard(
-                counter: 12,
-                imageUrl:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
-                title: "Galareýa"),
+                title: "Konkurs"),
             ChosenPageView(
                 allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
                 objs: [
@@ -89,7 +135,7 @@ class ScreenMain extends StatelessWidget {
                           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-WraasYZRSdEiwoepIVrHwXbcbvHAPvMjEA&usqp=CAU",
                       date: DateTime.now()),
                   ChosenEntity(
-                      name: "Name",
+                      name: "Ýaryşyň şertleri",
                       imageUrl:
                           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
                       date: DateTime.now()),
@@ -109,19 +155,44 @@ class ScreenMain extends StatelessWidget {
                           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
                       date: DateTime.now()),
                 ]),
+            LongCard(
+                counter: 65,
+                btnFunc: () {},
+                imageUrl:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
+                title: "Top"),
+            DoubleCard(
+              firstCounter: 65,
+              firstImageUrl:
+                  "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__480.jpg",
+              firstTitle: "Suratlar",
+              secondCounter: 7,
+              secondImageUrl:
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlPND0tOQwofutiyYIW6s9k6qWUmozNNGykfYgrKIa7b0LlmMvdpBH92wnwdvhGKqwQnY&usqp=CAU",
+              secondTitle: "Wideolar",
+            ),
+            LongCard(
+                counter: 65,
+                btnFunc: () {},
+                imageUrl:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
+                title: "Resmiler"),
           ],
         ),
       );
 
-  Align get buildSlider {
+  Widget get buildSlider {
     return Align(
       alignment: Alignment.topCenter,
-      child: CustomCarusel(
-        dotColor: Colors.black26,
-        activDotColor: const Color(0xff0EC243),
-        borderRadius: MySize.arentir * 0.02,
-        items: List.generate(
-            imgs.length, (index) => ShimmerImg(imageUrl: imgs[index])),
+      // child: CustomCarusel(
+      //   dotColor: Colors.black26,
+      //   activDotColor: const Color(0xff0EC243),
+      //   borderRadius: MySize.arentir * 0.02,
+      //   items: List.generate(
+      //       imgs.length, (index) => ShimmerImg(imageUrl: imgs[index])),
+      // ),
+      child: MyCarusel(
+        items: imgs.map((e) => e).toList(),
       ),
     );
   }
@@ -141,10 +212,9 @@ class ScreenMain extends StatelessWidget {
               //     },
               //     child: Icon(
               //         buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text("Hemmesi",
-                      style: TextStyle(color: Colors.green))),
+              AllBtn(
+                onTap: () {},
+              )
             ],
           )
         ],

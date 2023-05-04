@@ -29,12 +29,12 @@ class DiscountCardSecond extends StatelessWidget {
             Container(
               color: ThemeP.of(context).colors.shimmerBg,
               height: arentir * 0.29,
-              child: ShimmerImg(imageUrl: obj.imageUrl, fit: BoxFit.contain),
+              child: ShimmerImg(imageUrl: obj.imageUrl, fit: BoxFit.fill),
             ),
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(arentir * 0.02),
-                color: theme.canvasColor,
+                color: Colors.white,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

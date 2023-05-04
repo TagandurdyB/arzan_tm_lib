@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'all_btn.dart';
+
 import '/config/system_info/my_size.dart';
 import '/domanin/entities/chosen_entity.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
@@ -90,7 +92,7 @@ class _ChosenPageViewState extends State<ChosenPageView> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: arentir * 0.04),
-      height: arentir * 0.6,
+      height: arentir * 0.57,
       child: Column(
         children: [
           buildTitle,
@@ -114,12 +116,11 @@ class _ChosenPageViewState extends State<ChosenPageView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CardTitle(counter: widget.objs.length, title: widget.title),
-          TextButton(
-              onPressed: () {
-                if (widget.allBtnOnTap != null) widget.allBtnOnTap!();
-              },
-              child:
-                  const Text("Hemmesi", style: TextStyle(color: Colors.green)))
+          AllBtn(
+            onTap: () {
+              if (widget.allBtnOnTap != null) widget.allBtnOnTap!();
+            },
+          )
         ],
       );
 
@@ -137,7 +138,7 @@ class _ChosenPageViewState extends State<ChosenPageView> {
               width: arentir * 0.28,
               alignment: Alignment.center,
               child: AspectRatio(
-                  aspectRatio: 1 / 1.4,
+                  aspectRatio: 1 / 1.38,
                   child: ShimmerImg(
                       fit: BoxFit.fill, imageUrl: objs[index].imageUrl)),
             ),
@@ -166,7 +167,7 @@ class _ChosenPageViewState extends State<ChosenPageView> {
             alignment: Alignment.centerLeft,
             child: Text(
               widget.objs[index].name,
-              style: TextStyle(fontSize: arentir * 0.035, color: Colors.white),
+              style: TextStyle(fontSize: arentir * 0.03, color: Colors.white),
             ),
           ),
         ),
