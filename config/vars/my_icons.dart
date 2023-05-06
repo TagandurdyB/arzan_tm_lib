@@ -1,4 +1,4 @@
-import 'package:arzan/config/themes/colors.dart';
+import '/config/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 class IconsLight {

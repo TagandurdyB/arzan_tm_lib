@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../config/system_info/keyboard.dart';
 import '../../../config/system_info/my_size.dart';
 import 'my_container.dart';
 
@@ -14,10 +15,7 @@ class RecovertNextBtn extends StatelessWidget {
       height: MySize.arentir * 0.1,
       shape: MySize.arentir * 0.02,
       onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
+        Keyboard.close(context);
         func();
       },
       color: const Color(0xff0EC243),

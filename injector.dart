@@ -26,8 +26,8 @@ class Injector extends StatelessWidget {
                         HiveThemeLocalDataSourceImpl())),
                   )),
           ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP()),
-          ChangeNotifierProvider<ProviderNavigation>(
-              create: (context) => ProviderNavigation()),
+          ChangeNotifierProvider<ProviderNav>(
+              create: (context) => ProviderNav()),
           ChangeNotifierProvider<AcauntP>(create: (context) => AcauntP()),
           ChangeNotifierProvider<DiscountProvid>(
               create: (context) => DiscountProvid()),

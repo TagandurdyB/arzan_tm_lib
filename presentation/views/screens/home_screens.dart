@@ -24,7 +24,7 @@ class HomeScreens extends StatelessWidget {
   ];
 
   Widget buildScreens() {
-    final provid = ProviderNavigation.of(context);
+    final provid = ProviderNav.of(context);
     return Stack(
       children: List.generate(
           screens.length,

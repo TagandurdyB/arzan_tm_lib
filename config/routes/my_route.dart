@@ -9,7 +9,7 @@ import '../../presentation/views/pages/page_home.dart';
 import '../../presentation/views/pages/page_logo.dart';
 import '../../presentation/views/pages/page_new_pass.dart';
 import '../../presentation/views/pages/page_recovery_phone.dart';
-import '../../presentation/views/pages/page_search.dart';
+import '../../presentation/views/screens/screen_search.dart';
 import '../../presentation/views/pages/page_settings.dart';
 import '../../presentation/views/pages/page_verification.dart';
 import '../../presentation/views/widgets/success_pop.dart';
@@ -32,7 +32,7 @@ class Rout {
     home: (context) => const HomePage(),
     about: (context) => const AboutPage(),
     settings: (context) => SettingsPage(),
-    search: (context) => SearchPage(),
+    search: (context) => ScreenSearch(),
     recoveryPhone: (context) => const RecoveryPhonePage(),
     recoveryVerifi: (context) => VerificarionPage(
           btnFunc: () => Navigator.pushNamed(context, Rout.newPass),

@@ -30,10 +30,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         ),
       ),
       child: BottomNavigationBar(
-          currentIndex:
-              ProviderNavigation.of(context).selectScreen, //_selectIndex,
+          currentIndex: ProviderNav.of(context).selectScreen, //_selectIndex,
           onTap: (index) {
-            final provid = ProviderNavigation.of(context, listen: false);
+            final provid = ProviderNav.of(context, listen: false);
             provid.changeScreen(index);
           },
           items: List.generate(

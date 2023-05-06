@@ -1,5 +1,10 @@
-import 'package:arzan/domanin/entities/carusel_entity.dart';
-import 'package:arzan/domanin/entities/main_market_entity.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:arzan_tm/presentation/providers/view/provider_navigation.dart';
+import 'package:arzan_tm/presentation/views/screens/screen_search.dart';
+
+import '/domanin/entities/carusel_entity.dart';
+import '/domanin/entities/main_market_entity.dart';
 
 import '../widgets/all_btn.dart';
 import '../widgets/carusel_slider.dart';
@@ -17,26 +22,25 @@ import '../widgets/chosen_page_view.dart';
 import '../widgets/discount/discaunt_view.dart';
 import '../widgets/long_card.dart';
 
-final List<CaruselEntity> imgs = [
-  CaruselEntity(
-      imageUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-  CaruselEntity(
-      imageUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-  CaruselEntity(
-      imageUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-  CaruselEntity(
-      imageUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-  CaruselEntity(
-      imageUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-];
-
 class ScreenMain extends StatelessWidget {
   ScreenMain({super.key});
+  final List<CaruselEntity> imgs = [
+    CaruselEntity(
+        imageUrl:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+    CaruselEntity(
+        imageUrl:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+    CaruselEntity(
+        imageUrl:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+    CaruselEntity(
+        imageUrl:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+    CaruselEntity(
+        imageUrl:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
+  ];
 
   final double arentir = MySize.arentir;
 
@@ -46,73 +50,86 @@ class ScreenMain extends StatelessWidget {
     this.context = context;
     return Column(
       children: [
-        MyAppBar(),
+        // ProviderNav.of(context).isSearch ? SearchBar() : MainBar(),
+        const MyAppBar(),
         Expanded(
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                buildSlider,
-                MainMarketsView(
-                  objs: [
-                    MainMarketEntity(
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                      num: 23,
-                      name: "100haryt.com",
-                    ),
-                    MainMarketEntity(
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                      num: 23,
-                      name: "Ynamdar",
-                    ),
-                    MainMarketEntity(
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                      num: 23,
-                      name: "Giper",
-                    ),
-                    MainMarketEntity(
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                      num: 23,
-                      name: "Balary",
-                    ),
-                    MainMarketEntity(
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                      num: 23,
-                      name: "Ak yol",
-                    ),
-                  ],
-                ),
-                buildSliverList(context),
-              ])),
-              SliverAppBar(
-                backgroundColor: Theme.of(context).canvasColor,
-                pinned: true,
-                leading: const SizedBox(),
-                flexibleSpace: FlexibleSpaceBar(background: buildSliverTitle()),
-              ),
-              SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
-                sliver: DiscountView(
-                  objs: List.generate(
-                      100,
-                      (index) => DiscountEntity(
-                          name: "Name",
-                          imageUrl:
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
-                          viewNum: 8,
-                          date: DateTime.now())),
-                ),
-              ),
-            ],
-          ),
-        ),
+            child: Stack(
+          children: [
+            buildContent,
+            Offstage(
+                offstage: !ProviderNav.of(context).isSearch,
+                child: ScreenSearch())
+          ],
+        )),
       ],
+    );
+  }
+
+  Scaffold get buildContent {
+    return Scaffold(
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverList(
+              delegate: SliverChildListDelegate([
+            buildSlider,
+            MainMarketsView(
+              objs: [
+                MainMarketEntity(
+                  imageUrl:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                  num: 23,
+                  name: "100haryt.com",
+                ),
+                MainMarketEntity(
+                  imageUrl:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                  num: 23,
+                  name: "Ynamdar",
+                ),
+                MainMarketEntity(
+                  imageUrl:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                  num: 23,
+                  name: "Giper",
+                ),
+                MainMarketEntity(
+                  imageUrl:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                  num: 23,
+                  name: "Balary",
+                ),
+                MainMarketEntity(
+                  imageUrl:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                  num: 23,
+                  name: "Ak yol",
+                ),
+              ],
+            ),
+            buildSliverList(context),
+          ])),
+          SliverAppBar(
+            backgroundColor: Theme.of(context).canvasColor,
+            pinned: true,
+            leading: const SizedBox(),
+            flexibleSpace: FlexibleSpaceBar(background: buildSliverTitle()),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
+            sliver: DiscountView(
+              objs: List.generate(
+                  100,
+                  (index) => DiscountEntity(
+                      name: "Name",
+                      imageUrl:
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
+                      viewNum: 8,
+                      date: DateTime.now())),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

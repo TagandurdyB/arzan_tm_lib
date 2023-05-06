@@ -79,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
   }
 
-  void _loginFunc() {
+  void _signUpFunc() {
     setState(() {
       isPressBefore = true;
       final bool isValidForm = formKey.currentState!.validate();
@@ -205,7 +205,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             borderWidth: 1,
             shape: MySize.arentir * 0.02,
             borderColor: const Color(0xffE5E5E5),
-            color: const Color(0xffF9FAFC),
+            color: Theme.of(context).canvasColor,
             padding: EdgeInsets.symmetric(horizontal: MySize.arentir * 0.02),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -229,7 +229,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           const SizedBox(height: 20),
           Align(alignment: Alignment.centerLeft, child: buildRememberMe),
           const SizedBox(height: 20),
-          RecovertNextBtn(text: "Agza bol", func: _loginFunc),
+          RecovertNextBtn(text: "Agza bol", func: _signUpFunc),
         ]),
       ),
     );
@@ -247,7 +247,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               spreadRadius: 0,
               color: Color(0xffEAEAEA))
         ],
-        color: Colors.white,
+        color: Theme.of(context).canvasColor,
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(MySize.arentir * 0.02),
           top: Radius.circular(MySize.arentir * 0.01),
@@ -272,7 +272,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onTap: () => setState(() => selectedItem = index),
       child: Container(
         padding: EdgeInsets.all(MySize.arentir * 0.04),
-        color: isCheck ? const Color(0xffF3FBF4) : Colors.transparent,
+        color: isCheck ? Colors.grey : Colors.transparent,
         child: Row(
           children: [
             buildMyCheck(isCheck),

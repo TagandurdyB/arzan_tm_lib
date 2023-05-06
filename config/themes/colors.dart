@@ -6,6 +6,7 @@ class ColorsLight {
   Color statusBarColor = Colors.white;
   Color systemNavigationBarColor = Colors.white;
   Color text = Colors.black;
+  Color searchCanvas = Colors.black87;
   Color canvas = const Color(0xffF5F5F5);
   Color appbarbg = Colors.white;
   Color appBarShadow = const Color(0xffEAEAEA);
@@ -23,6 +24,7 @@ class ColorsLight {
 //=======================================================================
   Color shimmerBg = Colors.grey.withOpacity(0.25);
   Color shimmerLine = Colors.grey.withOpacity(0.6);
+
 }
 
 class ColorsDark extends ColorsLight {
