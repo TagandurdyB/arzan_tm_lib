@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/providers/view/provider_navigation.dart';
-import 'package:arzan_tm/presentation/views/screens/screen_search.dart';
+import '/presentation/providers/view/provider_navigation.dart';
+import '/presentation/views/screens/screen_search.dart';
 
 import '/domanin/entities/carusel_entity.dart';
 import '/domanin/entities/main_market_entity.dart';
@@ -51,7 +51,7 @@ class ScreenMain extends StatelessWidget {
     return Column(
       children: [
         // ProviderNav.of(context).isSearch ? SearchBar() : MainBar(),
-        const MyAppBar(),
+        const MainBar(),
         Expanded(
             child: Stack(
           children: [

@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable
-import 'package:arzan_tm/config/system_info/my_size.dart';
+import '/config/system_info/my_size.dart';
 import 'package:flutter/material.dart';
 import '../../../config/routes/my_route.dart';
 import '../../providers/data/provider_acaunt.dart';
@@ -47,12 +47,15 @@ class CustomDrawer extends StatelessWidget {
   }
 
   Widget get buildLogin {
-    return Container(
-      alignment: Alignment.center,
-      color: const Color(0xff00C52B),
-      width: double.infinity,
-      height: 77,
-      child: Row(children: [buildIcon, buildText]),
+    return GestureDetector(
+      onTap: ()=>Navigator.pushNamed(context, Rout.acaunt),
+      child: Container(
+        alignment: Alignment.center,
+        color: const Color(0xff00C52B),
+        width: double.infinity,
+        height: 77,
+        child: Row(children: [buildIcon, buildText]),
+      ),
     );
   }
 

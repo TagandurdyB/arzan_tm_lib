@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/config/system_info/my_size.dart';
-import 'package:arzan_tm/domanin/entities/search_entity.dart';
+import '/config/system_info/my_size.dart';
+import '/domanin/entities/search_entity.dart';
 
 import '../../providers/view/provider_navigation.dart';
 import 'package:flutter/material.dart';

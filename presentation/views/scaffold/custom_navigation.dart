@@ -36,30 +36,13 @@ class _CustovNavigationState extends State<CustovNavigation> {
                   IconThemeData(color: Colors.white)),
               backgroundColor: Colors.green),
           child: NavigationBar(
+            animationDuration: const Duration(seconds: 2),
             height: arentir * 0.15,
             labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
             selectedIndex: index,
             destinations: List.generate(
                 items.length,
-                (index) => Container(
-                      decoration: BoxDecoration(
-                          color: index == this.index
-                              ? Colors.white
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(arentir * 0.02))),
-                      padding: EdgeInsets.only(bottom: arentir * 0.04),
-                      margin: EdgeInsets.only(
-                          left: arentir * 0.015,
-                          right: arentir * 0.015,
-                          top: arentir * 0.02),
-                      child: NavigationDestination(
-                          icon: items[index],
-                          selectedIcon: IconTheme(
-                              data: const IconThemeData(color: Colors.green),
-                              child: items[index]),
-                          label: Words.navigation[index]),
-                    )),
+                (index) => buildBord(index)),
             onDestinationSelected: (index) {
               setState(() => this.index = index);
               final provid = ProviderNav.of(context, listen: false);
@@ -69,5 +52,32 @@ class _CustovNavigationState extends State<CustovNavigation> {
         ),
       ),
     );
+  }
+
+  Container buildBord(int index) {
+    return Container(
+                    decoration: BoxDecoration(
+                        color: index == this.index
+                            ? Colors.white
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(arentir * 0.02))),
+                    padding: EdgeInsets.only(bottom: arentir * 0.04),
+                    margin: EdgeInsets.only(
+                        left: arentir * 0.015,
+                        right: arentir * 0.015,
+                        top: arentir * 0.02),
+                    child: buildDestination(index),
+                  );
+  }
+
+  NavigationDestination buildDestination(int index) {
+    final List items = ThemeP.of(context).icons.navigationIcons;
+    return NavigationDestination(
+        icon: items[index],
+        selectedIcon: IconTheme(
+            data: const IconThemeData(color: Colors.green),
+            child: items[index]),
+        label: Words.navigation[index]);
   }
 }

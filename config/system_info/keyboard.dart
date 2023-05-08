@@ -8,10 +8,10 @@ class Keyboard {
     }
   }
 
-  static void open(BuildContext context) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (currentFocus.hasPrimaryFocus) {
-      currentFocus.requestFocus();
-    }
-  }
+  // static void open(BuildContext context) {
+  //   FocusScopeNode currentFocus = FocusScope.of(context);
+  //   if (currentFocus.hasPrimaryFocus) {
+  //     currentFocus.requestFocus();
+  //   }
+  // }
 }

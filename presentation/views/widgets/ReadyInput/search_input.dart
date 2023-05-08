@@ -1,4 +1,4 @@
-import 'package:arzan_tm/config/system_info/keyboard.dart';
+import '/config/system_info/keyboard.dart';
 import 'package:flutter/material.dart';
 
 import 'ready_input_base.dart';
