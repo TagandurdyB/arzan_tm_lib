@@ -1,4 +1,4 @@
-import 'package:arzan/config/system_info/my_size.dart';
+import '/config/system_info/my_size.dart';
 import 'package:flutter/material.dart';
 
 import '../../scaffold/custom_app_bar.dart';
@@ -42,12 +42,14 @@ class GuestScreen extends StatelessWidget {
             height: arentir * 0.07,
             activeColor: const Color(0xff00C52B),
             indicatorWidth: arentir * 0.3,
-            indicatorBorder: Border.all(color: const Color(0xffE5E5E5), width: 2),
+            indicatorBorder:
+                Border.all(color: const Color(0xffE5E5E5), width: 2),
             border: Border.all(color: Colors.grey, width: 2),
             borderRadius: arentir * 0.2,
-          ), 
-          SizedBox(height: arentir*0.07),
-           AcauntTable()
+          ),
+          SizedBox(height: arentir * 0.07),
+          AcauntTable(),
+          SizedBox(height: arentir * 0.1),
         ]),
       ),
     );

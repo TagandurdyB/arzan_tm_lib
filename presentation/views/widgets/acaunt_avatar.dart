@@ -1,5 +1,5 @@
-import 'package:arzan/config/system_info/my_size.dart';
-import 'package:arzan/presentation/views/widgets/shimmer_img.dart';
+import '/config/system_info/my_size.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 import 'arzan_coin.dart';

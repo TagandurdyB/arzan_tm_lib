@@ -179,6 +179,8 @@ class ScreenMain extends StatelessWidget {
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
                 title: "Top"),
             DoubleCard(
+              firstOnTab: () => Navigator.pushNamed(context, Rout.images),
+              secondOnTab: () => Navigator.pushNamed(context, Rout.videos),
               firstCounter: 65,
               firstImageUrl:
                   "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__480.jpg",

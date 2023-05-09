@@ -8,7 +8,7 @@ class SuccessPop {
     MyPopUpp(
       width: MySize.arentir * 0.7,
       height: MySize.arentir * 0.45,
-      shape: 20,
+      borderRadius: 20,
       content:
           Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         isSuccess

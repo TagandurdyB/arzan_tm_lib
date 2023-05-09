@@ -47,6 +47,8 @@ class RemiScreen extends StatelessWidget {
         ),
         SizedBox(height: arentir * 0.07),
         AcauntTable(),
+          SizedBox(height: arentir * 0.1),
+
       ]),
     );
   }

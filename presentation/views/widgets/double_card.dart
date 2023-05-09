@@ -14,6 +14,8 @@ class DoubleCard extends StatelessWidget {
   final String secondTitle;
   final int secondCounter;
   final String secondImageUrl;
+  final Function? firstOnTab;
+  final Function? secondOnTab;
 
   DoubleCard({
     super.key,
@@ -23,6 +25,8 @@ class DoubleCard extends StatelessWidget {
     required this.secondTitle,
     required this.secondCounter,
     required this.secondImageUrl,
+    this.firstOnTab,
+    this.secondOnTab,
   });
 
   late BuildContext context;
@@ -36,26 +40,31 @@ class DoubleCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            buildCard(firstTitle, firstCounter, firstImageUrl),
-            buildCard(secondTitle, secondCounter, secondImageUrl),
+            buildCard(
+                firstTitle, firstCounter, firstImageUrl, firstOnTab ?? () {}),
+            buildCard(secondTitle, secondCounter, secondImageUrl,
+                secondOnTab ?? () {}),
           ],
         ),
       ],
     );
   }
 
-  Widget buildCard(String title, int count, String img) {
+  Widget buildCard(String title, int count, String img, Function func) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CardTitle(counter: count, title: title),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(arentir * 0.02),
-          child: Container(
-            color: ThemeP.of(context).colors.shimmerBg,
-            width: arentir * 0.45,
-            height: arentir * 0.34,
-            child: ShimmerImg(imageUrl: img),
+        GestureDetector(
+          onTap: () => func(),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(arentir * 0.02),
+            child: Container(
+              color: ThemeP.of(context).colors.shimmerBg,
+              width: arentir * 0.45,
+              height: arentir * 0.34,
+              child: ShimmerImg(imageUrl: img),
+            ),
           ),
         ),
       ],

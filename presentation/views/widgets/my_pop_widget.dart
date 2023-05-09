@@ -18,21 +18,23 @@ class ActionTeam {
 class MyPopUpp {
   final double? width;
   final double? height;
-  final double? shape;
+  final double? borderRadius;
   Color? bgColor;
   final String? title;
   final bool centerTitle;
   final Widget? content;
   final List<ActionTeam>? actions;
+  final EdgeInsetsGeometry? padding;
   MyPopUpp({
     this.content,
     this.centerTitle = true,
     this.width,
     this.height,
     this.title,
-    this.shape,
+    this.borderRadius,
     this.bgColor,
     this.actions,
+    this.padding,
   });
   late BuildContext context;
   void pop(BuildContext context) => showDialog(
@@ -47,7 +49,7 @@ class MyPopUpp {
   Widget buildPop() => Material(
         type: MaterialType.transparency,
         child: MyContainer(
-            shape: shape ?? 0,
+            shape: borderRadius ?? 0,
             width: width,
             height: height,
             color: bgColor,
@@ -67,7 +69,7 @@ class MyPopUpp {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: padding ?? const EdgeInsets.all(8),
                   child: content ?? const SizedBox(),
                 ),
                 PopBtns(actions: actions),

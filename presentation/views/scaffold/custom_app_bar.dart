@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan/config/system_info/my_size.dart';
+import '/config/system_info/my_size.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {

@@ -63,10 +63,11 @@ class _ChosenPageViewState extends State<ChosenPageView> {
       newPage = page + 3;
     } else if (length - (page + 1) > 1) {
       newPage = page + (length - (page + 1) - 1);
+    } else if (page == length - 2) {
+      newPage = 1;
     } else {
       newPage = length - 1;
     }
-
     controller.animateToPage(newPage,
         duration: const Duration(seconds: 1), curve: Curves.easeInOut);
   }
@@ -77,8 +78,8 @@ class _ChosenPageViewState extends State<ChosenPageView> {
       controller.animateToPage(1,
           duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
     } else if (index == length - 1) {
-      controller.animateToPage(1,
-          duration: const Duration(milliseconds: 800), curve: Curves.easeInOut);
+      controller.animateToPage(length - 2,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
   }
 
