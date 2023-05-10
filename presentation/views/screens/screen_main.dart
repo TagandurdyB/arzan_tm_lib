@@ -174,7 +174,7 @@ class ScreenMain extends StatelessWidget {
                 ]),
             LongCard(
                 counter: 65,
-                btnFunc: () {},
+                btnFunc: () =>Navigator.pushNamed(context, Rout.tops),
                 imageUrl:
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
                 title: "Top"),

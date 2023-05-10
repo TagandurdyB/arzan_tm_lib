@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import '../widgets/ReadyInput/login_arzan_input.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/form_error_message.dart';
-import '../widgets/recovery_next_btn.dart';
+import '../widgets/next_btn.dart';
 
 class RecoveryPhonePage extends StatefulWidget {
   const RecoveryPhonePage({super.key});
@@ -64,7 +64,7 @@ class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
             buildInput,
             FormErrorMessage(visible: haveError, message: "Nädogry belgi!"),
             const SizedBox(height: 20),
-            RecovertNextBtn(func: _funcNext),
+            NextBtn(func: _funcNext),
           ],
         ),
       ),

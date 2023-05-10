@@ -6,8 +6,13 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget {
   final Function? funcBack;
   final String title;
+  final List<Widget>? actions;
   late BuildContext context;
-  CustomAppBar({this.title = "Title", this.funcBack, super.key});
+  CustomAppBar(
+      {this.title = "Title",
+      this.actions = const [],
+      this.funcBack,
+      super.key});
   final double arentir = MySize.arentir;
   @override
   Widget build(BuildContext context) {
@@ -43,8 +48,16 @@ class CustomAppBar extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(color: Colors.white, fontSize: 22),
-        )
+        ),
+        const Expanded(child: SizedBox()),
+        buildActions(),
       ],
+    );
+  }
+
+  Widget buildActions() {
+    return Row(
+      children: actions!,
     );
   }
 }

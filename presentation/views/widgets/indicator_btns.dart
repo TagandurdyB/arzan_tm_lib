@@ -1,14 +1,14 @@
 import '/config/system_info/my_size.dart';
 import 'package:flutter/material.dart';
 
-class IcdicatorItem {
+class IndicatorItem {
   final Function? func;
   final String text;
   final Widget? child;
   final Alignment? alignment;
   final double borderRadius;
   final BoxBorder? border;
-  IcdicatorItem({
+  IndicatorItem({
     this.func,
     this.text = "",
     this.child,
@@ -22,7 +22,7 @@ class IndicatorBtns extends StatefulWidget {
   final double? width;
   final double? height;
   final int initialBtn;
-  final List<IcdicatorItem> items;
+  final List<IndicatorItem> items;
   final double? indicatorWidth;
   final Alignment indicatorAlign;
   final Color passiveColor;
@@ -59,7 +59,7 @@ class IndicatorBtns extends StatefulWidget {
 
 class _IndicatorBtnsState extends State<IndicatorBtns> {
   late int length;
-  late List<IcdicatorItem> items;
+  late List<IndicatorItem> items;
   late int activeIndex;
   late TextStyle activeS, passiveS;
   late double arentir = MySize.arentir;

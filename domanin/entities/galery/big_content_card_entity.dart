@@ -1,4 +1,4 @@
-import '/domanin/entities/images/img_card_entity.dart';
+import '/domanin/entities/galery/img_card_entity.dart';
 
 class BigImgCardEntity {
   final int id;

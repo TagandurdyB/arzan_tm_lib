@@ -9,7 +9,7 @@ import '../../../config/vars/constants.dart';
 import '../widgets/ReadyInput/login_arzan_input.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/form_error_message.dart';
-import '../widgets/recovery_next_btn.dart';
+import '../widgets/next_btn.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -229,7 +229,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           const SizedBox(height: 20),
           Align(alignment: Alignment.centerLeft, child: buildRememberMe),
           const SizedBox(height: 20),
-          RecovertNextBtn(text: "Agza bol", func: _signUpFunc),
+          NextBtn(text: "Agza bol", func: _signUpFunc),
         ]),
       ),
     );

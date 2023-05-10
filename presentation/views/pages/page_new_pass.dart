@@ -9,7 +9,7 @@ import '../widgets/ReadyInput/login_arzan_input.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/form_error_message.dart';
 import '../widgets/my_pop_widget.dart';
-import '../widgets/recovery_next_btn.dart';
+import '../widgets/next_btn.dart';
 import '../widgets/success_pop.dart';
 
 class NewPassPage extends StatefulWidget {
@@ -73,7 +73,7 @@ class _NewPassPageState extends State<NewPassPage> {
                   visible: haveError,
                   message: "Ýatda saklanylmady. Açar sözleri gabat gelenok!"),
               const SizedBox(height: 20),
-              RecovertNextBtn(text: "Ýatda sakla", func: _funcNext),
+              NextBtn(text: "Ýatda sakla", func: _funcNext),
             ],
           ),
         ),

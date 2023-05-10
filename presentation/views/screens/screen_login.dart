@@ -10,7 +10,7 @@ import '../../providers/data/provider_acaunt.dart';
 import '../widgets/ReadyInput/login_arzan_input.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/form_error_message.dart';
-import '../widgets/recovery_next_btn.dart';
+import '../widgets/next_btn.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
               message: "Ulanyjy ady ýada açar sözi nädogry girizildi!"),
           buildBottomSide,
           const SizedBox(height: 20),
-          RecovertNextBtn(text: "Ulgama gir", func: _loginFunc),
+          NextBtn(text: "Ulgama gir", func: _loginFunc),
         ]),
       ),
     );

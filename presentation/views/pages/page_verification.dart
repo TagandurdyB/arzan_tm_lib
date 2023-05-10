@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/ReadyInput/verification_input.dart';
 import '../widgets/form_error_message.dart';
-import '../widgets/recovery_next_btn.dart';
+import '../widgets/next_btn.dart';
 
 class VerificarionPage extends StatefulWidget {
   final String? title;
@@ -93,7 +93,7 @@ class _VerificarionPageState extends State<VerificarionPage> {
             buildInput,
             FormErrorMessage(visible: haveError, message: "Kody doly ýazyň!"),
             const SizedBox(height: 20),
-            RecovertNextBtn(text: widget.btnName ?? "Indiki", func: _funcNext),
+            NextBtn(text: widget.btnName ?? "Indiki", func: _funcNext),
             const SizedBox(height: 20),
             buildTimer
           ],

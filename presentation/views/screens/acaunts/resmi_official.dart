@@ -34,9 +34,9 @@ class ResmiOfficialScreen extends StatelessWidget {
         ),
         IndicatorBtns(
           items: [
-            IcdicatorItem(text: "Gün"),
-            IcdicatorItem(text: "Hepde"),
-            IcdicatorItem(text: "Aý"),
+            IndicatorItem(text: "Gün"),
+            IndicatorItem(text: "Hepde"),
+            IndicatorItem(text: "Aý"),
           ],
           height: arentir * 0.07,
           activeColor: const Color(0xff00C52B),

@@ -1,53 +1,61 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/views/pages/page_image_detal.dart';
+
 import '/config/system_info/my_size.dart';
-import '/domanin/entities/images/big_img_card_entity.dart';
+import '../../../../domanin/entities/galery/big_content_card_entity.dart';
 import '/presentation/views/widgets/all_btn.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 import '../../../providers/view/provider_theme.dart';
 import '../custom_avatar.dart';
-import 'image_card_group.dart';
 
-class ImageBigCard extends StatelessWidget {
+class BigContentCard extends StatelessWidget {
   final BigImgCardEntity obj;
-  ImageBigCard({required this.obj, super.key});
+  final Widget? child;
+  final Widget? baner;
+  BigContentCard({required this.obj, this.child, this.baner, super.key});
 
   final double arentir = MySize.arentir;
   late BuildContext context;
   @override
   Widget build(BuildContext context) {
     this.context = context;
-    return Container(
-      margin: EdgeInsets.only(bottom: arentir * 0.03),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          boxShadow: ThemeP.of(context).shadows.all,
-          borderRadius: BorderRadius.circular(arentir * 0.02),
-          border: Border.all(width: 1, color: const Color(0xff00C52B))),
-      width: arentir * 0.9,
-      // height: arentir * 0.95,
-      child: Column(children: [
-        buildTitle(obj.userImg, obj.name),
-        SizedBox(
-          height: arentir * 0.3,
-          width: arentir * 0.9,
-          child: ShimmerImg(imageUrl: obj.banerImg),
-        ),
-        buildBottom(
-          obj.allCount,
-          obj.allViewed,
-          obj.allShaered,
-          obj.about,
-        ),
-        // const Expanded(child: SizedBox()),
-        ImageCardGroup(
-          height: arentir * 0.35,
-          objs: obj.contents,
-        ),
-      ]),
+    return GestureDetector(
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => ImageDetalPage(obj: obj))),
+      child: Container(
+        margin: EdgeInsets.only(bottom: arentir * 0.03),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+            color: Theme.of(context).canvasColor,
+            boxShadow: ThemeP.of(context).shadows.all,
+            borderRadius: BorderRadius.circular(arentir * 0.02),
+            border: Border.all(width: 1, color: const Color(0xff00C52B))),
+        width: arentir * 0.9,
+        // height: arentir * 0.95,
+        child: Column(children: [
+          buildTitle(obj.userImg, obj.name),
+          baner ??
+              SizedBox(
+                height: arentir * 0.3,
+                width: arentir * 0.9,
+                child: ShimmerImg(imageUrl: obj.banerImg),
+              ),
+          buildBottom(
+            obj.allCount,
+            obj.allViewed,
+            obj.allShaered,
+            obj.about,
+          ),
+          // const Expanded(child: SizedBox()),
+          Visibility(
+            visible: child != null,
+            child: child ?? const SizedBox(),
+          ),
+        ]),
+      ),
     );
   }
 

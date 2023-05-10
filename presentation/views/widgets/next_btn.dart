@@ -4,10 +4,10 @@ import '../../../config/system_info/keyboard.dart';
 import '../../../config/system_info/my_size.dart';
 import 'my_container.dart';
 
-class RecovertNextBtn extends StatelessWidget {
+class NextBtn extends StatelessWidget {
   final Function func;
   final String text;
-  const RecovertNextBtn({required this.func, this.text = "Indiki", super.key});
+  const NextBtn({required this.func, this.text = "Indiki", super.key});
 
   @override
   Widget build(BuildContext context) {

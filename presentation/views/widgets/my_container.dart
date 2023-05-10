@@ -41,6 +41,7 @@ class MyContainer extends StatelessWidget {
     return InkWell(
       onTap: onTap != null ? () => onTap!() : null,
       child: AnimatedContainer(
+        clipBehavior: Clip.hardEdge,
         duration: duration,
         padding: padding,
         margin: margin,

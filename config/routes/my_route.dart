@@ -1,5 +1,9 @@
-import 'package:arzan_tm/presentation/views/pages/page_images.dart';
-import 'package:arzan_tm/presentation/views/pages/page_videos.dart';
+
+
+import 'package:arzan_tm/presentation/views/pages/page_tops.dart';
+
+import '/presentation/views/pages/page_images.dart';
+import '/presentation/views/pages/page_videos.dart';
 
 import '../../presentation/views/pages/page_acaunt.dart';
 import '/presentation/views/pages/page_chosen.dart';
@@ -32,7 +36,11 @@ class Rout {
   static const String chosen = "/ChosenPage";
   static const String acaunt = "/AcauntPage";
   static const String images = "/ImagesPage";
+  // static const String imagesDetal = "/ImagesDetalPage";
   static const String videos = "/VideosPage";
+  static const String tops = "/TopsPage";
+
+  
 
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
@@ -60,6 +68,9 @@ class Rout {
     chosen: (context) => const ChosenPage(),
     acaunt:(context)=>const AcauntPage(),
     images:(context)=> ImagesPage(),
+    // imagesDetal:(context)=> const ImageDetalPage(),
     videos:(context)=>const VideosPage(),
+    tops:(context)=> TopsPage(),
+    
   };
 }

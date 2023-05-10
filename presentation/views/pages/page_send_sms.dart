@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../config/vars/constants.dart';
 import '../../providers/data/provider_acaunt.dart';
 import '../scaffold/recovery_scaffold.dart';
-import '../widgets/recovery_next_btn.dart';
+import '../widgets/next_btn.dart';
 import '../widgets/success_pop.dart';
 
 class SendSmsPage extends StatelessWidget {
@@ -30,7 +30,7 @@ class SendSmsPage extends StatelessWidget {
       text: '''+993 ${RIBase.getText(Tags.rISignPhone)} belgiden ${Words.phone}
 belgä boş sms ugradyň. Ugradanyňyzdan soň
 kabul edilýänçä biraz garaşyň!''',
-      content: RecovertNextBtn(func: _funcSend, text: "Boş sms ugratmak"),
+      content: NextBtn(func: _funcSend, text: "Boş sms ugratmak"),
     );
   }
 }

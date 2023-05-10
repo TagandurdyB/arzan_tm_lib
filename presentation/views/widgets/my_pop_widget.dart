@@ -25,6 +25,7 @@ class MyPopUpp {
   final Widget? content;
   final List<ActionTeam>? actions;
   final EdgeInsetsGeometry? padding;
+  final bool barrierDismissible;
   MyPopUpp({
     this.content,
     this.centerTitle = true,
@@ -35,10 +36,11 @@ class MyPopUpp {
     this.bgColor,
     this.actions,
     this.padding,
+    this.barrierDismissible = false,
   });
   late BuildContext context;
   void pop(BuildContext context) => showDialog(
-      barrierDismissible: false,
+      barrierDismissible: barrierDismissible,
       context: context,
       builder: (context) {
         bgColor = bgColor ?? Colors.white;

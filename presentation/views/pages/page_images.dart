@@ -1,6 +1,7 @@
-import 'package:arzan_tm/domanin/entities/images/big_img_card_entity.dart';
-import 'package:arzan_tm/domanin/entities/images/img_card_entity.dart';
-import 'package:arzan_tm/presentation/views/widgets/images/image_big_card.dart';
+import '../widgets/images/image_card_group.dart';
+import '../../../domanin/entities/galery/big_content_card_entity.dart';
+import '../../../domanin/entities/galery/img_card_entity.dart';
+import '/presentation/views/widgets/images/big_content_card.dart';
 
 import '/config/system_info/my_size.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
@@ -152,7 +153,15 @@ class ImagesPage extends StatelessWidget {
 
   Widget buildCards() {
     return Column(
-      children: List.generate(2, (index) => ImageBigCard(obj: objs[index])),
+      children: List.generate(
+          2,
+          (index) => BigContentCard(
+                obj: objs[index],
+                child: ImageCardGroup(
+                  height: arentir * 0.35,
+                  objs: objs[index].contents,
+                ),
+              )),
       //     children: [
       //   BigImgCardEntity(
       //     id: 1,
