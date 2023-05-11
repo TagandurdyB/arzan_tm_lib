@@ -1,35 +1,47 @@
-class VideoCardEntity {
+import 'big_content_card_entity.dart';
+
+class VideoCardEntity extends BigImgCardEntity {
   final int id;
-  final String video;
-  final String thumbnailUrl;
   final String name;
-  final int viewed;
-  final int liked;
-  // final int allCount;
-  final int shaered;
+  final String userImg;
+  final String videoURL;
+  final String thumbinalUrl;
+  final String videNAme;
+  final int allViewed;
+  final int allCount;
+  final int allShaered;
   final bool isEmpty;
+  final bool isVideo;
+  // final List<ImgCardEntity> contents;
   VideoCardEntity({
     required this.id,
-    this.video = "",
-    this.thumbnailUrl = "",
     this.name = "",
-    this.viewed = 0,
-    this.liked = 0,
-    this.shaered = 0,
+    this.userImg = "",
+    this.videoURL = "",
+    this.thumbinalUrl = "",
+    this.videNAme = "",
+    this.allViewed = 0,
+    this.allCount = 0,
+    this.allShaered = 0,
+    // this.contents = const [],
     this.isEmpty = true,
-  });
+    this.isVideo = true,
+  }) : super(id: 0);
 
   static VideoCardEntity empty() => VideoCardEntity(id: 0);
 
   factory VideoCardEntity.frowJson(Map<String, dynamic> json) =>
       VideoCardEntity(
         id: json["id"],
-        video: json["video"],
-        thumbnailUrl: json["thumbnailUrl"],
         name: json["name"],
-        viewed: json["viewed"],
-        liked: json["liked"],
-        shaered: json["shaered"],
+        userImg: json["user_img"],
+        videoURL: json["video_url"],
+        thumbinalUrl: json["thumbinal_img"],
+        videNAme: json["vide_name"],
+        allCount: json["all_count"],
+        allViewed: json["all_viewed"],
+        allShaered: json["all_shaered"],
+        // contents: ImgCardEntity.frowJsonList(json["contents"]),
         isEmpty: false,
       );
 
@@ -46,12 +58,15 @@ class VideoCardEntity {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "video": video,
-        "thumbnailUrl": thumbnailUrl,
         "name": name,
-        "viewed": viewed,
-        "liked": liked,
-        "shaered": shaered,
+        "userImg": userImg,
+        "videoURL": videoURL,
+        "thumbinalUrl": thumbinalUrl,
+        "about": videNAme,
+        "allCount": allCount,
+        "allViewed": allViewed,
+        "allShaered": allShaered,
+        "cintents": contents,
         "isEmpty": isEmpty,
       };
 }

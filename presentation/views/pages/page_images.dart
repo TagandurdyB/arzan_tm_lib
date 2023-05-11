@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import '../widgets/images/image_card_group.dart';
 import '../../../domanin/entities/galery/big_content_card_entity.dart';
 import '../../../domanin/entities/galery/img_card_entity.dart';
@@ -79,7 +81,7 @@ class ImagesPage extends StatelessWidget {
       allCount: 12,
       allShaered: 720,
       allViewed: 14756,
-      about:
+      videNAme:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
       contents: [
         ImgCardEntity(
@@ -119,7 +121,7 @@ class ImagesPage extends StatelessWidget {
       allCount: 12,
       allShaered: 720,
       allViewed: 14756,
-      about:
+      videNAme:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
       contents: [
         ImgCardEntity(
@@ -153,56 +155,14 @@ class ImagesPage extends StatelessWidget {
 
   Widget buildCards() {
     return Column(
-      children: List.generate(
-          2,
-          (index) => BigContentCard(
-                obj: objs[index],
-                child: ImageCardGroup(
-                  height: arentir * 0.35,
-                  objs: objs[index].contents,
-                ),
-              )),
-      //     children: [
-      //   BigImgCardEntity(
-      //     id: 1,
-      //     userImg:
-      //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
-      //     banerImg:
-      //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-      //     allCount: 12,
-      //     allShaered: 720,
-      //     allViewed: 14756,
-      //     about:
-      //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      //     contents: [
-      //       ImgCardEntity(
-      //         id: 1,
-      //         img:
-      //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-IF0u5AYxHvFLMIBjUxqWGHgnH5x4Us8Pg&usqp=CAU",
-      //         viewed: 1251,
-      //         liked: 151,
-      //         isEmpty: false,
-      //       ),
-      //       ImgCardEntity(
-      //         id: 1,
-      //         img:
-      //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-IF0u5AYxHvFLMIBjUxqWGHgnH5x4Us8Pg&usqp=CAU",
-      //         viewed: 1251,
-      //         liked: 151,
-      //         isEmpty: false,
-      //       ),
-      //       ImgCardEntity(
-      //         id: 1,
-      //         img:
-      //             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-IF0u5AYxHvFLMIBjUxqWGHgnH5x4Us8Pg&usqp=CAU",
-      //         viewed: 1251,
-      //         liked: 151,
-      //         isEmpty: false,
-      //       ),
-      //     ],
-      //     isEmpty: false,
-      //   ),
-      // ].map((obj) => ImageBigCard(obj: obj)).toList(),
-    );
+        children: objs
+            .map((obj) => BigContentCard(
+                  obj: obj,
+                  child: ImageCardGroup(
+                    height: arentir * 0.35,
+                    objs: obj.contents,
+                  ),
+                ))
+            .toList());
   }
 }

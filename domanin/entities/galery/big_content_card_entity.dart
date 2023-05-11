@@ -5,23 +5,25 @@ class BigImgCardEntity {
   final String name;
   final String userImg;
   final String banerImg;
-  final String about;
+  final String videNAme;
   final int allViewed;
   final int allCount;
   final int allShaered;
   final bool isEmpty;
+  final bool isVideo;
   final List<ImgCardEntity> contents;
   BigImgCardEntity({
     required this.id,
     this.name = "",
     this.userImg = "",
     this.banerImg = "",
-    this.about = "",
+    this.videNAme = "",
     this.allViewed = 0,
     this.allCount = 0,
     this.allShaered = 0,
     this.contents = const [],
     this.isEmpty = true,
+    this.isVideo = false,
   });
 
   static BigImgCardEntity empty() => BigImgCardEntity(id: 0);
@@ -32,7 +34,7 @@ class BigImgCardEntity {
         name: json["name"],
         userImg: json["user_img"],
         banerImg: json["baner_img"],
-        about: json["about"],
+        videNAme: json["about"],
         allCount: json["all_count"],
         allViewed: json["all_viewed"],
         allShaered: json["all_shaered"],

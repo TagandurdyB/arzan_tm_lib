@@ -47,7 +47,7 @@ class BigContentCard extends StatelessWidget {
             obj.allCount,
             obj.allViewed,
             obj.allShaered,
-            obj.about,
+            obj.videNAme,
           ),
           // const Expanded(child: SizedBox()),
           Visibility(
