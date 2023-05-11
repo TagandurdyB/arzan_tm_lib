@@ -2,7 +2,7 @@ import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/routes/my_route.dart';
-import '../../../config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '../../../config/vars/constants.dart';
 import '../../providers/view/provider_theme.dart';
 import '../widgets/my_container.dart';

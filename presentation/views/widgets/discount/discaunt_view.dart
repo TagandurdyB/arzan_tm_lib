@@ -4,7 +4,7 @@ import '/presentation/views/widgets/discount/discount_2_card.dart';
 import '/presentation/views/widgets/discount/discount_3_card.dart';
 import 'package:entry/entry.dart';
 
-import '/config/system_info/my_size.dart';
+import '../../../../config/services/my_size.dart';
 import '/domanin/entities/discount_entity.dart';
 import 'package:flutter/material.dart';
 

@@ -5,7 +5,7 @@ import '/config/themes/my_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'config/routes/my_route.dart';
-import 'config/system_info/my_orientation.dart';
+import 'config/services/my_orientation.dart';
 import 'config/vars/constants.dart';
 import 'injector.dart';
 

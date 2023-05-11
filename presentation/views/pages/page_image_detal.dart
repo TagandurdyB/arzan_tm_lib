@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '../../../domanin/entities/galery/big_content_card_entity.dart';
 import '../../../domanin/entities/galery/img_card_entity.dart';
 import '/presentation/views/widgets/custom_avatar.dart';
@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 
 import '../scaffold/custom_app_bar.dart';
 import '../scaffold/no_app_bar_scaffold.dart';
-import '../widgets/images/image_card.dart';
+import '../widgets/galery/image_card.dart';
 
 class ImageDetalPage extends StatelessWidget {
-  final BigImgCardEntity obj;
+  final BigCardEntity obj;
   ImageDetalPage({required this.obj, super.key});
 
   final double arentir = MySize.arentir;
@@ -43,7 +43,7 @@ class ImageDetalPage extends StatelessWidget {
             imgUrl: obj.userImg,
             radius: arentir * 0.12,
           ),
-          Text(obj.name, style: TextStyle(fontSize: arentir * 0.04)),
+          Text(obj.userName, style: TextStyle(fontSize: arentir * 0.04)),
           SizedBox(height: arentir * 0.02),
           Wrap(
               // runSpacing: arentir * 0,
@@ -71,10 +71,9 @@ class ImageDetalPage extends StatelessWidget {
       content: Container(
         width: arentir * 0.9,
         height: arentir * 0.9,
-        decoration:
-            BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.circular(arentir * 0.03)),
+        decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(arentir * 0.03)),
         child: ShimmerImg(imageUrl: obj.img),
       ),
     ).pop(context);

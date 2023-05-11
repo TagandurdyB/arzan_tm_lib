@@ -10,7 +10,7 @@ import '../widgets/all_btn.dart';
 import '../widgets/carusel_slider.dart';
 import '../widgets/double_card.dart';
 import '../widgets/main_markets_view.dart';
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/domanin/entities/chosen_entity.dart';
 import 'package:flutter/material.dart';
 

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'all_btn.dart';
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/domanin/entities/chosen_entity.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';

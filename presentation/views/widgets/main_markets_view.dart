@@ -1,6 +1,6 @@
 import '/presentation/views/widgets/shimmer_img.dart';
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/domanin/entities/main_market_entity.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/domanin/entities/search_entity.dart';
 
 import '../../providers/view/provider_navigation.dart';

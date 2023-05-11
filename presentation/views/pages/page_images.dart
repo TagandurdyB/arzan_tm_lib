@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 
-import '../widgets/images/image_card_group.dart';
+import 'package:arzan_tm/presentation/views/pages/page_image_detal.dart';
+
+import '../widgets/galery/image_card_group.dart';
 import '../../../domanin/entities/galery/big_content_card_entity.dart';
 import '../../../domanin/entities/galery/img_card_entity.dart';
-import '/presentation/views/widgets/images/big_content_card.dart';
+import '../widgets/galery/big_content_card.dart';
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,7 @@ class ImagesPage extends StatelessWidget {
         children: [
           buildTitle,
           buildCards(),
+          SizedBox(height: arentir * 0.2),
         ],
       ),
     );
@@ -70,18 +73,18 @@ class ImagesPage extends StatelessWidget {
     );
   }
 
-  final List<BigImgCardEntity> objs = [
-    BigImgCardEntity(
+  final List<BigCardEntity> objs = [
+    BigCardEntity(
       id: 1,
       userImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
-      name: "100haryt.com",
+      userName: "100haryt.com",
       banerImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
       allCount: 12,
       allShaered: 720,
       allViewed: 14756,
-      videNAme:
+      name:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
       contents: [
         ImgCardEntity(
@@ -111,17 +114,17 @@ class ImagesPage extends StatelessWidget {
       ],
       isEmpty: false,
     ),
-    BigImgCardEntity(
+    BigCardEntity(
       id: 1,
       userImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvtyA_jv76ISEwn237GbPT--KbTNBIGyhVIQ&usqp=CAU",
-      name: "Mercedes-Benz",
+      userName: "Mercedes-Benz",
       banerImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
       allCount: 12,
       allShaered: 720,
       allViewed: 14756,
-      videNAme:
+      name:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
       contents: [
         ImgCardEntity(
@@ -157,6 +160,10 @@ class ImagesPage extends StatelessWidget {
     return Column(
         children: objs
             .map((obj) => BigContentCard(
+                  allFunc: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImageDetalPage(obj: obj))),
                   obj: obj,
                   child: ImageCardGroup(
                     height: arentir * 0.35,

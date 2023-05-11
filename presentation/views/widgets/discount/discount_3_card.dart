@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../config/system_info/my_size.dart';
+import '../../../../config/services/my_size.dart';
 import '../../../../config/vars/formater.dart';
 import '../../../../domanin/entities/discount_entity.dart';
 import '../../../providers/view/provider_theme.dart';

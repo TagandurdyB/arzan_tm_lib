@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -45,11 +45,14 @@ class CustomAppBar extends StatelessWidget {
               color: Colors.white,
               size: 30,
             )),
-        Text(
-          title,
-          style: const TextStyle(color: Colors.white, fontSize: 22),
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(color: Colors.white, fontSize: 22),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-        const Expanded(child: SizedBox()),
         buildActions(),
       ],
     );

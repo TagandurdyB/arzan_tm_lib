@@ -2,7 +2,7 @@
 
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
 

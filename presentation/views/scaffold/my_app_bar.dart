@@ -3,7 +3,7 @@ import '../../../config/vars/constants.dart';
 import '../../providers/view/provider_navigation.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/ReadyInput/search_input.dart';
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 
 import '/presentation/views/widgets/my_container.dart';
 import 'package:flutter/material.dart';

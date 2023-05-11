@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, avoid_print
 
 import '../../../config/routes/my_route.dart';
-import '../../../config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '../../../config/vars/constants.dart';
 import '../scaffold/recovery_scaffold.dart';
 import 'package:flutter/material.dart';

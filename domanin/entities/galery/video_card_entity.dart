@@ -1,25 +1,34 @@
 import 'big_content_card_entity.dart';
 
-class VideoCardEntity extends BigImgCardEntity {
+class VideoCardEntity extends BigCardEntity {
+  @override
   final int id;
-  final String name;
+  @override
+  final String userName;
+  @override
   final String userImg;
   final String videoURL;
   final String thumbinalUrl;
-  final String videNAme;
+  @override
+  final String name;
+  @override
   final int allViewed;
+  @override
   final int allCount;
+  @override
   final int allShaered;
+  @override
   final bool isEmpty;
+  @override
   final bool isVideo;
   // final List<ImgCardEntity> contents;
   VideoCardEntity({
     required this.id,
-    this.name = "",
+    this.userName = "",
     this.userImg = "",
     this.videoURL = "",
     this.thumbinalUrl = "",
-    this.videNAme = "",
+    this.name = "",
     this.allViewed = 0,
     this.allCount = 0,
     this.allShaered = 0,
@@ -33,11 +42,11 @@ class VideoCardEntity extends BigImgCardEntity {
   factory VideoCardEntity.frowJson(Map<String, dynamic> json) =>
       VideoCardEntity(
         id: json["id"],
-        name: json["name"],
+        userName: json["name"],
         userImg: json["user_img"],
         videoURL: json["video_url"],
         thumbinalUrl: json["thumbinal_img"],
-        videNAme: json["vide_name"],
+        name: json["vide_name"],
         allCount: json["all_count"],
         allViewed: json["all_viewed"],
         allShaered: json["all_shaered"],
@@ -56,13 +65,14 @@ class VideoCardEntity extends BigImgCardEntity {
   //             ))
   //         .toList();
 
+  @override
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
+        "name": userName,
         "userImg": userImg,
         "videoURL": videoURL,
         "thumbinalUrl": thumbinalUrl,
-        "about": videNAme,
+        "about": name,
         "allCount": allCount,
         "allViewed": allViewed,
         "allShaered": allShaered,

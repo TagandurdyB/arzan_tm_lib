@@ -1,4 +1,4 @@
-import '../system_info/my_size.dart';
+import '../services/my_size.dart';
 
 class Nums {
   static const int logoTime = 5;

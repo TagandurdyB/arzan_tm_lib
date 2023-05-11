@@ -1,7 +1,7 @@
 import '/domanin/entities/carusel_entity.dart';
 
 import '../../providers/view/provider_theme.dart';
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

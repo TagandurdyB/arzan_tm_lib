@@ -3,7 +3,7 @@
 import '../widgets/sort_sheed.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/domanin/entities/acaunt_entity.dart';
 import '/presentation/views/widgets/indicator_btns.dart';
 import 'package:flutter/material.dart';

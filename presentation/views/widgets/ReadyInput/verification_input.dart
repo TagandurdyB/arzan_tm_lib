@@ -1,4 +1,4 @@
-import '/config/system_info/my_size.dart';
+import '../../../../config/services/my_size.dart';
 import '/presentation/views/widgets/ReadyInput/ready_input_base.dart';
 import 'package:flutter/material.dart';
 

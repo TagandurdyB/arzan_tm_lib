@@ -6,7 +6,7 @@ import '/domanin/entities/search_entity.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '../../providers/view/provider_navigation.dart';
 import '../../providers/view/provider_theme.dart';
 

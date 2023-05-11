@@ -1,12 +1,9 @@
-import "dart:ui";
-
 import '../../../../domanin/entities/galery/img_card_entity.dart';
 
-import "/config/system_info/my_size.dart";
-import "/presentation/views/widgets/shimmer_img.dart";
+import '../../../../config/services/my_size.dart';
 import "package:flutter/material.dart";
 
-import "../../../providers/view/provider_theme.dart";
+import '../../../providers/view/provider_theme.dart';
 import "image_card.dart";
 
 class ImageCardGroup extends StatelessWidget {

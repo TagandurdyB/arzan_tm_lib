@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/system_info/keyboard.dart';
-import '../../../config/system_info/my_size.dart';
+import '../../../config/services/keyboard.dart';
+import '../../../config/services/my_size.dart';
 import 'my_container.dart';
 
 class NextBtn extends StatelessWidget {

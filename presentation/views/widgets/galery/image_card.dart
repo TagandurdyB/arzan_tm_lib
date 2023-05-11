@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import '/config/system_info/my_size.dart';
+import '../../../../config/services/my_size.dart';
 import '../../../../domanin/entities/galery/img_card_entity.dart';
 import 'package:flutter/material.dart';
 

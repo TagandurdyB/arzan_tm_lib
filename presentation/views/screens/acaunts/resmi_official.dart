@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../config/system_info/my_size.dart';
+import '../../../../config/services/my_size.dart';
 import '../../scaffold/custom_app_bar.dart';
 import '../../scaffold/no_app_bar_scaffold.dart';
 import '../../widgets/acaunt_avatar.dart';

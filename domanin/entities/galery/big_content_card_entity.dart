@@ -1,40 +1,45 @@
 import '/domanin/entities/galery/img_card_entity.dart';
 
-class BigImgCardEntity {
+class BigCardEntity {
   final int id;
-  final String name;
+  final String userName;
   final String userImg;
   final String banerImg;
-  final String videNAme;
+  final String thumbinalImg;
+  final String? videoUrl;
+  final String name;
   final int allViewed;
   final int allCount;
   final int allShaered;
   final bool isEmpty;
-  final bool isVideo;
   final List<ImgCardEntity> contents;
-  BigImgCardEntity({
+  final BigCardEntity? secondCard;
+  BigCardEntity({
     required this.id,
-    this.name = "",
+    this.userName = "",
     this.userImg = "",
     this.banerImg = "",
-    this.videNAme = "",
+    this.thumbinalImg = "",
+    this.videoUrl,
+    this.name = "",
     this.allViewed = 0,
     this.allCount = 0,
     this.allShaered = 0,
     this.contents = const [],
+    this.secondCard,
     this.isEmpty = true,
-    this.isVideo = false,
   });
 
-  static BigImgCardEntity empty() => BigImgCardEntity(id: 0);
+  static BigCardEntity empty() => BigCardEntity(id: 0);
 
-  factory BigImgCardEntity.frowJson(Map<String, dynamic> json) =>
-      BigImgCardEntity(
+  factory BigCardEntity.frowJson(Map<String, dynamic> json) => BigCardEntity(
         id: json["id"],
-        name: json["name"],
+        userName: json["name"],
         userImg: json["user_img"],
         banerImg: json["baner_img"],
-        videNAme: json["about"],
+        thumbinalImg: json["thumbinal_img"],
+        videoUrl: json["video_url"],
+        name: json["about"],
         allCount: json["all_count"],
         allViewed: json["all_viewed"],
         allShaered: json["all_shaered"],
@@ -44,9 +49,11 @@ class BigImgCardEntity {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
+        "name": userName,
         "userImg": userImg,
         "banerImg": banerImg,
+        "thumbinalImg": thumbinalImg,
+        "videoUrl": videoUrl,
         "about": userImg,
         "allCount": allCount,
         "allViewed": allViewed,

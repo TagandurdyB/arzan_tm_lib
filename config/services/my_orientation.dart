@@ -32,9 +32,12 @@ class MyOrientation {
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
 
-  static void get  dibleSystemUI {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+  static void get disableSystemUI {
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [],
+      // overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+    );
   }
 
   static void systemNavigationBarMode(bool isLight) {

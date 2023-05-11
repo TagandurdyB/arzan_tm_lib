@@ -4,7 +4,7 @@ import 'package:arzan_tm/presentation/views/widgets/arzan_coin.dart';
 
 import '/presentation/views/widgets/custom_avatar.dart';
 
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/domanin/entities/acaunt_entity.dart';
 import 'package:flutter/material.dart';
 

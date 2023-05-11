@@ -11,6 +11,7 @@ import 'data/datasourses/local/hive_local_datacource.dart';
 import 'data/repositories/hive_repository_impl.dart';
 import 'domanin/usecases/theme_case.dart';
 import 'presentation/providers/data/data_provider_theme.dart';
+import 'presentation/providers/data/provider_video.dart';
 import 'presentation/providers/view/provider_navigation.dart';
 
 class Injector extends StatelessWidget {
@@ -31,6 +32,7 @@ class Injector extends StatelessWidget {
           ChangeNotifierProvider<AcauntP>(create: (context) => AcauntP()),
           ChangeNotifierProvider<DiscountProvid>(
               create: (context) => DiscountProvid()),
+          ChangeNotifierProvider<VideoP>(create: (context) => VideoP()),
         ],
         child: router,
       );

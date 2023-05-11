@@ -69,7 +69,7 @@ class Rout {
     acaunt:(context)=>const AcauntPage(),
     images:(context)=> ImagesPage(),
     // imagesDetal:(context)=> const ImageDetalPage(),
-    videos:(context)=>const VideosPage(),
+    videos:(context)=> VideosPage(),
     tops:(context)=> TopsPage(),
     
   };

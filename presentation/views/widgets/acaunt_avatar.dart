@@ -1,4 +1,4 @@
-import '/config/system_info/my_size.dart';
+import '../../../config/services/my_size.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
