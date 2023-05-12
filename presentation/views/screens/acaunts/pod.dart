@@ -16,13 +16,14 @@ class PodScreen extends StatelessWidget {
         body: Column(
       children: [
         CustomAppBar(title: "Hasabym (Pod)"),
-        buildContent(),
+        Expanded(child:buildContent(),)
       ],
     ));
   }
 
   Widget buildContent() {
-    return Padding(
+    return SingleChildScrollView(
+    physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(16),
       child: Column(children: [
         AcauntAvatar(

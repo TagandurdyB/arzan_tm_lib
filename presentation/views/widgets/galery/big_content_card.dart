@@ -82,7 +82,7 @@ class BigContentCard extends StatelessWidget {
       onTap: () {
         // if (playTab != null) playTab!();
         // VideoService(videoUrl: obj.videoUrl).create;
-        VideoP.of(context, listen: false).changePlayPause(false);
+        VideoP.of(context, listen: false).cleanVideo;
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => VideoPlayerPage(obj: obj)));
       },

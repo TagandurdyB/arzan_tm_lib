@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 class CustomAvatar extends StatelessWidget {

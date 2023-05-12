@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/views/pages/page_image_detal.dart';
+import '/presentation/views/pages/page_image_detal.dart';
 
 import '../widgets/galery/image_card_group.dart';
 import '../../../domanin/entities/galery/big_content_card_entity.dart';

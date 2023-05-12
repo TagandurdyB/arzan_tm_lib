@@ -1,5 +1,8 @@
+import 'package:arzan/config/services/my_orientation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+enum ScreenMode { landscape, portrate }
 
 class VideoP extends ChangeNotifier {
   // final service = VideoService();
@@ -74,6 +77,38 @@ class VideoP extends ChangeNotifier {
       notifyListeners();
       _delayedForground();
     }
+  }
+
+  bool _isLadscape = false;
+  bool get isLadscape => _isLadscape;
+  bool _isPortrade = true;
+  bool get isPortrade => _isPortrade;
+
+  void changeScreenMode(ScreenMode mode) {
+    if (mode == ScreenMode.portrate) {
+      _isPortrade = true;
+      _isLadscape = false;
+      MyOrientation.setPortraitUp();
+    } else if (mode == ScreenMode.landscape) {
+      _isPortrade = false;
+      _isLadscape = true;
+      MyOrientation.setLandscape();
+    }
+    notifyListeners();
+  }
+
+  void get tongleScreenMode {
+    if (_isPortrade) {
+      changeScreenMode(ScreenMode.landscape);
+    } else {
+      changeScreenMode(ScreenMode.portrate);
+    }
+    notifyListeners();
+  }
+
+  void get cleanVideo {
+    changePlayPause(false);
+    changeScreenMode(ScreenMode.portrate);
   }
 
   static VideoP of(BuildContext context, {bool listen = true}) =>

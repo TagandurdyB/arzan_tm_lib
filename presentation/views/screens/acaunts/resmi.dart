@@ -16,13 +16,14 @@ class RemiScreen extends StatelessWidget {
         body: Column(
       children: [
         CustomAppBar(title: "Hasabym (Resmi)"),
-        buildContent(),
+        Expanded(child:buildContent()),
       ],
     ));
   }
 
   Widget buildContent() {
-    return Padding(
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(16),
       child: Column(children: [
         AcauntAvatar(
@@ -47,8 +48,7 @@ class RemiScreen extends StatelessWidget {
         ),
         SizedBox(height: arentir * 0.07),
         AcauntTable(),
-          SizedBox(height: arentir * 0.1),
-
+        SizedBox(height: arentir * 0.1),
       ]),
     );
   }

@@ -9,9 +9,10 @@ class VideoService {
   final String? videoUrl;
   final VideoType type;
 
-  VideoService({this.type = VideoType.asset, this.videoUrl});
 
   VideoPlayerController? _control;
+  VideoService({this.type = VideoType.asset, this.videoUrl});
+
   bool _isCreated = false;
   // bool _isPlayed = false;
   // bool get isPlayed=>_isPlayed
@@ -32,7 +33,7 @@ class VideoService {
     }
   }
 
-  void get disposeControl {
+  void get disposeVideo {
     if (_isCreated) _control!.dispose();
   }
 
@@ -58,7 +59,7 @@ class VideoService {
     return false;
   }
 
-  VideoPlayerController? get controller {
+  VideoPlayerController? get control {
     if (_isCreated) {
       return _control!;
     } else {

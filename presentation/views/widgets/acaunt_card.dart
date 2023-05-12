@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/views/widgets/arzan_coin.dart';
+import '/presentation/views/widgets/arzan_coin.dart';
 
 import '/presentation/views/widgets/custom_avatar.dart';
 

@@ -1,4 +1,5 @@
-import 'package:arzan_tm/config/services/my_orientation.dart';
+import '../../providers/data/provider_video.dart';
+import '/config/services/my_orientation.dart';
 import 'package:video_player/video_player.dart';
 
 import '../widgets/galery/video_player_widget.dart';
@@ -41,7 +42,8 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     //   VideoP.of(context, listen: false).cancelVideo;
     // });
-    MyOrientation.enableNavigationBar;
+    // MyOrientation.enableNavigationBar;
+    MyOrientation.setPortraitUp();
     control.dispose();
     super.dispose();
   }
@@ -51,45 +53,68 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     MyOrientation.disableSystemUI;
     return ScaffoldNo(
       bgColor: Colors.black,
-      body: Column(
-        children: [
-          buildTitle,
-          // CustomAppBar(title: obj.name),
-          Expanded(child: VideoPlayerWidget(controller: control))
-        ],
+      body: GestureDetector(
+        onTap: () {
+          VideoP.of(context, listen: false).forvardShow;
+        },
+        child: Container(
+          color: Colors.transparent,
+          alignment: Alignment.center,
+          height: double.infinity,
+          width: double.infinity,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // CustomAppBar(title: obj.name),
+              VideoPlayerWidget(controller: control),
+              buildTitle,
+            ],
+          ),
+        ),
       ),
     );
   }
 
   Widget get buildTitle {
-    return Row(
-      children: [
-        const BackButton(color: Colors.white),
-        Expanded(
-            child: Text(
-          widget.obj.name,
-          style: TextStyle(color: Colors.white, fontSize: arentir * 0.04),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        )),
-        buildLikeBtn,
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.file_download,
-              color: Colors.white,
-            ))
-      ],
+    return Visibility(
+      visible: VideoP.of(context).isForvardShow,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const BackButton(color: Colors.white),
+              Expanded(
+                  child: Text(
+                widget.obj.name,
+                style: TextStyle(color: Colors.white, fontSize: arentir * 0.04),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              )),
+              buildLikeBtn,
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.file_download,
+                    color: Colors.white,
+                  ))
+            ],
+          ),
+          const Expanded(child: SizedBox()),
+        ],
+      ),
     );
   }
 
+  bool _isLiked = false;
   Widget get buildLikeBtn {
     return Row(
       children: [
         GestureDetector(
-            onTap: () {},
-            child: const Icon(
-              false ? Icons.favorite : Icons.favorite_border,
+            onTap: () {
+              setState(() => _isLiked = !_isLiked);
+            },
+            child: Icon(
+              _isLiked ? Icons.favorite : Icons.favorite_border,
               color: Colors.red,
             )),
         Text(

@@ -1,6 +1,6 @@
 
 
-import 'package:arzan_tm/presentation/views/pages/page_tops.dart';
+import '/presentation/views/pages/page_tops.dart';
 
 import '/presentation/views/pages/page_images.dart';
 import '/presentation/views/pages/page_videos.dart';
