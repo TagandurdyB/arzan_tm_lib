@@ -14,7 +14,7 @@ class MyTheme {
     Brightness brightness,
   ) {
     return ThemeData(
-      brightness: Brightness.dark,
+      brightness: brightness,
       iconTheme: IconThemeData(color: colors.text),
       inputDecorationTheme: InputDecorationTheme(
           focusColor: colors.inputFocus,

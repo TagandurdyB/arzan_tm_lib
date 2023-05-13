@@ -44,7 +44,7 @@ class _SearchInputState extends State<SearchInput> {
   }
 
   final Color focusBorderColor = const Color(0xff00C52B);
-  final Color enableBorderColor = const Color(0xff00C52B);
+  final Color enableBorderColor = const Color(0xffC4C4C4);
   final double borderRad = 7;
   final double enableWidth = 1;
   final double focusWidth = 2;
@@ -78,7 +78,7 @@ class _SearchInputState extends State<SearchInput> {
         // un show label
         // floatingLabelBehavior: FloatingLabelBehavior.never,
         hintText: widget.hidden,
-        hintStyle: const TextStyle(color: Color(0xffCCF3D5)),
+        hintStyle: const TextStyle(color: Color(0xffC4C4C4)),
         contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
         suffixIcon: widget.prefix ?? Icon(widget.iconD),
         suffixIconColor: enableBorderColor,

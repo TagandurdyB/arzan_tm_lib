@@ -35,7 +35,7 @@ class AcauntTable extends StatelessWidget {
     ],
     [
       const Color(0xffDDDDDD),
-      const Color(0xff000000),
+      const Color(0xFF1F1B1B),
       Icons.follow_the_signs,
       "Myhman",
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",

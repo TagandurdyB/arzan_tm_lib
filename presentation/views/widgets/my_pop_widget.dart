@@ -43,7 +43,7 @@ class MyPopUpp {
       barrierDismissible: barrierDismissible,
       context: context,
       builder: (context) {
-        bgColor = bgColor ?? Colors.white;
+        bgColor = bgColor ?? Theme.of(context).canvasColor;
         this.context = context;
         return Center(child: buildPop());
       });

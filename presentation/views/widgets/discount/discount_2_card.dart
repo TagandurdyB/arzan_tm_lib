@@ -35,7 +35,9 @@ class DiscountCardSecond extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(arentir * 0.02),
-                color: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

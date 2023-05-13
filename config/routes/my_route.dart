@@ -1,5 +1,4 @@
-
-
+import '../../presentation/views/pages/page_discounts.dart';
 import '/presentation/views/pages/page_tops.dart';
 
 import '/presentation/views/pages/page_images.dart';
@@ -39,8 +38,7 @@ class Rout {
   // static const String imagesDetal = "/ImagesDetalPage";
   static const String videos = "/VideosPage";
   static const String tops = "/TopsPage";
-
-  
+  static const String discounts = "/DiscountsPage";
 
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
@@ -66,11 +64,11 @@ class Rout {
     newPass: (context) => const NewPassPage(),
     sendSMS: (context) => SendSmsPage(),
     chosen: (context) => const ChosenPage(),
-    acaunt:(context)=>const AcauntPage(),
-    images:(context)=> ImagesPage(),
+    acaunt: (context) => const AcauntPage(),
+    images: (context) => ImagesPage(),
     // imagesDetal:(context)=> const ImageDetalPage(),
-    videos:(context)=> VideosPage(),
-    tops:(context)=> TopsPage(),
-    
+    videos: (context) => VideosPage(),
+    tops: (context) => TopsPage(),
+    discounts: (context) => const DiscountsPage(),
   };
 }

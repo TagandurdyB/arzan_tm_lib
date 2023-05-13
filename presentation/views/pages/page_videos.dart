@@ -141,7 +141,7 @@ class VideosPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => VideoPlayerPage(obj: obj)));
+                            builder: (context) => CustomVideoPlayer(obj: obj)));
                   },
                   obj: obj,
                   child: BigContentCard(

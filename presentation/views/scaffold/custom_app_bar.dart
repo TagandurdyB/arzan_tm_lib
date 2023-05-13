@@ -18,13 +18,10 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     this.context = context;
     return Container(
+      // color: Colors.white54,
+      color: Colors.white54,
       height: kToolbarHeight,
-      clipBehavior: Clip.hardEdge,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-          color: Colors.green,
-          borderRadius:
-              BorderRadius.vertical(bottom: Radius.circular(arentir * 0.03))),
       child: buildContent(),
     );
   }
@@ -42,13 +39,13 @@ class CustomAppBar extends StatelessWidget {
             },
             child: const Icon(
               Icons.arrow_back_ios,
-              color: Colors.white,
+              // color: Colors.white,
               size: 30,
             )),
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(color: Colors.white, fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

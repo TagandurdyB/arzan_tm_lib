@@ -85,11 +85,10 @@ class VideoPlayerForground extends StatelessWidget {
   Widget get buildBottom {
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end, children: [
+      child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         buildBottomGadgets,
         buildIndicator,
-        SizedBox(height: arentir*0.1),
+        SizedBox(height: arentir * 0.1),
       ]),
     );
   }
@@ -111,11 +110,14 @@ class VideoPlayerForground extends StatelessWidget {
   }
 
   Widget get buildIndicator {
-    return VideoProgressIndicator(
-      controller,
-      allowScrubbing: true,
-      colors: const VideoProgressColors(
-          playedColor: Colors.white, bufferedColor: Colors.black54),
+    return SizedBox(
+      height: arentir * 0.02,
+      child: VideoProgressIndicator(
+        controller,
+        allowScrubbing: true,
+        colors: const VideoProgressColors(
+            playedColor: Colors.white, bufferedColor: Colors.black54),
+      ),
     );
   }
 }

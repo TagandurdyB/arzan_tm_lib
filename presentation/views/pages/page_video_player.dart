@@ -8,18 +8,50 @@ import '/config/services/my_size.dart';
 
 import '/domanin/entities/galery/big_content_card_entity.dart';
 
-import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class VideoPlayerPage extends StatefulWidget {
-  final BigCardEntity obj;
-  const VideoPlayerPage({required this.obj, super.key});
+  final List<BigCardEntity> objs;
+  const VideoPlayerPage({required this.objs, super.key});
 
   @override
   State<VideoPlayerPage> createState() => _VideoPlayerPageState();
 }
 
 class _VideoPlayerPageState extends State<VideoPlayerPage> {
+  @override
+  void initState() {
+    super.initState();
+    MyOrientation.disableSystemUI;
+  }
+
+  @override
+  void dispose() {
+    MyOrientation.setPortraitUp();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      onPageChanged: (value) => VideoP.of(context, listen: false).svipeVideo,
+      children: widget.objs.map((e) => CustomVideoPlayer(obj: e)).toList(),
+      // children: [CustomVideoPlayer(obj: ,)],
+    );
+  }
+}
+
+class CustomVideoPlayer extends StatefulWidget {
+  final BigCardEntity obj;
+  const CustomVideoPlayer({required this.obj, super.key});
+
+  @override
+  State<CustomVideoPlayer> createState() => _CustomVideoPlayerState();
+}
+
+class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   final double arentir = MySize.arentir;
   late VideoPlayerController control;
 
@@ -43,16 +75,15 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     //   VideoP.of(context, listen: false).cancelVideo;
     // });
     // MyOrientation.enableNavigationBar;
-    MyOrientation.setPortraitUp();
+
     control.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    MyOrientation.disableSystemUI;
-    return ScaffoldNo(
-      bgColor: Colors.black,
+    return Scaffold(
+      backgroundColor: Colors.black,
       body: GestureDetector(
         onTap: () {
           VideoP.of(context, listen: false).forvardShow;

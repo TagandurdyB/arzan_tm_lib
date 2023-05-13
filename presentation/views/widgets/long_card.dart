@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import '/presentation/views/widgets/all_btn.dart';
-
 import '../../../config/services/my_size.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +11,14 @@ class LongCard extends StatelessWidget {
   final String title;
   final int counter;
   final String imageUrl;
-  final Function? btnFunc;
+  final Function? onTap;
 
   LongCard(
       {super.key,
       required this.title,
       required this.imageUrl,
       required this.counter,
-     
-      this.btnFunc});
+      this.onTap});
 
   late BuildContext context;
 
@@ -35,9 +32,6 @@ class LongCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CardTitle(counter: counter, title: title),
-            Visibility(
-                visible: btnFunc != null,
-                child: AllBtn(onTap: btnFunc,))
           ],
         ),
         buildCard,
@@ -46,13 +40,18 @@ class LongCard extends StatelessWidget {
   }
 
   Widget get buildCard {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(arentir * 0.02),
-      child: Container(
-        color: ThemeP.of(context).colors.shimmerBg,
-        width: double.infinity,
-        height: arentir * 0.21,
-        child: ShimmerImg(imageUrl: imageUrl),
+    return GestureDetector(
+      onTap: () {
+        if (onTap != null) onTap!();
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(arentir * 0.02),
+        child: Container(
+          color: ThemeP.of(context).colors.shimmerBg,
+          width: double.infinity,
+          height: arentir * 0.21,
+          child: ShimmerImg(imageUrl: imageUrl),
+        ),
       ),
     );
   }

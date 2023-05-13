@@ -13,13 +13,24 @@ class CardTitle extends StatelessWidget {
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.symmetric(vertical: arentir * 0.03, horizontal: 8),
         // color: Colors.red,
-        child: Text(
-          "$title (+$counter)",
-          style: TextStyle(
-            fontSize: arentir * 0.04,
-            color: const Color(0xff00C52B),
-            // fontWeight: FontWeight.bold,
-          ),
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: arentir * 0.04,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              " (+$counter)",
+              style: TextStyle(
+                fontSize: arentir * 0.04,
+                color: const Color(0xff008631),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ));
   }
 }

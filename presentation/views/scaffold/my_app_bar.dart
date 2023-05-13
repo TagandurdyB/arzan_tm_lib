@@ -3,7 +3,6 @@ import '../../../config/vars/constants.dart';
 import '../../providers/view/provider_navigation.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/ReadyInput/search_input.dart';
-import '../../../config/services/my_size.dart';
 
 import '/presentation/views/widgets/my_container.dart';
 import 'package:flutter/material.dart';
@@ -51,25 +50,14 @@ class _MainBarState extends State<MainBar> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ProviderNav.of(context).isSearch
-          ? ProviderNav.of(context).searchBg
-          : Colors.transparent,
-      child: Container(
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          color: Theme.of(context).appBarTheme.backgroundColor,
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(MySize.arentir * 0.03),
-          ),
-        ),
-        height: kToolbarHeight,
-        child: Row(
-          children: [
-            buildMenue,
-            Expanded(child: buildInput),
-            buildBell,
-          ],
-        ),
+      color: Theme.of(context).appBarTheme.backgroundColor,
+      height: kToolbarHeight,
+      child: Row(
+        children: [
+          buildMenue,
+          Expanded(child: buildInput),
+          buildBell,
+        ],
       ),
     );
   }
@@ -91,7 +79,7 @@ class _MainBarState extends State<MainBar> with TickerProviderStateMixin {
         padding: const EdgeInsets.all(16),
         child: AnimatedIcon(
           icon: AnimatedIcons.menu_arrow,
-          color: Colors.green,
+          color: Theme.of(context).appBarTheme.iconTheme!.color,
           progress: _controller,
         ) //ThemeP.of(context).icons.menu,
         );

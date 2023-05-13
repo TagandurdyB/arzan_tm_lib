@@ -111,6 +111,12 @@ class VideoP extends ChangeNotifier {
     changeScreenMode(ScreenMode.portrate);
   }
 
+  void get svipeVideo {
+    changePlayPause(false);
+    MyOrientation.disableSystemUI;
+    //  changeScreenMode(ScreenMode.portrate);
+  }
+
   static VideoP of(BuildContext context, {bool listen = true}) =>
       Provider.of<VideoP>(context, listen: listen);
 }

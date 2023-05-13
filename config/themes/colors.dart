@@ -10,8 +10,8 @@ class ColorsLight {
   Color canvas = const Color(0xffF5F5F5);
   Color appbarbg = Colors.white;
   Color appBarShadow = const Color(0xffEAEAEA);
-  Color appBarIcon = const Color(0xff00C52B);
-  Color navigationBg = const Color(0xff00C52B);
+  Color appBarIcon = const Color(0xff1B1B1B);
+  Color navigationBg = const Color(0xffFFFFFF);
   Color navigatActiveIcon = const Color(0xff3E9851);
   Color navigatUnactiveIcon = const Color(0xff384854);
   Color navigatActiveIconBg = const Color(0xffDBEDE0);
@@ -24,7 +24,6 @@ class ColorsLight {
 //=======================================================================
   Color shimmerBg = Colors.grey.withOpacity(0.25);
   Color shimmerLine = Colors.grey.withOpacity(0.6);
-
 }
 
 class ColorsDark extends ColorsLight {

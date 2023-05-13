@@ -1,6 +1,6 @@
 import '/presentation/views/scaffold/custom_drawer.dart';
 import 'package:flutter/material.dart';
-import '../scaffold/custom_navigation.dart';
+import '../scaffold/custom_navigation_bar.dart';
 import '../scaffold/no_app_bar_scaffold.dart';
 import '../screens/home_screens.dart';
 
@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldNo(
         drawer: CustomDrawer(),
-        bottomNavigationBar: const CustovNavigation(),
+        bottomNavigationBar: const CustomNavigationBar(),
         body: HomeScreens());
   }
 }

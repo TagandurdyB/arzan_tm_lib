@@ -53,46 +53,71 @@ Map<String, dynamic> api = {
       "mod": 23,
     },
   ],
-  "kunkurs": {"count": 65, "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU"},
+  "kunkurs": {
+    "count": 65,
+    "img":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU"
+  },
   "saylananlar": {
     "count": 65,
     "datas": [
       {
         "id": 1,
-        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-WraasYZRSdEiwoepIVrHwXbcbvHAPvMjEA&usqp=CAU",
+        "img":
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-WraasYZRSdEiwoepIVrHwXbcbvHAPvMjEA&usqp=CAU",
         "name": "name_chosen1",
         "created_at": DateTime.now(),
       },
       {
         "id": 2,
-        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
+        "img":
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
         "name": "name_chosen2",
         "created_at": DateTime.now(),
       },
       {
         "id": 3,
-        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
+        "img":
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
         "name": "name_chosen3",
         "created_at": DateTime.now(),
       },
       {
         "id": 4,
-        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
+        "img":
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
         "name": "name_chosen4",
         "created_at": DateTime.now(),
       },
       {
         "id": 5,
-        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
+        "img":
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
         "name": "name_chosen5",
         "created_at": DateTime.now(),
       },
     ],
   },
-  "top": {"count": 65, "img": "tops_img"},
-  "pictures": {"count": 65, "img": "pictures_img"},
-  "videos": {"count": 65, "img": "videos_img"},
-  "resmiler": {"count": 65, "img": "resmiler_img"},
+  "top": {
+    "count": 65,
+    "img":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRrCX_hE39qt2uLP4tuiMcKWiiYRXG90o7-g&usqp=CAU"
+  },
+  "pictures": {
+    "count": 65,
+    "img":
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__480.jpg"
+  },
+  "videos": {
+    "count": 65,
+    "img":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlPND0tOQwofutiyYIW6s9k6qWUmozNNGykfYgrKIa7b0LlmMvdpBH92wnwdvhGKqwQnY&usqp=CAU"
+  },
+  "resmiler": {
+    "count": 65,
+    "img":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU"
+  },
   "discounts": {
     "count": 65,
     "datas": [

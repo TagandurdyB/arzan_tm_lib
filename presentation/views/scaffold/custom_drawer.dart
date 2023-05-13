@@ -16,31 +16,23 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     this.context = context;
     return Drawer(
-      backgroundColor: Colors.transparent,
+      // backgroundColor: Colors.transparent,
       child: SafeArea(
-        child: Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-            borderRadius:
-                BorderRadius.horizontal(right: Radius.circular(arentir * 0.03)),
-          ),
-          child: Column(
-            children: [
-              buildLogin,
-              Expanded(
-                  child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  alignment: Alignment.center,
-                  // color: Colors.blue,
-                  child: buildContent,
-                ),
-              )),
-              buildFooter
-            ],
-          ),
+        child: Column(
+          children: [
+            buildLogin,
+            Expanded(
+                child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 20),
+                alignment: Alignment.center,
+                // color: Colors.blue,
+                child: buildContent,
+              ),
+            )),
+            buildFooter
+          ],
         ),
       ),
     );
@@ -48,10 +40,10 @@ class CustomDrawer extends StatelessWidget {
 
   Widget get buildLogin {
     return GestureDetector(
-      onTap: ()=>Navigator.pushNamed(context, Rout.acaunt),
+      onTap: () => Navigator.pushNamed(context, Rout.acaunt),
       child: Container(
         alignment: Alignment.center,
-        color: const Color(0xff00C52B),
+        color: Colors.green.shade100,
         width: double.infinity,
         height: 77,
         child: Row(children: [buildIcon, buildText]),
@@ -74,7 +66,7 @@ class CustomDrawer extends StatelessWidget {
 
   Widget get buildText {
     return const Text(
-      "Ulgama girmek",
+      "Ulgama gir",
       style: TextStyle(fontSize: 15, color: Colors.black),
     );
   }
@@ -91,15 +83,12 @@ class CustomDrawer extends StatelessWidget {
           Icons.star_border, icon: buildStar(), "Resmiler", context, num: 324),
       divided,
       DrawerBtn(Icons.location_on_outlined, "Welaýat saýla", context),
-      DrawerBtn(Icons.bookmark_border, "Bellenenler", context,
-          visible: providA.isSing),
+      DrawerBtn(Icons.bookmark_border, "Bellenenler", context),
       DrawerBtn(Icons.settings_suggest_outlined, "Sazlamalar", context,
           route: Rout.settings),
       divided,
-      DrawerBtn(Icons.mail_outline, "Habarlaşmak", context,
-          visible: providA.isSing),
-      DrawerBtn(Icons.share_outlined, "Paýlaşmak", context,
-          visible: providA.isSing),
+      DrawerBtn(Icons.mail_outline, "Habarlaşmak", context),
+      DrawerBtn(Icons.share_outlined, "Paýlaşmak", context),
     ]);
   }
 

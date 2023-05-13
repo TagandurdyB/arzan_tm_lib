@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:arzan_tm/config/vars/formater.dart';
+import '/config/vars/formater.dart';
 
 import '../../../domanin/entities/main_page/chosen_entity.dart';
-import 'all_btn.dart';
 
 import '../../../config/services/my_size.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
@@ -119,10 +118,14 @@ class _ChosenPageViewState extends State<ChosenPageView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CardTitle(counter: widget.objs.length, title: widget.title),
-          AllBtn(
-            onTap: () {
+          TextButton(
+            onPressed: () {
               if (widget.allBtnOnTap != null) widget.allBtnOnTap!();
             },
+            child: const Text(
+              "Hemmesi",
+              style: TextStyle(color: Color(0xff008631)),
+            ),
           )
         ],
       );
