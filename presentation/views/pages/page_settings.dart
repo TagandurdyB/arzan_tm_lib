@@ -115,7 +115,12 @@ class _ModeSwitchBtnState extends State<ModeSwitchBtn> {
               style: TextStyle(
                   color: Theme.of(context).textTheme.bodyMedium!.color,
                   fontSize: MySize.arentir * 0.045)),
-          secondary: Icon(widget.iconD),
+          secondary: Icon(
+            widget.iconD,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.black
+                : Colors.white,
+          ),
           value: _isDark,
           onChanged: (bool val) {
             if (!widget.isLocked) {
