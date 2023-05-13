@@ -1,4 +1,4 @@
-import '/domanin/entities/carusel_entity.dart';
+import '/domanin/entities/main_page/baner_entity.dart';
 
 import '../../providers/view/provider_theme.dart';
 import '../../../config/services/my_size.dart';
@@ -7,7 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class MyCarusel extends StatelessWidget {
-  final List<CaruselEntity> items;
+  final List<BanerEntity> items;
   MyCarusel({
     required this.items,
     super.key});
@@ -45,7 +45,7 @@ class MyCarusel extends StatelessWidget {
                     color: ThemeP.of(context).colors.shimmerBg,
                     borderRadius: BorderRadius.circular(width*0.02),
                   ),
-                  child:  ShimmerImg(imageUrl: i.imageUrl,));
+                  child:  ShimmerImg(imageUrl: i.img,));
             },
           );
         }).toList(),

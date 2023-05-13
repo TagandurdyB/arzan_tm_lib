@@ -1,11 +1,12 @@
+import '/domanin/entities/main_page/market_entity.dart';
+
 import '/presentation/views/widgets/shimmer_img.dart';
 
 import '../../../config/services/my_size.dart';
-import '/domanin/entities/main_market_entity.dart';
 import 'package:flutter/material.dart';
 
 class MainMarketsView extends StatelessWidget {
-  final List<MainMarketEntity> objs;
+  final List<MarketEntity> objs;
   const MainMarketsView({required this.objs, super.key});
 
   @override
@@ -18,28 +19,15 @@ class MainMarketsView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: MySize.arentir * 0.025),
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        // children: List.generate(
-        //     10,
-        //     (index) => MarketAwatar(
-        //           obj: objs[index],
-        //         )),
         children: objs.map((e) => MarketAwatar(obj: e)).toList(),
       ),
     );
   }
 
-  // Widget buildMarket(obj) {
-  //   return Container(
-  //     width: arentir * 0.16,
-  //     color: Colors.blue,
-  //     margin: EdgeInsets.all(arentir*0.02),
-  //     child: Container,
-  //   );
-  // }
 }
 
 class MarketAwatar extends StatelessWidget {
-  final MainMarketEntity obj;
+  final MarketEntity obj;
   MarketAwatar({required this.obj, super.key});
 
   final double arentir = MySize.arentir;
@@ -64,7 +52,7 @@ class MarketAwatar extends StatelessWidget {
                       color: Colors.green.shade600, width: arentir * 0.007),
                   // color: Colors.red,
                 ),
-                child: ClipOval(child: ShimmerImg(imageUrl: obj.imageUrl)),
+                child: ClipOval(child: ShimmerImg(imageUrl: obj.logo)),
               ),
               Text(
                 obj.name,
@@ -81,7 +69,7 @@ class MarketAwatar extends StatelessWidget {
               borderRadius: BorderRadius.circular(arentir * 0.05),
               border: Border.all(color: Colors.white, width: arentir * 0.005),
             ),
-            child: Text("${obj.num}",
+            child: Text("${obj.mod}",
                 style:
                     TextStyle(fontSize: arentir * 0.03, color: Colors.white)),
           )

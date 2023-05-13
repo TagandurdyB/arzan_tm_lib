@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:arzan_tm/config/vars/formater.dart';
+
+import '../../../domanin/entities/main_page/chosen_entity.dart';
 import 'all_btn.dart';
 
 import '../../../config/services/my_size.dart';
-import '/domanin/entities/chosen_entity.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +48,7 @@ class _ChosenPageViewState extends State<ChosenPageView> {
   void get rounder {
     if (length < 3) {
       for (int i = 0; i < (3 - length); i++) {
-        objs.add(ChosenEntity.empty());
+        objs.add(ChosenEntity.empty);
       }
     } else if (length > 3) {
       //Timer
@@ -140,8 +142,8 @@ class _ChosenPageViewState extends State<ChosenPageView> {
               alignment: Alignment.center,
               child: AspectRatio(
                   aspectRatio: 1 / 1.38,
-                  child: ShimmerImg(
-                      fit: BoxFit.fill, imageUrl: objs[index].imageUrl)),
+                  child:
+                      ShimmerImg(fit: BoxFit.fill, imageUrl: objs[index].img)),
             ),
           ),
           buildBottom(index),
@@ -176,7 +178,7 @@ class _ChosenPageViewState extends State<ChosenPageView> {
           child: Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              widget.objs[index].formatDate,
+              Formater.calendar(widget.objs[index].createdAt),
               style: TextStyle(
                   fontSize: arentir * 0.02, color: const Color(0xffC4C4C4)),
             ),

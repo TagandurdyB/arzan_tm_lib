@@ -1,9 +1,10 @@
+import '/domanin/entities/main_page/discount_entity.dart';
+
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/services/my_size.dart';
 import '../../../../config/vars/formater.dart';
-import '../../../../domanin/entities/discount_entity.dart';
 import '../../../providers/view/provider_theme.dart';
 
 class DiscountCardSecond extends StatelessWidget {
@@ -29,7 +30,7 @@ class DiscountCardSecond extends StatelessWidget {
             Container(
               color: ThemeP.of(context).colors.shimmerBg,
               height: arentir * 0.29,
-              child: ShimmerImg(imageUrl: obj.imageUrl, fit: BoxFit.fill),
+              child: ShimmerImg(imageUrl: obj.img, fit: BoxFit.fill),
             ),
             Expanded(
               child: Container(
@@ -38,17 +39,20 @@ class DiscountCardSecond extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Mebel zakaz alyarys islendik gornusde",
-                      style: TextStyle(fontSize: arentir * 0.035),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        obj.title,
+                        style: TextStyle(fontSize: arentir * 0.035),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          Formater.calendar(DateTime.now()),
+                          Formater.calendar(obj.createdAt),
                           style: TextStyle(
                               fontSize: arentir * 0.023,
                               color: const Color(0xff747474)),
@@ -62,7 +66,7 @@ class DiscountCardSecond extends StatelessWidget {
                             ),
                             SizedBox(width: arentir * 0.01),
                             Text(
-                              "1035",
+                              "${obj.viewed}",
                               style: TextStyle(
                                   fontSize: arentir * 0.023,
                                   color: const Color(0xff747474)),

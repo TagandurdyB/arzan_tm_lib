@@ -1,4 +1,4 @@
-import 'package:arzan/config/services/my_orientation.dart';
+import '/config/services/my_orientation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

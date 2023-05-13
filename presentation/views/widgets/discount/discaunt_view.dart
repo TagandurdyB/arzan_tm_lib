@@ -1,11 +1,11 @@
+import '/domanin/entities/main_page/discount_entity.dart';
+
 import '/presentation/providers/view/provider_discaunts.dart';
-import '/presentation/views/widgets/discount/discount_1_card.dart';
 import '/presentation/views/widgets/discount/discount_2_card.dart';
-import '/presentation/views/widgets/discount/discount_3_card.dart';
+
 import 'package:entry/entry.dart';
 
 import '../../../../config/services/my_size.dart';
-import '/domanin/entities/discount_entity.dart';
 import 'package:flutter/material.dart';
 
 class DiscountView extends StatefulWidget {
@@ -30,7 +30,7 @@ class _DiscountViewState extends State<DiscountView> {
               visible: providD.scaleVisible,
               scale: 0,
               curve: Curves.easeInOut,
-             // delay: const Duration(milliseconds: 40),
+              // delay: const Duration(milliseconds: 40),
               duration: const Duration(milliseconds: 300),
               child: buildDiscountCard(index, providD.cloumnCount));
         });
@@ -59,12 +59,12 @@ class _DiscountViewState extends State<DiscountView> {
 
   Widget buildDiscountCard(int index, int columnNum) {
     switch (columnNum) {
-      case 1:
-        return DiscountCardFirst(obj: widget.objs[index]);
+      // case 1:
+      //   return DiscountCardFirst(obj: widget.objs[index]);
       case 2:
         return DiscountCardSecond(obj: widget.objs[index]);
-      case 3:
-        return DiscountCardThird(obj: widget.objs[index]);
+      // case 3:
+      //   return DiscountCardThird(obj: widget.objs[index]);
       default:
         return DiscountCardSecond(obj: widget.objs[index]);
     }

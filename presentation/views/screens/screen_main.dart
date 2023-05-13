@@ -1,53 +1,56 @@
 // ignore_for_file: must_be_immutable
 
+import '/domanin/entities/main_page/main_page_entity.dart';
+
+import '../../providers/data/main_page_provider.dart';
 import '/presentation/providers/view/provider_navigation.dart';
 import '/presentation/views/screens/screen_search.dart';
-
-import '/domanin/entities/carusel_entity.dart';
-import '/domanin/entities/main_market_entity.dart';
 
 import '../widgets/all_btn.dart';
 import '../widgets/carusel_slider.dart';
 import '../widgets/double_card.dart';
 import '../widgets/main_markets_view.dart';
 import '../../../config/services/my_size.dart';
-import '/domanin/entities/chosen_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/routes/my_route.dart';
-import '../../../domanin/entities/discount_entity.dart';
 import '../scaffold/my_app_bar.dart';
 import '../widgets/card_title.dart';
 import '../widgets/chosen_page_view.dart';
 import '../widgets/discount/discaunt_view.dart';
 import '../widgets/long_card.dart';
 
-class ScreenMain extends StatelessWidget {
-  ScreenMain({super.key});
-  final List<CaruselEntity> imgs = [
-    CaruselEntity(
-        imageUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-    CaruselEntity(
-        imageUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-    CaruselEntity(
-        imageUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-    CaruselEntity(
-        imageUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-    CaruselEntity(
-        imageUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
-  ];
+class ScreenMain extends StatefulWidget {
+  const ScreenMain({super.key});
 
+  @override
+  State<ScreenMain> createState() => _ScreenMainState();
+}
+
+class _ScreenMainState extends State<ScreenMain> {
   final double arentir = MySize.arentir;
 
+  @override
   late BuildContext context;
+
+  late MainPageEntity objM;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      MainPageP.of(context, listen: false).fillEntity();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     this.context = context;
+    objM = MainPageP.of(context).entity;
     return Column(
       children: [
         // ProviderNav.of(context).isSearch ? SearchBar() : MainBar(),
@@ -73,40 +76,7 @@ class ScreenMain extends StatelessWidget {
           SliverList(
               delegate: SliverChildListDelegate([
             buildSlider,
-            MainMarketsView(
-              objs: [
-                MainMarketEntity(
-                  imageUrl:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                  num: 23,
-                  name: "100haryt.com",
-                ),
-                MainMarketEntity(
-                  imageUrl:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                  num: 23,
-                  name: "Ynamdar",
-                ),
-                MainMarketEntity(
-                  imageUrl:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                  num: 23,
-                  name: "Giper",
-                ),
-                MainMarketEntity(
-                  imageUrl:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                  num: 23,
-                  name: "Balary",
-                ),
-                MainMarketEntity(
-                  imageUrl:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                  num: 23,
-                  name: "Ak yol",
-                ),
-              ],
-            ),
+            MainMarketsView(objs: objM.markets),
             buildSliverList(context),
           ])),
           SliverAppBar(
@@ -118,14 +88,7 @@ class ScreenMain extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
             sliver: DiscountView(
-              objs: List.generate(
-                  100,
-                  (index) => DiscountEntity(
-                      name: "Name",
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
-                      viewNum: 8,
-                      date: DateTime.now())),
+              objs: objM.discountDatas,
             ),
           ),
         ],
@@ -138,43 +101,17 @@ class ScreenMain extends StatelessWidget {
         child: Column(
           children: [
             LongCard(
-                counter: 65,
+                counter: objM.konkurs.count,
                 btnFunc: () {},
-                imageUrl:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
+                imageUrl: objM.konkurs.img,
                 title: "Konkurs"),
             ChosenPageView(
-                allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
-                objs: [
-                  ChosenEntity(
-                      name: "Name",
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-WraasYZRSdEiwoepIVrHwXbcbvHAPvMjEA&usqp=CAU",
-                      date: DateTime.now()),
-                  ChosenEntity(
-                      name: "Ýaryşyň şertleri",
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
-                      date: DateTime.now()),
-                  ChosenEntity(
-                      name: "Name",
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
-                      date: DateTime.now()),
-                  ChosenEntity(
-                      name: "Name",
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
-                      date: DateTime.now()),
-                  ChosenEntity(
-                      name: "Name",
-                      imageUrl:
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRML0mJW4BhsZTH-g1ztzLN38grRpKKmRfXx17JrbCUFZm5mw0d45eZetFUNMwzxPKXc0c&usqp=CAU",
-                      date: DateTime.now()),
-                ]),
+              allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
+              objs: objM.saylananlarDatas,
+            ),
             LongCard(
                 counter: 65,
-                btnFunc: () =>Navigator.pushNamed(context, Rout.tops),
+                btnFunc: () => Navigator.pushNamed(context, Rout.tops),
                 imageUrl:
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MuW1xVojkwEii52GvQNrmqFBZpDQqf7Rg&usqp=CAU",
                 title: "Top"),
@@ -211,7 +148,7 @@ class ScreenMain extends StatelessWidget {
       //       imgs.length, (index) => ShimmerImg(imageUrl: imgs[index])),
       // ),
       child: MyCarusel(
-        items: imgs.map((e) => e).toList(),
+        items: objM.baners.map((e) => e).toList(),
       ),
     );
   }
@@ -222,7 +159,8 @@ class ScreenMain extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CardTitle(counter: 20, title: "Arzanladyşlar"),
+          CardTitle(counter: objM.discountsCount, title: "Arzanladyşlar"),
+          // CardTitle(counter: objM.discountDatas.length, title: "Arzanladyşlar"),
           Row(
             children: [
               // GestureDetector(
