@@ -123,6 +123,7 @@ Map<String, dynamic> api = {
     "datas": [
       {
         "id": 1,
+        "mod": 23,
         "img":
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
         "title": "Mebel zakaz1",
@@ -131,6 +132,7 @@ Map<String, dynamic> api = {
       },
       {
         "id": 2,
+        "mod": 23,
         "img":
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
         "title": "Mebel zakaz2 ",
@@ -139,6 +141,7 @@ Map<String, dynamic> api = {
       },
       {
         "id": 3,
+        "mod": 23,
         "img":
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
         "title": "Mebel zakaz3",

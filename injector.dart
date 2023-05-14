@@ -21,6 +21,8 @@ import 'presentation/providers/view/provider_navigation.dart';
 
 import 'package:http/http.dart' as http;
 
+import 'presentation/providers/view/provider_view_post.dart';
+
 class Injector extends StatelessWidget {
   final Widget router;
   const Injector({required this.router, super.key});
@@ -35,8 +37,8 @@ class Injector extends StatelessWidget {
                   )),
           ChangeNotifierProvider<MainPageP>(
               create: (_) => MainPageP(
-                    mainPageCase: MainPageCase(
-                        MainPageRepositoryImpl(MainPageDataSourceImpl(http.Client()))),
+                    mainPageCase: MainPageCase(MainPageRepositoryImpl(
+                        MainPageDataSourceImpl(http.Client()))),
                   )),
           ///////////////////////////////////////////////////////////////////////
 
@@ -47,6 +49,7 @@ class Injector extends StatelessWidget {
           ChangeNotifierProvider<DiscountProvid>(
               create: (context) => DiscountProvid()),
           ChangeNotifierProvider<VideoP>(create: (context) => VideoP()),
+          ChangeNotifierProvider<PostP>(create: (context) => PostP()),
         ],
         child: router,
       );

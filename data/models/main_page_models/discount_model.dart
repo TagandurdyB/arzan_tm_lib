@@ -6,6 +6,8 @@ class DiscountModel extends DiscountEntity {
   @override
   final int id;
   @override
+  final int mod;
+  @override
   final int viewed;
   @override
   final String img;
@@ -17,6 +19,7 @@ class DiscountModel extends DiscountEntity {
   final bool isEmpty;
   DiscountModel({
     required this.id,
+    required this.mod,
     required this.viewed,
     required this.img,
     required this.createdAt,
@@ -24,6 +27,7 @@ class DiscountModel extends DiscountEntity {
     this.isEmpty = true,
   }) : super(
           id: id,
+          mod: mod,
           viewed: viewed,
           img: img,
           createdAt: createdAt,
@@ -32,6 +36,7 @@ class DiscountModel extends DiscountEntity {
 
   static DiscountModel get empty => DiscountModel(
         id: 0,
+        mod: 0,
         viewed: 0,
         img: "",
         createdAt: DateTime.now(),
@@ -43,6 +48,7 @@ class DiscountModel extends DiscountEntity {
     try {
       return DiscountModel(
         id: json["id"],
+        mod: json["mod"],
         viewed: json["viewed"],
         img: json["img"],
         createdAt: json["created_at"],

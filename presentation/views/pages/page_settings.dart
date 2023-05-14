@@ -128,7 +128,7 @@ class _ModeSwitchBtnState extends State<ModeSwitchBtn> {
               setState(() {
                 _isDark = !_isDark;
               });
-            }
+            } 
           }),
     );
   }

@@ -3,6 +3,7 @@
 import '/domanin/entities/main_page/main_page_entity.dart';
 
 import '../../providers/data/main_page_provider.dart';
+import '../../providers/view/provider_discaunts.dart';
 import '/presentation/providers/view/provider_navigation.dart';
 import '/presentation/views/screens/screen_search.dart';
 
@@ -84,6 +85,7 @@ class _ScreenMainState extends State<ScreenMain> {
             leading: const SizedBox(),
             flexibleSpace: FlexibleSpaceBar(background: buildSliverTitle()),
           ),
+          const SliverPadding(padding: EdgeInsets.all(10)),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
             sliver: DiscountView(
@@ -128,6 +130,7 @@ class _ScreenMainState extends State<ScreenMain> {
             ChosenPageView(
               allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
               objs: objM.saylananlarDatas,
+              count: objM.saylanlarCount,
             ),
           ],
         ),
@@ -160,12 +163,12 @@ class _ScreenMainState extends State<ScreenMain> {
           // CardTitle(counter: objM.discountDatas.length, title: "Arzanladyşlar"),
           Row(
             children: [
-              // GestureDetector(
-              //     onTap: () {
-              //       DiscountProvid.of(context, listen: false).tongleColumn;
-              //     },
-              //     child: Icon(
-              //         buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
+              GestureDetector(
+                  onTap: () {
+                    DiscountProvid.of(context, listen: false).tongleColumn;
+                  },
+                  child: Icon(
+                      buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
               TextButton(
                 onPressed: () => Navigator.pushNamed(context, Rout.discounts),
                 child: const Text(

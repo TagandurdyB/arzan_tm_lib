@@ -12,7 +12,7 @@ class ShadowsLight {
 
   List<BoxShadow> discount = [
     const BoxShadow(
-        color: Color(0xffF2F2F2),
+        color: Color(0xffEDEDED),
         offset: Offset(0, 3),
         blurRadius: 4,
         spreadRadius: 0.5)

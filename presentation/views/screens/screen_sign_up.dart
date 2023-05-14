@@ -109,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
           //===============================================================================
-          LoginArzanInputs(
+          ArzanInputs(
             validator: (String? value) => _haveAnyValid(),
             tag: Tags.rISignCall,
             iconD: Icons.assignment_ind_sharp,
@@ -118,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           const SizedBox(height: 20),
           //===============================================================================
-          LoginArzanInputs(
+          ArzanInputs(
             validator: (String? value) => _validatorUser(),
             tag: Tags.rISignUser,
             iconD: Icons.assignment_ind_outlined,
@@ -135,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           //===============================================================================
-          LoginArzanInputs(
+          ArzanInputs(
             validator: (String? value) => _validatorPhone(),
             tag: Tags.rISignPhone,
             // iconD: Icons.phone,
@@ -169,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           //===============================================================================
-          LoginArzanInputs(
+          ArzanInputs(
             validator: (String? value) => _validatorPass(),
             tag: Tags.rISignPass,
             iconD: Icons.vpn_key_outlined,
@@ -179,7 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           const SizedBox(height: 20),
           //===============================================================================
-          LoginArzanInputs(
+          ArzanInputs(
             validator: (String? value) => _validatorPass(),
             tag: Tags.rISignPassAgain,
             iconD: Icons.vpn_key_outlined,
@@ -272,7 +272,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onTap: () => setState(() => selectedItem = index),
       child: Container(
         padding: EdgeInsets.all(MySize.arentir * 0.04),
-        color: isCheck ? Colors.grey : Colors.transparent,
+        color: isCheck ? Colors.green.shade200 : Colors.transparent,
         child: Row(
           children: [
             buildMyCheck(isCheck),

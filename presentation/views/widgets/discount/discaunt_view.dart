@@ -8,6 +8,9 @@ import 'package:entry/entry.dart';
 import '../../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
+import 'discount_1_card.dart';
+import 'discount_3_card.dart';
+
 class DiscountView extends StatefulWidget {
   final List<DiscountEntity> objs;
   const DiscountView({required this.objs, super.key});
@@ -59,12 +62,12 @@ class _DiscountViewState extends State<DiscountView> {
 
   Widget buildDiscountCard(int index, int columnNum) {
     switch (columnNum) {
-      // case 1:
-      //   return DiscountCardFirst(obj: widget.objs[index]);
+      case 1:
+        return DiscountCardFirst(obj: widget.objs[index]);
       case 2:
         return DiscountCardSecond(obj: widget.objs[index]);
-      // case 3:
-      //   return DiscountCardThird(obj: widget.objs[index]);
+      case 3:
+        return DiscountCardThird(obj: widget.objs[index]);
       default:
         return DiscountCardSecond(obj: widget.objs[index]);
     }

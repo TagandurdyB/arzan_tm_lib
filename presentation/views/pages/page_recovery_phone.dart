@@ -30,7 +30,7 @@ class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
       if (isValidForm) {
         //Login post
         haveError = false;
-         Navigator.pushNamed(context, Rout.recoveryVerifi);
+        Navigator.pushNamed(context, Rout.recoveryVerifi);
         //RecoveryP.of(context, listen: false).nextPage;
       } else {
         haveError = true;
@@ -71,7 +71,7 @@ class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
     );
   }
 
-  Widget get buildInput => LoginArzanInputs(
+  Widget get buildInput => ArzanInputs(
         maxLength: 8,
         type: TextInputType.phone,
         tag: Tags.rIPhone,

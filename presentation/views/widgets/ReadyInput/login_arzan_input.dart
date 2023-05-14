@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ready_input_base.dart';
 
-class LoginArzanInputs extends StatefulWidget {
+class ArzanInputs extends StatefulWidget {
   final TextInputType type;
   final String tag;
   final String hidden;
@@ -11,24 +11,30 @@ class LoginArzanInputs extends StatefulWidget {
   final String startVal;
   final Function? validator;
   final int? maxLength;
-  const LoginArzanInputs({
+  final int maxLines;
+  final bool readOnly;
+  final EdgeInsetsGeometry? padding;
+  const ArzanInputs({
     super.key,
     this.maxLength,
+    this.maxLines = 1,
     this.validator,
     this.startVal = "",
     this.hidden = "",
     this.prefix,
     this.type = TextInputType.text,
     required this.tag,
+    this.padding,
     this.iconD = Icons.edit,
     this.label = "",
+    this.readOnly = false,
   });
 
   @override
-  State<LoginArzanInputs> createState() => _LoginArzanInputsState();
+  State<ArzanInputs> createState() => _ArzanInputsState();
 }
 
-class _LoginArzanInputsState extends State<LoginArzanInputs> {
+class _ArzanInputsState extends State<ArzanInputs> {
   bool isPassShow = false;
   final FocusNode focusNode = FocusNode();
   bool isFocus = false;
@@ -74,6 +80,8 @@ class _LoginArzanInputsState extends State<LoginArzanInputs> {
     final themeInput = Theme.of(context).inputDecorationTheme;
     enableBorderColor = (isEmpty ? Colors.grey : themeInput.focusColor)!;
     return TextFormField(
+      readOnly: widget.readOnly,
+      maxLines: widget.maxLines,
       controller: RIBase.getControl(widget.tag),
       focusNode: focusNode,
       obscureText: widget.type == TextInputType.visiblePassword && !isPassShow,
@@ -91,18 +99,25 @@ class _LoginArzanInputsState extends State<LoginArzanInputs> {
       // decoration: const InputDecoration(
       //   border: InputBorder.none,
       // ),
+
       maxLength: widget.type == TextInputType.phone ? 8 : widget.maxLength,
       keyboardType: widget.type,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
+        hintTextDirection: TextDirection.rtl,
         counter: const Offstage(),
         // un show label
         floatingLabelBehavior: FloatingLabelBehavior.never,
         labelText: widget.hidden,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        // floatingLabelAlignment: FloatingLabelAlignment.center,
+        alignLabelWithHint: true,
+        contentPadding: widget.padding ??
+            const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         labelStyle: const TextStyle(color: Colors.grey),
         errorStyle: const TextStyle(height: 0),
-        prefixIcon: widget.prefix ?? Icon(widget.iconD),
+        // prefix: widget.prefix,
+        prefixIcon: widget.prefix == null ? Icon(widget.iconD) : null,
+        prefix: widget.prefix,
         prefixIconColor: enableBorderColor,
         suffixIcon: widget.type == TextInputType.visiblePassword
             ? GestureDetector(

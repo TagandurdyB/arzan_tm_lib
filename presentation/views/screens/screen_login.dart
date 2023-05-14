@@ -1,5 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
+
+import '../../../config/services/device_info.dart';
 import '../../../config/services/my_size.dart';
 import '/presentation/views/widgets/my_container.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return null;
   }
 
-  void _loginFunc() {
+  Future get _loginFunc async {
+    final String unicID = await MyDevice.getUnic;
+    print("ID:=$unicID");
     setState(() {
       isPressBefore = true;
       final bool isValidForm = formKey.currentState!.validate();
@@ -62,20 +69,16 @@ class _LoginScreenState extends State<LoginScreen> {
         key: formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
-          LoginArzanInputs(
-            validator: (String? value) {
-              return _haveAnyValid();
-            },
+          ArzanInputs(
+            validator: (String? value) => _haveAnyValid(),
             tag: Tags.rILoginUser,
             iconD: Icons.assignment_ind_outlined,
             label: "Ulanyjy ady",
             hidden: "Ulanyjy ady",
           ),
           const SizedBox(height: 20),
-          LoginArzanInputs(
-            validator: (String? value) {
-              return _haveAnyValid();
-            },
+          ArzanInputs(
+            validator: (String? value) => _haveAnyValid(),
             tag: Tags.rILoginPass,
             iconD: Icons.vpn_key_outlined,
             label: "Açar sözi",
@@ -88,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
               message: "Ulanyjy ady ýada açar sözi nädogry girizildi!"),
           buildBottomSide,
           const SizedBox(height: 20),
-          NextBtn(text: "Ulgama gir", func: _loginFunc),
+          NextBtn(text: "Ulgama gir", func: () async => await _loginFunc),
         ]),
       ),
     );

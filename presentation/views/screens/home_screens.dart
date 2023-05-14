@@ -2,6 +2,7 @@ import '/presentation/providers/view/provider_navigation.dart';
 import 'package:flutter/material.dart';
 
 import 'acaunt_screens.dart';
+import 'screen_add_post.dart';
 import 'screen_main.dart';
 
 // ignore: must_be_immutable
@@ -16,9 +17,9 @@ class HomeScreens extends StatelessWidget {
   }
 
   List<Widget> screens = [
-    ScreenMain(),
+    const ScreenMain(),
     const SizedBox(),
-    const SizedBox(),
+     AddPostScreen(),
     const SizedBox(),
     AcauntScreens(),
   ];

@@ -1,15 +1,14 @@
-import '/domanin/entities/main_page/discount_entity.dart';
-
-import '/presentation/views/widgets/shimmer_img.dart';
+import '../../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../config/services/my_size.dart';
 import '../../../../config/vars/formater.dart';
+import '../../../../domanin/entities/main_page/discount_entity.dart';
 import '../../../providers/view/provider_theme.dart';
+import '../shimmer_img.dart';
 
-class DiscountCardSecond extends StatelessWidget {
+class DiscountCardFirst extends StatelessWidget {
   final DiscountEntity obj;
-  DiscountCardSecond({super.key, required this.obj});
+  DiscountCardFirst({super.key, required this.obj});
 
   final double arentir = MySize.arentir;
   @override
@@ -18,7 +17,6 @@ class DiscountCardSecond extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: arentir * 0.02),
       decoration: BoxDecoration(
-        // color: Colors.red,
         borderRadius: BorderRadius.circular(8),
         boxShadow: ThemeP.of(context).shadows.discount,
       ),
@@ -26,14 +24,15 @@ class DiscountCardSecond extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: Container(
           color: Theme.of(context).canvasColor,
-          child: Column(children: [
+          child: Row(children: [
             Stack(
               alignment: Alignment.topRight,
               children: [
                 Container(
                   color: ThemeP.of(context).colors.shimmerBg,
-                  height: arentir * 0.29,
-                  child: ShimmerImg(imageUrl: obj.img, fit: BoxFit.fill),
+                  width: arentir * 0.44,
+                  height: arentir,
+                  child: ShimmerImg(fit: BoxFit.fitHeight, imageUrl: obj.img),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -52,30 +51,27 @@ class DiscountCardSecond extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(arentir * 0.02),
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
+                color: theme.canvasColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        obj.title,
-                        style: TextStyle(fontSize: arentir * 0.035),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    Text(
+                      "Mebel zakaz alyarys islendik gornusde",
+                      style: TextStyle(fontSize: arentir * 0.034),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      "Salam Hormatly Muşderler biz siziñ islegiñize gora Taýyn Natural Mebel..",
+                      style: TextStyle(
+                          fontSize: arentir * 0.026,
+                          color: const Color(0xff333333)),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          Formater.calendar(obj.createdAt),
-                          style: TextStyle(
-                              fontSize: arentir * 0.023,
-                              color: const Color(0xff747474)),
-                        ),
                         Row(
                           children: [
                             Icon(
@@ -85,13 +81,19 @@ class DiscountCardSecond extends StatelessWidget {
                             ),
                             SizedBox(width: arentir * 0.01),
                             Text(
-                              "${obj.viewed}",
+                              "1035",
                               style: TextStyle(
                                   fontSize: arentir * 0.023,
                                   color: const Color(0xff747474)),
                             )
                           ],
-                        )
+                        ),
+                        Text(
+                          Formater.calendar(DateTime.now()),
+                          style: TextStyle(
+                              fontSize: arentir * 0.023,
+                              color: const Color(0xff747474)),
+                        ),
                       ],
                     )
                   ],

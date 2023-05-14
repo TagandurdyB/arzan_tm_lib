@@ -7,7 +7,7 @@ class ColorsLight {
   Color systemNavigationBarColor = Colors.white;
   Color text = Colors.black;
   Color searchCanvas = Colors.black87;
-  Color canvas = const Color(0xffF5F5F5);
+  Color canvas = Colors.white;
   Color appbarbg = Colors.white;
   Color appBarShadow = const Color(0xffEAEAEA);
   Color appBarIcon = const Color(0xff1B1B1B);

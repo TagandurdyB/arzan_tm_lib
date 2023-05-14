@@ -14,7 +14,13 @@ class Words {
   static const String vreification1 = "Tassyklama koduny al";
   static const String vreification2 = "$phone belgä boş sms ugratmak";
   //============================================================================
-  static List<String> navigation=["Home","Widget","Add","Wallet","Profile"];
+  static List<String> navigation = [
+    "Home",
+    "Widget",
+    "Add",
+    "Wallet",
+    "Profile"
+  ];
 }
 
 class Dutrations {
@@ -37,6 +43,13 @@ class Tags {
   static const String rIVerification = "Ready Input verification";
   static const String rINewPass = "Ready Input New Password";
   static const String rINewPassAgain = "Ready Input New Password Again";
+  //AddPost=====================================================================
+  static const String rIPostName = "Ready Input Post Name";
+  static const String rIPostAbout = "Ready Input Post About";
+  static const String rIPostHash = "Ready Input Post Hash";
+  static const String rIPostPhone = "Ready Input Post Phone";
+  static const String rIPostPrice = "Ready Input Post Price";
+  static const String rIPostDiscount = "Ready Input Post Discount";
   //hive========================================================================
   static const String hiveTheme = "Hive Theme Base";
   static const String themeSystem = "Hive Theme System";

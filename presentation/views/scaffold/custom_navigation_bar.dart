@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/providers/data/provider_acaunt.dart';
+
 import '../../../config/services/my_size.dart';
 import '../../providers/view/provider_navigation.dart';
 import 'package:flutter/material.dart';
@@ -25,23 +27,14 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         showUnselectedLabels: false,
         currentIndex: ProviderNav.of(context).selectScreen, //_selectIndex,
         onTap: (index) {
-          // setState(() {
-          //   _selectIndex = index;
-          // });
           final provid = ProviderNav.of(context, listen: false);
-          provid.changeScreen(index);
+          final providA = AcauntP.of(context, listen: false);
+          if (index == 2 && !providA.isSing) {
+            provid.changeScreen(4);
+          } else {
+            provid.changeScreen(index);
+          }
         },
-        // onTap: (index) {
-        //   debugPrint("Index:= $index");
-        //   if (index > 1) {
-        //     setState(() {
-        //       _selectIndex = index;
-        //     });
-        //   }
-        //   if (index == 0) {
-        //     Scaffold.of(context).openDrawer();
-        //   }
-        // },
         items: List.generate(
             ThemeP.of(context, listen: false).icons.navigationIcons.length,
             (index) => BottomNavigationBarItem(

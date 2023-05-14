@@ -14,10 +14,12 @@ import 'card_title.dart';
 class ChosenPageView extends StatefulWidget {
   final List<ChosenEntity> objs;
   final String title;
+  final int count;
   final Function? allBtnOnTap;
   const ChosenPageView(
       {super.key,
       required this.objs,
+      required this.count,
       this.title = "Saýlananlar",
       this.allBtnOnTap});
 
@@ -117,7 +119,7 @@ class _ChosenPageViewState extends State<ChosenPageView> {
   Widget get buildTitle => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CardTitle(counter: widget.objs.length, title: widget.title),
+          CardTitle(counter: widget.count, title: widget.title),
           TextButton(
             onPressed: () {
               if (widget.allBtnOnTap != null) widget.allBtnOnTap!();

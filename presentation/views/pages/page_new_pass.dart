@@ -83,7 +83,7 @@ class _NewPassPageState extends State<NewPassPage> {
 
   Widget get buildContent {
     return Column(children: [
-      LoginArzanInputs(
+      ArzanInputs(
         validator: (String? value) => _haveError(),
         tag: Tags.rINewPass,
         iconD: Icons.vpn_key_outlined,
@@ -92,7 +92,7 @@ class _NewPassPageState extends State<NewPassPage> {
         type: TextInputType.visiblePassword,
       ),
       const SizedBox(height: 20),
-      LoginArzanInputs(
+      ArzanInputs(
         validator: (String? value) => _haveError(),
         tag: Tags.rINewPassAgain,
         iconD: Icons.vpn_key_outlined,

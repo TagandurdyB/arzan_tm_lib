@@ -1,3 +1,5 @@
+import '/presentation/views/pages/page_legal_info.dart';
+
 import '../../presentation/views/pages/page_discounts.dart';
 import '/presentation/views/pages/page_tops.dart';
 
@@ -39,6 +41,7 @@ class Rout {
   static const String videos = "/VideosPage";
   static const String tops = "/TopsPage";
   static const String discounts = "/DiscountsPage";
+  static const String legalInfo = "/LegalInfoPage";
 
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
@@ -70,5 +73,6 @@ class Rout {
     videos: (context) => VideosPage(),
     tops: (context) => TopsPage(),
     discounts: (context) => const DiscountsPage(),
+    legalInfo: (context) => const LegalInfoPage(),
   };
 }

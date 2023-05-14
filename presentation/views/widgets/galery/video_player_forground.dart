@@ -102,7 +102,9 @@ class VideoPlayerForground extends StatelessWidget {
               providVdo.tongleScreenMode;
             },
             child: Icon(
-              providV.isPortrade ? Icons.fullscreen : Icons.screen_rotation_alt,
+              providV.isPortrade
+                  ? Icons.fullscreen
+                  : Icons.screen_rotation_sharp,
               color: Colors.white,
             )),
       ],

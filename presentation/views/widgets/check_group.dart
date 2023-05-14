@@ -59,3 +59,54 @@ class _CheckGroupsState extends State<CheckGroups> {
     );
   }
 }
+
+class CustomCheck extends StatefulWidget {
+  final bool startVal;
+  final Function? onChange;
+  final double size;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final Color? disableColor;
+  final Color? enableColor;
+  const CustomCheck({
+    this.startVal = false,
+    this.size = 30,
+    this.onChange,
+    this.padding,
+    this.margin,
+    this.disableColor,
+    this.enableColor,
+    super.key,
+  });
+
+  @override
+  State<CustomCheck> createState() => _CustomCheckState();
+}
+
+class _CustomCheckState extends State<CustomCheck> {
+  bool value = false;
+  @override
+  void initState() {
+    value = widget.startVal;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() => value = !value);
+        if (widget.onChange != null) widget.onChange!(value);
+      },
+      child: Container(
+        padding: widget.padding,
+        margin: widget.margin ?? const EdgeInsets.only(right: 5),
+        child: Icon(value ? Icons.check_box : Icons.check_box_outline_blank,
+            color: value
+                ? widget.enableColor ?? const Color(0xff00C52B)
+                : widget.disableColor ?? const Color(0xffE5E5E5),
+            size: widget.size),
+      ),
+    );
+  }
+}
