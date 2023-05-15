@@ -1,4 +1,4 @@
-import 'package:arzan_tm/domanin/entities/register/sign_up_entity.dart';
+import '/domanin/entities/register/sign_up_entity.dart';
 
 import '/domanin/entities/register/response_entity.dart';
 

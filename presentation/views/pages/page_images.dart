@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/views/widgets/galery/folder_cards/midle_folder_card.dart';
-import 'package:arzan_tm/presentation/views/widgets/galery/folder_cards/small_folder_card.dart';
+import '/presentation/views/widgets/galery/folder_cards/midle_folder_card.dart';
+import '/presentation/views/widgets/galery/folder_cards/small_folder_card.dart';
 
 import '/presentation/providers/data/main_page_provider.dart';
 import '/presentation/views/widgets/card_title.dart';

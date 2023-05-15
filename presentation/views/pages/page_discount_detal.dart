@@ -1,7 +1,8 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/config/vars/formater.dart';
-import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+import '../../../config/services/launcher_service.dart';
+import '/config/vars/formater.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 
 import '../../../config/services/my_size.dart';
 import '../widgets/custom_avatar.dart';
@@ -11,6 +12,7 @@ import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../scaffold/custom_app_bar.dart';
+import 'page_zoom.dart';
 
 class DiscountDetal extends StatelessWidget {
   final DiscountDetalEntity obj;
@@ -59,7 +61,7 @@ class DiscountDetal extends StatelessWidget {
 
   Container get buildStar {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: EdgeInsets.all(arentir * 0.03),
       decoration: BoxDecoration(
           color: const Color(0xffB47D3F),
           border: Border.all(color: const Color(0xffE2BD83), width: 2),
@@ -80,7 +82,7 @@ class DiscountDetal extends StatelessWidget {
         buildGadgets,
         buildCounts,
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(arentir * 0.03),
           child: Text(
             obj.title,
             style: TextStyle(fontSize: arentir * 0.055),
@@ -90,7 +92,7 @@ class DiscountDetal extends StatelessWidget {
         buildPrices,
         const Divider(color: Color(0xffE5E5E5)),
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(arentir * 0.03),
           child: Text(
             obj.about,
             style: TextStyle(fontSize: arentir * 0.041),
@@ -98,7 +100,7 @@ class DiscountDetal extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(arentir * 0.03),
           child: Wrap(
             spacing: 8,
             children: obj.tags.map((tag) => buildTag(tag)).toList(),
@@ -106,7 +108,7 @@ class DiscountDetal extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         buildBtns,
-        const SizedBox(height: 30),
+        const SizedBox(height: 50),
       ],
     );
   }
@@ -127,7 +129,7 @@ class DiscountDetal extends StatelessWidget {
 
   Widget buildBtn(Function func, IconData iconD, {Color color = Colors.black}) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(arentir * 0.03),
       child: GestureDetector(
           onTap: () => func(),
           child: Icon(
@@ -139,7 +141,7 @@ class DiscountDetal extends StatelessWidget {
 
   Widget get buildCounts {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(arentir * 0.03),
       child: Row(children: [
         buildCount(Formater.calendar(obj.createdAt)),
         SizedBox(width: arentir * 0.04),
@@ -178,34 +180,59 @@ class DiscountDetal extends StatelessWidget {
 
   Widget get buildPrices {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(arentir * 0.03),
       child: Row(
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(Formater.rounder(obj.oldPrice)),
+              Text("${Formater.rounder(obj.oldPrice)} manat",
+                  style: const TextStyle(
+                      color: Color(0xffAAAAAA),
+                      decoration: TextDecoration.lineThrough)),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(Formater.rounder(obj.newPrice)),
-                  const Text("manat")
+                  Text(
+                    Formater.rounder(obj.newPrice),
+                    style: TextStyle(
+                        fontSize: arentir * 0.09,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xff0EC243)),
+                  ),
+                  Text(
+                    " manat",
+                    style: TextStyle(fontSize: arentir * 0.04),
+                  )
                 ],
               ),
-              Row(
-                children: [
-                  const Icon(Icons.calendar_month),
-                  Text(
-                      "${Formater.calendar(obj.startedAt)} - ${Formater.calendar(obj.endedAt)}"),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_month,
+                      color: Color(0xff747474),
+                    ),
+                    Text(
+                      "${Formater.calendar(obj.startedAt)} - ${Formater.calendar(obj.endedAt)}",
+                      style: const TextStyle(color: Color(0xff747474)),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
           const Expanded(child: SizedBox()),
           CircleAvatar(
+            radius: arentir * 0.1,
             backgroundColor: const Color(0xff0EC243),
             child: Text(
               "${obj.mod}%",
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: arentir * 0.06,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
           )
         ],
@@ -226,14 +253,16 @@ class DiscountDetal extends StatelessWidget {
 
   Widget get buildBtns {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(arentir * 0.03),
       child: Row(children: [
         Expanded(
           child: BorderBtn(onTap: () {}),
         ),
         const SizedBox(width: 20),
         Expanded(
-          child: SuccessBtn(onTap: () {}),
+          child: SuccessBtn(onTap: () async =>
+            await LauncherService.phone(obj.phone)
+          ),
         ),
       ]),
     );
@@ -263,7 +292,16 @@ class _ImgIndicatorViewState extends State<ImgIndicatorView> {
         children: [
           PageView(
             scrollDirection: Axis.vertical,
-            children: widget.imgs.map((e) => ShimmerImg(imageUrl: e)).toList(),
+            children: widget.imgs
+                .map((e) => GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ZoomPage(image: e)));
+                    },
+                    child: ShimmerImg(imageUrl: e)))
+                .toList(),
             onPageChanged: (index) => setState(() => _viewedIndex = index),
           ),
           Positioned(
