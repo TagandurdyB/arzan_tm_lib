@@ -1,10 +1,14 @@
 // ignore_for_file: must_be_immutable
 
+import '/domanin/entities/register/sign_up_entity.dart';
+import '/presentation/providers/data/provider_acaunt.dart';
+import '/presentation/views/widgets/my_pop_widget.dart';
+
+import '../../../config/services/device_info.dart';
 import '../../../config/services/my_size.dart';
 import '/presentation/views/widgets/my_container.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/routes/my_route.dart';
 import '../../../config/vars/constants.dart';
 import '../widgets/ReadyInput/login_arzan_input.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
@@ -23,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool isPressBefore = false;
   bool haveError = false;
 
+  final double arentir = MySize.arentir;
   @override
   late BuildContext context;
   final formKey = GlobalKey<FormState>();
@@ -65,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (isPressBefore) {
       final String pass = RIBase.getText(Tags.rISignPass);
       final String passAgain = RIBase.getText(Tags.rISignPassAgain);
-      if (pass != passAgain || pass == "") {
+      if (pass != passAgain || pass == "" || pass.length < 8) {
         return "";
       }
     }
@@ -79,23 +84,94 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
   }
 
-  void _signUpFunc() {
+  void _signUpFunc() async {
+    final String unicID = await MyDevice.getUnic;
     setState(() {
       isPressBefore = true;
       final bool isValidForm = formKey.currentState!.validate();
       if (isValidForm) {
         //Login post
+        _popLoading();
+        AcauntP.of(context, listen: false)
+            .signUp(SignUpEntity(
+              uniqueId: unicID,
+              userName: RIBase.getText(Tags.rISignUser),
+              userPassword: RIBase.getText(Tags.rISignPass),
+              userPhone: RIBase.getText(Tags.rISignPhone),
+            ))
+            .then((response) =>
+                _popMessage(response.message, !response.succsess));
+
         haveError = false;
-        String route = "";
-        if (selectedItem == 0) {
-          route = Rout.signUpVerifi;
-        } else {
-          route = Rout.sendSMS;
-        }
-        Navigator.pushNamed(context, route);
+        // http.post(Uris.register, body: {
+        //   "name": RIBase.getText(Tags.rISignUser),
+        //   "password": RIBase.getText(Tags.rISignPass),
+        //   "uniqueId": unicID,
+        //   "phone_num": RIBase.getText(Tags.rISignPhone),
+        // }).then((response) {
+        //   if (response.statusCode == 200) {
+        //     print("***${response.body}");
+        //   }
+        // });
+
+        // String route = "";
+        // if (selectedItem == 0) {
+        //   route = Rout.signUpVerifi;
+        // } else {
+        //   route = Rout.sendSMS;
+        // }
+        // Navigator.pushNamed(context, route);
       } else {
         haveError = true;
       }
+    });
+  }
+
+  void _popLoading() {
+    MyPopUpp(
+        width: arentir * 0.6,
+        height: arentir * 0.4,
+        borderRadius: 10,
+        content: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 10),
+              Text(
+                "Garaşmagyňyzy haýyş edýeris!",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: arentir * 0.04),
+              ),
+            ],
+          ),
+        )).pop(context);
+  }
+
+  void _popMessage(String message, bool isError) {
+    MyPopUpp(
+        width: arentir * 0.6,
+        height: arentir * 0.4,
+        borderRadius: 10,
+        content: Column(
+          children: [
+            Icon(
+              isError ? Icons.error_outline : Icons.check_circle_outlined,
+              color: isError ? Colors.red : Colors.green,
+              size: arentir * 0.15,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: arentir * 0.04),
+            ),
+          ],
+        )).pop(context);
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      Navigator.pop(context);
+      Navigator.pop(context);
+      if (!isError) AcauntP.of(context, listen: false).changeScreen(0);
     });
   }
 

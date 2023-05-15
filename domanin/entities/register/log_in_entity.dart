@@ -1,25 +1,25 @@
 class LogInEntity {
-  final String id;
+  final String uniqueId;
   final String userName;
   final String userPassword;
   final bool isEmpty;
 
   LogInEntity({
-    required this.id,
+    required this.uniqueId,
     required this.userName,
     required this.userPassword,
     this.isEmpty = true,
   });
 
   static LogInEntity get empty =>
-      LogInEntity(id: "", userName: "", userPassword: "");
+      LogInEntity(uniqueId: "", userName: "", userPassword: "");
 
   factory LogInEntity.frowJson(Map<String, dynamic> json) {
     try {
       return LogInEntity(
-        id: json["id"],
-        userName: json["userName"],
-        userPassword: json["userPassword"],
+        uniqueId: json["uniqueId"],
+        userName: json["name"],
+        userPassword: json["password"],
         isEmpty: false,
       );
     } catch (err) {
@@ -28,8 +28,8 @@ class LogInEntity {
   }
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "userName": userName,
-        "userPassword": userPassword,
+        "uniqueId": uniqueId,
+        "name": userName,
+        "password": userPassword,
       };
 }

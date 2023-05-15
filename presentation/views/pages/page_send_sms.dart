@@ -15,7 +15,7 @@ class SendSmsPage extends StatelessWidget {
   void _funcSend() {
     SuccessPop.pop(context, true);
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      AcauntP.of(context, listen: false).logIn;
+      AcauntP.of(context, listen: false).signUp;
       Navigator.popUntil(context, (route) => route.isFirst);
     });
   }

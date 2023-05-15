@@ -89,6 +89,7 @@ class VideoP extends ChangeNotifier {
       _isPortrade = true;
       _isLadscape = false;
       MyOrientation.setPortraitUp();
+      MyOrientation.disableSystemUI;
     } else if (mode == ScreenMode.landscape) {
       _isPortrade = false;
       _isLadscape = true;

@@ -1,7 +1,8 @@
-
+import '/domanin/entities/register/log_in_entity.dart';
 
 import '../../../config/services/device_info.dart';
 import '../../../config/services/my_size.dart';
+import '../widgets/my_pop_widget.dart';
 import '/presentation/views/widgets/my_container.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isPassShow = false;
   bool isPressBefore = false;
   bool haveError = false;
-
+  final double arentir = MySize.arentir;
   @override
   late BuildContext context;
   final formKey = GlobalKey<FormState>();
@@ -48,11 +49,67 @@ class _LoginScreenState extends State<LoginScreen> {
       if (isValidForm) {
         //Login post
         haveError = false;
-        AcauntP.of(context, listen: false).logIn;
-        // Navigator.pushNamed(context, Rout.user);
+        _popLoading();
+        AcauntP.of(context, listen: false)
+            .logIn(LogInEntity(
+              uniqueId: unicID,
+              userName: RIBase.getText(Tags.rILoginUser),
+              userPassword: RIBase.getText(Tags.rILoginPass),
+            ))
+            .then((response) =>
+                _popMessage(response.message, !response.succsess));
       } else {
         haveError = true;
       }
+    });
+  }
+
+  void _popLoading() {
+    MyPopUpp(
+        width: arentir * 0.6,
+        height: arentir * 0.4,
+        borderRadius: 10,
+        content: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 10),
+              Text(
+                "Garaşmagyňyzy haýyş edýeris!",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: arentir * 0.04),
+              ),
+            ],
+          ),
+        )).pop(context);
+  }
+
+  void _popMessage(String message, bool isError) {
+    MyPopUpp(
+        width: arentir * 0.6,
+        height: arentir * 0.4,
+        borderRadius: 10,
+        content: Column(
+          children: [
+            Icon(
+              isError ? Icons.error_outline : Icons.check_circle_outlined,
+              color: isError ? Colors.red : Colors.green,
+              size: arentir * 0.15,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              message,
+              style: TextStyle(fontSize: arentir * 0.04),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        )).pop(context);
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+      // AcauntP.of(context, listen: false).changeScreen(0);
     });
   }
 

@@ -1,10 +1,14 @@
+import '/domanin/usecases/register_case.dart';
+
 import '/presentation/providers/data/main_page_provider.dart';
 import '/domanin/usecases/main_page_case.dart';
 import 'data/datasourses/remote/main_page_remote_datasource.dart';
+import 'data/datasourses/remote/register_remote_datasource.dart';
 import 'data/repositories/main_page_repository_impl.dart';
 
 import '/presentation/providers/view/provider_discaunts.dart';
 
+import 'data/repositories/register_repository_impl.dart';
 import 'presentation/providers/data/provider_acaunt.dart';
 
 import '/presentation/providers/view/provider_theme.dart';
@@ -40,12 +44,15 @@ class Injector extends StatelessWidget {
                     mainPageCase: MainPageCase(MainPageRepositoryImpl(
                         MainPageDataSourceImpl(http.Client()))),
                   )),
+          ChangeNotifierProvider<AcauntP>(
+              create: (_) => AcauntP(
+                    registerCase: RegisterCase(RegisterRepositoryImpl(
+                        RegisterDataSourceImpl(http.Client()))),
+                  )),
           ///////////////////////////////////////////////////////////////////////
-
           ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP()),
           ChangeNotifierProvider<ProviderNav>(
               create: (context) => ProviderNav()),
-          ChangeNotifierProvider<AcauntP>(create: (context) => AcauntP()),
           ChangeNotifierProvider<DiscountProvid>(
               create: (context) => DiscountProvid()),
           ChangeNotifierProvider<VideoP>(create: (context) => VideoP()),

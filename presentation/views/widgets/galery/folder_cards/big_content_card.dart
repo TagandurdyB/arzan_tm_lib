@@ -2,8 +2,6 @@
 
 import 'dart:ui' as ui;
 
-import '../../../../providers/data/provider_video.dart';
-import '../../../pages/page_video_player.dart';
 import '../../../../../config/services/my_size.dart';
 import '../../../../../domanin/entities/galery/big_content_card_entity.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
@@ -18,11 +16,7 @@ class BigContentCard extends StatelessWidget {
   final Function? onTap;
   final Widget? baner;
   BigContentCard(
-      {required this.obj,
-      this.child,
-      this.onTap,
-      this.baner,
-      super.key});
+      {required this.obj, this.child, this.onTap, this.baner, super.key});
 
   final double arentir = MySize.arentir;
   late BuildContext context;
@@ -72,7 +66,7 @@ class BigContentCard extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         SizedBox(
-            height: arentir * 0.3,
+            height: obj.videoUrl == null ? arentir * 0.3 : arentir * 0.4,
             width: arentir * 0.9,
             child: ShimmerImg(imageUrl: obj.banerImg)),
         Visibility(visible: obj.videoUrl != null, child: buildPlay),
@@ -111,7 +105,11 @@ class BigContentCard extends StatelessWidget {
             borderWidth: 2,
           ),
           buildStar,
-          Text(title),
+          Text(
+            title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
           const Expanded(child: SizedBox()),
           // AllBtn(onTap: () {
           //   if (onTap != null) onTap!();

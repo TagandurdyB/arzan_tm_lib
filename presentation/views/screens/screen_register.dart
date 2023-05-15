@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import '../../providers/data/provider_acaunt.dart';
 import '/presentation/views/screens/screen_login.dart';
 import '/presentation/views/screens/screen_sign_up.dart';
 import 'package:flutter/material.dart';
@@ -21,16 +22,19 @@ class _ScreenRegisterState extends State<ScreenRegister> {
     const SignUpScreen(),
   ];
 
+  late AcauntP providA, providAdo;
   @override
   Widget build(BuildContext context) {
+    providA = AcauntP.of(context);
+    providAdo = AcauntP.of(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
           buildTopBar,
-          buildPageChanger(_selectedScreen),
+          buildPageChanger(providA.screenIndex),
           const SizedBox(height: 20),
-          Expanded(child: screens[_selectedScreen]),
+          Expanded(child: screens[providA.screenIndex]),
         ],
       ),
     );
@@ -64,6 +68,7 @@ class _ScreenRegisterState extends State<ScreenRegister> {
   Widget buildChangeBtn(bool isActive, bool isLeftShape, String name) {
     return InkWell(
       onTap: () => setState(() {
+        providAdo.changeScreen(_selectedScreen);
         _selectedScreen = _selectedScreen == 0 ? 1 : 0;
       }),
       child: Container(

@@ -2,13 +2,14 @@
 
 import '../../../domanin/entities/galery/big_content_card_entity.dart';
 import '../../providers/data/main_page_provider.dart';
-import '../../providers/data/provider_video.dart';
 import '../../providers/view/provider_discaunts.dart';
 import '../widgets/card_title.dart';
 import '../widgets/carusel_slider.dart';
 import '../widgets/galery/folder_cards/big_content_card.dart';
 
 import '../../../config/services/my_size.dart';
+import '../widgets/galery/folder_cards/midle_folder_card.dart';
+import '../widgets/galery/folder_cards/small_folder_card.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,12 @@ class VideosPage extends StatelessWidget {
 
   final double arentir = MySize.arentir;
   late BuildContext context;
+  late DiscountProvid providD, providDdo;
   @override
   Widget build(BuildContext context) {
     this.context = context;
+    providD = DiscountProvid.of(context);
+    providDdo = DiscountProvid.of(context, listen: false);
     return ScaffoldNo(
         body: Column(
       children: [
@@ -106,7 +110,7 @@ class VideosPage extends StatelessWidget {
       isEmpty: false,
     ),
     BigCardEntity(
-      id: 1,
+      id: 2,
       userImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvtyA_jv76ISEwn237GbPT--KbTNBIGyhVIQ&usqp=CAU",
       userName: "Mercedes-Benz",
@@ -122,76 +126,71 @@ class VideosPage extends StatelessWidget {
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
       isEmpty: false,
     ),
+    BigCardEntity(
+      id: 1,
+      userImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
+      userName: "100haryt.com",
+      banerImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+      thumbinalImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+      videoUrl: "assets/video1.mp4",
+      allCount: 12,
+      allShaered: 720,
+      allViewed: 14756,
+      name: "Lays çipsilerinde uly arzanlaşyk bardygyny ýatladýar!",
+      isEmpty: false,
+    ),
+    BigCardEntity(
+      id: 2,
+      userImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvtyA_jv76ISEwn237GbPT--KbTNBIGyhVIQ&usqp=CAU",
+      userName: "Mercedes-Benz",
+      banerImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
+      thumbinalImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
+      videoUrl: "assets/video3.mp4",
+      allCount: 12,
+      allShaered: 720,
+      allViewed: 14756,
+      name:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      isEmpty: false,
+    ),
   ];
 
   Widget buildCards() {
-    return Column(
-        children: objs
-            .map((obj) => BigContentCard(
-                  onTap: () {
-                    // VideoService(videoUrl: obj.videoUrl).create;
-                    VideoP.of(context, listen: false).cleanVideo;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => VideoPlayerPage(objs: [
-                                BigCardEntity(
-                                    id: 2,
-                                    banerImg:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-                                    thumbinalImg:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-                                    videoUrl: "assets/video0.mp4",
-                                    allCount: 12,
-                                    allShaered: 720,
-                                    allViewed: 14756,
-                                    name:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-                                    isEmpty: false),
-                                BigCardEntity(
-                                    id: 2,
-                                    banerImg:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-                                    thumbinalImg:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-                                    videoUrl: "assets/video1.mp4",
-                                    allCount: 12,
-                                    allShaered: 720,
-                                    allViewed: 14756,
-                                    name:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-                                    isEmpty: false),
-                                BigCardEntity(
-                                    id: 2,
-                                    banerImg:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-                                    thumbinalImg:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-                                    videoUrl: "assets/video2.mp4",
-                                    allCount: 12,
-                                    allShaered: 720,
-                                    allViewed: 14756,
-                                    name:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-                                    isEmpty: false),
-                                BigCardEntity(
-                                    id: 2,
-                                    banerImg:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-                                    thumbinalImg:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-                                    videoUrl: "assets/video3.mp4",
-                                    allCount: 12,
-                                    allShaered: 720,
-                                    allViewed: 14756,
-                                    name:
-                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-                                    isEmpty: false),
-                              ])),
-                    );
-                  },
-                  obj: obj,
-                ))
-            .toList());
+    return Wrap(
+        spacing: arentir * 0.03,
+        children: objs.map((obj) {
+          switch (providDdo.cloumnCount) {
+            case 1:
+              return BigContentCard(
+                onTap: () => _goImgDetal(obj),
+                obj: obj,
+              );
+            case 2:
+              return MidleFolderCard(
+                onTap: () => _goImgDetal(obj),
+                obj: obj,
+              );
+            case 3:
+              return SmallFolderCard(
+                onTap: () => _goImgDetal(obj),
+                obj: obj,
+              );
+
+            default:
+              return BigContentCard(
+                onTap: () => _goImgDetal(obj),
+                obj: obj,
+              );
+          }
+        }).toList());
   }
+
+  void _goImgDetal(BigCardEntity obj) => Navigator.push(context,
+      MaterialPageRoute(builder: (context) => VideoPlayerPage(objs: objs)));
 }

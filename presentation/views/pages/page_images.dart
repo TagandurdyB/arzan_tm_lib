@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan_tm/presentation/views/widgets/galery/folder_cards/midle_folder_card.dart';
+import 'package:arzan_tm/presentation/views/widgets/galery/folder_cards/small_folder_card.dart';
+
 import '/presentation/providers/data/main_page_provider.dart';
 import '/presentation/views/widgets/card_title.dart';
 
@@ -20,9 +23,12 @@ class ImagesPage extends StatelessWidget {
 
   final double arentir = MySize.arentir;
   late BuildContext context;
+  late DiscountProvid providD, providDdo;
   @override
   Widget build(BuildContext context) {
     this.context = context;
+    providD = DiscountProvid.of(context);
+    providDdo = DiscountProvid.of(context, listen: false);
     return ScaffoldNo(
         body: Column(
       children: [
@@ -35,10 +41,8 @@ class ImagesPage extends StatelessWidget {
           ),
           actions: [
             GestureDetector(
-                onTap: () =>
-                    DiscountProvid.of(context, listen: false).tongleColumn,
-                child: Icon(
-                    buildWidgetIconD(DiscountProvid.of(context).cloumnCount)))
+                onTap: () => providDdo.tongleColumn,
+                child: Icon(buildWidgetIconD(providD.cloumnCount)))
           ],
         ),
         Expanded(
@@ -51,19 +55,26 @@ class ImagesPage extends StatelessWidget {
   }
 
   IconData buildWidgetIconD(int cloumnCount) {
-    {
-      switch (cloumnCount) {
-        case 1:
-          return Icons.list;
-        case 2:
-          return Icons.widgets_outlined;
-        case 3:
-          return Icons.apps_sharp;
+    switch (cloumnCount) {
+      case 1:
+        return Icons.list;
+      case 2:
+        return Icons.widgets_outlined;
+      case 3:
+        return Icons.apps_sharp;
 
-        default:
-          return Icons.list;
-      }
+      default:
+        return Icons.list;
     }
+  }
+
+  Widget get buildBanner {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: MyCarusel(
+        items: MainPageP.of(context).entity.baners.map((e) => e).toList(),
+      ),
+    );
   }
 
   Widget get buildContent {
@@ -76,15 +87,6 @@ class ImagesPage extends StatelessWidget {
           buildCards(),
           SizedBox(height: arentir * 0.2),
         ],
-      ),
-    );
-  }
-
-  Widget get buildBanner {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: MyCarusel(
-        items: MainPageP.of(context).entity.baners.map((e) => e).toList(),
       ),
     );
   }
@@ -118,18 +120,66 @@ class ImagesPage extends StatelessWidget {
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
       isEmpty: false,
     ),
+    BigCardEntity(
+      id: 1,
+      userImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
+      userName: "100haryt.com",
+      banerImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+      allCount: 12,
+      allShaered: 720,
+      allViewed: 14756,
+      name:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      isEmpty: false,
+    ),
+    BigCardEntity(
+      id: 1,
+      userImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvtyA_jv76ISEwn237GbPT--KbTNBIGyhVIQ&usqp=CAU",
+      userName: "Mercedes-Benz",
+      banerImg:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
+      allCount: 12,
+      allShaered: 720,
+      allViewed: 14756,
+      name:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      isEmpty: false,
+    ),
   ];
 
   Widget buildCards() {
-    return Column(
-        children: objs
-            .map((obj) => BigContentCard(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ImageDetalPage(obj: obj))),
-                  obj: obj,
-                ))
-            .toList());
+    return Wrap(
+        spacing: arentir * 0.03,
+        children: objs.map((obj) {
+          switch (providDdo.cloumnCount) {
+            case 1:
+              return BigContentCard(
+                onTap: () => _goImgDetal(obj),
+                obj: obj,
+              );
+            case 2:
+              return MidleFolderCard(
+                onTap: () => _goImgDetal(obj),
+                obj: obj,
+              );
+            case 3:
+              return SmallFolderCard(
+                onTap: () => _goImgDetal(obj),
+                obj: obj,
+              );
+
+            default:
+              return BigContentCard(
+                onTap: () => _goImgDetal(obj),
+                obj: obj,
+              );
+          }
+        }).toList());
   }
+
+  void _goImgDetal(obj) => Navigator.push(context,
+      MaterialPageRoute(builder: (context) => ImageDetalPage(obj: obj)));
 }
