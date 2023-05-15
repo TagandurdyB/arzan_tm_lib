@@ -10,6 +10,9 @@ class DiscountDetalEntity {
   final String title;
   final int oldPrice;
   final int newPrice;
+  final int mod;
+  final int userId;
+  final bool isOfficial;
   final DateTime startedAt;
   final DateTime endedAt;
   final String about;
@@ -29,6 +32,9 @@ class DiscountDetalEntity {
     required this.title,
     required this.oldPrice,
     required this.newPrice,
+    required this.mod,
+    required this.userId,
+    required this.isOfficial,
     required this.startedAt,
     required this.endedAt,
     required this.about,
@@ -49,6 +55,9 @@ class DiscountDetalEntity {
         title: "",
         oldPrice: 0,
         newPrice: 0,
+        mod: 0,
+        userId: 0,
+        isOfficial: false,
         startedAt: DateTime.now(),
         endedAt: DateTime.now(),
         about: "",

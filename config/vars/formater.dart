@@ -7,5 +7,8 @@ class Formater {
     return "${twoDigit(date.day)}.${twoDigit(date.month)}.${date.year}";
   }
 
-  
+  static String rounder(int num) {
+    final int length = "$num".length;
+    return "${num > 999 ? "${"$num".substring(0, length - 3)},${"$num".substring(length - 3)}" : num}";
+  }
 }

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:jwt_decoder/jwt_decoder.dart';
+
 import '/data/models/register/response_model.dart';
 
 import '/data/models/register/log_in_model.dart';
@@ -42,6 +44,9 @@ class RegisterDataSourceImpl implements RegisterRemoteDataSource {
         .then((response) {
       if (response.statusCode == 200) {
         print("*** ${json.decode(response.body)}");
+        final String token = json.decode(response.body)["token"];
+        print("token:=$token");
+        print("+++${JwtDecoder.decode(token)}");
         return ResponseModel.frowJson(json.decode(response.body));
       } else {
         print("Error in Login!!! statusCode:${response.statusCode}");
