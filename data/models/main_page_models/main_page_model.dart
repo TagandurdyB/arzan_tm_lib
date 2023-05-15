@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 import '/domanin/entities/main_page/main_page_entity.dart';
 
 import 'discount_model.dart';

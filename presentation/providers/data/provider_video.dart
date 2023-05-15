@@ -59,7 +59,7 @@ class VideoP extends ChangeNotifier {
 
   void _delayedForground() {
     Future.delayed(const Duration(seconds: 3)).then((val) {
-      print("VideoP isPlayed=$_isPlayed");
+      debugPrint("VideoP isPlayed=$_isPlayed");
       if (!_isPlayed) {
         _isForvardShow = false;
       } else {

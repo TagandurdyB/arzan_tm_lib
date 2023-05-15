@@ -92,7 +92,7 @@ class __BuildInputState extends State<_BuildInput> {
     final characters = code.characters.toList();
     characters[widget.index] = controller.text == "" ? " " : controller.text;
     code = characters.join('');
-    print(
+    debugPrint(
         "Verification code:= $code   Verification  control:=${controller.text}");
     RIBase.changeDate(widget.tag, TextEditingController(text: code));
   }

@@ -14,7 +14,6 @@ class DiscountCardSecond extends StatelessWidget {
   final double arentir = MySize.arentir;
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: arentir * 0.02),
       decoration: BoxDecoration(

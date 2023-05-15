@@ -1,7 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import '../../../domanin/entities/galery/big_content_card_entity.dart';
-import '../widgets/galery/big_content_card.dart';
+import '../../providers/data/main_page_provider.dart';
+import '../../providers/data/provider_video.dart';
+import '../../providers/view/provider_discaunts.dart';
+import '../widgets/card_title.dart';
+import '../widgets/carusel_slider.dart';
+import '../widgets/galery/folder_cards/big_content_card.dart';
 
 import '../../../config/services/my_size.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
@@ -21,7 +26,20 @@ class VideosPage extends StatelessWidget {
     return ScaffoldNo(
         body: Column(
       children: [
-        CustomAppBar(title: "Wideo"),
+        CustomAppBar(
+          titleW: CardTitle(
+            counter: 23,
+            title: "Wideo",
+            txtSize: arentir * 0.05,
+          ),
+          actions: [
+            GestureDetector(
+                onTap: () =>
+                    DiscountProvid.of(context, listen: false).tongleColumn,
+                child: Icon(
+                    buildWidgetIconD(DiscountProvid.of(context).cloumnCount)))
+          ],
+        ),
         Expanded(
             child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -31,12 +49,29 @@ class VideosPage extends StatelessWidget {
     ));
   }
 
+  IconData buildWidgetIconD(int cloumnCount) {
+    {
+      switch (cloumnCount) {
+        case 1:
+          return Icons.list;
+        case 2:
+          return Icons.widgets_outlined;
+        case 3:
+          return Icons.apps_sharp;
+
+        default:
+          return Icons.list;
+      }
+    }
+  }
+
   Widget get buildContent {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
         children: [
-          buildTitle,
+          buildBanner,
+          SizedBox(height: arentir * 0.02),
           buildCards(),
           SizedBox(height: arentir * 0.2),
         ],
@@ -44,29 +79,11 @@ class VideosPage extends StatelessWidget {
     );
   }
 
-  Widget get buildTitle {
+  Widget get buildBanner {
     return Padding(
-      padding: EdgeInsets.all(arentir * 0.04),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Telefonlar",
-            style: TextStyle(color: Color(0xff00C52B)),
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: const Color(0xff00C52B),
-                borderRadius: BorderRadius.circular(8)),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-            ),
-            child: const Icon(
-              Icons.keyboard_arrow_up,
-              color: Colors.white,
-            ),
-          ),
-        ],
+      padding: const EdgeInsets.all(10),
+      child: MyCarusel(
+        items: MainPageP.of(context).entity.baners.map((e) => e).toList(),
       ),
     );
   }
@@ -86,19 +103,6 @@ class VideosPage extends StatelessWidget {
       allShaered: 720,
       allViewed: 14756,
       name: "Lays çipsilerinde uly arzanlaşyk bardygyny ýatladýar!",
-      secondCard: BigCardEntity(
-          id: 2,
-          banerImg:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-          thumbinalImg:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-          videoUrl: "assets/video1.mp4",
-          allCount: 12,
-          allShaered: 720,
-          allViewed: 14756,
-          name:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-          isEmpty: false),
       isEmpty: false,
     ),
     BigCardEntity(
@@ -116,19 +120,6 @@ class VideosPage extends StatelessWidget {
       allViewed: 14756,
       name:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      secondCard: BigCardEntity(
-          id: 2,
-          banerImg:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
-          thumbinalImg:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
-          videoUrl: "assets/video3.mp4",
-          allCount: 12,
-          allShaered: 720,
-          allViewed: 14756,
-          name:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-          isEmpty: false),
       isEmpty: false,
     ),
   ];
@@ -137,17 +128,69 @@ class VideosPage extends StatelessWidget {
     return Column(
         children: objs
             .map((obj) => BigContentCard(
-                  playTab: () {
+                  onTap: () {
+                    // VideoService(videoUrl: obj.videoUrl).create;
+                    VideoP.of(context, listen: false).cleanVideo;
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CustomVideoPlayer(obj: obj)));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VideoPlayerPage(objs: [
+                                BigCardEntity(
+                                    id: 2,
+                                    banerImg:
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+                                    thumbinalImg:
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+                                    videoUrl: "assets/video0.mp4",
+                                    allCount: 12,
+                                    allShaered: 720,
+                                    allViewed: 14756,
+                                    name:
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+                                    isEmpty: false),
+                                BigCardEntity(
+                                    id: 2,
+                                    banerImg:
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+                                    thumbinalImg:
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+                                    videoUrl: "assets/video1.mp4",
+                                    allCount: 12,
+                                    allShaered: 720,
+                                    allViewed: 14756,
+                                    name:
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+                                    isEmpty: false),
+                                BigCardEntity(
+                                    id: 2,
+                                    banerImg:
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+                                    thumbinalImg:
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+                                    videoUrl: "assets/video2.mp4",
+                                    allCount: 12,
+                                    allShaered: 720,
+                                    allViewed: 14756,
+                                    name:
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+                                    isEmpty: false),
+                                BigCardEntity(
+                                    id: 2,
+                                    banerImg:
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+                                    thumbinalImg:
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+                                    videoUrl: "assets/video3.mp4",
+                                    allCount: 12,
+                                    allShaered: 720,
+                                    allViewed: 14756,
+                                    name:
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+                                    isEmpty: false),
+                              ])),
+                    );
                   },
                   obj: obj,
-                  child: BigContentCard(
-                    playTab: () {},
-                    obj: obj.secondCard!,
-                  ),
                 ))
             .toList());
   }

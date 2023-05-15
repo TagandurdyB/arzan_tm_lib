@@ -8,6 +8,7 @@ class CustomAppBar extends StatelessWidget {
   final String title;
   final List<Widget>? actions;
   final Widget? leading;
+  final Widget? titleW;
   final TextStyle? style;
   late BuildContext context;
   CustomAppBar(
@@ -15,6 +16,7 @@ class CustomAppBar extends StatelessWidget {
       this.actions = const [],
       this.funcBack,
       this.leading,
+      this.titleW,
       this.style,
       super.key});
   final double arentir = MySize.arentir;
@@ -33,27 +35,28 @@ class CustomAppBar extends StatelessWidget {
   Widget buildContent() {
     return Row(
       children: [
-        leading ??
-            GestureDetector(
-                onTap: () {
-                  if (funcBack != null) {
-                    funcBack!();
-                  } else {
-                    Navigator.pop(context);
-                  }
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  // color: Colors.white,
-                  size: 30,
-                )),
+        leading ?? const BackButton(),
+        // GestureDetector(
+        //     onTap: () {
+        //       if (funcBack != null) {
+        //         funcBack!();
+        //       } else {
+        //         Navigator.pop(context);
+        //       }
+        //     },
+        //     child: const Icon(
+        //       Icons.arrow_back_ios,
+        //       // color: Colors.white,
+        //       size: 30,
+        //     )),
         Expanded(
-          child: Text(
-            title,
-            style: style ?? const TextStyle(fontSize: 22),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+          child: titleW ??
+              Text(
+                title,
+                style: style ?? const TextStyle(fontSize: 22),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
         ),
         buildActions(),
       ],

@@ -1,8 +1,4 @@
-// ignore_for_file: must_be_immutable
 
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
 
 import '../../../config/services/device_info.dart';
 import '../../../config/services/my_size.dart';
@@ -45,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future get _loginFunc async {
     final String unicID = await MyDevice.getUnic;
-    print("ID:=$unicID");
+    debugPrint("ID:=$unicID");
     setState(() {
       isPressBefore = true;
       final bool isValidForm = formKey.currentState!.validate();

@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, avoid_print
 
-import '../../../config/services/my_size.dart';
 import '../../../config/vars/constants.dart';
 import '../scaffold/recovery_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../widgets/ReadyInput/login_arzan_input.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
 import '../widgets/form_error_message.dart';
-import '../widgets/my_pop_widget.dart';
 import '../widgets/next_btn.dart';
 import '../widgets/success_pop.dart';
 

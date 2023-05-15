@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/config/services/my_size.dart';
-import 'package:arzan_tm/presentation/views/widgets/my_pop_widget.dart';
-import 'package:arzan_tm/presentation/views/widgets/next_btn.dart';
-import 'package:arzan_tm/presentation/views/widgets/post/images_picker_widget.dart';
+import '/config/services/my_size.dart';
+import '/presentation/views/widgets/my_pop_widget.dart';
+import '/presentation/views/widgets/next_btn.dart';
+import '/presentation/views/widgets/post/images_picker_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../providers/view/provider_view_post.dart';

@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/providers/view/provider_view_post.dart';
+import '/presentation/providers/view/provider_view_post.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 

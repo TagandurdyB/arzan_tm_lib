@@ -3,7 +3,7 @@ import '/domanin/entities/main_page/discount_entity.dart';
 import '/presentation/providers/view/provider_discaunts.dart';
 import '/presentation/views/widgets/discount/discount_2_card.dart';
 
-import 'package:entry/entry.dart';
+// import 'package:entry/entry.dart';
 
 import '../../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +29,14 @@ class _DiscountViewState extends State<DiscountView> {
         itemCount: widget.objs.length,
         gridDelegate: _delegateChanger(providD.cloumnCount),
         itemBuilder: (context, index) {
-          return Entry.scale(
-              visible: providD.scaleVisible,
-              scale: 0,
-              curve: Curves.easeInOut,
-              // delay: const Duration(milliseconds: 40),
-              duration: const Duration(milliseconds: 300),
-              child: buildDiscountCard(index, providD.cloumnCount));
+          return buildDiscountCard(index, providD.cloumnCount);
+          // return Entry.scale(
+          //     visible: providD.scaleVisible,
+          //     scale: 0,
+          //     curve: Curves.easeInOut,
+          //     // delay: const Duration(milliseconds: 40),
+          //     duration: const Duration(milliseconds: 300),
+          //     child: buildDiscountCard(index, providD.cloumnCount));
         });
   }
 

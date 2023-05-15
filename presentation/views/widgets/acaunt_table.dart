@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import '/presentation/views/widgets/all_btn.dart';
 
 import '../../../config/services/my_size.dart';
@@ -155,34 +157,32 @@ class AcauntTable extends StatelessWidget {
   }
 
   Widget buildPopContent(Color col, IconData iconD, String text) {
-    return Container(
-        // color: Colors.red,
-        child: Column(children: [
+    return Column(children: [
       Icon(
-        iconD,
-        color: col,
-        size: arentir * 0.1,
+    iconD,
+    color: col,
+    size: arentir * 0.1,
       ),
       Container(
-        margin: EdgeInsets.all(arentir * 0.02),
-        height: arentir * 0.35,
-        child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Text(
-              text,
-              style: TextStyle(fontSize: arentir * 0.05),
-              textAlign: TextAlign.center,
-            )),
+    margin: EdgeInsets.all(arentir * 0.02),
+    height: arentir * 0.35,
+    child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Text(
+          text,
+          style: TextStyle(fontSize: arentir * 0.05),
+          textAlign: TextAlign.center,
+        )),
       ),
       AllBtn(
-        padding: EdgeInsets.symmetric(
-            horizontal: arentir * 0.06, vertical: arentir * 0.015),
-        text: "OK",
-        bgColor: const Color(0xff00AE26),
-        fontSize: arentir * 0.05,
-        onTap: () => Navigator.pop(context),
+    padding: EdgeInsets.symmetric(
+        horizontal: arentir * 0.06, vertical: arentir * 0.015),
+    text: "OK",
+    bgColor: const Color(0xff00AE26),
+    fontSize: arentir * 0.05,
+    onTap: () => Navigator.pop(context),
       )
-    ]));
+    ]);
   }
 
   Widget buildIcon(Color bgCol, Color col, IconData iconD, String title) {

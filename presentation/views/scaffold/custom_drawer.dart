@@ -72,7 +72,6 @@ class CustomDrawer extends StatelessWidget {
   }
 
   Widget get buildContent {
-    final providA = AcauntP.of(context);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       DrawerBtn(Icons.star_border, "Top hasaplar", context, num: 324),
       DrawerBtn(Icons.favorite_border, "Saýlananlar", context, num: 324),

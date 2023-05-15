@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import '../../../config/routes/my_route.dart';
 import '../../../config/vars/constants.dart';
 import '../scaffold/recovery_scaffold.dart';
 import 'package:flutter/material.dart';

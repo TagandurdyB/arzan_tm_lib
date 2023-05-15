@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 import 'big_content_card_entity.dart';
 
 class VideoCardEntity extends BigCardEntity {
@@ -19,7 +21,6 @@ class VideoCardEntity extends BigCardEntity {
   final int allShaered;
   @override
   final bool isEmpty;
-  @override
   final bool isVideo;
   // final List<ImgCardEntity> contents;
   VideoCardEntity({

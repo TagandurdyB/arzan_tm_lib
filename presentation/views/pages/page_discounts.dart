@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/views/scaffold/custom_app_bar.dart';
+import '/presentation/views/scaffold/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../scaffold/no_app_bar_scaffold.dart';
@@ -21,7 +21,7 @@ class DiscountsPage extends StatelessWidget {
   }
 
   Widget get buildContent {
-    return Column(children: [
+    return Column(children: const [
       
     ],);
   }

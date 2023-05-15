@@ -15,7 +15,6 @@ class DiscountModel extends DiscountEntity {
   final DateTime createdAt;
   @override
   final String title;
-  @override
   final bool isEmpty;
   DiscountModel({
     required this.id,

@@ -1,11 +1,14 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/providers/data/main_page_provider.dart';
+import '/presentation/views/widgets/card_title.dart';
+
+import '../../providers/view/provider_discaunts.dart';
+import '../widgets/carusel_slider.dart';
 import '/presentation/views/pages/page_image_detal.dart';
 
-import '../widgets/galery/image_card_group.dart';
 import '../../../domanin/entities/galery/big_content_card_entity.dart';
-import '../../../domanin/entities/galery/img_card_entity.dart';
-import '../widgets/galery/big_content_card.dart';
+import '../widgets/galery/folder_cards/big_content_card.dart';
 
 import '../../../config/services/my_size.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
@@ -23,7 +26,21 @@ class ImagesPage extends StatelessWidget {
     return ScaffoldNo(
         body: Column(
       children: [
-        CustomAppBar(title: "Surat"),
+        CustomAppBar(
+          // title: "Surat",
+          titleW: CardTitle(
+            counter: 23,
+            title: "Surat",
+            txtSize: arentir * 0.05,
+          ),
+          actions: [
+            GestureDetector(
+                onTap: () =>
+                    DiscountProvid.of(context, listen: false).tongleColumn,
+                child: Icon(
+                    buildWidgetIconD(DiscountProvid.of(context).cloumnCount)))
+          ],
+        ),
         Expanded(
             child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -33,12 +50,29 @@ class ImagesPage extends StatelessWidget {
     ));
   }
 
+  IconData buildWidgetIconD(int cloumnCount) {
+    {
+      switch (cloumnCount) {
+        case 1:
+          return Icons.list;
+        case 2:
+          return Icons.widgets_outlined;
+        case 3:
+          return Icons.apps_sharp;
+
+        default:
+          return Icons.list;
+      }
+    }
+  }
+
   Widget get buildContent {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
         children: [
-          buildTitle,
+          buildBanner,
+          SizedBox(height: arentir * 0.02),
           buildCards(),
           SizedBox(height: arentir * 0.2),
         ],
@@ -46,29 +80,11 @@ class ImagesPage extends StatelessWidget {
     );
   }
 
-  Widget get buildTitle {
+  Widget get buildBanner {
     return Padding(
-      padding: EdgeInsets.all(arentir * 0.04),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Telefonlar",
-            style: TextStyle(color: Color(0xff00C52B)),
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: const Color(0xff00C52B),
-                borderRadius: BorderRadius.circular(8)),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-            ),
-            child: const Icon(
-              Icons.keyboard_arrow_up,
-              color: Colors.white,
-            ),
-          ),
-        ],
+      padding: const EdgeInsets.all(10),
+      child: MyCarusel(
+        items: MainPageP.of(context).entity.baners.map((e) => e).toList(),
       ),
     );
   }
@@ -86,32 +102,6 @@ class ImagesPage extends StatelessWidget {
       allViewed: 14756,
       name:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      contents: [
-        ImgCardEntity(
-          id: 1,
-          img:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-IF0u5AYxHvFLMIBjUxqWGHgnH5x4Us8Pg&usqp=CAU",
-          viewed: 1251,
-          liked: 151,
-          isEmpty: false,
-        ),
-        ImgCardEntity(
-          id: 1,
-          img:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-IF0u5AYxHvFLMIBjUxqWGHgnH5x4Us8Pg&usqp=CAU",
-          viewed: 1251,
-          liked: 151,
-          isEmpty: false,
-        ),
-        ImgCardEntity(
-          id: 1,
-          img:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-IF0u5AYxHvFLMIBjUxqWGHgnH5x4Us8Pg&usqp=CAU",
-          viewed: 1251,
-          liked: 151,
-          isEmpty: false,
-        ),
-      ],
       isEmpty: false,
     ),
     BigCardEntity(
@@ -126,32 +116,6 @@ class ImagesPage extends StatelessWidget {
       allViewed: 14756,
       name:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      contents: [
-        ImgCardEntity(
-          id: 1,
-          img:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTV7SioPJXqa9qgZGpyCYywI92837qWq0ohg&usqp=CAU",
-          viewed: 1251,
-          liked: 151,
-          isEmpty: false,
-        ),
-        ImgCardEntity(
-          id: 1,
-          img:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-IF0u5AYxHvFLMIBjUxqWGHgnH5x4Us8Pg&usqp=CAU",
-          viewed: 1251,
-          liked: 151,
-          isEmpty: false,
-        ),
-        ImgCardEntity(
-          id: 1,
-          img:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTV7SioPJXqa9qgZGpyCYywI92837qWq0ohg&usqp=CAU",
-          viewed: 1251,
-          liked: 151,
-          isEmpty: false,
-        ),
-      ],
       isEmpty: false,
     ),
   ];
@@ -160,15 +124,11 @@ class ImagesPage extends StatelessWidget {
     return Column(
         children: objs
             .map((obj) => BigContentCard(
-                  allFunc: () => Navigator.push(
+                  onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => ImageDetalPage(obj: obj))),
                   obj: obj,
-                  child: ImageCardGroup(
-                    height: arentir * 0.35,
-                    objs: obj.contents,
-                  ),
                 ))
             .toList());
   }
