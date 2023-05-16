@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:provider/provider.dart';
+
+import '../../providers/data/banner_provider.dart';
 import '/domanin/entities/main_page/main_page_entity.dart';
 
 import '../../providers/data/main_page_provider.dart';
@@ -50,7 +53,8 @@ class _ScreenMainState extends State<ScreenMain> {
   @override
   Widget build(BuildContext context) {
     this.context = context;
-    objM = MainPageP.of(context).entity;
+    // objM = MainPageP.of(context).entity;
+    objM = context.watch<MainPageP>().entity;
     return Column(
       children: [
         // ProviderNav.of(context).isSearch ? SearchBar() : MainBar(),
@@ -148,7 +152,7 @@ class _ScreenMainState extends State<ScreenMain> {
       // ),
       padding: const EdgeInsets.all(16),
       child: MyCarusel(
-        items: objM.baners.map((e) => e).toList(),
+        items: objM.baners,
       ),
     );
   }
@@ -170,7 +174,12 @@ class _ScreenMainState extends State<ScreenMain> {
                   child: Icon(
                       buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
               TextButton(
-                onPressed: () => Navigator.pushNamed(context, Rout.discounts),
+                onPressed: () {
+                  BannerP.of(context, listen: false)
+                      .fillBanner("Balkan", "Discount")
+                      .then((value) =>
+                          Navigator.pushNamed(context, Rout.discounts));
+                },
                 child: const Text(
                   "Hemmesi",
                   style: TextStyle(color: Color(0xff008631)),

@@ -47,18 +47,17 @@ class DiscountModel extends DiscountEntity {
     try {
       return DiscountModel(
         id: json["id"],
-        mod: json["mod"],
-        viewed: json["viewed"],
-        img: json["img"],
-        createdAt: json["created_at"],
+        mod: json["mod"] ?? 0,
+        viewed: 0, //json["viewed"],
+        img: json["discount_img"],
+        createdAt: DateTime.now(),//json["createdAt"],
         title: json["title"],
       );
     } catch (err) {
-      throw ("Error in DiscountEntity : $err");
+      throw ("Error in DiscountModel : $err");
     }
   }
 
-  static List<DiscountModel> fromJsonList(
-          List<Map<String, dynamic>> jsonList) =>
+  static List<DiscountModel> fromJsonList(List jsonList) =>
       jsonList.map((json) => DiscountModel.frowJson(json)).toList();
 }

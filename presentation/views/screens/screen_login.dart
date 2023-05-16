@@ -1,3 +1,4 @@
+import '../../providers/data/hive_provider.dart';
 import '/domanin/entities/register/log_in_entity.dart';
 
 import '../../../config/services/device_info.dart';
@@ -52,12 +53,16 @@ class _LoginScreenState extends State<LoginScreen> {
         _popLoading();
         AcauntP.of(context, listen: false)
             .logIn(LogInEntity(
-              uniqueId: unicID,
-              userName: RIBase.getText(Tags.rILoginUser),
-              userPassword: RIBase.getText(Tags.rILoginPass),
-            ))
-            .then((response) =>
-                _popMessage(response.message, !response.succsess));
+          uniqueId: unicID,
+          userName: RIBase.getText(Tags.rILoginUser),
+          userPassword: RIBase.getText(Tags.rILoginPass),
+        ))
+            .then((response) {
+          _popMessage(response.message, !response.succsess);
+          final hiveP = HiveP.of(context, listen: false);
+         hiveP.saveStr(response.token ?? "", Tags.hiveToken);
+         hiveP.saveBool(true, Tags.isLogin);
+        });
       } else {
         haveError = true;
       }

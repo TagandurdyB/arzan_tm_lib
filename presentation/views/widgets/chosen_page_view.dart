@@ -36,12 +36,10 @@ class _ChosenPageViewState extends State<ChosenPageView> {
   late Timer timer;
   int index = 0;
   int length = 0;
-  List<ChosenEntity> objs = [];
 
   @override
   void initState() {
-    objs = widget.objs;
-    length = objs.length < 3 ? 3 : objs.length;
+    length = widget.objs.length < 3 ? 3 : widget.objs.length;
     rounder;
     super.initState();
   }
@@ -49,8 +47,11 @@ class _ChosenPageViewState extends State<ChosenPageView> {
   void get rounder {
     if (length < 3) {
       for (int i = 0; i < (3 - length); i++) {
-        objs.add(ChosenEntity.empty);
+        widget.objs.add(ChosenEntity.empty);
       }
+    } else if (length == 3) {
+      Future.delayed(const Duration(milliseconds: 500))
+          .then((value) => setToNext());
     } else if (length > 3) {
       //Timer
       timer = Timer.periodic(const Duration(seconds: 4), (timer) {
@@ -105,7 +106,7 @@ class _ChosenPageViewState extends State<ChosenPageView> {
               onPageChanged: onPageChanged,
               controller: controller,
               physics: const BouncingScrollPhysics(),
-              itemCount: objs.length,
+              itemCount: widget.objs.length,
               itemBuilder: (context, index) {
                 return buildCard(index);
               },
@@ -134,7 +135,7 @@ class _ChosenPageViewState extends State<ChosenPageView> {
 
   Widget buildCard(int index) {
     return Visibility(
-      visible: !objs[index].isEmpty,
+      visible: !widget.objs[index].isEmpty,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -147,8 +148,8 @@ class _ChosenPageViewState extends State<ChosenPageView> {
               alignment: Alignment.center,
               child: AspectRatio(
                   aspectRatio: 1 / 1.38,
-                  child:
-                      ShimmerImg(fit: BoxFit.fill, imageUrl: objs[index].img)),
+                  child: ShimmerImg(
+                      fit: BoxFit.fill, imageUrl: widget.objs[index].img)),
             ),
           ),
           buildBottom(index),

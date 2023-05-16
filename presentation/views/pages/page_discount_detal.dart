@@ -12,7 +12,7 @@ import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../scaffold/custom_app_bar.dart';
-import 'page_zoom.dart';
+import 'zoom/page_multi_zoom.dart';
 
 class DiscountDetal extends StatelessWidget {
   final DiscountDetalEntity obj;
@@ -61,7 +61,7 @@ class DiscountDetal extends StatelessWidget {
 
   Container get buildStar {
     return Container(
-      margin: EdgeInsets.all(arentir * 0.03),
+      margin: EdgeInsets.symmetric(horizontal: arentir * 0.03),
       decoration: BoxDecoration(
           color: const Color(0xffB47D3F),
           border: Border.all(color: const Color(0xffE2BD83), width: 2),
@@ -260,9 +260,8 @@ class DiscountDetal extends StatelessWidget {
         ),
         const SizedBox(width: 20),
         Expanded(
-          child: SuccessBtn(onTap: () async =>
-            await LauncherService.phone(obj.phone)
-          ),
+          child: SuccessBtn(
+              onTap: () async => await LauncherService.phone(obj.phone)),
         ),
       ]),
     );
@@ -292,16 +291,19 @@ class _ImgIndicatorViewState extends State<ImgIndicatorView> {
         children: [
           PageView(
             scrollDirection: Axis.vertical,
-            children: widget.imgs
-                .map((e) => GestureDetector(
+            children: List.generate(
+                widget.imgs.length,
+                (index) => GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ZoomPage(image: e)));
+                              builder: (context) => MultiZoomPage(
+                                    images: widget.imgs,
+                                    startIndex: index,
+                                  )));
                     },
-                    child: ShimmerImg(imageUrl: e)))
-                .toList(),
+                    child: ShimmerImg(imageUrl: widget.imgs[index]))),
             onPageChanged: (index) => setState(() => _viewedIndex = index),
           ),
           Positioned(

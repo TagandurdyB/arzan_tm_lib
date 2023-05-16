@@ -22,16 +22,9 @@ class ImgCardEntity {
         isEmpty: false,
       );
 
-  static List<ImgCardEntity> frowJsonList(List<Map<String, dynamic>> json) =>
-      json
-          .map((e) => ImgCardEntity(
-                id: e["id"],
-                img: e["img"],
-                viewed: e["viewed"],
-                liked: e["liked"],
-                isEmpty: false,
-              ))
-          .toList();
+  static List<ImgCardEntity> frowJsonList(
+          List<Map<String, dynamic>> jsonList) =>
+      jsonList.map((json) => ImgCardEntity.frowJson(json)).toList();
 
   Map<String, dynamic> toJson() => {
         "id": id,

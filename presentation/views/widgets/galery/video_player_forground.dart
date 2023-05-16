@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../config/services/my_size.dart';
-import '../../../providers/data/provider_video.dart';
+import '../../../providers/view/provider_video.dart';
 
 import 'dart:ui' as ui;
 

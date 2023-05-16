@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import '/config/vars/formater.dart';
+
 import '../../../../config/services/my_size.dart';
 import '../../../../domanin/entities/galery/img_card_entity.dart';
 import 'package:flutter/material.dart';
@@ -42,14 +44,14 @@ class ImageCard extends StatelessWidget {
             Positioned(
               left: arentir * 0.01,
               bottom: arentir * 0.03,
-              child: buildBluredIconText(
-                  Icons.visibility_outlined, Colors.white, "${obj.viewed}"),
+              child: buildBluredIconText(Icons.visibility_outlined,
+                  Colors.white, Formater.rounder(obj.viewed)),
             ),
             Positioned(
               right: arentir * 0.01,
               bottom: arentir * 0.03,
-              child: buildBluredIconText(
-                  Icons.favorite, const Color(0xffE50027), "${obj.liked}"),
+              child: buildBluredIconText(Icons.favorite,
+                  const Color(0xffE50027), Formater.rounder(obj.liked)),
             )
           ],
         ),

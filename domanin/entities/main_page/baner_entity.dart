@@ -16,13 +16,11 @@ class BanerEntity {
 
   factory BanerEntity.frowJson(Map<String, dynamic> json) {
     try {
-      final String jNote = json["note"] ?? "";
-      final String jTitle = json["title"] ?? "";
       return BanerEntity(
           id: json["id"],
           img: json["img"],
-          note: jNote,
-          title: jTitle,
+          note: json["note"] ?? "",
+          title: json["title"] ?? "",
           isEmpty: false);
     } catch (err) {
       throw ("Error in BanerEntity : $err");

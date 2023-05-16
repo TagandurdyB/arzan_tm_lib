@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../config/vars/constants.dart';
 import '/data/models/register/response_model.dart';
 
 import '/data/models/register/log_in_model.dart';
@@ -46,7 +47,7 @@ class RegisterDataSourceImpl implements RegisterRemoteDataSource {
         print("*** ${json.decode(response.body)}");
         final String token = json.decode(response.body)["token"];
         print("token:=$token");
-        print("+++${JwtDecoder.decode(token)}");
+
         return ResponseModel.frowJson(json.decode(response.body));
       } else {
         print("Error in Login!!! statusCode:${response.statusCode}");

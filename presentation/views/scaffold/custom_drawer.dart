@@ -2,6 +2,8 @@
 import '../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 import '../../../config/routes/my_route.dart';
+import '../../../config/vars/constants.dart';
+import '../../providers/data/hive_provider.dart';
 import '../../providers/data/provider_acaunt.dart';
 import '../widgets/drawer_btn.dart';
 import '../widgets/my_container.dart';
@@ -81,7 +83,13 @@ class CustomDrawer extends StatelessWidget {
       DrawerBtn(
           Icons.star_border, icon: buildStar(), "Resmiler", context, num: 324),
       divided,
-      DrawerBtn(Icons.location_on_outlined, "Welaýat saýla", context),
+      DrawerBtn(
+        Icons.location_on_outlined,
+        "Welaýat saýla",
+        context,
+        isRestart: true,
+        route: Rout.region,
+      ),
       DrawerBtn(Icons.bookmark_border, "Bellenenler", context),
       DrawerBtn(Icons.settings_suggest_outlined, "Sazlamalar", context,
           route: Rout.settings),
@@ -128,7 +136,10 @@ class CustomDrawer extends StatelessWidget {
             visible: AcauntP.of(context).isSing,
             isRestart: true,
             route: Rout.home,
-            onTap: () => AcauntP.of(context, listen: false).logOut,
+            onTap: () {
+              HiveP.of(context, listen: false).saveBool(false, Tags.isLogin);
+              AcauntP.of(context, listen: false).logOut;
+            },
           ),
         ),
         Container(

@@ -1,4 +1,3 @@
-
 // ignore_for_file: overridden_fields
 
 import '/domanin/entities/main_page/chosen_entity.dart';
@@ -25,6 +24,7 @@ class ChosenModel extends ChosenEntity {
           img: img,
           name: name,
           createdAt: createdAt,
+          isEmpty: isEmpty,
         );
 
   static ChosenModel get empty => ChosenModel(
@@ -38,9 +38,9 @@ class ChosenModel extends ChosenEntity {
     try {
       return ChosenModel(
         id: json["id"],
-        img: json["img"],
-        name: json["name"],
-        createdAt: json["created_at"],
+        img: json["saylanan_img"],
+        name: json["title"],
+        createdAt: json["created_at"] ?? DateTime.now(),
         isEmpty: false,
       );
     } catch (err) {
@@ -48,6 +48,6 @@ class ChosenModel extends ChosenEntity {
     }
   }
 
-  static List<ChosenModel> fromJsonList(List<Map<String, dynamic>> jsonList) =>
+  static List<ChosenModel> fromJsonList(List jsonList) =>
       jsonList.map((json) => ChosenModel.frowJson(json)).toList();
 }

@@ -29,10 +29,11 @@ class DiscountCardThird extends StatelessWidget {
             Stack(
               alignment: Alignment.topRight,
               children: [
-                Container(
-                  color: ThemeP.of(context).colors.shimmerBg,
+                SizedBox(
+                  width: double.infinity,
+                  // color: ThemeP.of(context).colors.shimmerBg,
                   height: arentir * 0.22,
-                  child: ShimmerImg(imageUrl: obj.img),
+                  child: ShimmerImg(fit: BoxFit.cover, imageUrl: obj.img),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -53,10 +54,11 @@ class DiscountCardThird extends StatelessWidget {
                 padding: EdgeInsets.all(arentir * 0.01),
                 color: theme.canvasColor,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "NOUTBUKLAR AMATLY WE GARAŞARYN",
+                      obj.title,
                       style: TextStyle(fontSize: arentir * 0.027),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,

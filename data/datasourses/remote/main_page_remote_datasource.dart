@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'api_main_page.dart';
 import 'http_vars.dart';
 
@@ -19,8 +21,8 @@ class MainPageDataSourceImpl implements MainPageRemoteDataSource {
         await httpClient.get(Uris.mainPage, headers: Headers.mainPage);
     return HttpsFuncs.responseChecker(
       response,
-      MainPageModel.frowJson(api),
-      // MainPageModel.frowJson(json.decode(response.body)),
+      // MainPageModel.frowJson(api),
+      MainPageModel.frowJson(json.decode(response.body)),
     );
   }
 }

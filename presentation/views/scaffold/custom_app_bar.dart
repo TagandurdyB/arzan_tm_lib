@@ -11,9 +11,13 @@ class CustomAppBar extends StatelessWidget {
   final Widget? titleW;
   final TextStyle? style;
   late BuildContext context;
+  final Color bgColor;
+  final Color? color;
   CustomAppBar(
       {this.title = "Title",
       this.actions = const [],
+      this.bgColor = Colors.white54,
+      this.color,
       this.funcBack,
       this.leading,
       this.titleW,
@@ -25,7 +29,7 @@ class CustomAppBar extends StatelessWidget {
     this.context = context;
     return Container(
       // color: Colors.white54,
-      color: Colors.white54,
+      color: bgColor,
       height: kToolbarHeight,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: buildContent(),
@@ -35,7 +39,7 @@ class CustomAppBar extends StatelessWidget {
   Widget buildContent() {
     return Row(
       children: [
-        leading ?? const BackButton(),
+        leading ?? BackButton(color: color),
         // GestureDetector(
         //     onTap: () {
         //       if (funcBack != null) {
@@ -53,7 +57,7 @@ class CustomAppBar extends StatelessWidget {
           child: titleW ??
               Text(
                 title,
-                style: style ?? const TextStyle(fontSize: 22),
+                style: style ?? TextStyle(fontSize: 22, color: color),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

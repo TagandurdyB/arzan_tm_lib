@@ -28,8 +28,8 @@ class DiscountCardFirst extends StatelessWidget {
             Stack(
               alignment: Alignment.topRight,
               children: [
-                Container(
-                  color: ThemeP.of(context).colors.shimmerBg,
+                SizedBox(
+                  // color: ThemeP.of(context).colors.shimmerBg,
                   width: arentir * 0.44,
                   height: arentir,
                   child: ShimmerImg(fit: BoxFit.fitHeight, imageUrl: obj.img),
@@ -53,10 +53,11 @@ class DiscountCardFirst extends StatelessWidget {
                 padding: EdgeInsets.all(arentir * 0.02),
                 color: theme.canvasColor,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Mebel zakaz alyarys islendik gornusde",
+                      obj.title,
                       style: TextStyle(fontSize: arentir * 0.034),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

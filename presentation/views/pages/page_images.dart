@@ -1,9 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/providers/data/provider_gallery.dart';
+
 import '/presentation/views/widgets/galery/folder_cards/midle_folder_card.dart';
 import '/presentation/views/widgets/galery/folder_cards/small_folder_card.dart';
 
-import '/presentation/providers/data/main_page_provider.dart';
 import '/presentation/views/widgets/card_title.dart';
 
 import '../../providers/view/provider_discaunts.dart';
@@ -18,15 +19,38 @@ import '/presentation/views/scaffold/custom_app_bar.dart';
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class ImagesPage extends StatelessWidget {
-  ImagesPage({super.key});
+class ImagesPage extends StatefulWidget {
+  const ImagesPage({super.key});
 
+  @override
+  State<ImagesPage> createState() => _ImagesPageState();
+}
+
+class _ImagesPageState extends State<ImagesPage> {
   final double arentir = MySize.arentir;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      GalleryP.of(context, listen: false).fillImgFolders();
+    });
+    super.initState();
+  }
+
+  @override
   late BuildContext context;
+
   late DiscountProvid providD, providDdo;
+
+  late GalleryP providG, providGdo;
+  late List<BigCardEntity> objs;
+
   @override
   Widget build(BuildContext context) {
     this.context = context;
+    providG = GalleryP.of(context);
+    objs = providG.imgGallery.folders;
+
     providD = DiscountProvid.of(context);
     providDdo = DiscountProvid.of(context, listen: false);
     return ScaffoldNo(
@@ -72,7 +96,7 @@ class ImagesPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: MyCarusel(
-        items: MainPageP.of(context).entity.baners.map((e) => e).toList(),
+        items: providG.imgGallery.banners.map((e) => e).toList(),
       ),
     );
   }
@@ -91,95 +115,43 @@ class ImagesPage extends StatelessWidget {
     );
   }
 
-  final List<BigCardEntity> objs = [
-    BigCardEntity(
-      id: 1,
-      userImg:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
-      userName: "100haryt.com",
-      banerImg:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-      allCount: 12,
-      allShaered: 720,
-      allViewed: 14756,
-      name:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      isEmpty: false,
-    ),
-    BigCardEntity(
-      id: 1,
-      userImg:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvtyA_jv76ISEwn237GbPT--KbTNBIGyhVIQ&usqp=CAU",
-      userName: "Mercedes-Benz",
-      banerImg:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
-      allCount: 12,
-      allShaered: 720,
-      allViewed: 14756,
-      name:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      isEmpty: false,
-    ),
-    BigCardEntity(
-      id: 1,
-      userImg:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
-      userName: "100haryt.com",
-      banerImg:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-      allCount: 12,
-      allShaered: 720,
-      allViewed: 14756,
-      name:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      isEmpty: false,
-    ),
-    BigCardEntity(
-      id: 1,
-      userImg:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvtyA_jv76ISEwn237GbPT--KbTNBIGyhVIQ&usqp=CAU",
-      userName: "Mercedes-Benz",
-      banerImg:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
-      allCount: 12,
-      allShaered: 720,
-      allViewed: 14756,
-      name:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      isEmpty: false,
-    ),
-  ];
-
   Widget buildCards() {
     return Wrap(
         spacing: arentir * 0.03,
-        children: objs.map((obj) {
+        children: List.generate(objs.length, (index) {
           switch (providDdo.cloumnCount) {
             case 1:
               return BigContentCard(
-                onTap: () => _goImgDetal(obj),
-                obj: obj,
+                onTap: () => _goImgDetal(index),
+                obj: objs[index],
               );
             case 2:
               return MidleFolderCard(
-                onTap: () => _goImgDetal(obj),
-                obj: obj,
+                onTap: () => _goImgDetal(index),
+                obj: objs[index],
               );
             case 3:
               return SmallFolderCard(
-                onTap: () => _goImgDetal(obj),
-                obj: obj,
+                onTap: () => _goImgDetal(index),
+                obj: objs[index],
               );
 
             default:
               return BigContentCard(
-                onTap: () => _goImgDetal(obj),
-                obj: obj,
+                onTap: () => _goImgDetal(index),
+                obj: objs[index],
               );
           }
-        }).toList());
+        }));
   }
 
-  void _goImgDetal(obj) => Navigator.push(context,
-      MaterialPageRoute(builder: (context) => ImageDetalPage(obj: obj)));
+  void _goImgDetal(int index) => Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ImageDetalPage(
+                // obj: const [],
+                userImg: objs[index].userImg,
+                userName: objs[index].userName,
+                userId: objs[index].id,
+              )));
 }

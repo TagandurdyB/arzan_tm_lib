@@ -4,10 +4,10 @@ import '/config/vars/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../domanin/usecases/theme_case.dart';
+import '../../../domanin/usecases/hive_case.dart';
 
 class DataThemeProvider extends ChangeNotifier {
-  final ThemeCase getThemeModeCase;
+  final HiveCase getThemeModeCase;
   DataThemeProvider({required this.getThemeModeCase});
 
   bool _isSystem = true;
@@ -75,11 +75,11 @@ class DataThemeProvider extends ChangeNotifier {
   }
 
   void _save(bool val, String tag) {
-    getThemeModeCase.save(val, tag);
+    getThemeModeCase.saveBool(val, tag);
     notifyListeners();
   }
 
-  bool? _read(String tag) => getThemeModeCase.read(tag);
+  bool? _read(String tag) => getThemeModeCase.readBool(tag);
 
   // void getTheme() {
   //   try {

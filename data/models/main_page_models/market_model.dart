@@ -38,8 +38,8 @@ class MarketModel extends MarketEntity {
       return MarketModel(
         id: json["id"],
         mod: json["mod"]??0,
-        logo: json["market_img"],
-        name: json["title"],
+        logo: json["market_img"]??"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOo3JKZQ0igLBc1Kg1K_3SSIZGaZZRdKk6Fg&usqp=CAU",
+        name: json["name"],
         isEmpty: false,
       );
     } catch (err) {
@@ -47,6 +47,6 @@ class MarketModel extends MarketEntity {
     }
   }
 
-  static List<MarketModel> fromJsonList(List<Map<String, dynamic>> jsonList) =>
+  static List<MarketModel> fromJsonList(List jsonList) =>
       jsonList.map((json) => MarketModel.frowJson(json)).toList();
 }

@@ -29,10 +29,11 @@ class DiscountCardSecond extends StatelessWidget {
             Stack(
               alignment: Alignment.topRight,
               children: [
-                Container(
-                  color: ThemeP.of(context).colors.shimmerBg,
+                SizedBox(
+                  width: double.infinity,
+                  // color: ThemeP.of(context).colors.shimmerBg,
                   height: arentir * 0.29,
-                  child: ShimmerImg(imageUrl: obj.img, fit: BoxFit.fill),
+                  child: ShimmerImg(imageUrl: obj.img, fit: BoxFit.fitHeight),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

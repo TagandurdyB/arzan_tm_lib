@@ -1,3 +1,6 @@
+import '/presentation/providers/data/provider_acaunt.dart';
+
+import '../../providers/data/hive_provider.dart';
 import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +29,18 @@ class _LogoPageState extends State<LogoPage> {
     });
   }
 
-  void get _goHome => Navigator.pushReplacementNamed(context, Rout.home);
+  void get _goHome {
+    final hiveP = HiveP.of(context, listen: false);
+    if (hiveP.readBool(Tags.isLogin)==true) {
+      AcauntP.of(context, listen: false).logIned;
+    }
+
+    if (hiveP.readStr(Tags.hiveWelayat) != null) {
+      Navigator.pushReplacementNamed(context, Rout.home);
+    } else {
+      Navigator.pushReplacementNamed(context, Rout.region);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

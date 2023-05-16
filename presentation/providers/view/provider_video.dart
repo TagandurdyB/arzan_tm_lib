@@ -5,51 +5,6 @@ import 'package:provider/provider.dart';
 enum ScreenMode { landscape, portrate }
 
 class VideoP extends ChangeNotifier {
-  // final service = VideoService();
-  // bool _isLooping = false;
-
-  // bool get isInitial => service.isInitialized;
-  // // void isLooping(bool loop) {
-  // //   _isLooping = loop;
-  // //   notifyListeners();
-  // // }
-  // void get looping {
-  //   _isLooping = true;
-  //   notifyListeners();
-  // }
-
-  // void get unLooping {
-  //   _isLooping = false;
-  //   notifyListeners();
-  // }
-
-  // bool _isPlayed = false;
-  // bool get isPlayed => _isPlayed;
-  // void get tongleVideo {
-  //   _isPlayed = service.isPlaying;
-  //   if (_isPlayed) {
-  //     service.pause;
-  //   } else {
-  //     service.play;
-  //   }
-  //   notifyListeners();
-  // }
-
-  // void startVideo(Function addListener) {
-  //   final controller = service.controller;
-  //   if (controller == null) return;
-  //   controller.addListener(() {
-  //     addListener();
-  //   });
-  //   controller.setLooping(_isLooping);
-  //   controller.initialize().then((value) => service.play);
-  //   notifyListeners();
-  // }
-
-  // void get cancelVideo {
-  //   VideoService().disposeControl;
-  // }
-
   bool _isPlayed = false;
   bool get isPlayed => _isPlayed;
   void changePlayPause(bool isPlay) {

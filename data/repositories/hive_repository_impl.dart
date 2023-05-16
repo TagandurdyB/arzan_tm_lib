@@ -3,15 +3,15 @@
 import '../../domanin/repositories/hive_repository.dart';
 import '../datasourses/local/hive_local_datacource.dart';
 
-class HiveThemeRepositoryImpl implements HiveThemeRepository {
-  final HiveThemeLocalDataSource hiveThemeLocalDataSource;
+class HiveRepositoryImpl implements HiveRepository {
+  final HiveLocalDataSource hiveThemeLocalDataSource;
 
-  HiveThemeRepositoryImpl(this.hiveThemeLocalDataSource);
+  HiveRepositoryImpl(this.hiveThemeLocalDataSource);
 
   @override
-  bool? getThemeMod(String tag) {
+  bool? getBool(String tag) {
     try {
-      final bool? themeMode = hiveThemeLocalDataSource.getHiveTheme(tag);
+      final bool? themeMode = hiveThemeLocalDataSource.getHiveBool(tag);
       return themeMode;
     } catch (err) {
       print("Error on data repository Theme get!!!");
@@ -21,11 +21,33 @@ class HiveThemeRepositoryImpl implements HiveThemeRepository {
   }
 
   @override
-  void saveThemeMod(bool value, String tag) {
+  void saveBool(bool value, String tag) {
     try {
-      hiveThemeLocalDataSource.saveHiveTheme(value, tag);
+      hiveThemeLocalDataSource.saveHiveBool(value, tag);
     } catch (err) {
       print("Error on data repository Theme save!!!");
+      print("Error :$err");
+    }
+  }
+
+  @override
+  String? getStr(String tag) {
+    try {
+      final String? localVar = hiveThemeLocalDataSource.getHiveStr(tag);
+      return localVar;
+    } catch (err) {
+      print("Error on data repository Hive getStr!!!");
+      print("Error :$err");
+    }
+    return null;
+  }
+
+  @override
+  void saveStr(String value, String tag) {
+    try {
+      hiveThemeLocalDataSource.saveHiveStr(value, tag);
+    } catch (err) {
+      print("Error on data repository Hive saveStr!!!");
       print("Error :$err");
     }
   }

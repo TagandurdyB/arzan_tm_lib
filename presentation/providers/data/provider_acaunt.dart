@@ -1,4 +1,4 @@
-import '/domanin/entities/register/sign_up_entity.dart';
+import 'package:arzan_tm/domanin/entities/register/sign_up_entity.dart';
 
 import '/domanin/entities/register/response_entity.dart';
 
@@ -36,6 +36,11 @@ class AcauntP extends ChangeNotifier {
     }
     notifyListeners();
     return entity;
+  }
+
+  void get logIned {
+    _isSign = true;
+    notifyListeners();
   }
 
   ResponseEntity signEntity = ResponseEntity.empty;

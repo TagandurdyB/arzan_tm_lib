@@ -1,3 +1,4 @@
+import '../../presentation/views/pages/page_region.dart';
 import '/presentation/views/pages/page_legal_info.dart';
 
 import '../../presentation/views/pages/page_discounts.dart';
@@ -25,6 +26,7 @@ import '../../presentation/views/widgets/success_pop.dart';
 
 class Rout {
   static const String logo = "/";
+  static const String region = "/RegionPage";
   static const String home = "/HomePage";
   static const String about = "/AboutPage";
   static const String settings = "/SettingsPage";
@@ -45,6 +47,7 @@ class Rout {
 
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
+    region: (context) => RegionPage(),
     home: (context) => const HomePage(),
     about: (context) => const AboutPage(),
     settings: (context) => SettingsPage(),

@@ -28,19 +28,17 @@ class BanerModel extends BanerEntity {
 
   factory BanerModel.frowJson(Map<String, dynamic> json) {
     try {
-      final String jNote = json["note"] ?? "";
-      final String jTitle = json["title"] ?? "";
       return BanerModel(
           id: json["id"],
           img: json["banner_img"],
-          note: jNote,
-          title: jTitle,
+          // note: json["note"] ?? "",
+          // title: json["title"] ?? "",
           isEmpty: false);
     } catch (err) {
       throw ("Error in BanerEntity : $err");
     }
   }
 
-  static List<BanerModel> fromJsonList(List<Map<String, dynamic>> jsonList) =>
+  static List<BanerModel> fromJsonList(List jsonList) =>
       jsonList.map((json) => BanerModel.frowJson(json)).toList();
 }

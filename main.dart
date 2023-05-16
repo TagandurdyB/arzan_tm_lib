@@ -12,7 +12,7 @@ import 'injector.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox(Tags.hiveTheme);
+  await Hive.openBox(Tags.hiveBase);
   runApp(const Injector(router: MyApp()));
   MyOrientation.systemUiOverlayStyle();
 }

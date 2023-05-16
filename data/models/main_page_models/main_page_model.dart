@@ -75,18 +75,18 @@ class MainPageModel extends MainPageEntity {
   factory MainPageModel.frowJson(Map<String, dynamic> json) {
     try {
       return MainPageModel(
-        baners: BanerModel.fromJsonList(json["baners"]),
+        baners: BanerModel.fromJsonList(json["banner"]),
         markets: MarketModel.fromJsonList(json["markets"]),
-        konkurs: MainPageCardModel.frowJson(json["kunkurs"]),
-        saylanlarCount: json["saylananlar"]["count"],
+        konkurs: MainPageCardModel.frowJson(json["konkurslink"]),
+        saylanlarCount: json["saylanan"].length,
         saylananlarDatas:
-            ChosenModel.fromJsonList(json["saylananlar"]["datas"]),
-        top: MainPageCardModel.frowJson(json["top"]),
-        pictures: MainPageCardModel.frowJson(json["pictures"]),
-        videos: MainPageCardModel.frowJson(json["videos"]),
+            ChosenModel.fromJsonList(json["saylanan"]),
+        top: MainPageCardModel.frowJson(json["topLink"]),
+        pictures: MainPageCardModel.frowJson(json["photolink"]),
+        videos: MainPageCardModel.frowJson(json["videolink"]),
         resmiler: MainPageCardModel.frowJson(json["resmiler"]),
-        discountsCount: json["discounts"]["count"],
-        discountDatas: DiscountModel.fromJsonList(json["discounts"]["datas"]),
+        discountsCount: json["discounts"],
+        discountDatas: DiscountModel.fromJsonList(json["discount"]),
       );
     } catch (err) {
       throw ("Error in MainPageModel : $err");

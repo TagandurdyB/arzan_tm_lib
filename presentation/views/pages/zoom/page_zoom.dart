@@ -1,9 +1,19 @@
+import '../../scaffold/no_app_bar_scaffold.dart';
+import '/presentation/views/scaffold/custom_app_bar.dart';
+
 import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
 class ZoomPage extends StatefulWidget {
   final String image;
-  const ZoomPage({required this.image, super.key});
+  final int count, index;
+  final int? liked;
+  const ZoomPage(
+      {required this.image,
+      required this.count,
+      required this.index,
+      this.liked,
+      super.key});
 
   @override
   State<ZoomPage> createState() => _ZoomPageState();
@@ -24,8 +34,8 @@ class _ZoomPageState extends State<ZoomPage>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     )..addListener(() {
-      controller.value=animation!.value;
-    });
+        controller.value = animation!.value;
+      });
     super.initState();
   }
 
@@ -36,23 +46,53 @@ class _ZoomPageState extends State<ZoomPage>
     super.dispose();
   }
 
+  bool isLiked = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(alignment: Alignment.center, children: [
+    return ScaffoldNo(
+      bgColor: Colors.black,
+      body: Stack(alignment: Alignment.topCenter, children: [
         Container(
             width: double.infinity,
             alignment: Alignment.center,
             child: buildViewer),
-        const Positioned(
-          top: 10,
-          left: 10,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.0),
-            child: BackButton(color: Colors.white),
-          ),
+        CustomAppBar(
+          bgColor: Colors.transparent,
+          color: Colors.white,
+          title: "",
+          actions: [
+            Text(
+              "${widget.index}/${widget.count}",
+              style: const TextStyle(color: Colors.white),
+            )
+          ],
         ),
+        Positioned(
+          bottom: 30,
+          right: 30,
+          child: Visibility(
+            visible: widget.liked != null,
+            child: GestureDetector(
+              onTap: () {
+                setState(() => isLiked = !isLiked);
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    isLiked ? Icons.favorite : Icons.favorite_border,
+                    color: const Color(0xffE50027),
+                  ),
+                  Text(
+                    "${widget.liked ?? 0}",
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  )
+                ],
+              ),
+            ),
+          ),
+        )
       ]),
     );
   }
@@ -85,12 +125,12 @@ class _ZoomPageState extends State<ZoomPage>
         child: InteractiveViewer(
           // clipBehavior: Clip.none,
           // panEnabled: false,
-          maxScale: 4, 
+          maxScale: 4,
           minScale: 1,
           transformationController: controller,
           // scaleEnabled: false,
           child: SizedBox(
-            height: double.infinity,
+              height: double.infinity,
               width: MySize.width,
               child: Image.network(widget.image, fit: BoxFit.fitWidth)),
         ),

@@ -4,29 +4,56 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../config/vars/constants.dart';
 
-abstract class HiveThemeLocalDataSource {
-  bool? getHiveTheme(String tag);
-  void saveHiveTheme(bool value, String tag);
+abstract class HiveLocalDataSource {
+  bool? getHiveBool(String tag);
+  void saveHiveBool(bool value, String tag);
+
+  String? getHiveStr(String tag);
+  void saveHiveStr(String value, String tag);
 }
 
-class HiveThemeLocalDataSourceImpl implements HiveThemeLocalDataSource {
-  final myBase = Hive.box(Tags.hiveTheme);
+class HiveLocalDataSourceImpl implements HiveLocalDataSource {
+  final myBase = Hive.box(Tags.hiveBase);
 
   @override
-  bool? getHiveTheme(String tag) {
+  bool? getHiveBool(String tag) {
     try {
       final bool _value = myBase.get(tag);
       print("$tag geted success!");
       return _value;
     } catch (err) {
-      print("Error on Hive Theme get!!!");
+      print("Error on Hive bool get!!!");
       print("Error :$err");
       return null;
     }
   }
 
   @override
-  void saveHiveTheme(bool value, String tag) {
+  void saveHiveBool(bool value, String tag) {
+    try {
+      myBase.put(tag, value);
+      print("$tag savad success!");
+    } catch (err) {
+      print("Error on Hive bool save!!!");
+      print("Error :$err");
+    }
+  }
+
+  @override
+  String? getHiveStr(String tag) {
+    try {
+      final String _value = myBase.get(tag);
+      print("$tag geted success!");
+      return _value;
+    } catch (err) {
+      print("Error on Hive Str get!!!");
+      print("Error :$err");
+      return null;
+    }
+  }
+
+  @override
+  void saveHiveStr(String value, String tag) {
     try {
       myBase.put(tag, value);
       print("$tag savad success!");
