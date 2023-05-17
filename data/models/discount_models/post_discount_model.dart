@@ -22,6 +22,12 @@ class PostDiscountModel extends PostDiscountEntity {
   @override
   final DateTime endedAt;
   @override
+  final int categoryId;
+  @override
+  final int subCategoryId;
+  @override
+  final String welayat;
+  @override
   final bool isEmpty;
   PostDiscountModel({
     required this.images,
@@ -33,6 +39,9 @@ class PostDiscountModel extends PostDiscountEntity {
     required this.oldPrice,
     required this.statedAt,
     required this.endedAt,
+    this.subCategoryId = 0,
+    this.categoryId = 0,
+    this.welayat = "Balkan",
     this.isEmpty = true,
   }) : super(
           images: images,
@@ -44,6 +53,9 @@ class PostDiscountModel extends PostDiscountEntity {
           oldPrice: oldPrice,
           statedAt: DateTime.now(),
           endedAt: DateTime.now(),
+          subCategoryId: subCategoryId,
+          categoryId: categoryId,
+          welayat: welayat,
         );
 
   static PostDiscountModel empty() => PostDiscountModel(
@@ -96,12 +108,15 @@ class PostDiscountModel extends PostDiscountEntity {
   @override
   Map<String, dynamic> toJson() => {
         "description": description,
-        "endedAt": endedAt,
+        "end_date": endedAt.toString(),
         "hashtags": hashtags,
-        "name": name,
-        "phone": phone,
-        "oldPrice": oldPrice,
+        "title": name,
+        "phone_num": phone,
+        "discount_price": oldPrice,
         "price": price,
-        "statedAt": statedAt,
+        "start_date": statedAt.toString(),
+        "welayat": welayat,
+        "categoryId": categoryId,
+        "subCategoryId": subCategoryId,
       };
 }

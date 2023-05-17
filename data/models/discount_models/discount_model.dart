@@ -1,6 +1,6 @@
 // ignore_for_file: overridden_fields
 
-import '/domanin/entities/main_page/discount_entity.dart';
+import '../../../domanin/entities/discounts/discount_entity.dart';
 
 class DiscountModel extends DiscountEntity {
   @override

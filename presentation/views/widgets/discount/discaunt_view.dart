@@ -1,6 +1,6 @@
-import '../../../../domanin/entities/discount_detal_entity.dart';
-import '../../pages/page_discount_detal.dart';
-import '/domanin/entities/main_page/discount_entity.dart';
+import '../../../../domanin/entities/discounts/discount_detal_entity.dart';
+import '../../pages/discount/page_discount_detal.dart';
+import '../../../../domanin/entities/discounts/discount_entity.dart';
 
 import '/presentation/providers/view/provider_discaunts.dart';
 import '/presentation/views/widgets/discount/discount_2_card.dart';

@@ -77,3 +77,80 @@ class DangerBtn extends StatelessWidget {
     return Container();
   }
 }
+
+class LikeBtn extends StatefulWidget {
+  final Function? onTap;
+  final int likeCount;
+  final bool isLiked;
+  final Color iconColor, textColor;
+  final Color? activeIconColor, passivIconColor;
+  final double iconSize, textSize, spacing;
+  final double? activeIconSize, passivIconSize;
+
+  const LikeBtn({
+    super.key,
+    this.onTap,
+    this.likeCount = 0,
+    this.iconColor = Colors.red,
+    this.activeIconColor,
+    this.passivIconColor,
+    this.iconSize = 15,
+    this.activeIconSize,
+    this.passivIconSize,
+    this.textColor = Colors.white,
+    this.textSize = 15,
+    this.spacing = 4,
+    this.isLiked = false,
+  });
+
+  @override
+  State<LikeBtn> createState() => _LikeBtnState();
+}
+
+class _LikeBtnState extends State<LikeBtn> {
+  late bool isLiked;
+  late int likeCount;
+
+  @override
+  void initState() {
+    isLiked = widget.isLiked;
+    likeCount = widget.likeCount;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (widget.onTap != null) widget.onTap!(isLiked);
+        setState(() {
+          isLiked = !isLiked;
+          if (isLiked) {
+            likeCount++;
+          } else {
+            likeCount--;
+          }
+        });
+      },
+      child: Row(
+        children: [
+          Icon(isLiked ? Icons.favorite : Icons.favorite_border,
+              color: isLiked
+                  ? widget.activeIconColor ?? widget.iconColor
+                  : widget.passivIconColor ?? widget.iconColor,
+              size: isLiked
+                  ? widget.activeIconSize ?? widget.iconSize
+                  : widget.passivIconSize ?? widget.iconSize),
+          SizedBox(width: widget.spacing),
+          Text(
+            "$likeCount",
+            style: TextStyle(
+                color: widget.textColor,
+                fontWeight: FontWeight.bold,
+                fontSize: widget.textSize),
+          ),
+        ],
+      ),
+    );
+  }
+}

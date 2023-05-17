@@ -2,12 +2,12 @@
 
 import 'dart:convert';
 
-import '/data/models/post_discount_model.dart';
+import '../../models/discount_models/post_discount_model.dart';
 import '/data/models/register/response_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../config/vars/constants.dart';
-import '/data/models/main_page_models/discount_model.dart';
+import '../../models/discount_models/discount_model.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -37,28 +37,34 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
   Future<ResponseModel> postDiscount(PostDiscountModel obj) async {
     final myBase = Hive.box(Tags.hiveBase);
     final String token = myBase.get(Tags.hiveToken);
+    print("+*+$token");
 
-    var request = http.MultipartRequest('POST', Uris.postDiscount);
-    request.headers.addAll(Headers.addPost(token));
-    obj.toJson().forEach((key, value) {
-      request.fields[key] = value;
-    });
+    print("+*+${obj.toJson()}");
+    Map<String, String> element = {
+      "discountElement": json.encode(obj.toJson()).toString()
+    };
 
     List<http.MultipartFile> imgList = [];
-
+    //MultiImage=====================================================================================
     // for (int i = 0; i < obj.images.length; i++) {
     //   var multipartFile =  await http.MultipartFile.fromPath('image[]', obj.images[i].path);
     //   imgList.add(multipartFile);
     // }
-
+    //SingleImage====================================================================================
     var multipartFile =
         await http.MultipartFile.fromPath('image', obj.images[0]);
     imgList.add(multipartFile);
+    //===============================================================================================
 
-    request.files.addAll(imgList);
+    var request = http.MultipartRequest('POST', Uris.postDiscount)
+      ..headers.addAll(Headers.addPost(token))
+      ..fields.addAll(element)
+      ..files.add(imgList[0]);
 
     var response = await request.send();
-    print("+*+${response.statusCode}");
+    var responseAnswer = await http.Response.fromStream(response);
+    print("+*+${responseAnswer.statusCode}");
+    print("+*+${responseAnswer.body}");
 
     return ResponseModel.empty;
   }

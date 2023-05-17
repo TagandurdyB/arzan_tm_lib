@@ -2,9 +2,9 @@
 
 import '/domanin/entities/main_page/main_page_entity.dart';
 
-import 'discount_model.dart';
+import '../discount_models/discount_model.dart';
 import 'baner_model.dart';
-import 'chosen_model.dart';
+import '../chosen_models/chosen_model.dart';
 import 'main_page_card_model.dart';
 import 'market_model.dart';
 
@@ -16,7 +16,7 @@ class MainPageModel extends MainPageEntity {
   @override
   final MainPageCardModel konkurs;
   @override
-  final int saylanlarCount;
+  final int saylananlarCount;
   @override
   final List<ChosenModel> saylananlarDatas;
   @override
@@ -36,7 +36,7 @@ class MainPageModel extends MainPageEntity {
     required this.baners,
     required this.markets,
     required this.konkurs,
-    required this.saylanlarCount,
+    required this.saylananlarCount,
     required this.saylananlarDatas,
     required this.top,
     required this.pictures,
@@ -48,7 +48,7 @@ class MainPageModel extends MainPageEntity {
           baners: baners,
           markets: markets,
           konkurs: konkurs,
-          saylanlarCount: saylanlarCount,
+          saylananlarCount: saylananlarCount,
           saylananlarDatas: saylananlarDatas,
           top: top,
           pictures: pictures,
@@ -62,7 +62,7 @@ class MainPageModel extends MainPageEntity {
         baners: [BanerModel.empty],
         markets: [MarketModel.empty],
         konkurs: MainPageCardModel.empty,
-        saylanlarCount: 0,
+        saylananlarCount: 0,
         saylananlarDatas: [ChosenModel.empty],
         top: MainPageCardModel.empty,
         pictures: MainPageCardModel.empty,
@@ -78,9 +78,8 @@ class MainPageModel extends MainPageEntity {
         baners: BanerModel.fromJsonList(json["banner"]),
         markets: MarketModel.fromJsonList(json["markets"]),
         konkurs: MainPageCardModel.frowJson(json["konkurslink"]),
-        saylanlarCount: json["saylanan"].length,
-        saylananlarDatas:
-            ChosenModel.fromJsonList(json["saylanan"]),
+        saylananlarCount: json["saylanan"].length,
+        saylananlarDatas: ChosenModel.fromJsonList(json["saylanan"]),
         top: MainPageCardModel.frowJson(json["topLink"]),
         pictures: MainPageCardModel.frowJson(json["photolink"]),
         videos: MainPageCardModel.frowJson(json["videolink"]),

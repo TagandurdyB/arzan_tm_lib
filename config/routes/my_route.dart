@@ -1,14 +1,20 @@
+import '../../presentation/views/pages/page_contest.dart';
+import '/presentation/views/pages/page_contact.dart';
+import '/presentation/views/pages/page_shear.dart';
+
+import '../../presentation/views/pages/page_favorites.dart';
+import '../../presentation/views/pages/page_officials.dart';
 import '../../presentation/views/pages/page_region.dart';
 import '/presentation/views/pages/page_legal_info.dart';
 
-import '../../presentation/views/pages/page_discounts.dart';
+import '../../presentation/views/pages/discount/page_discounts.dart';
 import '/presentation/views/pages/page_tops.dart';
 
 import '/presentation/views/pages/page_images.dart';
 import '/presentation/views/pages/page_videos.dart';
 
 import '../../presentation/views/pages/page_acaunt.dart';
-import '/presentation/views/pages/page_chosen.dart';
+import '../../presentation/views/pages/chosen/page_chosen.dart';
 
 import '/presentation/views/pages/page_send_sms.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +50,11 @@ class Rout {
   static const String tops = "/TopsPage";
   static const String discounts = "/DiscountsPage";
   static const String legalInfo = "/LegalInfoPage";
+  static const String officials = "/OfficialsPage";
+  static const String favorites = "/FavotitesPage";
+  static const String contact = "/ContactPage";
+  static const String share = "/SharePage";
+  static const String contest = "/ContestPage";
 
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
@@ -69,13 +80,18 @@ class Rout {
         ),
     newPass: (context) => const NewPassPage(),
     sendSMS: (context) => SendSmsPage(),
-    chosen: (context) => const ChosenPage(),
+    chosen: (context) => ChosenPage(),
     acaunt: (context) => const AcauntPage(),
-    images: (context) => ImagesPage(),
+    images: (context) => const ImagesPage(),
     // imagesDetal:(context)=> const ImageDetalPage(),
     videos: (context) => VideosPage(),
     tops: (context) => TopsPage(),
     discounts: (context) => const DiscountsPage(),
     legalInfo: (context) => const LegalInfoPage(),
+    officials: (context) => const OfficialsPage(),
+    favorites: (context) => const FavoritesPage(),
+    contact: (context) => const ContactPage(),
+    share: (context) => const SharePage(),
+    contest: (context) => const ContestPage(),
   };
 }

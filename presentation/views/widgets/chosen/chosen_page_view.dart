@@ -1,15 +1,18 @@
 import 'dart:async';
 
+import '/presentation/providers/data/main_page_provider.dart';
+
 import '/config/vars/formater.dart';
 
-import '../../../domanin/entities/main_page/chosen_entity.dart';
+import '../../../../domanin/entities/chosens/chosen_entity.dart';
 
-import '../../../config/services/my_size.dart';
+import '../../../../config/services/my_size.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
-import '../../providers/view/provider_theme.dart';
-import 'card_title.dart';
+import '../../../providers/view/provider_theme.dart';
+import '../card_title.dart';
+import 'chosen_card.dart';
 
 class ChosenPageView extends StatefulWidget {
   final List<ChosenEntity> objs;
@@ -93,8 +96,10 @@ class _ChosenPageViewState extends State<ChosenPageView> {
     super.dispose();
   }
 
+  late MainPageP providM;
   @override
   Widget build(BuildContext context) {
+    providM = MainPageP.of(context);
     return Container(
       padding: EdgeInsets.symmetric(vertical: arentir * 0.04),
       height: arentir * 0.57,
@@ -108,7 +113,11 @@ class _ChosenPageViewState extends State<ChosenPageView> {
               physics: const BouncingScrollPhysics(),
               itemCount: widget.objs.length,
               itemBuilder: (context, index) {
-                return buildCard(index);
+                return ChosenCard(
+                  idList: ChosenEntity.idList(providM.entity.saylananlarDatas),
+                  index: index,
+                  obj: providM.entity.saylananlarDatas[index],
+                );
               },
             ),
           ),
@@ -132,65 +141,4 @@ class _ChosenPageViewState extends State<ChosenPageView> {
           )
         ],
       );
-
-  Widget buildCard(int index) {
-    return Visibility(
-      visible: !widget.objs[index].isEmpty,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(arentir * 0.02),
-            child: Container(
-              //margin: EdgeInsets.all(arentir * 0.01),
-              color: ThemeP.of(context).colors.shimmerBg,
-              width: arentir * 0.28,
-              alignment: Alignment.center,
-              child: AspectRatio(
-                  aspectRatio: 1 / 1.38,
-                  child: ShimmerImg(
-                      fit: BoxFit.fill, imageUrl: widget.objs[index].img)),
-            ),
-          ),
-          buildBottom(index),
-        ],
-      ),
-    );
-  }
-
-  Container buildBottom(int index) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius:
-            BorderRadius.vertical(bottom: Radius.circular(arentir * 0.02)),
-        color: Colors.black54,
-      ),
-      height: arentir * 0.09,
-      width: arentir * 0.28,
-      padding: EdgeInsets.symmetric(
-          vertical: arentir * 0.01, horizontal: arentir * 0.02),
-      child: Column(children: [
-        Expanded(
-          flex: 2,
-          child: Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              widget.objs[index].name,
-              style: TextStyle(fontSize: arentir * 0.03, color: Colors.white),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              Formater.calendar(widget.objs[index].createdAt),
-              style: TextStyle(
-                  fontSize: arentir * 0.02, color: const Color(0xffC4C4C4)),
-            ),
-          ),
-        ),
-      ]),
-    );
-  }
 }

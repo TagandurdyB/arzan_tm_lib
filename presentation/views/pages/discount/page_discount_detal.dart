@@ -1,18 +1,18 @@
 // ignore_for_file: must_be_immutable
 
-import '../../../config/services/launcher_service.dart';
+import '../../../../config/services/launcher_service.dart';
 import '/config/vars/formater.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 
-import '../../../config/services/my_size.dart';
-import '../widgets/custom_avatar.dart';
-import '../widgets/post/btns_group.dart';
-import '/domanin/entities/discount_detal_entity.dart';
+import '../../../../config/services/my_size.dart';
+import '../../widgets/custom_avatar.dart';
+import '../../widgets/btns_group.dart';
+import '../../../../domanin/entities/discounts/discount_detal_entity.dart';
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
-import '../scaffold/custom_app_bar.dart';
-import 'zoom/page_multi_zoom.dart';
+import '../../scaffold/custom_app_bar.dart';
+import '../zoom/page_multi_zoom.dart';
 
 class DiscountDetal extends StatelessWidget {
   final DiscountDetalEntity obj;

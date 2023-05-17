@@ -14,13 +14,14 @@ class Uris {
       "https://it.net.tm/arzanapi/api/v1/mobile?welayat=$welayat?page=$page");
   static Uri discounts = Uri.parse("https://it.net.tm/arzanapi/api/v1/mobile");
   static Uri postDiscount =
-      Uri.parse("https://it.net.tm/arzanapi/api/v1/mobile");
+      Uri.parse("https://it.net.tm/arzanapi/api/v1/discount/mobile/create");
 }
 
 class Headers {
   static Map<String, String> mainPage = {'Content-Type': 'aplication/json'};
    static Map<String, String> addPost(String token) => {
     'Content-Type': 'multipart/form-data',
+    "Accept": 'application/json',
     'accessToken': token,
   };
 }

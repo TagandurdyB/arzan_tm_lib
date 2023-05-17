@@ -1,14 +1,14 @@
 import 'package:arzan_tm/config/services/my_size.dart';
 import 'package:arzan_tm/presentation/providers/data/discount_data_provider.dart';
 
-import '../../providers/data/banner_provider.dart';
-import '../../providers/view/provider_discaunts.dart';
-import '../widgets/carusel_slider.dart';
-import '../widgets/discount/discaunt_view.dart';
+import '../../../providers/data/banner_provider.dart';
+import '../../../providers/view/provider_discaunts.dart';
+import '../../widgets/carusel_slider.dart';
+import '../../widgets/discount/discaunt_view.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../scaffold/no_app_bar_scaffold.dart';
+import '../../scaffold/no_app_bar_scaffold.dart';
 
 class DiscountsPage extends StatefulWidget {
   const DiscountsPage({super.key});

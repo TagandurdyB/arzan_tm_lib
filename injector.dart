@@ -1,4 +1,6 @@
-import 'package:arzan_tm/domanin/usecases/discounts_case.dart';
+import '/presentation/providers/data/chosen_data_provider.dart';
+
+import '/domanin/usecases/discounts_case.dart';
 
 import '/domanin/usecases/banner_case.dart';
 
@@ -79,10 +81,11 @@ class Injector extends StatelessWidget {
                     discountsCase: DiscountsCase(DiscountsRepositoryImpl(
                         DiscountsDataSourceImpl(http.Client()))),
                   )),
-          ///////////////////////////////////////////////////////////////////////
-
-          ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP()),
+          ChangeNotifierProvider<ChosenDataP>(
+              create: (context) => ChosenDataP()),
           ChangeNotifierProvider<GalleryP>(create: (context) => GalleryP()),
+          ///////////////////////////////////////////////////////////////////////
+          ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP()),
           ChangeNotifierProvider<ProviderNav>(
               create: (context) => ProviderNav()),
           ChangeNotifierProvider<DiscountProvid>(

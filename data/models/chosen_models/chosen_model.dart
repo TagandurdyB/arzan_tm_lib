@@ -1,6 +1,7 @@
+
 // ignore_for_file: overridden_fields
 
-import '/domanin/entities/main_page/chosen_entity.dart';
+import '../../../domanin/entities/chosens/chosen_entity.dart';
 
 class ChosenModel extends ChosenEntity {
   @override

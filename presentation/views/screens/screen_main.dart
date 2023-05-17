@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import '../../../config/routes/my_route.dart';
 import '../scaffold/my_app_bar.dart';
 import '../widgets/card_title.dart';
-import '../widgets/chosen_page_view.dart';
+import '../widgets/chosen/chosen_page_view.dart';
 import '../widgets/discount/discaunt_view.dart';
 import '../widgets/long_card.dart';
 
@@ -108,7 +108,7 @@ class _ScreenMainState extends State<ScreenMain> {
           children: [
             LongCard(
                 counter: objM.konkurs.count,
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, Rout.contest),
                 imageUrl: objM.konkurs.img,
                 title: "Konkurs"),
             LongCard(
@@ -128,13 +128,13 @@ class _ScreenMainState extends State<ScreenMain> {
             ),
             LongCard(
                 counter: objM.resmiler.count,
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, Rout.officials),
                 imageUrl: objM.resmiler.img,
                 title: "Resmiler"),
             ChosenPageView(
               allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
               objs: objM.saylananlarDatas,
-              count: objM.saylanlarCount,
+              count: objM.saylananlarCount,
             ),
           ],
         ),

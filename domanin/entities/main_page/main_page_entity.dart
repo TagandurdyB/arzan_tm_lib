@@ -1,6 +1,6 @@
-import 'discount_entity.dart';
+import '../discounts/discount_entity.dart';
 import 'baner_entity.dart';
-import 'chosen_entity.dart';
+import '../chosens/chosen_entity.dart';
 import 'main_page_card_entity.dart';
 import 'market_entity.dart';
 
@@ -8,7 +8,7 @@ class MainPageEntity {
   final List<BanerEntity> baners;
   final List<MarketEntity> markets;
   final MainPageCardEntity konkurs;
-  final int saylanlarCount;
+  final int saylananlarCount;
   final List<ChosenEntity> saylananlarDatas;
   final MainPageCardEntity top;
   final MainPageCardEntity pictures;
@@ -21,7 +21,7 @@ class MainPageEntity {
     required this.baners,
     required this.markets,
     required this.konkurs,
-    required this.saylanlarCount,
+    required this.saylananlarCount,
     required this.saylananlarDatas,
     required this.top,
     required this.pictures,
@@ -35,7 +35,7 @@ class MainPageEntity {
         baners: [BanerEntity.empty],
         markets: [MarketEntity.empty],
         konkurs: MainPageCardEntity.empty,
-        saylanlarCount: 0,
+        saylananlarCount: 0,
         saylananlarDatas: [ChosenEntity.empty],
         top: MainPageCardEntity.empty,
         pictures: MainPageCardEntity.empty,
@@ -51,7 +51,7 @@ class MainPageEntity {
         baners: BanerEntity.fromJsonList(json["baners"]),
         markets: MarketEntity.fromJsonList(json["markets"]),
         konkurs: MainPageCardEntity.frowJson(json["kunkurs"]),
-        saylanlarCount: json["saylananlar"]["count"],
+        saylananlarCount: json["saylananlar"]["count"],
         saylananlarDatas:
             ChosenEntity.fromJsonList(json["saylananlar"]["datas"]),
         top: MainPageCardEntity.frowJson(json["top"]),

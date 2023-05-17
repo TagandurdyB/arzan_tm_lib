@@ -1,4 +1,5 @@
 import '../../scaffold/no_app_bar_scaffold.dart';
+import '../../widgets/btns_group.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
 
 import '/config/services/my_size.dart';
@@ -73,23 +74,11 @@ class _ZoomPageState extends State<ZoomPage>
           right: 30,
           child: Visibility(
             visible: widget.liked != null,
-            child: GestureDetector(
-              onTap: () {
-                setState(() => isLiked = !isLiked);
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    isLiked ? Icons.favorite : Icons.favorite_border,
-                    color: const Color(0xffE50027),
-                  ),
-                  Text(
-                    "${widget.liked ?? 0}",
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
-                  )
-                ],
-              ),
+            child: LikeBtn(
+              onTap: (bool val) {},
+              textSize: 18,
+              iconSize: 20,
+              likeCount: widget.liked ?? 0,
             ),
           ),
         )

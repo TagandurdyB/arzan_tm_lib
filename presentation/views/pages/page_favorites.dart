@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../config/services/my_size.dart';
 
-class ChosenPage extends StatelessWidget {
-  const ChosenPage({super.key});
+class FavoritesPage extends StatelessWidget {
+  const FavoritesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ChosenPage extends StatelessWidget {
           children: [
             const BackButton(),
             Text(
-              "Saylananlar",
+              "Bellenenler",
               style: TextStyle(fontSize: MySize.arentir * 0.065),
             ),
           ],

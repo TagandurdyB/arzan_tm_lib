@@ -21,4 +21,10 @@ class Formater {
   static int getJWTId(String code) {
     return JwtDecoder.decode(code)["id"];
   }
+
+  static List<String> tagSeperator(String tags) {
+    List<String> tagList = tags.replaceAll("#", " #").split(' ');
+    tagList.removeAt(0);
+    return tagList;
+  }
 }

@@ -2,7 +2,7 @@ import '../../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/vars/formater.dart';
-import '../../../../domanin/entities/main_page/discount_entity.dart';
+import '../../../../domanin/entities/discounts/discount_entity.dart';
 import '../../../providers/view/provider_theme.dart';
 import '../shimmer_img.dart';
 

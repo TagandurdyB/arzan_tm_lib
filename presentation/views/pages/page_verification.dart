@@ -38,7 +38,7 @@ class _VerificarionPageState extends State<VerificarionPage> {
         haveError = false;
         if (widget.btnFunc != null) {
           widget.btnFunc!();
-        } 
+        }
         // RecoveryP.of(context, listen: false).nextPage;
       } else {
         haveError = true;

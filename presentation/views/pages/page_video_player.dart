@@ -1,4 +1,5 @@
 import '../../providers/view/provider_video.dart';
+import '../widgets/btns_group.dart';
 import '/config/services/my_orientation.dart';
 import 'package:video_player/video_player.dart';
 
@@ -113,7 +114,12 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         children: [
           Row(
             children: [
-              const BackButton(color: Colors.white),
+              BackButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    VideoP.of(context, listen: false).cleanVideo;
+                    Navigator.pop(context);
+                  }),
               Expanded(
                   child: Text(
                 widget.obj.name,
@@ -121,7 +127,12 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               )),
-              buildLikeBtn,
+              LikeBtn(
+                onTap: (bool val) {},
+                textSize: arentir * 0.04,
+                iconSize: 20,
+                likeCount: 1500,
+              ),
               IconButton(
                   onPressed: () {},
                   icon: const Icon(
@@ -133,26 +144,6 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
           const Expanded(child: SizedBox()),
         ],
       ),
-    );
-  }
-
-  bool _isLiked = false;
-  Widget get buildLikeBtn {
-    return Row(
-      children: [
-        GestureDetector(
-            onTap: () {
-              setState(() => _isLiked = !_isLiked);
-            },
-            child: Icon(
-              _isLiked ? Icons.favorite : Icons.favorite_border,
-              color: Colors.red,
-            )),
-        Text(
-          "1500",
-          style: TextStyle(color: Colors.white, fontSize: arentir * 0.04),
-        ),
-      ],
     );
   }
 }

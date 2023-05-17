@@ -75,13 +75,23 @@ class CustomDrawer extends StatelessWidget {
 
   Widget get buildContent {
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      DrawerBtn(Icons.star_border, "Top hasaplar", context, num: 324),
-      DrawerBtn(Icons.favorite_border, "Saýlananlar", context, num: 324),
-      DrawerBtn(Icons.label_outline, "Arzanladyşlar", context, num: 324),
-      DrawerBtn(Icons.image_outlined, "Foto", context, num: 324),
-      DrawerBtn(Icons.video_collection_outlined, "Wideo", context, num: 324),
+      DrawerBtn(Icons.star_border, "Top hasaplar", context,
+          num: 324, route: Rout.tops),
+      DrawerBtn(Icons.favorite_border, "Saýlananlar", context,
+          num: 324, route: Rout.chosen),
+      DrawerBtn(Icons.label_outline, "Arzanladyşlar", context,
+          num: 324, route: Rout.discounts),
+      DrawerBtn(Icons.image_outlined, "Foto", context,
+          num: 324, route: Rout.images),
+      DrawerBtn(Icons.video_collection_outlined, "Wideo", context,
+          num: 324, route: Rout.videos),
       DrawerBtn(
-          Icons.star_border, icon: buildStar(), "Resmiler", context, num: 324),
+          Icons.star_border,
+          icon: buildStar(),
+          "Resmiler",
+          context,
+          num: 324,
+          route: Rout.officials),
       divided,
       DrawerBtn(
         Icons.location_on_outlined,
@@ -90,12 +100,14 @@ class CustomDrawer extends StatelessWidget {
         isRestart: true,
         route: Rout.region,
       ),
-      DrawerBtn(Icons.bookmark_border, "Bellenenler", context),
+      DrawerBtn(Icons.bookmark_border, "Bellenenler", context,
+          route: Rout.favorites),
       DrawerBtn(Icons.settings_suggest_outlined, "Sazlamalar", context,
           route: Rout.settings),
       divided,
-      DrawerBtn(Icons.mail_outline, "Habarlaşmak", context),
-      DrawerBtn(Icons.share_outlined, "Paýlaşmak", context),
+      DrawerBtn(Icons.mail_outline, "Habarlaşmak", context,
+          route: Rout.contact),
+      DrawerBtn(Icons.share_outlined, "Paýlaşmak", context, route: Rout.share),
     ]);
   }
 

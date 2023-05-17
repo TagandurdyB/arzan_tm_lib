@@ -1,9 +1,9 @@
-import 'package:arzan_tm/domanin/entities/discounts/post_discount_entity.dart';
+import '/domanin/entities/discounts/post_discount_entity.dart';
 
 import '../../../domanin/entities/register/response_entity.dart';
 import '/domanin/usecases/discounts_case.dart';
 
-import '/domanin/entities/main_page/discount_entity.dart';
+import '../../../domanin/entities/discounts/discount_entity.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import '/domanin/entities/main_page/discount_entity.dart';
+import '../../../../domanin/entities/discounts/discount_entity.dart';
 
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';

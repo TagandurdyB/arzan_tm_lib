@@ -9,7 +9,7 @@ class ChosenEntity {
     required this.img,
     required this.name,
     required this.createdAt,
-    this.isEmpty=true,
+    this.isEmpty = true,
   });
 
   static ChosenEntity get empty => ChosenEntity(
@@ -29,10 +29,13 @@ class ChosenEntity {
         isEmpty: false,
       );
     } catch (err) {
-      throw("Error in ChosenEntity : $err");
+      throw ("Error in ChosenEntity : $err");
     }
   }
 
   static List<ChosenEntity> fromJsonList(List<Map<String, dynamic>> jsonList) =>
       jsonList.map((json) => ChosenEntity.frowJson(json)).toList();
+
+  static List<int> idList(List<ChosenEntity> objs) =>
+      objs.map((obj) => obj.id).toList();
 }
