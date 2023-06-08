@@ -18,7 +18,7 @@ class MainPageDataSourceImpl implements MainPageRemoteDataSource {
   @override
   Future<MainPageModel> getMainPage() async {
     final response =
-        await httpClient.get(Uris.mainPage, headers: Headers.mainPage);
+        await httpClient.get(Uris.mainPage, headers: Headers.contentJson);
     return HttpsFuncs.responseChecker(
       response,
       // MainPageModel.frowJson(api),

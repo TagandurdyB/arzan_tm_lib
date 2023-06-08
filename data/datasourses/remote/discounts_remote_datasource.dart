@@ -25,7 +25,7 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
   @override
   Future<List<DiscountModel>> getDiscounts() async {
     final response =
-        await httpClient.get(Uris.discounts, headers: Headers.mainPage);
+        await httpClient.get(Uris.discounts, headers: Headers.contentJson);
     return HttpsFuncs.responseChecker(
       response,
       DiscountModel.fromJsonList(json.decode(response.body)),

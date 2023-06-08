@@ -59,7 +59,7 @@ class Rout {
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
     region: (context) => RegionPage(),
-    home: (context) => const HomePage(),
+    home: (context) =>  HomePage(),
     about: (context) => const AboutPage(),
     settings: (context) => SettingsPage(),
     search: (context) => ScreenSearch(),

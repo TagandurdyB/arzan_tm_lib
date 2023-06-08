@@ -43,7 +43,7 @@ class SignUpModel extends SignUpEntity {
         uniqueId: entity.uniqueId,
         userName: entity.userName,
         userPassword: entity.userPassword,
-        userPhone: entity.userPhone,
+        userPhone: "993${entity.userPhone}",
         inviterLink: entity.inviterLink,
       );
     } catch (err) {
@@ -54,11 +54,11 @@ class SignUpModel extends SignUpEntity {
   factory SignUpModel.frowJson(Map<String, dynamic> json) {
     try {
       return SignUpModel(
-        uniqueId: json["uniqueId"],
+        uniqueId: json["uniqe_id"],
         userName: json["name"],
-        userPassword: json["password"],
-        userPhone: json["phone_num"],
-        inviterLink: json["inviterLink"],
+        userPassword: json["pass"],
+        userPhone: json["phone"],
+        inviterLink: json["link"],
         isEmpty: false,
       );
     } catch (err) {
@@ -68,10 +68,10 @@ class SignUpModel extends SignUpEntity {
 
   @override
   Map<String, dynamic> toJson() => {
-        "uniqueId": uniqueId,
+        "uniqe_id": uniqueId,
         "name": userName,
-        "password": userPassword,
-        "phone_num": userPhone,
-        "inviterLink": inviterLink,
+        "pass": userPassword,
+        "phone": userPhone,
+        "link": inviterLink,
       };
 }

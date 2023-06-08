@@ -1,3 +1,4 @@
+import 'package:arzan_tm/domanin/entities/register/check_entity.dart';
 import 'package:arzan_tm/domanin/entities/register/sign_up_entity.dart';
 
 import '/domanin/entities/register/response_entity.dart';
@@ -23,15 +24,20 @@ class AcauntP extends ChangeNotifier {
     return entity;
   }
 
+  Future<ResponseEntity> checkActivate(CheckEntity obj) async {
+    final ResponseEntity entity = await registerCase.postCheck(obj);
+    return entity;
+  }
+
   void get logOut {
     _isSign = false;
     notifyListeners();
   }
 
-  Future<ResponseEntity> logIn(LogInEntity obj) async {
+  Future<ResponseEntity> logIn(LoginEntity obj) async {
     final ResponseEntity entity = await registerCase.postLogIn(obj);
 
-    if (entity.succsess == true) {
+    if (entity.status == true) {
       _isSign = true;
     }
     notifyListeners();

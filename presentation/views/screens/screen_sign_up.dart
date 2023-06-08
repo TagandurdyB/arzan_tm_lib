@@ -1,5 +1,9 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
+import 'package:arzan_tm/domanin/entities/register/response_entity.dart';
+
+import '../../../config/routes/my_route.dart';
+import '../../../domanin/entities/register/check_entity.dart';
 import '/domanin/entities/register/sign_up_entity.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
 import '/presentation/views/widgets/my_pop_widget.dart';
@@ -94,33 +98,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _popLoading();
         AcauntP.of(context, listen: false)
             .signUp(SignUpEntity(
+              inviterLink: RIBase.getText(Tags.rISignCall),
               uniqueId: unicID,
               userName: RIBase.getText(Tags.rISignUser),
               userPassword: RIBase.getText(Tags.rISignPass),
               userPhone: RIBase.getText(Tags.rISignPhone),
             ))
-            .then((response) =>
-                _popMessage(response.message, !response.succsess));
+            .then((response) => _popMessage(response.result, !response.status));
 
         haveError = false;
-        // http.post(Uris.register, body: {
-        //   "name": RIBase.getText(Tags.rISignUser),
-        //   "password": RIBase.getText(Tags.rISignPass),
-        //   "uniqueId": unicID,
-        //   "phone_num": RIBase.getText(Tags.rISignPhone),
-        // }).then((response) {
-        //   if (response.statusCode == 200) {
-        //     print("***${response.body}");
-        //   }
-        // });
-
-        // String route = "";
-        // if (selectedItem == 0) {
-        //   route = Rout.signUpVerifi;
-        // } else {
-        //   route = Rout.sendSMS;
-        // }
-        // Navigator.pushNamed(context, route);
       } else {
         haveError = true;
       }
@@ -148,7 +134,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         )).pop(context);
   }
 
-  void _popMessage(String message, bool isError) {
+  void _popMessage(String message, bool isError) async {
+    late ResponseEntity check;
+    if (!isError) {
+      final String unicID = await MyDevice.getUnic;
+      check = await AcauntP.of(context, listen: false).checkActivate(
+        CheckEntity(
+          uniqueId: unicID,
+          phone: RIBase.getText(Tags.rISignPhone),
+        ),
+      );
+    }
     MyPopUpp(
         width: arentir * 0.6,
         height: arentir * 0.4,
@@ -162,7 +158,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             const SizedBox(height: 10),
             Text(
-              message,
+              isError
+                  ? "Siz admin tarapyndan buloklanan!"
+                  : check.status
+                      ? "Bu hasap öň bar!"
+                      : "Hasaba alynmak üçin SMS ugradyň!",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: arentir * 0.04),
             ),
@@ -171,7 +171,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Future.delayed(const Duration(seconds: 3)).then((value) {
       Navigator.pop(context);
       Navigator.pop(context);
-      if (!isError) AcauntP.of(context, listen: false).changeScreen(0);
+      // if (!isError) AcauntP.of(context, listen: false).changeScreen(0);
+      if (!isError) {
+        if (check.status) {
+          AcauntP.of(context, listen: false).changeScreen(0);
+        } else {
+          Navigator.pushNamed(context, Rout.sendSMS);
+        }
+      }
     });
   }
 
@@ -219,21 +226,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 // color: Colors.red,
                 width: MySize.arentir * 0.23,
                 alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(left: 8),
                 child: Row(
-                  children: [
-                    const Icon(Icons.phone),
+                  children: const [
+                    Icon(Icons.phone),
                     Text(
                       " +993 |",
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: MySize.arentir * 0.04,
                       ),
                     ),
                   ],
                 )),
             label: "Telefon belgisi",
-            hidden: "Telefon belgisi",
+            hidden: "   Telefon belgisi",
             type: TextInputType.phone,
           ),
           const SizedBox(height: 20),
@@ -342,7 +348,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  int selectedItem = 0;
+  int selectedItem = 1;
   Widget buildDropItem(bool isCheck, String text, int index) {
     return InkWell(
       onTap: () => setState(() => selectedItem = index),

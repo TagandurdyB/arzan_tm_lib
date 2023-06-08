@@ -11,7 +11,7 @@ import '/presentation/providers/view/provider_navigation.dart';
 import '/presentation/views/screens/screen_search.dart';
 
 import '../widgets/carusel_slider.dart';
-import '../widgets/double_card.dart';
+import '../widgets/main_page_widgets/double_card.dart';
 import '../widgets/main_markets_view.dart';
 import '../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ import '../scaffold/my_app_bar.dart';
 import '../widgets/card_title.dart';
 import '../widgets/chosen/chosen_page_view.dart';
 import '../widgets/discount/discaunt_view.dart';
-import '../widgets/long_card.dart';
+import '../widgets/main_page_widgets/long_card.dart';
 
 class ScreenMain extends StatefulWidget {
   const ScreenMain({super.key});

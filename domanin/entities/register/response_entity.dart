@@ -1,24 +1,23 @@
 class ResponseEntity {
-  final String message;
-  final bool succsess;
+  final String result;
+  final bool status;
   final String? token;
   final bool isEmpty;
 
   ResponseEntity({
-    required this.message,
-    required this.succsess,
+    required this.result,
+    required this.status,
     this.token,
     this.isEmpty = true,
   });
 
-  static ResponseEntity get empty =>
-      ResponseEntity(message: "", succsess: false);
+  static ResponseEntity get empty => ResponseEntity(result: "", status: false);
 
   factory ResponseEntity.frowJson(Map<String, dynamic> json) {
     try {
       return ResponseEntity(
-        message: json["message"],
-        succsess: json["succsess"],
+        result: json["message"],
+        status: json["succsess"],
         token: json["token"],
         isEmpty: false,
       );
@@ -28,8 +27,8 @@ class ResponseEntity {
   }
 
   Map<String, dynamic> toJson() => {
-        "message": message,
-        "succsess": succsess,
+        "message": result,
+        "succsess": status,
         "token": token,
       };
 }

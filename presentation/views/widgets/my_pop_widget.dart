@@ -1,3 +1,4 @@
+import 'package:arzan_tm/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
 import 'my_container.dart';
@@ -38,6 +39,61 @@ class MyPopUpp {
     this.padding,
     this.barrierDismissible = false,
   });
+
+  static void popLoading(BuildContext context) {
+    final arentir = MySize.arentir;
+    MyPopUpp(
+        width: arentir * 0.6,
+        height: arentir * 0.4,
+        borderRadius: 10,
+        content: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 10),
+              Text(
+                "Garaşmagyňyzy haýyş edýeris!",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: arentir * 0.04),
+              ),
+            ],
+          ),
+        )).pop(context);
+  }
+
+  static void popMessage(
+      BuildContext context, Function? onDo, String message, bool isError) {
+    final arentir = MySize.arentir;
+    MyPopUpp(
+        width: arentir * 0.6,
+        height: arentir * 0.4,
+        borderRadius: 10,
+        content: Column(
+          children: [
+            Icon(
+              isError ? Icons.error_outline : Icons.check_circle_outlined,
+              color: isError ? Colors.red : Colors.green,
+              size: arentir * 0.15,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: arentir * 0.04),
+            ),
+          ],
+        )).pop(context);
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      Navigator.pop(context);
+      Navigator.pop(context);
+      // if (!isError) AcauntP.of(context, listen: false).changeScreen(0);
+      if (!isError) {
+        if (onDo != null) onDo();
+      }
+    });
+  }
+
   late BuildContext context;
   void pop(BuildContext context) => showDialog(
       barrierDismissible: barrierDismissible,

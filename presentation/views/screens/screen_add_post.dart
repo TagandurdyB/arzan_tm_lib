@@ -71,8 +71,7 @@ class AddPostScreen extends StatelessWidget {
                     categoryId: 1,
                     subCategoryId: 1,
                   ))
-                  .then(
-                      (entity) => _popMessage(entity.message, entity.succsess));
+                  .then((entity) => _popMessage(entity.result, entity.status));
             },
             text: "Goşmak"),
       ],

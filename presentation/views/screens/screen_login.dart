@@ -1,5 +1,8 @@
+import 'package:arzan_tm/presentation/providers/view/provider_navigation.dart';
+
+import '/domanin/entities/register/check_entity.dart';
+
 import '../../providers/data/hive_provider.dart';
-import '/domanin/entities/register/log_in_entity.dart';
 
 import '../../../config/services/device_info.dart';
 import '../../../config/services/my_size.dart';
@@ -33,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String? _haveAnyValid() {
     if (isPressBefore) {
-      if (RIBase.getText(Tags.rILoginPass).length < 5) {
+      if (RIBase.getText(Tags.rILoginPhone).length < 8) {
         //return "Enter min 7 char at Name";
         return "";
       }
@@ -50,71 +53,39 @@ class _LoginScreenState extends State<LoginScreen> {
       if (isValidForm) {
         //Login post
         haveError = false;
-        _popLoading();
+        MyPopUpp.popLoading(context);
         AcauntP.of(context, listen: false)
-            .logIn(LogInEntity(
+            .checkActivate(CheckEntity(
           uniqueId: unicID,
-          userName: RIBase.getText(Tags.rILoginUser),
-          userPassword: RIBase.getText(Tags.rILoginPass),
+          phone: RIBase.getText(Tags.rILoginPhone),
+          // userPassword: RIBase.getText(Tags.rILoginPass),
         ))
             .then((response) {
-          _popMessage(response.message, !response.succsess);
-          final hiveP = HiveP.of(context, listen: false);
-         hiveP.saveStr(response.token ?? "", Tags.hiveToken);
-         hiveP.saveBool(true, Tags.isLogin);
+          //Text!
+          final bool status = response.status;
+          //bolmalysy!
+          // final bool status = !response.status;
+          print("Login Status $status");
+          if (!status) {
+            final hiveP = HiveP.of(context, listen: false);
+            hiveP.saveStr(response.token ?? "sdasdasd", Tags.hiveToken);
+            hiveP.saveBool(true, Tags.isLogin);
+          }
+          MyPopUpp.popMessage(
+            context,
+            () {
+              if (!status) AcauntP.of(context, listen: false).logIned;
+              ProviderNav.of(context, listen: false).changeScreen(0);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Rout.home, (route) => route.isFirst);
+            },
+            status ? "Siz doly hasaba alynmadyk!" : "Hoş geldiňiz!",
+            status,
+          );
         });
       } else {
         haveError = true;
       }
-    });
-  }
-
-  void _popLoading() {
-    MyPopUpp(
-        width: arentir * 0.6,
-        height: arentir * 0.4,
-        borderRadius: 10,
-        content: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              const CircularProgressIndicator(),
-              const SizedBox(height: 10),
-              Text(
-                "Garaşmagyňyzy haýyş edýeris!",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: arentir * 0.04),
-              ),
-            ],
-          ),
-        )).pop(context);
-  }
-
-  void _popMessage(String message, bool isError) {
-    MyPopUpp(
-        width: arentir * 0.6,
-        height: arentir * 0.4,
-        borderRadius: 10,
-        content: Column(
-          children: [
-            Icon(
-              isError ? Icons.error_outline : Icons.check_circle_outlined,
-              color: isError ? Colors.red : Colors.green,
-              size: arentir * 0.15,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              message,
-              style: TextStyle(fontSize: arentir * 0.04),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        )).pop(context);
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Navigator.pop(context);
-      Navigator.pop(context);
-
-      // AcauntP.of(context, listen: false).changeScreen(0);
     });
   }
 
@@ -129,21 +100,38 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(children: [
           ArzanInputs(
             validator: (String? value) => _haveAnyValid(),
-            tag: Tags.rILoginUser,
-            iconD: Icons.assignment_ind_outlined,
-            label: "Ulanyjy ady",
-            hidden: "Ulanyjy ady",
+            tag: Tags.rILoginPhone,
+            // iconD: Icons.phone,
+            prefix: Container(
+                // color: Colors.red,
+                width: MySize.arentir * 0.23,
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(left: 8),
+                child: Row(
+                  children: const [
+                    Icon(Icons.phone),
+                    Text(
+                      " +993 |",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )),
+            label: "Telefon belgisi",
+            hidden: "   Telefon belgisi",
+            type: TextInputType.phone,
           ),
           const SizedBox(height: 20),
-          ArzanInputs(
-            validator: (String? value) => _haveAnyValid(),
-            tag: Tags.rILoginPass,
-            iconD: Icons.vpn_key_outlined,
-            label: "Açar sözi",
-            hidden: "Açar sözi",
-            type: TextInputType.visiblePassword,
-          ),
-          const SizedBox(height: 20),
+          // ArzanInputs(
+          //   validator: (String? value) => _haveAnyValid(),
+          //   tag: Tags.rILoginPass,
+          //   iconD: Icons.vpn_key_outlined,
+          //   label: "Açar sözi",
+          //   hidden: "Açar sözi",
+          //   type: TextInputType.visiblePassword,
+          // ),
+          // const SizedBox(height: 20),
           FormErrorMessage(
               visible: haveError,
               message: "Ulanyjy ady ýada açar sözi nädogry girizildi!"),

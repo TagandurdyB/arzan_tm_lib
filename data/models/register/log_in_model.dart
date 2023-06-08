@@ -2,11 +2,11 @@
 
 import '../../../domanin/entities/register/log_in_entity.dart';
 
-class LogInModel extends LogInEntity {
+class LogInModel extends LoginEntity {
   @override
   final String uniqueId;
   @override
-  final String userName;
+  final String phone;
   @override
   final String userPassword;
   @override
@@ -14,23 +14,23 @@ class LogInModel extends LogInEntity {
 
   LogInModel({
     required this.uniqueId,
-    required this.userName,
+    required this.phone,
     required this.userPassword,
     this.isEmpty = true,
   }) : super(
           uniqueId: '',
-          userName: '',
+          phone: '',
           userPassword: '',
         );
 
   static LogInModel get empty =>
-      LogInModel(uniqueId: "", userName: "", userPassword: "");
+      LogInModel(uniqueId: "", phone: "", userPassword: "");
 
-  static LogInModel fromEntity(LogInEntity entity) {
+  static LogInModel fromEntity(LoginEntity entity) {
     try {
       return LogInModel(
         uniqueId: entity.uniqueId,
-        userName: entity.userName,
+        phone: entity.phone,
         userPassword: entity.userPassword,
         isEmpty: false,
       );
@@ -43,7 +43,7 @@ class LogInModel extends LogInEntity {
     try {
       return LogInModel(
         uniqueId: json["uniqueId"],
-        userName: json["name"],
+        phone: json["name"],
         userPassword: json["password"],
         isEmpty: false,
       );
@@ -55,7 +55,7 @@ class LogInModel extends LogInEntity {
   @override
   Map<String, dynamic> toJson() => {
         // "uniqueId": uniqueId,
-        "name": userName,
+        "name": phone,
         "password": userPassword,
       };
 }

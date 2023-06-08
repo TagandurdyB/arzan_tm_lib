@@ -4,28 +4,28 @@ import '/domanin/entities/register/response_entity.dart';
 
 class ResponseModel extends ResponseEntity {
   @override
-  final String message;
+  final String result;
   @override
-  final bool succsess;
+  final bool status;
   @override
   final String? token;
   @override
   final bool isEmpty;
 
   ResponseModel({
-    required this.message,
-    required this.succsess,
+    required this.result,
+    required this.status,
     this.token,
     this.isEmpty = true,
-  }) : super(message: message, succsess: succsess, token: token);
+  }) : super(result: result, status: status, token: token);
 
-  static ResponseModel get empty => ResponseModel(message: "", succsess: false);
+  static ResponseModel get empty => ResponseModel(result: "", status: false);
 
   factory ResponseModel.frowJson(Map<String, dynamic> json) {
     try {
       return ResponseModel(
-        message: json["message"],
-        succsess: json["success"],
+        result: json["result"],
+        status: json["status"]=="true",
         token: json["token"],
         isEmpty: false,
       );
@@ -36,8 +36,8 @@ class ResponseModel extends ResponseEntity {
 
   @override
   Map<String, dynamic> toJson() => {
-        "message": message,
-        "succsess": succsess,
+        "message": result,
+        "succsess": status,
         "token": token,
       };
 }

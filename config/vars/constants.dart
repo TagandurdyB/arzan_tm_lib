@@ -10,7 +10,7 @@ class Nums {
 class Words {
   static const String avtor = "Tagandurdy Baýramdurdyýew Mekanowiç";
   //Register====================================================================
-  static const String phone = "+993 61000000";
+  static const String phone = "+99363225444";
   static const String vreification1 = "Tassyklama koduny al";
   static const String vreification2 = "$phone belgä boş sms ugratmak";
   //============================================================================
@@ -30,7 +30,7 @@ class Dutrations {
 class Tags {
   static const String rIMainSearch = "Ready Input Main Search";
   //Login=======================================================================
-  static const String rILoginUser = "Ready Input Login username";
+  static const String rILoginPhone = "Ready Input Login Phone";
   static const String rILoginPass = "Ready Input Login password";
   //Sign-Up=====================================================================
   static const String rISignCall = "Ready Input Sign-Up Called num";
@@ -62,3 +62,5 @@ class Tags {
   static const String isLogin = "Hive Login now";
   //============================================================================
 }
+
+//+99363225444

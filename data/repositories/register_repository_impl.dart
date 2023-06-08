@@ -1,3 +1,6 @@
+import 'package:arzan_tm/data/models/register/check_model.dart';
+import 'package:arzan_tm/domanin/entities/register/check_entity.dart';
+
 import '../../domanin/entities/register/response_entity.dart';
 import '/data/models/register/sign_up_model.dart';
 
@@ -13,8 +16,9 @@ import '../datasourses/remote/register_remote_datasource.dart';
 class RegisterRepositoryImpl implements RegisterRepository {
   final RegisterRemoteDataSource mainPageRemoteDataSource;
   RegisterRepositoryImpl(this.mainPageRemoteDataSource);
+
   @override
-  Future<ResponseEntity> postLogIn(LogInEntity obj) async {
+  Future<ResponseEntity> postLogIn(LoginEntity obj) async {
     final model =
         await mainPageRemoteDataSource.postLogIn(LogInModel.fromEntity(obj));
     return model;
@@ -24,6 +28,13 @@ class RegisterRepositoryImpl implements RegisterRepository {
   Future<ResponseEntity> postSignUp(SignUpEntity obj) async {
     final model =
         await mainPageRemoteDataSource.postSignUp(SignUpModel.fromEntity(obj));
+    return model;
+  }
+
+  @override
+  Future<ResponseEntity> postCheck(CheckEntity obj) async {
+    final model =
+        await mainPageRemoteDataSource.postCheck(CheckModel.fromEntity(obj));
     return model;
   }
 }

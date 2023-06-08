@@ -46,6 +46,7 @@ class ImagesPickerWidget extends StatelessWidget {
         color: Colors.grey,
         strokeWidth: 2,
         child: Container(
+          width: arentir * 0.43,
           clipBehavior: Clip.hardEdge,
           padding: EdgeInsets.symmetric(
               vertical: arentir * 0.09, horizontal: arentir * 0.15),
