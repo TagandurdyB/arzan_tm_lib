@@ -1,5 +1,5 @@
-import 'package:arzan_tm/data/models/register/check_model.dart';
-import 'package:arzan_tm/domanin/entities/register/check_entity.dart';
+import '/data/models/register/check_model.dart';
+import '/domanin/entities/register/check_entity.dart';
 
 import '../../domanin/entities/register/response_entity.dart';
 import '/data/models/register/sign_up_model.dart';

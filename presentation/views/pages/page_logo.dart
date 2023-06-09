@@ -50,6 +50,10 @@ class _LogoPageState extends State<LogoPage> {
       body: Container(
         decoration: const BoxDecoration(
           color: Colors.green,
+          image: DecorationImage(
+            fit: BoxFit.fitWidth,
+            image: ExactAssetImage("assets/logo_bg.png")
+          ),
         ),
         child: Stack(
           children: [

@@ -1,4 +1,4 @@
-import 'package:arzan_tm/data/datasourses/remote/api_banner.dart';
+import '/data/datasourses/remote/api_banner.dart';
 
 import '/domanin/entities/main_page/baner_entity.dart';
 import '/domanin/usecases/banner_case.dart';

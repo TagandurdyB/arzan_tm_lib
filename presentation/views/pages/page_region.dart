@@ -12,6 +12,7 @@ class RegionPage extends StatelessWidget {
   RegionPage({super.key});
 
   List<String> regions = [
+    "Türkmenistan",
     "Aşgabat",
     "Balkan",
     "Mary",
@@ -26,20 +27,31 @@ class RegionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     this.context = context;
     return ScaffoldNo(
-      body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScBxK0jJp4352312r-VuTGn6KkeimRr_XUuA&usqp=CAU"))),
-        alignment: Alignment.center,
-        // color: Colors.red,
-        child: SingleChildScrollView(
-          child: Column(
+      bgColor: const Color(0xff20992C),
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              "Welayat saylaň",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: arentir * 0.06),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25),
+            child: Image.asset("assets/Karta.png"),
+          ),
+          Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                   regions.length, (index) => buildBtn(regions[index]))),
-        ),
+                  const SizedBox(height: 70)
+        ],
       ),
     );
   }
@@ -54,22 +66,23 @@ class RegionPage extends StatelessWidget {
       child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-              // color: Colors.white,
-              borderRadius: BorderRadius.circular(arentir * 0.05),
-              border: Border.all(color: Colors.white, width: 2),
-              // boxShadow: const [
-              //   BoxShadow(blurRadius: 7, color: Colors.blue, spreadRadius: -1)
-              // ],
-              gradient: const LinearGradient(
-                  colors: [Color(0xff21652C), Color(0xff62A720)])),
-          width: arentir * 0.6,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(arentir * 0.02),
+            border: Border.all(color: Colors.black, width: 2),
+            // boxShadow: const [
+            //   BoxShadow(blurRadius: 7, color: Colors.blue, spreadRadius: -1)
+            // ],
+            // gradient: const LinearGradient(
+            //     colors: [Color(0xff21652C), Color(0xff62A720)]),
+          ),
+          width: arentir * 0.7,
           height: arentir * 0.15,
           margin: EdgeInsets.all(arentir * 0.02),
           alignment: Alignment.center,
           child: Text(
             text,
             style: TextStyle(
-                color: Colors.white,
+                color: const Color(0xff20992C),
                 fontWeight: FontWeight.bold,
                 fontSize: arentir * 0.06),
           )),

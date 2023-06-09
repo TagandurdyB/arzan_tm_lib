@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:arzan_tm/data/models/register/check_model.dart';
+import '/data/models/register/check_model.dart';
 
 import '/data/models/register/response_model.dart';
 

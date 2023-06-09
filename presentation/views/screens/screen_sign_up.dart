@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-import 'package:arzan_tm/domanin/entities/register/response_entity.dart';
+import '/domanin/entities/register/response_entity.dart';
 
 import '../../../config/routes/my_route.dart';
 import '../../../domanin/entities/register/check_entity.dart';

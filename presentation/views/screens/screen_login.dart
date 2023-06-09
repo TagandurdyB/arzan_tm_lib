@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/providers/view/provider_navigation.dart';
+import '/presentation/providers/view/provider_navigation.dart';
 
 import '/domanin/entities/register/check_entity.dart';
 

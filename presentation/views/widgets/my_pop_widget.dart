@@ -1,4 +1,4 @@
-import 'package:arzan_tm/config/services/my_size.dart';
+import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
 import 'my_container.dart';

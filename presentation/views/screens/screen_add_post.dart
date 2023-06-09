@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/views/widgets/ReadyInput/ready_input_base.dart';
+import '/presentation/views/widgets/ReadyInput/ready_input_base.dart';
 
 import '../../../config/vars/constants.dart';
 import '../../providers/data/hive_provider.dart';

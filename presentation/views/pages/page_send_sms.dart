@@ -47,7 +47,7 @@ class SendSmsPage extends StatelessWidget {
           .checkActivate(
         CheckEntity(
           uniqueId: unicID,
-          phone: RIBase.getText(Tags.rISignPhone),
+          phone: "+993${RIBase.getText(Tags.rISignPhone)}",
         ),
       )
           .then((response) {

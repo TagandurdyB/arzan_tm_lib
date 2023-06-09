@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/views/widgets/custom_avatar.dart';
+import '/presentation/views/widgets/custom_avatar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/services/my_size.dart';
@@ -26,14 +26,20 @@ class ScreenUser extends StatelessWidget {
 
   Widget get buildTopBar => Container(
         color: Colors.transparent,
-        height: MySize.width * 0.73,
+        height: MySize.width * 0.72,
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
             Container(
-                color: Colors.green,
-                height: MySize.width * 0.6,
-                width: MySize.width),
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                ),
+                height: MySize.width * 0.58,
+                width: MySize.width,
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Image.asset("assets/logo_png.png")),
+                ),
             Positioned(
               top: 1,
               child: Container(
@@ -42,12 +48,8 @@ class ScreenUser extends StatelessWidget {
                 color: Colors.black26,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
-                  children: [
-                    const Expanded(child: SizedBox()),
-                    Text(
-                      "Sahsy otag",
-                      style: TextStyle(fontSize: MySize.arentir * 0.065),
-                    ),
+                  children: const [
+                    Expanded(child: SizedBox()),
                   ],
                 ),
               ),
@@ -55,6 +57,7 @@ class ScreenUser extends StatelessWidget {
             Positioned(
               bottom: 1,
               child: CustomAvatar(
+                imgUrl: "",
                 borderColor: Colors.white,
                 radius: arentir * 0.25,
                 bgColor: Colors.white,

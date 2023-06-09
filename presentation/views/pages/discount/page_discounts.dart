@@ -1,5 +1,5 @@
-import 'package:arzan_tm/config/services/my_size.dart';
-import 'package:arzan_tm/presentation/providers/data/discount_data_provider.dart';
+import '/config/services/my_size.dart';
+import '/presentation/providers/data/discount_data_provider.dart';
 
 import '../../../providers/data/banner_provider.dart';
 import '../../../providers/view/provider_discaunts.dart';
