@@ -4,7 +4,7 @@ import '../widgets/sort_sheed.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 
 import '../../../config/services/my_size.dart';
-import '/domanin/entities/acaunt_entity.dart';
+import '../../../domanin/entities/profiles/acaunt_entity.dart';
 import '/presentation/views/widgets/indicator_btns.dart';
 import 'package:flutter/material.dart';
 
@@ -31,9 +31,7 @@ class TopsPage extends StatelessWidget {
         CustomAppBar(
           title: "Top hasaplar",
           actions: [
-            IconButton(
-                onPressed: _showSortSheed,
-                icon: const Icon(Icons.sort, color: Colors.white))
+            IconButton(onPressed: _showSortSheed, icon: const Icon(Icons.sort))
           ],
         ),
         Expanded(
@@ -59,7 +57,7 @@ class TopsPage extends StatelessWidget {
                       color: Theme.of(context).canvasColor,
                       borderRadius: BorderRadius.vertical(
                           top: Radius.circular(arentir * 0.03))),
-                  child:  SortSheed(),
+                  child: SortSheed(),
                 ),
               ],
             ));
@@ -108,7 +106,7 @@ class TopsPage extends StatelessWidget {
               )),
           SizedBox(height: arentir * 0.05),
           buildAcaunts(),
-          SizedBox(height: arentir*0.2),
+          SizedBox(height: arentir * 0.2),
         ],
       ),
     );

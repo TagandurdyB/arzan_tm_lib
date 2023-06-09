@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import '../services/my_size.dart';
 
 class Nums {
@@ -21,7 +23,19 @@ class Words {
     "Wallet",
     "Profile"
   ];
+
+  //Welayats====================================================================
+  static const String TM = "Türkmenistan";
+  static const String AG = "Aşgabat";
+  static const String BN = "Balkan";
+  static const String AH = "Ahal";
+  static const String MR = "Mary";
+  static const String LB = "Lebap";
+  static const String DZ = "Daşoguz";
+
+  static List<String> welayats = [TM, AG, BN, AH, MR, LB, DZ];
 }
+//============================================================================
 
 class Dutrations {
   static const Duration logoTime = Duration(seconds: Nums.logoTime);
@@ -58,8 +72,10 @@ class Tags {
   //================
   static const String hiveToken = "Hive Token";
   static const String hiveWelayat = "Hive Welayat";
+  static const String hiveRole = "Hive Role";
   //================
   static const String isLogin = "Hive Login now";
+  //================
   //============================================================================
 }
 

@@ -2,8 +2,9 @@ import '/presentation/providers/data/provider_acaunt.dart';
 
 import 'package:flutter/material.dart';
 
+import 'profile/profile_screens.dart';
 import 'screen_register.dart';
-import 'screen_user.dart';
+import 'profile/screen_user.dart';
 
 // ignore: must_be_immutable
 class AcauntScreens extends StatelessWidget {
@@ -18,7 +19,7 @@ class AcauntScreens extends StatelessWidget {
 
   List<Widget> screens = [
     const ScreenRegister(),
-    ScreenUser(),
+     ProfileScreens(),
   ];
 
   Widget buildScreens() {

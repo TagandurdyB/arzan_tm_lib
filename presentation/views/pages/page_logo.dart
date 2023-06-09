@@ -31,7 +31,7 @@ class _LogoPageState extends State<LogoPage> {
 
   void get _goHome {
     final hiveP = HiveP.of(context, listen: false);
-    if (hiveP.readBool(Tags.isLogin)==true) {
+    if (hiveP.readBool(Tags.isLogin) == true) {
       AcauntP.of(context, listen: false).logIned;
     }
 
@@ -51,9 +51,8 @@ class _LogoPageState extends State<LogoPage> {
         decoration: const BoxDecoration(
           color: Colors.green,
           image: DecorationImage(
-            fit: BoxFit.fitWidth,
-            image: ExactAssetImage("assets/logo_bg.png")
-          ),
+              fit: BoxFit.fitWidth,
+              image: ExactAssetImage("assets/logo_bg.png")),
         ),
         child: Stack(
           children: [
@@ -108,10 +107,10 @@ class _LogoPageState extends State<LogoPage> {
           Positioned(
             top: 200,
             child: Container(
-              width: MySize.arentir * 0.65,
-              height: MySize.arentir * 0.5,
+              width: MySize.arentir * 0.7,
+              height: MySize.arentir * 0.7,
               decoration: const BoxDecoration(
-                  //   color: Colors.red,
+                  // color: Colors.red,
                   image: DecorationImage(
                       fit: BoxFit.contain,
                       image: ExactAssetImage("assets/logo_png.png"))),

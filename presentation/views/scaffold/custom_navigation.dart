@@ -40,13 +40,14 @@ class _CustovNavigationState extends State<CustovNavigation> {
             height: arentir * 0.15,
             labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
             selectedIndex: index,
-            destinations: List.generate(
-                items.length,
-                (index) => buildBord(index)),
+            destinations:
+                List.generate(items.length, (index) => buildBord(index)),
             onDestinationSelected: (index) {
-              setState(() => this.index = index);
-              final provid = ProviderNav.of(context, listen: false);
-              provid.changeScreen(index);
+              if (index != 3) {
+                setState(() => this.index = index);
+                final provid = ProviderNav.of(context, listen: false);
+                provid.changeScreen(index);
+              }
             },
           ),
         ),
@@ -56,19 +57,15 @@ class _CustovNavigationState extends State<CustovNavigation> {
 
   Container buildBord(int index) {
     return Container(
-                    decoration: BoxDecoration(
-                        color: index == this.index
-                            ? Colors.white
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(arentir * 0.02))),
-                    padding: EdgeInsets.only(bottom: arentir * 0.04),
-                    margin: EdgeInsets.only(
-                        left: arentir * 0.015,
-                        right: arentir * 0.015,
-                        top: arentir * 0.02),
-                    child: buildDestination(index),
-                  );
+      decoration: BoxDecoration(
+          color: index == this.index ? Colors.white : Colors.transparent,
+          borderRadius:
+              BorderRadius.vertical(top: Radius.circular(arentir * 0.02))),
+      padding: EdgeInsets.only(bottom: arentir * 0.04),
+      margin: EdgeInsets.only(
+          left: arentir * 0.015, right: arentir * 0.015, top: arentir * 0.02),
+      child: buildDestination(index),
+    );
   }
 
   NavigationDestination buildDestination(int index) {

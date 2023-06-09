@@ -1,3 +1,10 @@
+import '/presentation/views/pages/wallet/page_boughts.dart';
+
+import '/presentation/views/pages/wallet/page_bank.dart';
+
+import '../../presentation/views/pages/wallet/page_buy_service.dart';
+import '/presentation/views/pages/wallet/page_buy_coin.dart';
+
 import '../../presentation/views/pages/page_contest.dart';
 import '/presentation/views/pages/page_contact.dart';
 import '/presentation/views/pages/page_shear.dart';
@@ -56,10 +63,15 @@ class Rout {
   static const String share = "/SharePage";
   static const String contest = "/ContestPage";
 
+  static const String buyCoin = "/BuyCoinPage";
+  static const String buyService = "/BuyServicePage";
+  static const String bank = "/BankPage";
+  static const String boughts = "/BoughtsPage";
+
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
     region: (context) => RegionPage(),
-    home: (context) =>  HomePage(),
+    home: (context) => HomePage(),
     about: (context) => const AboutPage(),
     settings: (context) => SettingsPage(),
     search: (context) => ScreenSearch(),
@@ -93,5 +105,9 @@ class Rout {
     contact: (context) => const ContactPage(),
     share: (context) => const SharePage(),
     contest: (context) => const ContestPage(),
+    buyCoin: (context) => BuyCionPage(),
+    buyService: (context) => const BuyServicePage(),
+    bank: (context) => const BankPage(),
+    boughts: (context) => const BoughtsPage(),
   };
 }

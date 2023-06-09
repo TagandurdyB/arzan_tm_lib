@@ -7,7 +7,18 @@ import 'my_container.dart';
 class NextBtn extends StatelessWidget {
   final Function func;
   final String text;
-  const NextBtn({required this.func, this.text = "Indiki", super.key});
+  final Widget? child;
+  final Color? borderColor;
+  final Color? bgColor;
+
+  const NextBtn({
+    required this.func,
+    this.text = "Indiki",
+    super.key,
+    this.child,
+    this.borderColor,
+    this.bgColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +29,15 @@ class NextBtn extends StatelessWidget {
         Keyboard.close(context);
         func();
       },
-      color: const Color(0xff0EC243),
+      borderColor: borderColor ?? Colors.transparent,
+      color: bgColor ?? const Color(0xff0EC243),
       alignment: Alignment.center,
-      child: Text(
-        text,
-        style: TextStyle(color: Colors.white, fontSize: MySize.arentir * 0.04),
-      ),
+      child: child ??
+          Text(
+            text,
+            style:
+                TextStyle(color: Colors.white, fontSize: MySize.arentir * 0.04),
+          ),
     );
   }
 }

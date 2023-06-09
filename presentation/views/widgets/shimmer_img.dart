@@ -6,8 +6,9 @@ import '../../providers/view/provider_theme.dart';
 class ShimmerImg extends StatelessWidget {
   final String imageUrl;
   final BoxFit fit;
+  final Widget? child;
   const ShimmerImg(
-      {super.key, required this.imageUrl, this.fit = BoxFit.cover});
+      {super.key, required this.imageUrl, this.child, this.fit = BoxFit.cover});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class ShimmerImg extends StatelessWidget {
           enabled: true,
           direction: ShimmerDirection.ltr,
           period: const Duration(seconds: 1),
-          child: Container(color: Colors.grey),
+          child: child ?? Container(color: Colors.grey),
         );
       },
     );

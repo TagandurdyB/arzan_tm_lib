@@ -27,4 +27,37 @@ class Formater {
     tagList.removeAt(0);
     return tagList;
   }
+
+  static String locations(List<String> locations) {
+    String str = "";
+    for (var element in locations) {
+      final e = welayatCode(element);
+      str = "$str $e,";
+    }
+    return str.substring(0, str.length - 1);
+  }
+
+  static String welayatCode(String wel) {
+    switch (wel) {
+      case "Aşgabat":
+        return "AG";
+      case "Balkan":
+        return "BN";
+      case "Ahal":
+        return "AH";
+      case "Mary":
+        return "MR";
+      case "Lebap":
+        return "LB";
+      case "Daşoguz":
+        return "DZ";
+      default:
+        return "TM";
+    }
+  }
+
+  static bool searcher(List<String> items, String item) {
+    final result = items.where((element) => element == item);
+    return result.isNotEmpty;
+  }
 }

@@ -1,3 +1,4 @@
+import '../../../config/vars/constants.dart';
 import '/domanin/entities/register/check_entity.dart';
 import '/domanin/entities/register/sign_up_entity.dart';
 
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domanin/usecases/register_case.dart';
+import 'hive_provider.dart';
 
 class AcauntP extends ChangeNotifier {
   final RegisterCase registerCase;
@@ -15,9 +17,6 @@ class AcauntP extends ChangeNotifier {
 
   bool _isSign = false;
   bool get isSing => _isSign;
-
-  bool? _isSuccess;
-  bool? get isSuccess => _isSuccess;
 
   Future<ResponseEntity> signUp(SignUpEntity obj) async {
     final ResponseEntity entity = await registerCase.postSignUp(obj);
@@ -27,11 +26,6 @@ class AcauntP extends ChangeNotifier {
   Future<ResponseEntity> checkActivate(CheckEntity obj) async {
     final ResponseEntity entity = await registerCase.postCheck(obj);
     return entity;
-  }
-
-  void get logOut {
-    _isSign = false;
-    notifyListeners();
   }
 
   Future<ResponseEntity> logIn(LoginEntity obj) async {
@@ -49,6 +43,11 @@ class AcauntP extends ChangeNotifier {
     notifyListeners();
   }
 
+  void get logOut {
+    _isSign = false;
+    notifyListeners();
+  }
+
   ResponseEntity signEntity = ResponseEntity.empty;
   ResponseEntity loginEntity = ResponseEntity.empty;
   //MainPageEntity entity = MainPageEntity.frowJson(api);
@@ -59,6 +58,23 @@ class AcauntP extends ChangeNotifier {
     _screenIndex = index;
     notifyListeners();
   }
+
+//=================================================================
+  int profileIndex(BuildContext context) {
+    final String? hiveRole =
+        HiveP.of(context, listen: false).readStr(Tags.hiveRole);
+    if (hiveRole != null) {
+      if (hiveRole == "user") {
+        return 0;
+      } else if (hiveRole == "official") {
+        return 1;
+      } else if (hiveRole == "expired") {
+        return 2;
+      }
+    }
+    return 0;
+  }
+//=================================================================
 
   static AcauntP of(BuildContext context, {bool listen = true}) =>
       Provider.of<AcauntP>(context, listen: listen);

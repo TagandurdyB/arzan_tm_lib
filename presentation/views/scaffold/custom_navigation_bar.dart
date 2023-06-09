@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import '../../../config/routes/my_route.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
 
 import '../../../config/services/my_size.dart';
@@ -31,6 +32,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           final providA = AcauntP.of(context, listen: false);
           if (index == 2 && !providA.isSing) {
             provid.changeScreen(4);
+          } else if (index == 3) {
+            Navigator.pushNamed(context, Rout.buyCoin);
           } else {
             provid.changeScreen(index);
           }
