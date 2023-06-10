@@ -1,5 +1,6 @@
+import '/presentation/views/widgets/custom_avatar.dart';
+
 import '../../../config/services/my_size.dart';
-import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
 import 'arzan_coin.dart';
@@ -28,15 +29,7 @@ class AcauntAvatar extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: arentir * 0.15,
-            height: arentir * 0.15,
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(arentir * 0.2),
-                border: Border.all(color: Colors.green, width: 2)),
-            child: ClipOval(child: content ?? ShimmerImg(imageUrl: imgUrl)),
-          ),
+          CustomAvatar(radius: arentir * 0.15),
           Text(
             name,
             style: TextStyle(fontSize: arentir * 0.045),
@@ -50,7 +43,7 @@ class AcauntAvatar extends StatelessWidget {
                 style: TextStyle(
                     fontSize: arentir * 0.045, color: const Color(0xffEAAE3D)),
               ),
-              const ArzanCoin(radius:15),
+              const ArzanCoin(radius: 15),
             ],
           ),
         ],

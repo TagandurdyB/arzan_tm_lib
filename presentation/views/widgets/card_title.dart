@@ -21,6 +21,8 @@ class CardTitle extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: arentir * 0.03, horizontal: 8),
         // color: Colors.red,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
           children: [
             Text(
               title,

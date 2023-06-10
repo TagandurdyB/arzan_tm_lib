@@ -1,3 +1,4 @@
+import '../../../config/services/connection.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
 
 import '../../providers/data/hive_provider.dart';
@@ -20,6 +21,7 @@ class LogoPage extends StatefulWidget {
 class _LogoPageState extends State<LogoPage> {
   late DataThemeProvider themeProvider;
   int _selectedIndex = 0;
+  late bool isConnect;
 
   @override
   void initState() {
@@ -27,18 +29,27 @@ class _LogoPageState extends State<LogoPage> {
     Future.delayed(Dutrations.logoTime).then((value) {
       if (_selectedIndex != 5) _goHome;
     });
+    checkConnect();
+  }
+
+  void checkConnect() async {
+    isConnect = await ConnectionService.isConnected();
   }
 
   void get _goHome {
-    final hiveP = HiveP.of(context, listen: false);
-    if (hiveP.readBool(Tags.isLogin) == true) {
-      AcauntP.of(context, listen: false).logIned;
-    }
+    if (isConnect) {
+      final hiveP = HiveP.of(context, listen: false);
+      if (hiveP.readBool(Tags.isLogin) == true) {
+        AcauntP.of(context, listen: false).logIned;
+      }
 
-    if (hiveP.readStr(Tags.hiveWelayat) != null) {
-      Navigator.pushReplacementNamed(context, Rout.home);
+      if (hiveP.readStr(Tags.hiveWelayat) != null) {
+        Navigator.pushReplacementNamed(context, Rout.home);
+      } else {
+        Navigator.pushReplacementNamed(context, Rout.region);
+      }
     } else {
-      Navigator.pushReplacementNamed(context, Rout.region);
+      Navigator.pushReplacementNamed(context, Rout.disconnect);
     }
   }
 

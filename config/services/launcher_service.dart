@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:telephony/telephony.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LauncherService {
@@ -21,12 +22,14 @@ class LauncherService {
   }
 
   void sendSMS(String phoneNumber, String message) async {
-    String url = 'sms:$phoneNumber?body=${Uri.encodeQueryComponent(message)}';
+    // String url = 'sms:$phoneNumber?body=${Uri.encodeQueryComponent(message)}';
 
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch SMS intent';
-    }
+    // if (await canLaunch(url)) {
+    //   await launch(url);
+    // } else {
+    //   throw 'Could not launch SMS intent';
+    // }
+    final Telephony telephony = Telephony.instance;
+    telephony.sendSms(to: phoneNumber, message: message);
   }
 }

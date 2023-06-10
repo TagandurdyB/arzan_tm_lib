@@ -30,10 +30,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         onTap: (index) {
           final provid = ProviderNav.of(context, listen: false);
           final providA = AcauntP.of(context, listen: false);
-          if (index == 2 && !providA.isSing) {
+          if (!providA.isSing && (index == 2 || index == 3)) {
             provid.changeScreen(4);
           } else if (index == 3) {
             Navigator.pushNamed(context, Rout.buyCoin);
+          } else if (index == 1) {
+            Navigator.pushNamed(context, Rout.discounts);
           } else {
             provid.changeScreen(index);
           }

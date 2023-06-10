@@ -48,7 +48,13 @@ class CustomDrawer extends StatelessWidget {
         color: Colors.green.shade100,
         width: double.infinity,
         height: 77,
-        child: Row(children: [buildIcon, buildText]),
+        child: Row(children: [
+          buildIcon,
+          const Text(
+            "Ulgama gir",
+            style: TextStyle(fontSize: 15, color: Colors.black),
+          )
+        ]),
       ),
     );
   }
@@ -64,13 +70,6 @@ class CustomDrawer extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         color: Colors.green,
         child: Image.asset("assets/logo_png.png"));
-  }
-
-  Widget get buildText {
-    return const Text(
-      "Ulgama gir",
-      style: TextStyle(fontSize: 15, color: Colors.black),
-    );
   }
 
   Widget get buildContent {
@@ -107,7 +106,9 @@ class CustomDrawer extends StatelessWidget {
       divided,
       DrawerBtn(Icons.mail_outline, "Habarlaşmak", context,
           route: Rout.contact),
-      DrawerBtn(Icons.share_outlined, "Paýlaşmak", context, route: Rout.share),
+      // DrawerBtn(Icons.share_outlined, "Paýlaşmak", context, route: Rout.share),
+      DrawerBtn(Icons.share_outlined, "Paýlaşmak", context,
+          route: Rout.disconnect),
     ]);
   }
 

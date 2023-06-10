@@ -1,3 +1,4 @@
+import '../../../config/vars/constants.dart';
 import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,7 @@ class MyPopUpp {
               const CircularProgressIndicator(),
               const SizedBox(height: 10),
               Text(
-                "Garaşmagyňyzy haýyş edýeris!",
+                Words.loading,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: arentir * 0.04),
               ),

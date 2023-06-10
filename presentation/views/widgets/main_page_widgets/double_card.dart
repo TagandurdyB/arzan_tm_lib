@@ -54,7 +54,9 @@ class DoubleCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CardTitle(counter: count, title: title),
+        SizedBox(
+            width: arentir * 0.45,
+            child: CardTitle(counter: count, title: title)),
         GestureDetector(
           onTap: () => func(),
           child: ClipRRect(

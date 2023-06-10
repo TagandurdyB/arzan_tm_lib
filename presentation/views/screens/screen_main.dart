@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import '/domanin/entities/main_page/main_new_officials_entity.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/data/banner_provider.dart';
+import '../widgets/main_page_widgets/main_new_officials.dart';
 import '/domanin/entities/main_page/main_page_entity.dart';
 
 import '../../providers/data/main_page_provider.dart';
@@ -12,7 +14,6 @@ import '/presentation/views/screens/screen_search.dart';
 
 import '../widgets/carusel_slider.dart';
 import '../widgets/main_page_widgets/double_card.dart';
-import '../widgets/main_markets_view.dart';
 import '../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
@@ -80,7 +81,7 @@ class _ScreenMainState extends State<ScreenMain> {
           SliverList(
               delegate: SliverChildListDelegate([
             buildSlider,
-            MainMarketsView(objs: objM.markets),
+            // MainMarketsView(objs: objM.markets),
             buildSliverList(context),
           ])),
           SliverAppBar(
@@ -106,11 +107,16 @@ class _ScreenMainState extends State<ScreenMain> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            LongCard(
-                counter: objM.konkurs.count,
-                onTap: () => Navigator.pushNamed(context, Rout.contest),
-                imageUrl: objM.konkurs.img,
-                title: "Konkurs"),
+            // LongCard(
+            //     counter: objM.konkurs.count,
+            //     onTap: () => Navigator.pushNamed(context, Rout.contest),
+            //     imageUrl: objM.konkurs.img,
+            //     title: "Konkurs"),
+            ChosenPageView(
+              allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
+              objs: objM.saylananlarDatas,
+              count: objM.saylananlarCount,
+            ),
             LongCard(
                 counter: objM.top.count,
                 onTap: () => Navigator.pushNamed(context, Rout.tops),
@@ -131,10 +137,25 @@ class _ScreenMainState extends State<ScreenMain> {
                 onTap: () => Navigator.pushNamed(context, Rout.officials),
                 imageUrl: objM.resmiler.img,
                 title: "Resmiler"),
-            ChosenPageView(
-              allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
-              objs: objM.saylananlarDatas,
-              count: objM.saylananlarCount,
+            MainNewOfficials(
+              objs: [
+                NewOfficialsEntity(
+                    id: 1,
+                    officialImg:
+                        "https://play-lh.googleusercontent.com/326hZ9pubFetmymUcBe3ZX0gTG_DLdjiDdkleC04Gft-YtiJrBzGrQPNJGqghy6Nfg=w240-h480-rw"),
+                NewOfficialsEntity(
+                    id: 2,
+                    officialImg:
+                        "https://play-lh.googleusercontent.com/tIM6b_64ciHqKwP7dxoO1SAJtRIp0sqhaO2lv75-fbdoTqy7d3R8XMSfj35YS4OeG3E"),
+                NewOfficialsEntity(
+                    id: 3,
+                    officialImg:
+                        "https://play-lh.googleusercontent.com/326hZ9pubFetmymUcBe3ZX0gTG_DLdjiDdkleC04Gft-YtiJrBzGrQPNJGqghy6Nfg=w240-h480-rw"),
+                NewOfficialsEntity(
+                    id: 4,
+                    officialImg:
+                        "https://play-lh.googleusercontent.com/tIM6b_64ciHqKwP7dxoO1SAJtRIp0sqhaO2lv75-fbdoTqy7d3R8XMSfj35YS4OeG3E"),
+              ],
             ),
           ],
         ),

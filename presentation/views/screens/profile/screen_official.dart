@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import '../../../../config/routes/my_route.dart';
 import '../../../../config/vars/formater.dart';
 import '../../widgets/picture_view.dart';
 import '/domanin/entities/profiles/official_profile_entity%20copy.dart';
@@ -113,14 +114,18 @@ class ScreenOfficial extends StatelessWidget {
               child: buildStatistics,
             ),
             NextBtn(
-              func: () {},
+              func: () {
+                Navigator.pushNamed(context, Rout.buyService);
+              },
               text: "Hyzmat satyn almak",
             ),
             SizedBox(height: arentir * 0.03),
             NextBtn(
               bgColor: const Color(0xffF9FAFC),
               borderColor: const Color(0xffE5E5E5),
-              func: () {},
+              func: () {
+                Navigator.pushNamed(context, Rout.acaunt);
+              },
               // text: "Resmi hasap aç",
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

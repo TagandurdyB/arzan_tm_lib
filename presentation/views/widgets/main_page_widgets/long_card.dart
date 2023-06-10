@@ -28,12 +28,7 @@ class LongCard extends StatelessWidget {
     this.context = context;
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CardTitle(counter: counter, title: title),
-          ],
-        ),
+        CardTitle(counter: counter, title: title),
         buildCard,
       ],
     );

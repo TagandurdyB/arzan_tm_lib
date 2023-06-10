@@ -1,3 +1,7 @@
+import '/presentation/views/pages/lotties/page_disconntect.dart';
+import '/presentation/views/pages/lotties/page_not_found.dart';
+
+import '../../presentation/views/pages/lotties/page_404.dart';
 import '/presentation/views/pages/wallet/page_boughts.dart';
 
 import '/presentation/views/pages/wallet/page_bank.dart';
@@ -68,6 +72,11 @@ class Rout {
   static const String bank = "/BankPage";
   static const String boughts = "/BoughtsPage";
 
+  //Lotties=============================================
+  static const String page404 = "/Page404";
+  static const String pageNotFound = "/PageNotFound";
+  static const String disconnect = "/PageDisconnect";
+
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
     region: (context) => RegionPage(),
@@ -93,7 +102,7 @@ class Rout {
     newPass: (context) => const NewPassPage(),
     sendSMS: (context) => SendSmsPage(),
     chosen: (context) => ChosenPage(),
-    acaunt: (context) => const AcauntPage(),
+    acaunt: (context) => AcauntPage(),
     images: (context) => const ImagesPage(),
     // imagesDetal:(context)=> const ImageDetalPage(),
     videos: (context) => VideosPage(),
@@ -109,5 +118,10 @@ class Rout {
     buyService: (context) => const BuyServicePage(),
     bank: (context) => const BankPage(),
     boughts: (context) => const BoughtsPage(),
+    //Lotties=============================================
+    page404: (context) => Page404(),
+    pageNotFound: (context) => PageNotFound(),
+    disconnect: (context) => PageDisconnect(),
+    //====================================================
   };
 }

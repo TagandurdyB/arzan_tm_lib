@@ -34,8 +34,16 @@ class Words {
   static const String DZ = "Daşoguz";
 
   static List<String> welayats = [TM, AG, BN, AH, MR, LB, DZ];
+  //Messages==================================================================
+  static const String loading = "Garaşmagyňyzy haýyş edýeris!";
+  static const String buyValidation = "Maglumatlary doly giriziň!";
+  static const String buyNo = "Balansyňyzda ýeterlik ball ýok!";
+  static const String buyOk =
+      '''Siz üstünlikli hyzmat satyn aldyňyz administrasiya
+siz bilen habar tutar''';
+
+  //============================================================================
 }
-//============================================================================
 
 class Dutrations {
   static const Duration logoTime = Duration(seconds: Nums.logoTime);

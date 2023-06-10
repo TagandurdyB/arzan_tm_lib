@@ -10,7 +10,7 @@ class DiscountProvid extends ChangeNotifier {
   void get tongleColumn {
     // _minScale();
     // maxScale;
-    if (_cloumnCount < 3) {
+    if (_cloumnCount < 2) {
       _cloumnCount++;
     } else {
       _cloumnCount = 1;

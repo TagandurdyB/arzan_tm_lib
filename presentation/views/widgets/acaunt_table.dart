@@ -9,54 +9,10 @@ import 'arzan_coin.dart';
 import 'my_pop_widget.dart';
 
 class AcauntTable extends StatelessWidget {
-  AcauntTable({super.key});
+  final List objs;
+  AcauntTable({required this.objs, super.key});
   final double arentir = MySize.arentir;
 
-  final List objs = [
-    [
-      const Color(0xffF4DDE1),
-      const Color(0xffE50027),
-      Icons.favorite_border,
-      "Like",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    ],
-    [
-      const Color(0xffDDEFF6),
-      const Color(0xff00B2FF),
-      Icons.chat_outlined,
-      "Teswir",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    ],
-    [
-      const Color(0xffEADFF3),
-      const Color(0xff8519DA),
-      Icons.content_paste_outlined,
-      "Post",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    ],
-    [
-      const Color(0xffDDDDDD),
-      const Color(0xFF1F1B1B),
-      Icons.follow_the_signs,
-      "Myhman",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    ],
-    [
-      const Color(0xffDEF0E4),
-      const Color(0xff0EC243),
-      Icons.group,
-      "Yzarlamalar",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    ],
-    [
-      const Color(0xffDDEAE2),
-      const Color(0xff008631),
-      Icons.group_add_outlined,
-      "Çagyrma",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    ],
-  ];
   late BuildContext context;
 
   @override
@@ -67,7 +23,7 @@ class AcauntTable extends StatelessWidget {
 
   Widget buildTable() {
     return Column(
-        children: List.generate(7, (index) {
+        children: List.generate(objs.length + 1, (index) {
       if (index == 0) {
         return buildTitle;
       } else {
@@ -77,29 +33,30 @@ class AcauntTable extends StatelessWidget {
   }
 
   Widget get buildTitle {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: arentir * 0.05),
-      child: Row(children: [
-        Expanded(
-            flex: 3,
-            child: Text("Ady",
-                style: TextStyle(
-                    fontSize: arentir * 0.04, fontWeight: FontWeight.bold))),
-        Expanded(
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: Text("Mukdar",
-                    style: TextStyle(
-                        fontSize: arentir * 0.04,
-                        fontWeight: FontWeight.bold)))),
-        Expanded(
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: Text("Ball",
-                    style: TextStyle(
-                        fontSize: arentir * 0.04,
-                        fontWeight: FontWeight.bold)))),
-      ]),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: arentir * 0.05),
+          child: Row(children: [
+            Expanded(
+                flex: 3,
+                child: Text("Ady", style: TextStyle(fontSize: arentir * 0.04))),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text("Mukdar",
+                        style: TextStyle(fontSize: arentir * 0.04)))),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text("Ball",
+                        style: TextStyle(fontSize: arentir * 0.04)))),
+          ]),
+        ),
+        const Divider(
+          color: Color(0xffE5E5E5),
+        )
+      ],
     );
   }
 
@@ -110,10 +67,12 @@ class AcauntTable extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           margin: const EdgeInsets.all(4),
           height: arentir * 0.17,
-          decoration: BoxDecoration(
-              // color: Colors.red,
-              border: Border.all(color: const Color(0xffECECEC), width: 1),
-              borderRadius: BorderRadius.circular(arentir * 0.04)),
+          decoration: const BoxDecoration(
+            // color: Colors.red,
+            border:
+                Border(bottom: BorderSide(color: Color(0xffECECEC), width: 1)),
+            // borderRadius: BorderRadius.circular(arentir * 0.04),
+          ),
           child: Row(
             children: [
               Expanded(
@@ -129,13 +88,14 @@ class AcauntTable extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 30,
                 width: 40,
-                child: const Text("123"),
+                child: Text("${objs[index][5]}"),
               )),
               Expanded(
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Text("345", style: TextStyle(color: Color(0xffE79E12))),
+                  Text("${objs[index][6]}",
+                      style: const TextStyle(color: Color(0xffE79E12))),
                   SizedBox(width: arentir * 0.02),
                   const ArzanCoin(radius: 15),
                 ],
@@ -159,28 +119,28 @@ class AcauntTable extends StatelessWidget {
   Widget buildPopContent(Color col, IconData iconD, String text) {
     return Column(children: [
       Icon(
-    iconD,
-    color: col,
-    size: arentir * 0.1,
+        iconD,
+        color: col,
+        size: arentir * 0.1,
       ),
       Container(
-    margin: EdgeInsets.all(arentir * 0.02),
-    height: arentir * 0.35,
-    child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Text(
-          text,
-          style: TextStyle(fontSize: arentir * 0.05),
-          textAlign: TextAlign.center,
-        )),
+        margin: EdgeInsets.all(arentir * 0.02),
+        height: arentir * 0.35,
+        child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Text(
+              text,
+              style: TextStyle(fontSize: arentir * 0.05),
+              textAlign: TextAlign.center,
+            )),
       ),
       AllBtn(
-    padding: EdgeInsets.symmetric(
-        horizontal: arentir * 0.06, vertical: arentir * 0.015),
-    text: "OK",
-    bgColor: const Color(0xff00AE26),
-    fontSize: arentir * 0.05,
-    onTap: () => Navigator.pop(context),
+        padding: EdgeInsets.symmetric(
+            horizontal: arentir * 0.06, vertical: arentir * 0.015),
+        text: "OK",
+        bgColor: const Color(0xff00AE26),
+        fontSize: arentir * 0.05,
+        onTap: () => Navigator.pop(context),
       )
     ]);
   }
@@ -197,40 +157,14 @@ class AcauntTable extends StatelessWidget {
         ),
         SizedBox(width: arentir * 0.03),
         Text(
-          title,
+          "$title  ",
           style: TextStyle(fontSize: arentir * 0.04),
+        ),
+        const Icon(
+          Icons.info_outline,
+          color: Color(0xff299C26),
         )
       ],
     );
-  }
-
-  Table buildTable1() {
-    return Table(
-        children: List.generate(
-            100,
-            (index) => TableRow(
-                    decoration: BoxDecoration(
-                      // color: Colors.red,
-                      border: Border.all(color: Colors.blue, width: 2),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    children: [
-                      Container(
-                          padding: const EdgeInsets.all(8),
-                          alignment: Alignment.center,
-                          child: const Text("Ady")),
-                      Container(
-                          padding: const EdgeInsets.all(8),
-                          alignment: Alignment.center,
-                          child: const Text("Ady")),
-                      Container(
-                          padding: const EdgeInsets.all(8),
-                          alignment: Alignment.center,
-                          child: const Text("Ady")),
-                      Container(
-                          padding: const EdgeInsets.all(8),
-                          alignment: Alignment.center,
-                          child: const Text("Ady")),
-                    ])));
   }
 }

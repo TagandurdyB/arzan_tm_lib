@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import '../../../../config/routes/my_route.dart';
+import '/presentation/views/widgets/my_pop_widget.dart';
+
 import '/presentation/views/widgets/next_btn.dart';
 
 import '../../../../config/vars/constants.dart';
@@ -62,6 +64,7 @@ class _BuyServicePageState extends State<BuyServicePage> {
         child: Row(
           children: [
             CustomAvatar(
+              goAcaunt: true,
               radius: arentir * 0.12,
             ),
             const SizedBox(width: 10),
@@ -156,6 +159,7 @@ class _BuyServicePageState extends State<BuyServicePage> {
   int selectedService = -1;
   int selectedTime = -1;
   List<String> selectedLocations = [];
+  bool canBuy = false;
 
   Widget get buildContent => ListView(
         children: [
@@ -180,20 +184,35 @@ class _BuyServicePageState extends State<BuyServicePage> {
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: NextBtn(
-                func: () {
-                  Navigator.pushNamed(context, Rout.boughts);
-                },
-                text: "Satyn al"),
+            child: NextBtn(func: buyFunc, text: "Satyn al"),
           )
         ],
       );
 
+  void buyFunc() {
+    if (canBuy) {
+      MyPopUpp.popLoading(context);
+
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        const status = true;
+        MyPopUpp.popMessage(context, () {
+          if (status) {
+            Navigator.pushNamed(context, Rout.boughts);
+          }
+        }, status ? Words.buyOk : Words.buyNo, !status);
+      });
+    } else {
+      MyPopUpp.popLoading(context);
+      MyPopUpp.popMessage(context, () {}, Words.buyValidation, !false);
+    }
+  }
+
   Visibility buildSum() {
+    canBuy = selectedService != -1 &&
+        selectedTime != -1 &&
+        selectedLocations.isNotEmpty;
     return Visibility(
-        visible: selectedService != -1 &&
-            selectedTime != -1 &&
-            selectedLocations.isNotEmpty,
+        visible: canBuy,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -273,7 +292,11 @@ class _BuyServicePageState extends State<BuyServicePage> {
     return CustomDropDown(
       height: arentir * 0.1,
       mainValue: selectedTime == -1
-          ? Text("Wagt sayla", style: TextStyle(fontSize: arentir * 0.03))
+          ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text("Wagt sayla",
+                  style: TextStyle(fontSize: arentir * 0.03)),
+            )
           : buildDateI(dates[selectedTime]),
       items: dates.map((e) => buildDateI(e)).toList(),
       onChange: (int index) {
@@ -284,12 +307,13 @@ class _BuyServicePageState extends State<BuyServicePage> {
 
   Widget buildDateI(String date) => Row(
         children: [
-          Container(
-            // height: arentir * 0.1,
-            margin: const EdgeInsets.all(8),
-            child: Text(date),
+          Expanded(
+            child: Container(
+              // height: arentir * 0.1,
+              padding: const EdgeInsets.all(8),
+              child: Text(date),
+            ),
           ),
-          const Expanded(child: SizedBox())
         ],
       );
 

@@ -6,6 +6,7 @@ import 'package:arzan_tm/presentation/views/widgets/arzan_coin.dart';
 import 'package:arzan_tm/presentation/views/widgets/next_btn.dart';
 import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
+import '../../../../config/routes/my_route.dart';
 import '/presentation/views/widgets/my_container.dart';
 
 import '../../../../domanin/entities/profiles/user_profile_entity.dart';
@@ -135,7 +136,9 @@ class ScreenUser extends StatelessWidget {
             NextBtn(
               bgColor: const Color(0xffF9FAFC),
               borderColor: const Color(0xffE5E5E5),
-              func: () {},
+              func: () {
+                Navigator.pushNamed(context, Rout.acaunt);
+              },
               // text: "Resmi hasap aç",
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
