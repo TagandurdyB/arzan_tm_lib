@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../config/services/my_size.dart';
+import '../../../../config/vars/formater.dart';
 import '../../../providers/view/provider_video.dart';
 
 import 'dart:ui' as ui;
+
+import '../btns_group.dart';
 
 class VideoPlayerForground extends StatelessWidget {
   VideoPlayerController controller;
@@ -86,28 +89,51 @@ class VideoPlayerForground extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+        Align(alignment: Alignment.centerLeft, child: buildTitle),
         buildBottomGadgets,
         buildIndicator,
-        SizedBox(height: arentir * 0.1),
+        SizedBox(height: arentir * 0.02),
+        buildTimer,
+        // SizedBox(height: arentir * 0.1),
       ]),
     );
   }
 
+  Widget get buildTitle => Container(
+        padding: const EdgeInsets.all(8),
+        width: arentir * 0.6,
+        child: const Text(
+          '''Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв''',
+          style:
+              TextStyle(color: Colors.white, overflow: TextOverflow.ellipsis),
+          maxLines: 3,
+        ),
+      );
+
   Widget get buildBottomGadgets {
-    return Row(
-      children: [
-        const Expanded(child: SizedBox()),
-        GestureDetector(
-            onTap: () {
-              providVdo.tongleScreenMode;
-            },
-            child: Icon(
-              providV.isPortrade
-                  ? Icons.fullscreen
-                  : Icons.screen_rotation_sharp,
-              color: Colors.white,
-            )),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          GestureDetector(
+              onTap: () {
+                providVdo.tongleScreenMode;
+              },
+              child: Icon(
+                providV.isPortrade
+                    ? Icons.fullscreen
+                    : Icons.screen_rotation_sharp,
+                color: Colors.white,
+              )),
+          const Expanded(child: SizedBox()),
+          LikeBtn(
+            onTap: (bool val) {},
+            textSize: arentir * 0.05,
+            iconSize: 21,
+            likeCount: 1500,
+          ),
+        ],
+      ),
     );
   }
 
@@ -121,5 +147,18 @@ class VideoPlayerForground extends StatelessWidget {
             playedColor: Colors.white, bufferedColor: Colors.black54),
       ),
     );
+  }
+
+  Widget get buildTimer {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Text(
+        TimeConterter(controller).getPosition,
+        style: const TextStyle(color: Colors.white),
+      ),
+      Text(
+        TimeConterter(controller).getDuration,
+        style: const TextStyle(color: Colors.white),
+      ),
+    ]);
   }
 }

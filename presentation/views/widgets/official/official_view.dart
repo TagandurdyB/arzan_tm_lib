@@ -1,27 +1,27 @@
+import '/presentation/views/widgets/official/official_1_card.dart';
+
 import '../../../../domanin/entities/discounts/discount_detal_entity.dart';
+import '../../../../domanin/entities/official_entity.dart';
 import '../../pages/discount/page_discount_detal.dart';
-import '../../../../domanin/entities/discounts/discount_entity.dart';
 
 import '/presentation/providers/view/provider_discaunts.dart';
-import '/presentation/views/widgets/discount/discount_2_card.dart';
 
 // import 'package:entry/entry.dart';
 
 import '../../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
-import 'discount_1_card.dart';
-import 'discount_3_card.dart';
+import 'official_2_card.dart';
 
-class DiscountView extends StatefulWidget {
-  final List<DiscountEntity> objs;
-  const DiscountView({required this.objs, super.key});
+class OfficialView extends StatefulWidget {
+  final List<OfficialEntity> objs;
+  const OfficialView({required this.objs, super.key});
 
   @override
-  State<DiscountView> createState() => _DiscountViewState();
+  State<OfficialView> createState() => _OfficialViewState();
 }
 
-class _DiscountViewState extends State<DiscountView> {
+class _OfficialViewState extends State<OfficialView> {
   final double arentir = MySize.arentir;
 
   @override
@@ -83,9 +83,9 @@ class _DiscountViewState extends State<DiscountView> {
   SliverGridDelegate _delegateChanger(int columnNum) {
     switch (columnNum) {
       case 1:
-        return _delegate(0.05, 0.29, 1);
+        return _delegate(0.05, 0.25, 1);
       case 2:
-        return _delegate(0.05, 0.48, 0.5);
+        return _delegate(0.05, 0.54, 0.5);
       case 3:
         return _delegate(0.05, 0.37, 0.4);
       default:
@@ -104,13 +104,13 @@ class _DiscountViewState extends State<DiscountView> {
   Widget buildDiscountCard(int index, int columnNum) {
     switch (columnNum) {
       case 1:
-        return DiscountCardFirst(obj: widget.objs[index]);
+        return OfficialCardFirst(obj: widget.objs[index]);
       case 2:
-        return DiscountCardSecond(obj: widget.objs[index]);
+        return OfficialCardSecond(obj: widget.objs[index]);
       case 3:
-        return DiscountCardThird(obj: widget.objs[index]);
+        return OfficialCardFirst(obj: widget.objs[index]);
       default:
-        return DiscountCardSecond(obj: widget.objs[index]);
+        return OfficialCardFirst(obj: widget.objs[index]);
     }
   }
 }

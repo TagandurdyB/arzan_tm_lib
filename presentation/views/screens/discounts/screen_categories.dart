@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+import 'package:arzan_tm/domanin/entities/discounts/discount_entity.dart';
+
+import '/presentation/views/pages/discount/page_discounts_in.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 
 import '../../../../config/vars/formater.dart';
 import '../../../../domanin/entities/discounts/category_entity.dart';
@@ -54,33 +57,54 @@ class CategoryCard extends StatelessWidget {
   final double arentir = MySize.arentir;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: arentir * 0.02),
-      decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          // color: Colors.red,
-          borderRadius: BorderRadius.circular(arentir * 0.02),
-          boxShadow: ThemeP.of(context).shadows.discount),
-      height: arentir * 0.3,
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: SizedBox(
-                height: arentir * 0.1,
-                width: double.infinity,
-                child: ShimmerImg(fit: BoxFit.fitWidth, imageUrl: obj.imgUrl)),
+    return GestureDetector(
+      onTap: () {
+        final List<DiscountEntity> objs = [
+          DiscountEntity(
+            id: 1,
+            createdAt: DateTime.now(),
+            img:
+                "https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg",
+            mod: 23,
+            title: "Mebel zakaz alyarys islendik gornusde",
+            viewed: 121,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "${obj.name} (${Formater.rounder(obj.count)})",
-              style: const TextStyle(fontWeight: FontWeight.bold),
+        ];
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DiscountsInPage(
+                    title: obj.name, count: obj.count, objs: objs)));
+      },
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        margin: EdgeInsets.symmetric(horizontal: 8, vertical: arentir * 0.02),
+        decoration: BoxDecoration(
+            color: Theme.of(context).canvasColor,
+            // color: Colors.red,
+            borderRadius: BorderRadius.circular(arentir * 0.02),
+            boxShadow: ThemeP.of(context).shadows.discount),
+        height: arentir * 0.3,
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: SizedBox(
+                  height: arentir * 0.1,
+                  width: double.infinity,
+                  child:
+                      ShimmerImg(fit: BoxFit.fitWidth, imageUrl: obj.imgUrl)),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "${obj.name} (${Formater.rounder(obj.count)})",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

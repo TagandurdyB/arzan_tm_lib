@@ -35,15 +35,18 @@ class DiscountCardSecond extends StatelessWidget {
                   height: arentir * 0.29,
                   child: ShimmerImg(imageUrl: obj.img, fit: BoxFit.fitHeight),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    radius: arentir * 0.035,
-                    backgroundColor: const Color(0xff0EC243),
-                    child: Text(
-                      "${obj.mod}%",
-                      style: TextStyle(
-                          fontSize: arentir * 0.025, color: Colors.white),
+                Visibility(
+                  visible: obj.mod > 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      radius: arentir * 0.035,
+                      backgroundColor: const Color(0xff0EC243),
+                      child: Text(
+                        "${obj.mod}%",
+                        style: TextStyle(
+                            fontSize: arentir * 0.025, color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

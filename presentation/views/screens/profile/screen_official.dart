@@ -2,10 +2,15 @@
 
 import 'dart:ui';
 
+import 'package:provider/provider.dart';
+
 import '../../../../config/routes/my_route.dart';
 import '../../../../config/vars/formater.dart';
+import '../../../providers/data/main_page_provider.dart';
+import '../../widgets/discount/discount_view.dart';
 import '../../widgets/picture_view.dart';
-import '/domanin/entities/profiles/official_profile_entity%20copy.dart';
+import '../../../../domanin/entities/profiles/official_profile_entity.dart';
+import '../../widgets/widget_btn.dart';
 import '/presentation/views/widgets/arzan_coin.dart';
 import '/presentation/views/widgets/next_btn.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +31,44 @@ class ScreenOfficial extends StatelessWidget {
   Widget build(BuildContext context) {
     hiveP = HiveP.of(context, listen: false);
     this.context = context;
-    return ListView(children: [
-      buildTopBar,
-      buildContent,
-      // SettingsContent()
+    final objM = context.watch<MainPageP>().entity;
+    return CustomScrollView(slivers: [
+      // ===============================================
+      SliverList(
+          delegate: SliverChildListDelegate([
+        buildTopBar,
+        buildContent,
+      ])),
+      // ===============================================
+      SliverAppBar(
+        backgroundColor: Theme.of(context).canvasColor,
+        pinned: true,
+        leading: const SizedBox(),
+        flexibleSpace: FlexibleSpaceBar(
+            background: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Pending",
+                style: TextStyle(fontSize: arentir * 0.05),
+              ),
+              const WidgetBtn(),
+            ],
+          ),
+        )),
+      ),
+      // ===============================================
+      SliverPadding(
+        padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
+        sliver: DiscountView(
+          objs: objM.discountDatas,
+        ),
+      ),
+      // ===============================================
+      const SliverPadding(padding: EdgeInsets.all(20))
+      // ===============================================
     ]);
   }
 

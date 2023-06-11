@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
             hiveP.saveStr(response.token ?? "sdasdasd", Tags.hiveToken);
             hiveP.saveBool(true, Tags.isLogin);
             // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
-            hiveP.saveStr("user", Tags.hiveRole);
+            hiveP.saveStr("official", Tags.hiveRole);
           }
           MyPopUpp.popMessage(
             context,

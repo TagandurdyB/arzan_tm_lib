@@ -1,4 +1,5 @@
-import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+import '../../pages/page_profile.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 
 import '../../../../domanin/entities/main_page/main_new_officials_entity.dart';
 import '/config/services/my_size.dart';
@@ -11,8 +12,10 @@ class MainNewOfficials extends StatelessWidget {
   MainNewOfficials({required this.objs, super.key});
 
   final double arentir = MySize.arentir;
+  late BuildContext context;
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     return Column(
       children: [
         CardTitle(counter: 65, title: "Täze resmiler "),
@@ -30,12 +33,20 @@ class MainNewOfficials extends StatelessWidget {
   }
 
   Widget buildCards(NewOfficialsEntity obj) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      margin: EdgeInsets.only(right: arentir * 0.02),
-      width: arentir * 0.29,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-      child: ShimmerImg(imageUrl: obj.officialImg),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProfilePage(role: "official")));
+      },
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        margin: EdgeInsets.only(right: arentir * 0.02),
+        width: arentir * 0.29,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+        child: ShimmerImg(imageUrl: obj.officialImg),
+      ),
     );
   }
 }

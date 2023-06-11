@@ -1,3 +1,5 @@
+import '/presentation/views/widgets/widget_btn.dart';
+
 import '../../screens/discounts/screen_categories.dart';
 import '../../screens/discounts/screen_section.dart';
 import '../../widgets/indicator_btns.dart';
@@ -7,7 +9,7 @@ import '/presentation/providers/data/discount_data_provider.dart';
 import '../../../providers/data/banner_provider.dart';
 import '../../../providers/view/provider_discaunts.dart';
 import '../../widgets/carusel_slider.dart';
-import '../../widgets/discount/discaunt_view.dart';
+import '../../widgets/discount/discount_view.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -49,36 +51,18 @@ class _DiscountsPageState extends State<DiscountsPage> {
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              " (+135)",
+              " (135)",
               style: TextStyle(
                   fontSize: 21,
                   fontWeight: FontWeight.bold,
                   color: Color(0xff008631)),
             ),
           ]),
-          actions: [
-            GestureDetector(
-                onTap: () => providDdo.tongleColumn,
-                child: Icon(buildWidgetIconD(providD.cloumnCount)))
-          ],
+          actions: const [WidgetBtn()],
         ),
         Expanded(child: buildContent),
       ]),
     );
-  }
-
-  IconData buildWidgetIconD(int cloumnCount) {
-    switch (cloumnCount) {
-      case 1:
-        return Icons.list;
-      case 2:
-        return Icons.widgets_outlined;
-      case 3:
-        return Icons.apps_sharp;
-
-      default:
-        return Icons.list;
-    }
   }
 
   int selectPage = 0;
@@ -115,8 +99,8 @@ class _DiscountsPageState extends State<DiscountsPage> {
                 objs: providDD.discounts,
               )
             : selectPage == 1
-                ?  DiscountCategories()
-                : const DiscountSections(),
+                ? DiscountCategories()
+                : DiscountSections(),
       )
       // Expanded(
       //     child: SingleChildScrollView(

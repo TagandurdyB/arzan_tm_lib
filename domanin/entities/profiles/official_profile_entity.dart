@@ -1,3 +1,4 @@
+
 class OfficialProfileEntity {
   final List<String>? images;
   final String? avatarImg;

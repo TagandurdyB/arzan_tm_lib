@@ -34,15 +34,18 @@ class DiscountCardFirst extends StatelessWidget {
                   height: arentir,
                   child: ShimmerImg(fit: BoxFit.fitHeight, imageUrl: obj.img),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    radius: arentir * 0.035,
-                    backgroundColor: const Color(0xff0EC243),
-                    child: Text(
-                      "${obj.mod}%",
-                      style: TextStyle(
-                          fontSize: arentir * 0.025, color: Colors.white),
+                Visibility(
+                  visible: obj.mod > 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      radius: arentir * 0.035,
+                      backgroundColor: const Color(0xff0EC243),
+                      child: Text(
+                        "${obj.mod}%",
+                        style: TextStyle(
+                            fontSize: arentir * 0.025, color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

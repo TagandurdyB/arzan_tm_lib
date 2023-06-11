@@ -13,6 +13,7 @@ class CustomDropDown extends StatefulWidget {
   final Function? onChange;
   final Function? onTab;
   final bool isOpen;
+  final bool isBorder;
   const CustomDropDown({
     super.key,
     this.width,
@@ -23,6 +24,7 @@ class CustomDropDown extends StatefulWidget {
     this.onChange,
     this.onTab,
     this.isOpen = false,
+    this.isBorder = true,
     required this.items,
     this.bgColor = const Color(0xffF9FAFC),
   });
@@ -54,14 +56,18 @@ class _CustomDropDownState extends State<CustomDropDown> {
               margin: EdgeInsets.symmetric(horizontal: widget.padding ?? 16),
               width: widget.width,
               height: widget.height,
-              decoration: BoxDecoration(
-                color: widget.bgColor,
-                border: Border.all(width: 2, color: const Color(0xffDCDCDC)),
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(widget.mainRadius ?? 10),
-                  bottom: Radius.circular(isOpen ? 0 : widget.mainRadius ?? 10),
-                ),
-              ),
+              decoration: widget.isBorder
+                  ? BoxDecoration(
+                      color: widget.bgColor,
+                      border:
+                          Border.all(width: 2, color: const Color(0xffDCDCDC)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(widget.mainRadius ?? 10),
+                        bottom: Radius.circular(
+                            isOpen ? 0 : widget.mainRadius ?? 10),
+                      ),
+                    )
+                  : null,
               child: Row(
                 children: [
                   Expanded(child: widget.mainValue ?? const SizedBox()),
@@ -90,22 +96,26 @@ class _CustomDropDownState extends State<CustomDropDown> {
   }
 
   Widget get buildDropItems => Container(
+        width: double.infinity,
+        alignment: Alignment.centerLeft,
         margin: EdgeInsets.only(
             left: widget.padding ?? 16,
             right: widget.padding ?? 16,
             bottom: widget.padding ?? 16),
-        decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-            borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(widget.mainRadius ?? 10)),
-            boxShadow: const [
-              BoxShadow(
-                offset: Offset(0, 2),
-                color: Color(0xffEDEDED),
-                blurRadius: 2,
-                spreadRadius: 2,
-              )
-            ]),
+        decoration: widget.isBorder
+            ? BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(widget.mainRadius ?? 10)),
+                boxShadow: const [
+                    BoxShadow(
+                      offset: Offset(0, 2),
+                      color: Color(0xffEDEDED),
+                      blurRadius: 2,
+                      spreadRadius: 2,
+                    )
+                  ])
+            : null,
         child: Column(
             children: List.generate(
                 items.length + 1,

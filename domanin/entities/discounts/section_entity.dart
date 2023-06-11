@@ -1,18 +1,23 @@
-class DiscoutSectionEntity {
+class DiscountSectionEntity {
   final int id;
-  final String serviceImg;
-  final String serviceName;
-  final List<String> locations;
-  final String date;
-  final int sum;
-  final bool status;
-  DiscoutSectionEntity({
+  final String name;
+  final int count;
+  final List<DiscoutSubsectionEntity> subs;
+
+  DiscountSectionEntity({
     required this.id,
-    required this.serviceImg,
-    required this.serviceName,
-    required this.locations,
-    required this.date,
-    required this.sum,
-    required this.status,
+    required this.name,
+    required this.count,
+    required this.subs,
+  });
+}
+
+class DiscoutSubsectionEntity {
+  final int id;
+  final String name;
+
+  DiscoutSubsectionEntity({
+    required this.id,
+    required this.name,
   });
 }

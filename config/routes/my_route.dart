@@ -109,7 +109,7 @@ class Rout {
     tops: (context) => TopsPage(),
     discounts: (context) => const DiscountsPage(),
     legalInfo: (context) => const LegalInfoPage(),
-    officials: (context) => const OfficialsPage(),
+    officials: (context) =>  OfficialsPage(),
     favorites: (context) => const FavoritesPage(),
     contact: (context) => const ContactPage(),
     share: (context) => const SharePage(),

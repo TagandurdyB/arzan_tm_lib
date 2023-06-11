@@ -51,6 +51,7 @@ class Dutrations {
 
 class Tags {
   static const String rIMainSearch = "Ready Input Main Search";
+  static const String rIOfficialSearch = "Ready Input Official Search";
   //Login=======================================================================
   static const String rILoginPhone = "Ready Input Login Phone";
   static const String rILoginPass = "Ready Input Login password";

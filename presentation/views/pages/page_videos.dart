@@ -10,6 +10,7 @@ import '../widgets/galery/folder_cards/big_content_card.dart';
 import '../../../config/services/my_size.dart';
 import '../widgets/galery/folder_cards/midle_folder_card.dart';
 import '../widgets/galery/folder_cards/small_folder_card.dart';
+import '../widgets/widget_btn.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +37,7 @@ class VideosPage extends StatelessWidget {
             title: "Wideo",
             txtSize: arentir * 0.05,
           ),
-          actions: [
-            GestureDetector(
-                onTap: () =>
-                    DiscountProvid.of(context, listen: false).tongleColumn,
-                child: Icon(
-                    buildWidgetIconD(DiscountProvid.of(context).cloumnCount)))
-          ],
+          actions: const [WidgetBtn()],
         ),
         Expanded(
             child: SingleChildScrollView(
@@ -51,22 +46,6 @@ class VideosPage extends StatelessWidget {
         )),
       ],
     ));
-  }
-
-  IconData buildWidgetIconD(int cloumnCount) {
-    {
-      switch (cloumnCount) {
-        case 1:
-          return Icons.list;
-        case 2:
-          return Icons.widgets_outlined;
-        case 3:
-          return Icons.apps_sharp;
-
-        default:
-          return Icons.list;
-      }
-    }
   }
 
   Widget get buildContent {

@@ -1,18 +1,22 @@
-import '../../../../domanin/entities/profiles/official_profile_entity.dart';
+import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 
+import '/presentation/views/screens/profile_view/profile_expired.dart';
+
+import '../../providers/data/provider_acaunt.dart';
+import '../screens/profile_view/profile_official.dart';
+import '../../../domanin/entities/profiles/official_profile_entity.dart';
+
+import '../screens/profile_view/profile_user.dart';
 import '/domanin/entities/profiles/user_profile_entity.dart';
 
-import '../../../providers/data/provider_acaunt.dart';
-import '/presentation/views/screens/profile/screen_expired.dart';
-import '/presentation/views/screens/profile/screen_official.dart';
-import '/presentation/views/screens/profile/screen_user.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreens extends StatelessWidget {
-  ProfileScreens({super.key});
+class ProfilePage extends StatelessWidget {
+  final String role;
+  ProfilePage({required this.role, super.key});
 
   final List<Widget> _screens = [
-    ScreenUser(
+    ProfileUser(
       obj: UserProfileEntity(
         name: "Julian Herbst",
         phone: "+99361000000",
@@ -25,7 +29,7 @@ class ProfileScreens extends StatelessWidget {
         isEmpty: false,
       ),
     ),
-    ScreenOfficial(
+    ProfileOfficial(
       obj: OfficialProfileEntity(
         images: [
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCQwn4a_TR68qjoCIrzfFtBnUmnd0KvnsG7A&usqp=CAU",
@@ -47,7 +51,7 @@ class ProfileScreens extends StatelessWidget {
         coin: 1285,
       ),
     ),
-    ScreenExpired(
+    ProfileExpired(
       obj: OfficialProfileEntity(
         images: [
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCQwn4a_TR68qjoCIrzfFtBnUmnd0KvnsG7A&usqp=CAU",
@@ -72,6 +76,6 @@ class ProfileScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final providA = AcauntP.of(context);
-    return _screens[providA.profileIndex(context)];
+    return ScaffoldNo(body: _screens[providA.profileIndexByName(role)]);
   }
 }

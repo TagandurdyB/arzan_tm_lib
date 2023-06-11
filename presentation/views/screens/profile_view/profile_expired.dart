@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import '../../../../config/routes/my_route.dart';
 import '../../../../config/vars/formater.dart';
 import '../../widgets/picture_view.dart';
 import '../../../../domanin/entities/profiles/official_profile_entity.dart';
@@ -14,9 +15,9 @@ import '/presentation/views/widgets/custom_avatar.dart';
 import '../../../../config/services/my_size.dart';
 import '../../../providers/data/hive_provider.dart';
 
-class ScreenExpired extends StatelessWidget {
+class ProfileExpired extends StatelessWidget {
   final OfficialProfileEntity obj;
-  ScreenExpired({required this.obj, super.key});
+  ProfileExpired({required this.obj, super.key});
 
   late BuildContext context;
   final arentir = MySize.arentir;
@@ -113,14 +114,18 @@ class ScreenExpired extends StatelessWidget {
               child: buildStatistics,
             ),
             NextBtn(
-              func: () {},
+              func: () {
+                Navigator.pushNamed(context, Rout.buyService);
+              },
               text: "Hyzmat satyn almak",
             ),
             SizedBox(height: arentir * 0.03),
             NextBtn(
               bgColor: const Color(0xffF9FAFC),
               borderColor: const Color(0xffE5E5E5),
-              func: () {},
+              func: () {
+                Navigator.pushNamed(context, Rout.acaunt);
+              },
               // text: "Resmi hasap aç",
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

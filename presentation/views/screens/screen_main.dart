@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import '../widgets/widget_btn.dart';
 import '/domanin/entities/main_page/main_new_officials_entity.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,6 @@ import '../widgets/main_page_widgets/main_new_officials.dart';
 import '/domanin/entities/main_page/main_page_entity.dart';
 
 import '../../providers/data/main_page_provider.dart';
-import '../../providers/view/provider_discaunts.dart';
 import '/presentation/providers/view/provider_navigation.dart';
 import '/presentation/views/screens/screen_search.dart';
 
@@ -21,7 +21,7 @@ import '../../../config/routes/my_route.dart';
 import '../scaffold/my_app_bar.dart';
 import '../widgets/card_title.dart';
 import '../widgets/chosen/chosen_page_view.dart';
-import '../widgets/discount/discaunt_view.dart';
+import '../widgets/discount/discount_view.dart';
 import '../widgets/main_page_widgets/long_card.dart';
 
 class ScreenMain extends StatefulWidget {
@@ -188,12 +188,7 @@ class _ScreenMainState extends State<ScreenMain> {
           // CardTitle(counter: objM.discountDatas.length, title: "Arzanladyşlar"),
           Row(
             children: [
-              GestureDetector(
-                  onTap: () {
-                    DiscountProvid.of(context, listen: false).tongleColumn;
-                  },
-                  child: Icon(
-                      buildColumnIcon(DiscountProvid.of(context).cloumnCount))),
+              const WidgetBtn(),
               TextButton(
                 onPressed: () {
                   BannerP.of(context, listen: false)
@@ -211,19 +206,5 @@ class _ScreenMainState extends State<ScreenMain> {
         ],
       ),
     );
-  }
-
-  IconData buildColumnIcon(int columnCount) {
-    switch (columnCount) {
-      case 1:
-        return Icons.list;
-      case 2:
-        return Icons.widgets_outlined;
-      case 3:
-        return Icons.apps_sharp;
-
-      default:
-        return Icons.list;
-    }
   }
 }

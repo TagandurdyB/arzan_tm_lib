@@ -32,12 +32,15 @@ class CardTitle extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            Text(
-              " (+$counter)",
-              style: TextStyle(
-                fontSize: txtSize ?? arentir * 0.04,
-                color: const Color(0xff008631),
-                fontWeight: FontWeight.bold,
+            Visibility(
+              visible: counter > 0,
+              child: Text(
+                " (+$counter)",
+                style: TextStyle(
+                  fontSize: txtSize ?? arentir * 0.04,
+                  color: const Color(0xff008631),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

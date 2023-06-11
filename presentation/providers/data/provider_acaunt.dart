@@ -60,17 +60,24 @@ class AcauntP extends ChangeNotifier {
   }
 
 //=================================================================
+  int profileIndexByName(String role) {
+    switch (role) {
+      case "user":
+        return 0;
+      case "official":
+        return 1;
+      case "expired":
+        return 2;
+    }
+    return 0;
+  }
+
+  //===
   int profileIndex(BuildContext context) {
     final String? hiveRole =
         HiveP.of(context, listen: false).readStr(Tags.hiveRole);
     if (hiveRole != null) {
-      if (hiveRole == "user") {
-        return 0;
-      } else if (hiveRole == "official") {
-        return 1;
-      } else if (hiveRole == "expired") {
-        return 2;
-      }
+      return profileIndexByName(hiveRole);
     }
     return 0;
   }

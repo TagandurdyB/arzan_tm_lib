@@ -2,15 +2,11 @@
 
 import 'dart:ui';
 
-import '/presentation/views/widgets/arzan_coin.dart';
-import '/presentation/views/widgets/next_btn.dart';
-import '/presentation/views/widgets/shimmer_img.dart';
+import 'package:arzan_tm/presentation/views/widgets/arzan_coin.dart';
+import 'package:arzan_tm/presentation/views/widgets/next_btn.dart';
+import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../../config/routes/my_route.dart';
-import '../../../providers/data/main_page_provider.dart';
-import '../../widgets/discount/discount_view.dart';
-import '../../widgets/widget_btn.dart';
 import '/presentation/views/widgets/my_container.dart';
 
 import '../../../../domanin/entities/profiles/user_profile_entity.dart';
@@ -21,55 +17,21 @@ import '../../../../config/services/my_size.dart';
 import '../../../../config/vars/constants.dart';
 import '../../../providers/data/hive_provider.dart';
 
-class ScreenUser extends StatelessWidget {
+class ProfileUser extends StatelessWidget {
   final UserProfileEntity obj;
-  ScreenUser({required this.obj, super.key});
+  ProfileUser({required this.obj, super.key});
 
   late BuildContext context;
   final arentir = MySize.arentir;
   late HiveP hiveP;
   @override
   Widget build(BuildContext context) {
-    final objM = context.watch<MainPageP>().entity;
     hiveP = HiveP.of(context, listen: false);
     this.context = context;
-    return CustomScrollView(slivers: [
-      // ===============================================
-      SliverList(
-          delegate: SliverChildListDelegate([
-        buildTopBar,
-        buildContent,
-      ])),
-      // ===============================================
-      SliverAppBar(
-        backgroundColor: Theme.of(context).canvasColor,
-        pinned: true,
-        leading: const SizedBox(),
-        flexibleSpace: FlexibleSpaceBar(
-            background: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Pending",
-                style: TextStyle(fontSize: arentir * 0.05),
-              ),
-              const WidgetBtn(),
-            ],
-          ),
-        )),
-      ),
-      // ===============================================
-      SliverPadding(
-        padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
-        sliver: DiscountView(
-          objs: objM.discountDatas,
-        ),
-      ),
-      // ===============================================
-      const SliverPadding(padding: EdgeInsets.all(20))
-      // ===============================================
+    return ListView(children: [
+      buildTopBar,
+      buildContent,
+      // SettingsContent()
     ]);
   }
 
@@ -167,9 +129,7 @@ class ScreenUser extends StatelessWidget {
               child: buildStatistics,
             ),
             NextBtn(
-              func: () {
-                Navigator.pushNamed(context, Rout.buyService);
-              },
+              func: () {},
               text: "Resmi hasap aç",
             ),
             SizedBox(height: arentir * 0.03),

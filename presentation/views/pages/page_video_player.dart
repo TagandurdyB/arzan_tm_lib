@@ -1,5 +1,7 @@
+import 'package:arzan_tm/presentation/views/widgets/next_btn.dart';
+
 import '../../providers/view/provider_video.dart';
-import '../widgets/btns_group.dart';
+import '../widgets/custom_avatar.dart';
 import '/config/services/my_orientation.dart';
 import 'package:video_player/video_player.dart';
 
@@ -121,28 +123,71 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
                     Navigator.pop(context);
                   }),
               Expanded(
-                  child: Text(
-                widget.obj.name,
-                style: TextStyle(color: Colors.white, fontSize: arentir * 0.04),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+                  child: buildUser(
+                "https://play-lh.googleusercontent.com/326hZ9pubFetmymUcBe3ZX0gTG_DLdjiDdkleC04Gft-YtiJrBzGrQPNJGqghy6Nfg=w240-h480-rw",
+                "100haryt.com",
               )),
-              LikeBtn(
-                onTap: (bool val) {},
-                textSize: arentir * 0.04,
-                iconSize: 20,
-                likeCount: 1500,
-              ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.file_download,
-                    color: Colors.white,
-                  ))
+
+              Container(
+                width: arentir * 0.2,
+                margin: const EdgeInsets.all(8),
+                child: NextBtn(
+                  func: () {},
+                  text: "Yzarla",
+                ),
+              )
+              // IconButton(
+              //     onPressed: () {},
+              //     icon: const Icon(
+              //       Icons.file_download,
+              //       color: Colors.white,
+              //     ))
             ],
           ),
           const Expanded(child: SizedBox()),
         ],
+      ),
+    );
+  }
+
+  Widget buildUser(String imgUrl, String title) {
+    return Padding(
+      padding: EdgeInsets.all(arentir * 0.02),
+      child: Row(
+        children: [
+          CustomAvatar(
+            imgUrl: imgUrl,
+            // bgColor: Colors.blue,
+            radius: arentir * 0.1,
+            borderWidth: 1,
+          ),
+          buildStar,
+          Expanded(
+            child: SizedBox(
+              child: Text(
+                title,
+                style: const TextStyle(
+                    color: Colors.white, overflow: TextOverflow.ellipsis),
+                maxLines: 1,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container get buildStar {
+    return Container(
+      margin: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+          color: const Color(0xffB47D3F),
+          border: Border.all(color: const Color(0xffE2BD83), width: 2),
+          borderRadius: BorderRadius.circular(20)),
+      child: const Icon(
+        Icons.star,
+        color: Color(0xffE2BD83),
+        size: 13,
       ),
     );
   }

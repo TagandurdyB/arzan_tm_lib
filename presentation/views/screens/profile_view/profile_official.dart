@@ -2,10 +2,14 @@
 
 import 'dart:ui';
 
+import 'package:provider/provider.dart';
+
 import '../../../../config/vars/formater.dart';
+import '../../../providers/data/main_page_provider.dart';
+import '../../widgets/discount/discount_view.dart';
 import '../../widgets/picture_view.dart';
 import '../../../../domanin/entities/profiles/official_profile_entity.dart';
-import '/presentation/views/widgets/arzan_coin.dart';
+import '../../widgets/widget_btn.dart';
 import '/presentation/views/widgets/next_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +18,9 @@ import '/presentation/views/widgets/custom_avatar.dart';
 import '../../../../config/services/my_size.dart';
 import '../../../providers/data/hive_provider.dart';
 
-class ScreenExpired extends StatelessWidget {
+class ProfileOfficial extends StatelessWidget {
   final OfficialProfileEntity obj;
-  ScreenExpired({required this.obj, super.key});
+  ProfileOfficial({required this.obj, super.key});
 
   late BuildContext context;
   final arentir = MySize.arentir;
@@ -25,10 +29,44 @@ class ScreenExpired extends StatelessWidget {
   Widget build(BuildContext context) {
     hiveP = HiveP.of(context, listen: false);
     this.context = context;
-    return ListView(children: [
-      buildTopBar,
-      buildContent,
-      // SettingsContent()
+    final objM = context.watch<MainPageP>().entity;
+    return CustomScrollView(slivers: [
+      // ===============================================
+      SliverList(
+          delegate: SliverChildListDelegate([
+        buildTopBar,
+        buildContent,
+      ])),
+      // ===============================================
+      SliverAppBar(
+        backgroundColor: Theme.of(context).canvasColor,
+        pinned: true,
+        leading: const SizedBox(),
+        flexibleSpace: FlexibleSpaceBar(
+            background: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Posts (${objM.discountDatas.length})",
+                style: TextStyle(fontSize: arentir * 0.05),
+              ),
+              const WidgetBtn(),
+            ],
+          ),
+        )),
+      ),
+      // ===============================================
+      SliverPadding(
+        padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
+        sliver: DiscountView(
+          objs: objM.discountDatas,
+        ),
+      ),
+      // ===============================================
+      const SliverPadding(padding: EdgeInsets.all(20))
+      // ===============================================
     ]);
   }
 
@@ -63,12 +101,13 @@ class ScreenExpired extends StatelessWidget {
                     color: Colors.black26,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Expanded(child: SizedBox()),
+                        const BackButton(color: Colors.white),
                         IconButton(
                             onPressed: () {},
                             color: Colors.white,
-                            icon: const Icon(Icons.more_vert))
+                            icon: const Icon(Icons.warning_amber))
                       ],
                     ),
                   ),
@@ -113,27 +152,12 @@ class ScreenExpired extends StatelessWidget {
               child: buildStatistics,
             ),
             NextBtn(
-              func: () {},
-              text: "Hyzmat satyn almak",
+              func: () {
+                //  Navigator.pushNamed(context, Rout.buyService);
+              },
+              text: "Yzarla",
             ),
             SizedBox(height: arentir * 0.03),
-            NextBtn(
-              bgColor: const Color(0xffF9FAFC),
-              borderColor: const Color(0xffE5E5E5),
-              func: () {},
-              // text: "Resmi hasap aç",
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const ArzanCoin(radius: 20),
-                  SizedBox(width: arentir * 0.02),
-                  Text(
-                    "${obj.coin}",
-                    style: TextStyle(fontSize: MySize.arentir * 0.04),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       );
@@ -156,20 +180,12 @@ class ScreenExpired extends StatelessWidget {
         width: MySize.width,
         // color: Colors.red,
         margin: EdgeInsets.only(top: arentir * 0.04),
-        child: ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.0, 02],
-              tileMode: TileMode.mirror,
-              colors: [Colors.white, Colors.transparent]).createShader(bounds),
-          child: Text(
-            obj.about,
-            style: TextStyle(
-                fontSize: arentir * 0.04, overflow: TextOverflow.ellipsis),
-            maxLines: 4,
-            textAlign: TextAlign.center,
-          ),
+        child: Text(
+          obj.about,
+          style: TextStyle(
+              fontSize: arentir * 0.04, overflow: TextOverflow.ellipsis),
+          maxLines: 4,
+          textAlign: TextAlign.center,
         ),
       );
 
