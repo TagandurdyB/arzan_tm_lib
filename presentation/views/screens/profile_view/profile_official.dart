@@ -79,7 +79,7 @@ class ProfileOfficial extends StatelessWidget {
             Container(
               clipBehavior: Clip.hardEdge,
               decoration: const BoxDecoration(
-                color: Colors.green,
+                // color: Colors.green,
               ),
               height: MySize.width * 0.6,
               width: MySize.width,

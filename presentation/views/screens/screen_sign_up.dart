@@ -1,9 +1,6 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-import '/domanin/entities/register/response_entity.dart';
-
 import '../../../config/routes/my_route.dart';
-import '../../../domanin/entities/register/check_entity.dart';
 import '/domanin/entities/register/sign_up_entity.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
 import '/presentation/views/widgets/my_pop_widget.dart';
@@ -135,16 +132,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _popMessage(String message, bool isError) async {
-    late ResponseEntity check;
-    if (!isError) {
-      final String unicID = await MyDevice.getUnic;
-      check = await AcauntP.of(context, listen: false).checkActivate(
-        CheckEntity(
-          uniqueId: unicID,
-          phone: RIBase.getText(Tags.rISignPhone),
-        ),
-      );
-    }
+    bool isRegistered = false;
+    //allready_registered / registered_now
+    if (message == "allready_registered") isRegistered = true;
     MyPopUpp(
         width: arentir * 0.6,
         height: arentir * 0.4,
@@ -160,7 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Text(
               isError
                   ? "Siz admin tarapyndan buloklanan!"
-                  : check.status
+                  : isRegistered
                       ? "Bu hasap öň bar!"
                       : "Hasaba alynmak üçin SMS ugradyň!",
               textAlign: TextAlign.center,
@@ -173,7 +163,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       Navigator.pop(context);
       // if (!isError) AcauntP.of(context, listen: false).changeScreen(0);
       if (!isError) {
-        if (check.status) {
+        if (isRegistered) {
           AcauntP.of(context, listen: false).changeScreen(0);
         } else {
           Navigator.pushNamed(context, Rout.sendSMS);

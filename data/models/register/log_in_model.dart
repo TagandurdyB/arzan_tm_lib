@@ -55,7 +55,7 @@ class LogInModel extends LoginEntity {
   @override
   Map<String, dynamic> toJson() => {
         // "uniqueId": uniqueId,
-        "name": phone,
-        "password": userPassword,
+        "phone": phone,
+        "pass": userPassword,
       };
 }

@@ -21,7 +21,7 @@ class HiveRepositoryImpl implements HiveRepository {
   }
 
   @override
-  void saveBool(bool value, String tag) {
+  void saveBool(bool? value, String tag) {
     try {
       hiveThemeLocalDataSource.saveHiveBool(value, tag);
     } catch (err) {
@@ -43,11 +43,33 @@ class HiveRepositoryImpl implements HiveRepository {
   }
 
   @override
-  void saveStr(String value, String tag) {
+  void saveStr(String? value, String tag) {
     try {
       hiveThemeLocalDataSource.saveHiveStr(value, tag);
     } catch (err) {
       print("Error on data repository Hive saveStr!!!");
+      print("Error :$err");
+    }
+  }
+
+  @override
+  int? getInt(String tag) {
+    try {
+      final int? localVar = hiveThemeLocalDataSource.getHiveInt(tag);
+      return localVar;
+    } catch (err) {
+      print("Error on data repository Hive getInt!!!");
+      print("Error :$err");
+    }
+    return null;
+  }
+
+  @override
+  void saveInt(int? value, String tag) {
+    try {
+      hiveThemeLocalDataSource.saveHiveInt(value, tag);
+    } catch (err) {
+      print("Error on data repository Hive saveInt!!!");
       print("Error :$err");
     }
   }

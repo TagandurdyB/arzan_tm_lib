@@ -1,3 +1,5 @@
+import 'package:arzan_tm/domanin/entities/discounts/discount_category_entity.dart';
+
 import '/domanin/entities/discounts/post_discount_entity.dart';
 import '/domanin/entities/register/response_entity.dart';
 
@@ -20,5 +22,10 @@ class DiscountsRepositoryImpl implements DiscountsRepository {
     final model = await discountsRemoteDataSource
         .postDiscount(PostDiscountModel.fromEntity(obj));
     return model;
+  }
+
+  @override
+  Future<List<DiscountCategoryEntity>> discountCategories() async {
+    return await discountsRemoteDataSource.discountCategories();
   }
 }

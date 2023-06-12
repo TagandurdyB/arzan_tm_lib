@@ -1,3 +1,5 @@
+import '/domanin/entities/register/user_http_entity.dart';
+
 import '../../../config/services/connection.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
 
@@ -30,13 +32,29 @@ class _LogoPageState extends State<LogoPage> {
       if (_selectedIndex != 5) _goHome;
     });
     checkConnect();
+    checkUserInfo();
   }
 
-  void checkConnect() async {
+  checkConnect() async {
     isConnect = await ConnectionService.isConnected();
+    if (isConnect) checkUserInfo();
   }
 
-  void get _goHome {
+  void checkUserInfo() async {
+    final hiveP = HiveP.of(context, listen: false);
+    final token = hiveP.readStr(Tags.hiveToken);
+    final phone = hiveP.readStr(Tags.hivePhone);
+    if (token != null && phone != null) {
+      final acauntP = AcauntP.of(context, listen: false);
+      acauntP
+          .checkUser(UserRequestEntity(phone: phone, token: token))
+          .then((response) {
+        acauntP.saveUserInfo(context, response);
+      });
+    }
+  }
+
+  void get _goHome async {
     if (isConnect) {
       final hiveP = HiveP.of(context, listen: false);
       if (hiveP.readBool(Tags.isLogin) == true) {

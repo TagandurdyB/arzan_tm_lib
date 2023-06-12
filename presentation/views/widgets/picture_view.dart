@@ -24,8 +24,7 @@ class _PictureViewState extends State<PictureView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
+    return SizedBox(
       width: widget.width ?? MySize.width,
       height: widget.height ?? MySize.width * 0.6,
       child: widget.images.length == 1
@@ -35,7 +34,6 @@ class _PictureViewState extends State<PictureView> {
   }
 
   Widget buildImage(String imgUrl) => SizedBox(
-    
         child: ShimmerImg(imageUrl: imgUrl),
       );
 
@@ -46,8 +44,8 @@ class _PictureViewState extends State<PictureView> {
             scrollDirection: Axis.vertical,
             onPageChanged: (value) => setState(() => viewedImg = value),
             itemCount: widget.images.length,
-            itemBuilder: (context, index) => SizedBox(
-              child: buildImage(widget.images[index])),
+            itemBuilder: (context, index) =>
+                SizedBox(child: buildImage(widget.images[index])),
           ),
           Padding(
             padding: EdgeInsets.all(arentir * 0.03),

@@ -1,9 +1,7 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-import '../../../config/routes/my_route.dart';
 import '../../../config/services/device_info.dart';
 import '../../providers/data/hive_provider.dart';
-import '../../providers/view/provider_navigation.dart';
 import '/domanin/entities/register/check_entity.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -61,10 +59,10 @@ class SendSmsPage extends StatelessWidget {
           // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
           hiveP.saveStr("user", Tags.hiveRole);
           MyPopUpp.popMessage(context, () {
-            AcauntP.of(context, listen: false).logIned;
-            ProviderNav.of(context, listen: false).changeScreen(0);
-            Navigator.pushNamedAndRemoveUntil(
-                context, Rout.home, (route) => route.isFirst);
+            AcauntP.of(context, listen: false).changeScreen(0);
+            // ProviderNav.of(context, listen: false).changeScreen(0);
+            // Navigator.pushNamedAndRemoveUntil(
+            //     context, Rout.home, (route) => route.isFirst);
           }, "Siz üstünlükli tassyklandyňyz!", !response.status);
         } else if (raund < 5) {
           checkTimer();

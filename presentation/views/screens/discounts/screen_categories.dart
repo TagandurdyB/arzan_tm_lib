@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/domanin/entities/discounts/discount_entity.dart';
+import '/domanin/entities/discounts/discount_entity.dart';
 
 import '/presentation/views/pages/discount/page_discounts_in.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 
 import '../../../../config/vars/formater.dart';
-import '../../../../domanin/entities/discounts/category_entity.dart';
+import '../../../../domanin/entities/discounts/discount_category_entity.dart';
 import '../../../providers/view/provider_theme.dart';
 import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
@@ -14,20 +14,20 @@ import 'package:flutter/material.dart';
 class DiscountCategories extends StatelessWidget {
   DiscountCategories({super.key});
 
-  List<DiscoutCategoryEntity> objs = [
-    DiscoutCategoryEntity(
+  List<DiscountCategoryEntity> objs = [
+    DiscountCategoryEntity(
         id: 1,
         imgUrl:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
         name: "Telefonlar",
         count: 35977),
-    DiscoutCategoryEntity(
+    DiscountCategoryEntity(
         id: 2,
         imgUrl:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
         name: "Kompýuterler we enjamlar",
         count: 9812),
-    DiscoutCategoryEntity(
+    DiscountCategoryEntity(
         id: 3,
         imgUrl:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
@@ -51,7 +51,7 @@ class DiscountCategories extends StatelessWidget {
 }
 
 class CategoryCard extends StatelessWidget {
-  final DiscoutCategoryEntity obj;
+  final DiscountCategoryEntity obj;
   CategoryCard({required this.obj, super.key});
 
   final double arentir = MySize.arentir;
@@ -93,8 +93,8 @@ class CategoryCard extends StatelessWidget {
               child: SizedBox(
                   height: arentir * 0.1,
                   width: double.infinity,
-                  child:
-                      ShimmerImg(fit: BoxFit.fitWidth, imageUrl: obj.imgUrl)),
+                  child: ShimmerImg(
+                      fit: BoxFit.fitWidth, imageUrl: obj.imgUrl ?? "")),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

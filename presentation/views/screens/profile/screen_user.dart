@@ -90,7 +90,7 @@ class ScreenUser extends StatelessWidget {
                 width: MySize.width,
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
-                  child: obj.avatarImg == null
+                  child: obj.avatarImg == null || obj.avatarImg == ""
                       ? Image.asset("assets/logo_png.png")
                       : ShimmerImg(imageUrl: obj.avatarImg!),
                 ),
@@ -118,7 +118,7 @@ class ScreenUser extends StatelessWidget {
                   CustomAvatar(
                     isShadow: true,
                     imgUrl: obj.avatarImg ?? "",
-                    content: obj.avatarImg == null
+                    content: obj.avatarImg == null || obj.avatarImg == ""
                         ? Container(
                             color: Colors.green,
                             child: Image.asset("assets/logo_png.png"))

@@ -36,6 +36,7 @@ class Words {
   static List<String> welayats = [TM, AG, BN, AH, MR, LB, DZ];
   //Messages==================================================================
   static const String loading = "Garaşmagyňyzy haýyş edýeris!";
+  static const String disconnect = "Internede çatylmagyňyzy haýyş edýeris!";
   static const String buyValidation = "Maglumatlary doly giriziň!";
   static const String buyNo = "Balansyňyzda ýeterlik ball ýok!";
   static const String buyOk =
@@ -79,9 +80,15 @@ class Tags {
   static const String themeSystem = "Hive Theme System";
   static const String themeLight = "Hive Theme Light";
   //================
-  static const String hiveToken = "Hive Token";
   static const String hiveWelayat = "Hive Welayat";
+  //================
+  static const String hiveToken = "Hive Token";
   static const String hiveRole = "Hive Role";
+  static const String hiveId = "Hive ID";
+  static const String hiveName = "Hive User Name";
+  static const String hivePhone = "Hive User Phone";
+  static const String hiveAvatarImg = "Hive User Avatar Image";
+  static const String hiveEmail = "Hive User Email";
   //================
   static const String isLogin = "Hive Login now";
   //================

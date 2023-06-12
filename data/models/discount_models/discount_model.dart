@@ -50,7 +50,7 @@ class DiscountModel extends DiscountEntity {
         mod: json["mod"] ?? 0,
         viewed: 0, //json["viewed"],
         img: json["discount_img"],
-        createdAt: DateTime.now(),//json["createdAt"],
+        createdAt: DateTime.now(), //json["createdAt"],
         title: json["title"],
       );
     } catch (err) {

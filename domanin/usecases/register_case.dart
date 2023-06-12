@@ -1,3 +1,4 @@
+import '../entities/register/user_http_entity.dart';
 import '/domanin/entities/register/check_entity.dart';
 
 import '/domanin/entities/register/log_in_entity.dart';
@@ -10,10 +11,12 @@ class RegisterCase {
   final RegisterRepository register;
   RegisterCase(this.register);
 
-  Future<ResponseEntity> postLogIn(LoginEntity obj) async =>
-      await register.postLogIn(obj);
   Future<ResponseEntity> postSignUp(SignUpEntity obj) async =>
       await register.postSignUp(obj);
   Future<ResponseEntity> postCheck(CheckEntity obj) async =>
       await register.postCheck(obj);
+  Future<UserResponseEntity> postLogIn(LoginEntity obj) async =>
+      await register.postLogIn(obj);
+  Future<UserResponseEntity> postUser(UserRequestEntity obj) async =>
+      await register.postUser(obj);
 }

@@ -6,9 +6,13 @@ class HiveCase {
 
   bool? readBool(String tag) => repository.getBool(tag);
 
-  void saveBool(bool value, String tag) => repository.saveBool(value, tag);
+  void saveBool(bool? value, String tag) => repository.saveBool(value, tag);
 
   String? readStr(String tag) => repository.getStr(tag);
 
-  void saveStr(String value, String tag) => repository.saveStr(value, tag);
+  void saveStr(String? value, String tag) => repository.saveStr(value, tag);
+
+  int? readInt(String tag) => repository.getInt(tag);
+
+  void saveInt(int? value, String tag) => repository.saveInt(value, tag);
 }

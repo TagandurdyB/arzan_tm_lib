@@ -1,4 +1,5 @@
 import '../../../config/vars/constants.dart';
+import '../../../domanin/entities/register/user_http_entity.dart';
 import '/domanin/entities/register/check_entity.dart';
 import '/domanin/entities/register/sign_up_entity.dart';
 
@@ -28,10 +29,14 @@ class AcauntP extends ChangeNotifier {
     return entity;
   }
 
-  Future<ResponseEntity> logIn(LoginEntity obj) async {
-    final ResponseEntity entity = await registerCase.postLogIn(obj);
+  Future<UserResponseEntity> checkUser(UserRequestEntity obj) async {
+    final UserResponseEntity entity = await registerCase.postUser(obj);
+    return entity;
+  }
 
-    if (entity.status == true) {
+  Future<UserResponseEntity> logIn(LoginEntity obj) async {
+    final UserResponseEntity entity = await registerCase.postLogIn(obj);
+    if (entity.isEmpty == false) {
       _isSign = true;
     }
     notifyListeners();
@@ -81,6 +86,40 @@ class AcauntP extends ChangeNotifier {
     }
     return 0;
   }
+
+//User Info Save===================================================
+  void saveUserInfo(BuildContext context, UserResponseEntity obj) {
+    // final obj = userEntity;
+    final hiveP = HiveP.of(context, listen: false);
+    if (!obj.isEmpty) {
+      hiveP.saveInt(obj.id, Tags.hiveId);
+      hiveP.saveStr(obj.email ?? "", Tags.hiveEmail);
+      if (obj.token != "") hiveP.saveStr(obj.token, Tags.hiveToken);
+      hiveP.saveStr(obj.role, Tags.hiveRole);
+      hiveP.saveStr(obj.name, Tags.hiveName);
+      hiveP.saveStr(obj.profilePhoto ?? "", Tags.hiveAvatarImg);
+    } else {
+      logOut;
+      hiveP.saveInt(null, Tags.hiveId);
+      hiveP.saveStr(null, Tags.hiveEmail);
+      hiveP.saveStr(null, Tags.hiveToken);
+      hiveP.saveStr(null, Tags.hiveRole);
+      hiveP.saveStr(null, Tags.hiveName);
+      hiveP.saveStr(null, Tags.hiveAvatarImg);
+    }
+  }
+
+  // void autoCheckUser(BuildContext context) async {
+  //   final hiveP = HiveP.of(context, listen: false);
+  //   final token = hiveP.readStr(Tags.hiveToken);
+  //   final phone = hiveP.readStr(Tags.hivePhone);
+  //   if (token != null && phone != null) {
+  //     userEntity =
+  //         await checkUser(UserRequestEntity(phone: phone, token: token));
+  //   }
+  //   notifyListeners();
+  // }
+
 //=================================================================
 
   static AcauntP of(BuildContext context, {bool listen = true}) =>

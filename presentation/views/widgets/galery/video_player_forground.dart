@@ -28,11 +28,12 @@ class VideoPlayerForground extends StatelessWidget {
       child: Container(
           alignment: Alignment.center,
           color: Colors.black54,
-          child: Column(
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              const Expanded(child: SizedBox()),
-              Expanded(child: buildPlayPause),
-              Expanded(child: buildBottom)
+              // const Expanded(child: SizedBox()),
+              buildPlayPause,
+              buildBottom
             ],
           )),
     );

@@ -1,33 +1,36 @@
+// ignore_for_file: must_be_immutable
+
+import '../../../../domanin/entities/discounts/discount_category_entity.dart';
+
 import '../../../../config/vars/formater.dart';
 import '../../../../domanin/entities/discounts/discount_entity.dart';
 import '../../pages/discount/page_discounts_in.dart';
 import '/presentation/views/widgets/custom_dropdown.dart';
 
-import '../../../../domanin/entities/discounts/section_entity.dart';
 import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
 class DiscountSections extends StatelessWidget {
   DiscountSections({super.key});
 
-  List<DiscountSectionEntity> objs = [
-    DiscountSectionEntity(id: 1, name: "Telefonlar", count: 35977, subs: [
-      DiscoutSubsectionEntity(id: 1, name: "Telefonlar"),
-      DiscoutSubsectionEntity(id: 2, name: "Planşetlar"),
-      DiscoutSubsectionEntity(id: 3, name: "Öý telefonlar"),
-      DiscoutSubsectionEntity(id: 4, name: "Akylly sagatlar"),
+  List<DiscountCategoryEntity> objs = [
+    DiscountCategoryEntity(id: 1, name: "Telefonlar", count: 35977, subs: [
+      DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
+      DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
+      DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
+      DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
     ]),
-    DiscountSectionEntity(id: 1, name: "Öý tehnikasy", count: 17519, subs: [
-      DiscoutSubsectionEntity(id: 1, name: "Telefonlar"),
-      DiscoutSubsectionEntity(id: 2, name: "Planşetlar"),
-      DiscoutSubsectionEntity(id: 3, name: "Öý telefonlar"),
-      DiscoutSubsectionEntity(id: 4, name: "Akylly sagatlar"),
+    DiscountCategoryEntity(id: 1, name: "Öý tehnikasy", count: 17519, subs: [
+      DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
+      DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
+      DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
+      DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
     ]),
-    DiscountSectionEntity(id: 1, name: "Öý tehnikasy", count: 17519, subs: [
-      DiscoutSubsectionEntity(id: 1, name: "Telefonlar"),
-      DiscoutSubsectionEntity(id: 2, name: "Planşetlar"),
-      DiscoutSubsectionEntity(id: 3, name: "Öý telefonlar"),
-      DiscoutSubsectionEntity(id: 4, name: "Akylly sagatlar"),
+    DiscountCategoryEntity(id: 1, name: "Öý tehnikasy", count: 17519, subs: [
+      DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
+      DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
+      DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
+      DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
     ]),
   ];
   @override
@@ -40,7 +43,7 @@ class DiscountSections extends StatelessWidget {
 }
 
 class SectionCard extends StatelessWidget {
-  final DiscountSectionEntity obj;
+  final DiscountCategoryEntity obj;
   SectionCard({required this.obj, super.key});
 
   final double arentir = MySize.arentir;
@@ -60,12 +63,12 @@ class SectionCard extends StatelessWidget {
             ),
           ),
           onChange: (index) {
-            print("index:=$index  id:=${obj.subs[index].id}");
+            print("index:=$index  id:=${obj.subs![index].id}");
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => DiscountsInPage(
-                          title: "${obj.name} / ${obj.subs[index].name}",
+                          title: "${obj.name} / ${obj.subs![index].name}",
                           count: obj.count,
                           objs: [
                             DiscountEntity(
@@ -80,7 +83,7 @@ class SectionCard extends StatelessWidget {
                           ],
                         )));
           },
-          items: obj.subs
+          items: obj.subs!
               .map((e) => Container(
                   // color: Colors.red,
                   color: Colors.transparent,

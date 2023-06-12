@@ -1,6 +1,6 @@
-import '/presentation/providers/view/provider_navigation.dart';
+import '/domanin/entities/register/log_in_entity.dart';
 
-import '/domanin/entities/register/check_entity.dart';
+import '/presentation/providers/view/provider_navigation.dart';
 
 import '../../providers/data/hive_provider.dart';
 
@@ -55,29 +55,28 @@ class _LoginScreenState extends State<LoginScreen> {
         haveError = false;
         MyPopUpp.popLoading(context);
         AcauntP.of(context, listen: false)
-            .checkActivate(CheckEntity(
+            .logIn(LoginEntity(
           uniqueId: unicID,
-          phone: RIBase.getText(Tags.rILoginPhone),
+          phone: "993${RIBase.getText(Tags.rILoginPhone)}",
+          userPassword: RIBase.getText(Tags.rILoginPass),
           // userPassword: RIBase.getText(Tags.rILoginPass),
         ))
             .then((response) {
           //Text!
-          final bool status = response.status;
+          final bool status = response.isEmpty;
           //bolmalysy!
-          // final bool status = !response.status;
+          ProviderNav.of(context, listen: false).changeScreen(0);
           print("Login Status $status");
-          if (!status) {
-            final hiveP = HiveP.of(context, listen: false);
-            hiveP.saveStr(response.token ?? "sdasdasd", Tags.hiveToken);
-            hiveP.saveBool(true, Tags.isLogin);
-            // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
-            hiveP.saveStr("official", Tags.hiveRole);
-          }
           MyPopUpp.popMessage(
             context,
             () {
+              AcauntP.of(context, listen: false).saveUserInfo(context, response);
+              final hiveP = HiveP.of(context, listen: false);
+              hiveP.saveStr(
+                  "993${RIBase.getText(Tags.rILoginPhone)}", Tags.hivePhone);
+              hiveP.saveBool(true, Tags.isLogin);
               if (!status) AcauntP.of(context, listen: false).logIned;
-              ProviderNav.of(context, listen: false).changeScreen(0);
+              
               Navigator.pushNamedAndRemoveUntil(
                   context, Rout.home, (route) => route.isFirst);
             },
@@ -125,15 +124,15 @@ class _LoginScreenState extends State<LoginScreen> {
             type: TextInputType.phone,
           ),
           const SizedBox(height: 20),
-          // ArzanInputs(
-          //   validator: (String? value) => _haveAnyValid(),
-          //   tag: Tags.rILoginPass,
-          //   iconD: Icons.vpn_key_outlined,
-          //   label: "Açar sözi",
-          //   hidden: "Açar sözi",
-          //   type: TextInputType.visiblePassword,
-          // ),
-          // const SizedBox(height: 20),
+          ArzanInputs(
+            validator: (String? value) => _haveAnyValid(),
+            tag: Tags.rILoginPass,
+            iconD: Icons.vpn_key_outlined,
+            label: "Açar sözi",
+            hidden: "Açar sözi",
+            type: TextInputType.visiblePassword,
+          ),
+          const SizedBox(height: 20),
           FormErrorMessage(
               visible: haveError,
               message: "Ulanyjy ady ýada açar sözi nädogry girizildi!"),

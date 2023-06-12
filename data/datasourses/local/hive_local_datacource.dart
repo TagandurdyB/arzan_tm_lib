@@ -6,10 +6,13 @@ import '../../../config/vars/constants.dart';
 
 abstract class HiveLocalDataSource {
   bool? getHiveBool(String tag);
-  void saveHiveBool(bool value, String tag);
+  void saveHiveBool(bool? value, String tag);
 
   String? getHiveStr(String tag);
-  void saveHiveStr(String value, String tag);
+  void saveHiveStr(String? value, String tag);
+
+  int? getHiveInt(String tag);
+  void saveHiveInt(int? value, String tag);
 }
 
 class HiveLocalDataSourceImpl implements HiveLocalDataSource {
@@ -29,7 +32,7 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
   }
 
   @override
-  void saveHiveBool(bool value, String tag) {
+  void saveHiveBool(bool? value, String tag) {
     try {
       myBase.put(tag, value);
       print("$tag savad success!");
@@ -53,12 +56,36 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
   }
 
   @override
-  void saveHiveStr(String value, String tag) {
+  void saveHiveStr(String? value, String tag) {
     try {
       myBase.put(tag, value);
       print("$tag savad success!");
     } catch (err) {
-      print("Error on Hive Theme save!!!");
+      print("Error on Hive saveHiveStr save!!!");
+      print("Error :$err");
+    }
+  }
+
+  @override
+  int? getHiveInt(String tag) {
+    try {
+      final int _value = myBase.get(tag);
+      print("$tag geted success!");
+      return _value;
+    } catch (err) {
+      print("Error on Hive int get!!!");
+      print("Error :$err");
+      return null;
+    }
+  }
+
+  @override
+  void saveHiveInt(int? value, String tag) {
+    try {
+      myBase.put(tag, value);
+      print("$tag savad success!");
+    } catch (err) {
+      print("Error on Hive saveHiveInt save!!!");
       print("Error :$err");
     }
   }
