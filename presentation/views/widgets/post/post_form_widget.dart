@@ -1,3 +1,7 @@
+import '/domanin/entities/discounts/discount_category_entity.dart';
+import '/presentation/views/widgets/custom_dropdown.dart';
+
+import '../../../providers/data/discount_data_provider.dart';
 import '../../../providers/view/provider_view_post.dart';
 import '/config/vars/formater.dart';
 
@@ -25,11 +29,14 @@ class _PostFormWidgetState extends State<PostFormWidget> {
   late PostP providPost;
   late PostP providPostdo;
 
+  late DiscountDataP providDD;
+
   final double arentir = MySize.arentir;
   @override
   Widget build(BuildContext context) {
     providPost = PostP.of(context);
     providPostdo = PostP.of(context, listen: false);
+    providDD = DiscountDataP.of(context);
     return Column(
       children: [
         const ArzanInputs(
@@ -47,6 +54,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
           label: "Doly maglumaty",
           hidden: "Doly maglumaty",
         ),
+        buildSections,
         const ArzanInputs(
           tag: Tags.rIPostHash,
           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -98,6 +106,86 @@ class _PostFormWidgetState extends State<PostFormWidget> {
         buildLegalInformation,
       ],
     );
+  }
+
+  List<DiscountCategoryEntity> objc = [];
+  List<DiscountSubcategoryEntity> objs = [];
+  DiscountCategoryEntity? category;
+  DiscountSubcategoryEntity? sub;
+
+  List<Widget> subCategories = [];
+
+  Widget categoryVal =
+      CategoryText("Kategoriýa saýlaň", color: const Color(0xffAAAAAA));
+  Widget subcategVal =
+      CategoryText("Bölüm saýlaň", color: const Color(0xffAAAAAA));
+
+  Widget get buildSections {
+    objc = [];
+    // ignore: avoid_function_literals_in_foreach_calls
+    providDD.categories.forEach((cetegory) async {
+      objc.add(await cetegory);
+    });
+
+    final categories = providDD.categories
+        .map((cetegory) => buildCategories(cetegory))
+        .toList();
+
+    return Column(
+      children: [
+        CustomDropDown(
+          isShadow: false,
+          padding: 0,
+          height: arentir * 0.1,
+          mainValue: categoryVal,
+          items: categories,
+          onChange: (index) {
+            setState(() {
+              category = objc[index];
+              categoryVal = categories[index];
+              subcategVal =
+                  CategoryText("Bölüm saýlaň", color: const Color(0xffAAAAAA));
+              subCategories =
+                  category!.subs.map((e) => CategoryText(e.name)).toList();
+            });
+          },
+        ),
+        const SizedBox(height: 16),
+        Visibility(
+          visible: subCategories.isNotEmpty,
+          child: CustomDropDown(
+            isShadow: false,
+            padding: 0,
+            height: arentir * 0.1,
+            mainValue: subcategVal,
+            items: subCategories,
+            onChange: (index) {
+              setState(() {
+                sub = category!.subs[index];
+                subcategVal = subCategories[index];
+              });
+            },
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Future fetchData(Future obj) async => await obj;
+
+  Widget buildCategories(Future obj) {
+    return FutureBuilder(
+        future: fetchData(obj),
+        builder: (context, ss) {
+          if (ss.hasError) {
+            return Text("Error in build err:${ss.error}");
+          } else if (ss.hasData) {
+            return CategoryText(ss.data.name);
+          } else {
+            return const SizedBox();
+          }
+        });
   }
 
   Widget get buildPrice {
@@ -226,5 +314,28 @@ class _PostFormWidgetState extends State<PostFormWidget> {
         )
       ],
     );
+  }
+}
+
+class CategoryText extends StatelessWidget {
+  CategoryText(
+    this.name, {
+    this.color,
+    super.key,
+  });
+  final String name;
+  final Color? color;
+
+  final double arentir = MySize.arentir;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: arentir * 0.01),
+        color: Colors.transparent,
+        alignment: Alignment.centerLeft,
+        child: Text(
+          name,
+          style: TextStyle(color: color, fontSize: arentir * 0.035),
+        ));
   }
 }

@@ -114,7 +114,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: MyCarusel(
-        items: BannerP.of(context).baners,
+        items: BannerP.of(context).banners,
       ),
     );
   }

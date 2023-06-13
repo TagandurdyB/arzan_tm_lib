@@ -13,8 +13,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox(Tags.hiveBase);
-  runApp(const Injector(router: MyApp()));
   MyOrientation.systemUiOverlayStyle();
+  runApp(const Injector(router: MyApp()));
 }
 
 class MyApp extends StatefulWidget {

@@ -55,6 +55,34 @@ class DiscountDataP extends ChangeNotifier {
       throw ("Error DiscountDataP: $err");
     }
   }
+//Categories==========================================================================
+  // MainPageEntity entity = MainPageEntity.empty;
+  // MainPageEntity entity = MainPageEntity.frowJson(api);
+
+  List _categories = [];
+  List get categories => _categories;
+  void fillCategories() async {
+    try {
+      _categories = await discountsCase.categories();
+      fillSubs();
+      notifyListeners();
+    } catch (err) {
+      throw ("Error DiscountDataP>fillCategories(): $err");
+    }
+  }
+
+  void fillSubs() async {
+    try {
+      _categories = _categories
+          .map((category) async =>
+              category.forSubList(await discountsCase.subs(category.id)))
+          .toList();
+      notifyListeners();
+    } catch (err) {
+      throw ("Error DiscountDataP>fillCategories>fillSubs(): $err");
+    }
+  }
+//!Categories=========================================================================
 
   Future<ResponseEntity> addPost(PostDiscountEntity obj) async {
     final ResponseEntity entity = await discountsCase.postDiscount(obj);

@@ -133,6 +133,7 @@ class _LikeBtnState extends State<LikeBtn> {
         });
       },
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(isLiked ? Icons.favorite : Icons.favorite_border,
               color: isLiked

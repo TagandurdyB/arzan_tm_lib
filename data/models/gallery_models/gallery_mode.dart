@@ -2,7 +2,7 @@
 
 import '/domanin/entities/galery/gallery_entity.dart';
 
-import '/data/models/main_page_models/baner_model.dart';
+import '../baner_model.dart';
 import 'big_card_model.dart';
 
 class GalleryModel extends GalleryEntity {

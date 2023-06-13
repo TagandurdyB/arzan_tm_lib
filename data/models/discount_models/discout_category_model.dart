@@ -12,7 +12,7 @@ class DiscountCategoryModel extends DiscountCategoryEntity {
   @override
   final int count;
   @override
-  final List<DiscountSubcategoryEntity> subs;
+  List<DiscountSubcategoryEntity> subs;
 
   @override
   final bool isEmpty;
@@ -32,14 +32,14 @@ class DiscountCategoryModel extends DiscountCategoryEntity {
         name: '',
       );
 
-  factory DiscountCategoryModel.frowJson(Map<String, dynamic> json, List subs) {
+  factory DiscountCategoryModel.frowJson(Map<String, dynamic> json) {
     try {
       return DiscountCategoryModel(
-        id: json["id"],
+        id: int.parse(json["id"]),
         imgUrl: json["imgUrl"],
         name: json["name"],
         count: json["count"] ?? 0,
-        subs: json["subs"] ?? subs,
+        subs: json["subs"] ?? [],
         isEmpty: false,
       );
     } catch (err) {
@@ -47,11 +47,18 @@ class DiscountCategoryModel extends DiscountCategoryEntity {
     }
   }
 
-  static List<DiscountCategoryModel> fromJsonList(List jsonList, List subs) =>
-      List.generate(
-          jsonList.length,
-          (index) =>
-              DiscountCategoryModel.frowJson(jsonList[index], subs[index]));
+  static List<DiscountCategoryModel> fromJsonList(List jsonList) =>
+      jsonList.map((json) => DiscountCategoryModel.frowJson(json)).toList();
+
+  // void forSubList(List<DiscountSubcategoryModel> csubs) => subs = csubs;
+
+  // static List<DiscountCategoryModel> fromJsonList(List jsonList) {
+  //   final categories =
+  //       jsonList.map((json) => DiscountCategoryModel.frowJson(json)).toList();
+  //   final categoriesSub = forSubList(categories);
+  //   return categoriesSub;
+  // }
+
 }
 
 class DiscountSubcategoryModel extends DiscountSubcategoryEntity {
@@ -76,7 +83,7 @@ class DiscountSubcategoryModel extends DiscountSubcategoryEntity {
   factory DiscountSubcategoryModel.frowJson(Map<String, dynamic> json) {
     try {
       return DiscountSubcategoryModel(
-        id: json["id"],
+        id: int.parse(json["id"]),
         name: json["name"],
         isEmpty: false,
       );

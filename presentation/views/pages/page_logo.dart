@@ -1,3 +1,7 @@
+import '../../../config/themes/styles.dart';
+import '../../providers/data/banner_provider.dart';
+import '/presentation/providers/data/discount_data_provider.dart';
+
 import '/domanin/entities/register/user_http_entity.dart';
 
 import '../../../config/services/connection.dart';
@@ -32,16 +36,23 @@ class _LogoPageState extends State<LogoPage> {
       if (_selectedIndex != 5) _goHome;
     });
     checkConnect();
-    checkUserInfo();
   }
 
   checkConnect() async {
     isConnect = await ConnectionService.isConnected();
-    if (isConnect) checkUserInfo();
+    if (isConnect) {
+      checkUserInfo();
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        DiscountDataP.of(context, listen: false).fillCategories();
+      });
+    }
   }
 
   void checkUserInfo() async {
     final hiveP = HiveP.of(context, listen: false);
+    final welayat = hiveP.readStr(Tags.hiveWelayat);
+    BannerP.of(context, listen: false).fillBanner(welayat ?? Words.TM, "main");
+
     final token = hiveP.readStr(Tags.hiveToken);
     final phone = hiveP.readStr(Tags.hivePhone);
     if (token != null && phone != null) {
@@ -153,9 +164,9 @@ class _LogoPageState extends State<LogoPage> {
                 child: Column(
                   children: [
                     Text("www.arzan.info",
-                        style: ThemeP.of(context).styles.site),
+                        style: StylesLight().site(MySize.arentir * 0.07)),
                     Text("MAGLUMAT PLATFORMASY",
-                        style: ThemeP.of(context).styles.siteSub),
+                        style: StylesLight().site(MySize.arentir * 0.027)),
                   ],
                 ),
               ))

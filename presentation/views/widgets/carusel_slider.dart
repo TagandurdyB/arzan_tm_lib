@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '/domanin/entities/main_page/baner_entity.dart';
+import '../../../domanin/entities/baner_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

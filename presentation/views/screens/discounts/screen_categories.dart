@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:provider/provider.dart';
+
+import '../../../providers/data/discount_data_provider.dart';
 import '/domanin/entities/discounts/discount_entity.dart';
 
 import '/presentation/views/pages/discount/page_discounts_in.dart';
@@ -12,33 +15,34 @@ import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
 class DiscountCategories extends StatelessWidget {
-  DiscountCategories({super.key});
+  const DiscountCategories({super.key});
 
-  List<DiscountCategoryEntity> objs = [
-    DiscountCategoryEntity(
-        id: 1,
-        imgUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
-        name: "Telefonlar",
-        count: 35977),
-    DiscountCategoryEntity(
-        id: 2,
-        imgUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
-        name: "Kompýuterler we enjamlar",
-        count: 9812),
-    DiscountCategoryEntity(
-        id: 3,
-        imgUrl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
-        name: "Telefonlar",
-        count: 35977),
-  ];
+  // List<DiscountCategoryEntity> objs = [
+  //   DiscountCategoryEntity(
+  //       id: 1,
+  //       imgUrl:
+  //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
+  //       name: "Telefonlar",
+  //       count: 35977),
+  //   DiscountCategoryEntity(
+  //       id: 2,
+  //       imgUrl:
+  //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
+  //       name: "Kompýuterler we enjamlar",
+  //       count: 9812),
+  //   DiscountCategoryEntity(
+  //       id: 3,
+  //       imgUrl:
+  //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErhjxl_5_I-okYpJldhRQi10h1GKbWHboyQ&usqp=CAU",
+  //       name: "Telefonlar",
+  //       count: 35977),
+  // ];
   @override
   Widget build(BuildContext context) {
+    final objs = context.watch<DiscountDataP>().categories;
     return SliverList(
       delegate: SliverChildListDelegate(
-          objs.map((obj) => CategoryCard(obj: obj)).toList()),
+          objs.map((obj) => CategoryCard(objc: obj)).toList()),
     );
   }
 
@@ -51,12 +55,30 @@ class DiscountCategories extends StatelessWidget {
 }
 
 class CategoryCard extends StatelessWidget {
-  final DiscountCategoryEntity obj;
-  CategoryCard({required this.obj, super.key});
+  final Future objc;
+  CategoryCard({required this.objc, super.key});
 
   final double arentir = MySize.arentir;
+
+  Future fetchData() async => await objc;
+
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: fetchData(),
+        builder: (context, ss) {
+          if (ss.hasError) {
+            return const Text("Error get data");
+          } else if (ss.hasData) {
+            return buildContent(context, ss.data);
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  GestureDetector buildContent(
+      BuildContext context, DiscountCategoryEntity obj) {
     return GestureDetector(
       onTap: () {
         final List<DiscountEntity> objs = [

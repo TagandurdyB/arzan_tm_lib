@@ -3,7 +3,7 @@ class DiscountCategoryEntity {
   final String? imgUrl;
   final String name;
   final int count;
-  final List<DiscountSubcategoryEntity> subs;
+  List<DiscountSubcategoryEntity> subs;
   final bool isEmpty;
 
   DiscountCategoryEntity({
@@ -14,6 +14,16 @@ class DiscountCategoryEntity {
     this.subs = const [],
     this.isEmpty = true,
   });
+
+  DiscountCategoryEntity forSubList(List<DiscountSubcategoryEntity> csubs) =>
+      DiscountCategoryEntity(
+        id: id,
+        count: count,
+        name: name,
+        imgUrl: imgUrl,
+        isEmpty: isEmpty,
+        subs: csubs,
+      );
 }
 
 class DiscountSubcategoryEntity {

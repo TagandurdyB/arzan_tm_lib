@@ -1,5 +1,5 @@
-import 'package:arzan_tm/config/services/my_size.dart';
-import 'package:arzan_tm/config/vars/formater.dart';
+import '/config/services/my_size.dart';
+import '/config/vars/formater.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDown extends StatefulWidget {
@@ -14,6 +14,7 @@ class CustomDropDown extends StatefulWidget {
   final Function? onTab;
   final bool isOpen;
   final bool isBorder;
+  final bool isShadow;
   const CustomDropDown({
     super.key,
     this.width,
@@ -25,6 +26,7 @@ class CustomDropDown extends StatefulWidget {
     this.onTab,
     this.isOpen = false,
     this.isBorder = true,
+    this.isShadow = true,
     required this.items,
     this.bgColor = const Color(0xffF9FAFC),
   });
@@ -105,16 +107,21 @@ class _CustomDropDownState extends State<CustomDropDown> {
         decoration: widget.isBorder
             ? BoxDecoration(
                 color: Theme.of(context).canvasColor,
+                border: !widget.isShadow
+                    ? Border.all(width: 2, color: Colors.grey[300]!)
+                    : null,
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.circular(widget.mainRadius ?? 10)),
-                boxShadow: const [
-                    BoxShadow(
-                      offset: Offset(0, 2),
-                      color: Color(0xffEDEDED),
-                      blurRadius: 2,
-                      spreadRadius: 2,
-                    )
-                  ])
+                boxShadow: widget.isShadow
+                    ? const [
+                        BoxShadow(
+                          offset: Offset(0, 2),
+                          color: Color(0xffEDEDED),
+                          blurRadius: 2,
+                          spreadRadius: 2,
+                        )
+                      ]
+                    : null)
             : null,
         child: Column(
             children: List.generate(

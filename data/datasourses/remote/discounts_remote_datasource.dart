@@ -20,6 +20,7 @@ abstract class DiscountsRemoteDataSource {
   Future<List<DiscountModel>> getDiscounts();
   Future<ResponseModel> postDiscount(PostDiscountModel obj);
   Future<List<DiscountCategoryModel>> discountCategories();
+  Future<List<DiscountSubcategoryModel>> discountSub(int categoryID);
 }
 
 class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
@@ -79,44 +80,30 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
     if (categoryResponse.statusCode == 200) {
       final categoryRes = json.decode(categoryResponse.body) as List;
       print("Category response:=$categoryRes");
-      List subs = categoryRes
-          .map((catrgory) async => await http
-                  .post(Uris.discoutSubcategories,
-                      headers: Headers.contentJson,
-                      body: jsonEncode({"category": catrgory["id"]}))
-                  .then(
-                (response) {
-                  if (response.statusCode == 200) {
-                    return DiscountSubcategoryModel.fromJsonList(
-                        jsonDecode(response.body));
-                  } else {
-                    return [DiscountSubcategoryModel.empty];
-                  }
-                },
-              ))
-          .toList();
-      return DiscountCategoryModel.fromJsonList(categoryRes, subs);
+      return DiscountCategoryModel.fromJsonList(categoryRes);
     } else {
-      return [DiscountCategoryModel.empty];
+      return [];
     }
   }
-}
 
-// Future<ResponseModel> postCheck(CheckModel obj) async {
-//   return await httpClient
-//       .post(Uris.checkAcaunt,
-//           headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
-//       .then((response) {
-//     if (response.statusCode == 200) {
-//       print("*** ${json.decode(response.body)}");
-//       final String token = json.decode(response.body)["token"];
-//       print("token:=$token");
-//       return ResponseModel.frowJson(json.decode(response.body));
-//     } else {
-//       print("Error in Check!!! statusCode:${response.statusCode}");
-//       print("Error in Check!!! :${response.body}");
-//       print("Error in Check!!! :${obj.toJson()}");
-//       return ResponseModel.frowJson(json.decode(response.body));
-//     }
-//   });
-// }
+  @override
+  Future<List<DiscountSubcategoryModel>> discountSub(int categoryID) async {
+    print("categorysub request:$categoryID");
+    return await http
+        .post(Uris.discoutSubcategories,
+            headers: Headers.contentJson,
+            body: jsonEncode({"category": categoryID}))
+        .then(
+      (response) {
+        final subRes = json.decode(response.body);
+        print("categorysub response:=$subRes");
+        if (response.statusCode == 200 && subRes.runtimeType == List) {
+          return DiscountSubcategoryModel.fromJsonList(
+              jsonDecode(response.body));
+        } else {
+          return [];
+        }
+      },
+    );
+  }
+}

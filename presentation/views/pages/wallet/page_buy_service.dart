@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+
 import '../../../../config/routes/my_route.dart';
 import '/presentation/views/widgets/my_pop_widget.dart';
 
@@ -273,7 +275,7 @@ class _BuyServicePageState extends State<BuyServicePage> {
             SizedBox(
                 width: arentir * 0.1,
                 height: arentir * 0.05,
-                child: Image.network(obj.img)),
+                child: ShimmerImg(fit: BoxFit.fitHeight, imageUrl: obj.img)),
             Expanded(
                 child:
                     Text(obj.name, style: TextStyle(fontSize: arentir * 0.03))),

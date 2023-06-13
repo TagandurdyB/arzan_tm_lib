@@ -1,6 +1,4 @@
-import '/data/datasourses/remote/api_banner.dart';
-
-import '/domanin/entities/main_page/baner_entity.dart';
+import '../../../domanin/entities/baner_entity.dart';
 import '/domanin/usecases/banner_case.dart';
 import 'package:provider/provider.dart';
 
@@ -10,19 +8,20 @@ class BannerP extends ChangeNotifier {
   final BannerCase bannerCase;
   BannerP({required this.bannerCase});
 
-  // // MainPageEntity entity = MainPageEntity.empty;
+  // MainPageEntity entity = MainPageEntity.empty;
   // MainPageEntity entity = MainPageEntity.frowJson(api);
 
-  List<BanerEntity> baners =
-      apiBanner.map((e) => BanerEntity.frowJson(e)).toList();
+  // List<BanerEntity> baners =
+  //     apiBanner.map((e) => BanerEntity.frowJson(e)).toList();
+
+  List<BanerEntity> banners = [];
 
   Future<void> fillBanner(String welayat, String page) async {
     try {
-      // baners = await bannerCase.get(welayat, page);
-      print("+*+*${baners[1].img}");
+      banners = await bannerCase.get(welayat, page);
       notifyListeners();
     } catch (err) {
-      throw ("Error BannerP fillBanner: $err");
+      throw ("Error BannerP>fillBanner: $err");
     }
   }
 

@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import '../../providers/data/banner_provider.dart';
+import '../widgets/widget_btn.dart';
 import '/presentation/providers/data/provider_gallery.dart';
 
 import '/presentation/views/widgets/galery/folder_cards/midle_folder_card.dart';
@@ -59,15 +61,12 @@ class _ImagesPageState extends State<ImagesPage> {
         CustomAppBar(
           // title: "Surat",
           titleW: CardTitle(
+            near: true,
             counter: 23,
             title: "Surat",
             txtSize: arentir * 0.05,
           ),
-          actions: [
-            GestureDetector(
-                onTap: () => providDdo.tongleColumn,
-                child: Icon(buildWidgetIconD(providD.cloumnCount)))
-          ],
+          actions: const [WidgetBtn()],
         ),
         Expanded(
             child: SingleChildScrollView(
@@ -78,25 +77,11 @@ class _ImagesPageState extends State<ImagesPage> {
     ));
   }
 
-  IconData buildWidgetIconD(int cloumnCount) {
-    switch (cloumnCount) {
-      case 1:
-        return Icons.list;
-      case 2:
-        return Icons.widgets_outlined;
-      case 3:
-        return Icons.apps_sharp;
-
-      default:
-        return Icons.list;
-    }
-  }
-
   Widget get buildBanner {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: MyCarusel(
-        items: providG.imgGallery.banners.map((e) => e).toList(),
+        items: BannerP.of(context).banners,
       ),
     );
   }

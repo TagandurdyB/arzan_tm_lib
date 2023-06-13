@@ -1,6 +1,6 @@
 // ignore_for_file: overridden_fields
 
-import '/domanin/entities/main_page/baner_entity.dart';
+import '../../domanin/entities/baner_entity.dart';
 
 class BanerModel extends BanerEntity {
   @override
@@ -29,13 +29,13 @@ class BanerModel extends BanerEntity {
   factory BanerModel.frowJson(Map<String, dynamic> json) {
     try {
       return BanerModel(
-          id: json["id"],
+          id: int.parse(json["id"]),
           img: json["banner_img"],
-          // note: json["note"] ?? "",
-          // title: json["title"] ?? "",
+          note: json["note"] ?? "",
+          title: json["title"] ?? "",
           isEmpty: false);
     } catch (err) {
-      throw ("Error in BanerEntity : $err");
+      throw ("Error in BanerModel : $err");
     }
   }
 

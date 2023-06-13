@@ -1,4 +1,7 @@
+import '/config/themes/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../providers/view/provider_theme.dart';
@@ -13,23 +16,37 @@ class ShimmerImg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeColor = ThemeP.of(context).colors;
-    return Image.network(
-      imageUrl,
+    if (imageUrl == "") {
+      return buildError();
+    } else {
+      return buildCacher(themeColor);
+    }
+  }
+
+  CachedNetworkImage buildCacher(ColorsLight themeColor) {
+    return CachedNetworkImage(
+      fadeInCurve: Curves.easeInOut,
       fit: fit,
-      loadingBuilder: (context, child, placeholder) {
-        if (placeholder == null) return child;
-        return Container(color: Colors.grey);
-      },
-      errorBuilder: (context, obj, stack) {
-        return Shimmer.fromColors(
-          baseColor: themeColor.shimmerBg,
-          highlightColor: themeColor.shimmerLine,
-          enabled: true,
-          direction: ShimmerDirection.ltr,
-          period: const Duration(seconds: 1),
-          child: child ?? Container(color: Colors.grey),
-        );
-      },
+      imageUrl: imageUrl,
+      cacheManager: CacheManager(Config("images",
+          stalePeriod: const Duration(days: 15), maxNrOfCacheObjects: 500)),
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: themeColor.shimmerBg,
+        highlightColor: themeColor.shimmerLine,
+        enabled: true,
+        direction: ShimmerDirection.ltr,
+        period: const Duration(seconds: 1),
+        child: child ?? Container(color: Colors.grey),
+      ),
+      errorWidget: (context, url, error) => buildError(),
+      // imageBuilder: ,
     );
+  }
+
+  Container buildError() {
+    return Container(
+        color: Colors.black12,
+        alignment: Alignment.center,
+        child: Image.asset("assets/logo_png.png"));
   }
 }

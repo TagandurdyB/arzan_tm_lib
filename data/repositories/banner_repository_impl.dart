@@ -1,4 +1,4 @@
-import '/domanin/entities/main_page/baner_entity.dart';
+import '../../domanin/entities/baner_entity.dart';
 
 import '../../domanin/repositories/banner_reposotory.dart';
 import '../datasourses/remote/banner_remote_datasource.dart';

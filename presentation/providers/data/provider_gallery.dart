@@ -1,5 +1,5 @@
 import '/domanin/entities/galery/big_content_card_entity.dart';
-import '/domanin/entities/main_page/baner_entity.dart';
+import '../../../domanin/entities/baner_entity.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';

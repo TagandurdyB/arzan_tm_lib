@@ -18,7 +18,7 @@ class StylesLight {
         shadows: ShadowsLight.text);
   }
 
-  TextStyle get site => _site(Nums.site);
+  TextStyle site(double size) => _site(size);
   TextStyle get siteSub => _site(Nums.siteSub);
 }
 

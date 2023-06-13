@@ -9,7 +9,7 @@ import '../../../providers/view/provider_video.dart';
 
 import 'dart:ui' as ui;
 
-import '../btns_group.dart';
+import '../read_more_text.dart';
 
 class VideoPlayerForground extends StatelessWidget {
   VideoPlayerController controller;
@@ -103,12 +103,16 @@ class VideoPlayerForground extends StatelessWidget {
   Widget get buildTitle => Container(
         padding: const EdgeInsets.all(8),
         width: arentir * 0.6,
-        child: const Text(
-          '''Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв''',
-          style:
-              TextStyle(color: Colors.white, overflow: TextOverflow.ellipsis),
-          maxLines: 3,
+        child: const ReadMoreText(
+          duration: Duration(milliseconds: 300),
+          text:
+              '''Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв''',
         ),
+        // const Text(
+        //   style:
+        //       TextStyle(color: Colors.white, overflow: TextOverflow.ellipsis),
+        //   maxLines: 3,
+        // ),
       );
 
   Widget get buildBottomGadgets {
@@ -127,12 +131,12 @@ class VideoPlayerForground extends StatelessWidget {
                 color: Colors.white,
               )),
           const Expanded(child: SizedBox()),
-          LikeBtn(
-            onTap: (bool val) {},
-            textSize: arentir * 0.05,
-            iconSize: 21,
-            likeCount: 1500,
-          ),
+          // LikeBtn(
+          //   onTap: (bool val) {},
+          //   textSize: arentir * 0.05,
+          //   iconSize: 21,
+          //   likeCount: 1500,
+          // ),
         ],
       ),
     );

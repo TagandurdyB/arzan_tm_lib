@@ -162,6 +162,7 @@ class _ScreenMainState extends State<ScreenMain> {
       );
 
   Widget get buildSlider {
+    final banner = context.watch<BannerP>().banners;
     return Container(
       alignment: Alignment.topCenter,
       // child: CustomCarusel(
@@ -173,7 +174,7 @@ class _ScreenMainState extends State<ScreenMain> {
       // ),
       padding: const EdgeInsets.all(16),
       child: MyCarusel(
-        items: objM.baners,
+        items: banner,
       ),
     );
   }

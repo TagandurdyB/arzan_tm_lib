@@ -3,7 +3,7 @@
 import '/domanin/entities/main_page/main_page_entity.dart';
 
 import '../discount_models/discount_model.dart';
-import 'baner_model.dart';
+import '../baner_model.dart';
 import '../chosen_models/chosen_model.dart';
 import 'main_page_card_model.dart';
 import 'market_model.dart';

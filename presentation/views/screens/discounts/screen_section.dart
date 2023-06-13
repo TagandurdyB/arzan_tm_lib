@@ -1,5 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:provider/provider.dart';
+
+import '/presentation/providers/data/discount_data_provider.dart';
+
 import '../../../../domanin/entities/discounts/discount_category_entity.dart';
 
 import '../../../../config/vars/formater.dart';
@@ -13,42 +17,62 @@ import 'package:flutter/material.dart';
 class DiscountSections extends StatelessWidget {
   DiscountSections({super.key});
 
-  List<DiscountCategoryEntity> objs = [
-    DiscountCategoryEntity(id: 1, name: "Telefonlar", count: 35977, subs: [
-      DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
-      DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
-      DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
-      DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
-    ]),
-    DiscountCategoryEntity(id: 1, name: "Öý tehnikasy", count: 17519, subs: [
-      DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
-      DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
-      DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
-      DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
-    ]),
-    DiscountCategoryEntity(id: 1, name: "Öý tehnikasy", count: 17519, subs: [
-      DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
-      DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
-      DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
-      DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
-    ]),
-  ];
+  // List<DiscountCategoryEntity> objs = [
+  //   DiscountCategoryEntity(id: 1, name: "Telefonlar", count: 35977, subs: [
+  //     DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
+  //     DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
+  //     DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
+  //     DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
+  //   ]),
+  //   DiscountCategoryEntity(id: 1, name: "Öý tehnikasy", count: 17519, subs: [
+  //     DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
+  //     DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
+  //     DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
+  //     DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
+  //   ]),
+  //   DiscountCategoryEntity(id: 1, name: "Öý tehnikasy", count: 17519, subs: [
+  //     DiscountSubcategoryEntity(id: 1, name: "Telefonlar"),
+  //     DiscountSubcategoryEntity(id: 2, name: "Planşetlar"),
+  //     DiscountSubcategoryEntity(id: 3, name: "Öý telefonlar"),
+  //     DiscountSubcategoryEntity(id: 4, name: "Akylly sagatlar"),
+  //   ]),
+  // ];
+  late List objs;
+
   @override
   Widget build(BuildContext context) {
+    objs = context.watch<DiscountDataP>().categories;
     return SliverList(
       delegate: SliverChildListDelegate(
-          objs.map((obj) => SectionCard(obj: obj)).toList()),
+          objs.map((obj) => SectionCard(objc: obj)).toList()),
     );
   }
 }
 
 class SectionCard extends StatelessWidget {
-  final DiscountCategoryEntity obj;
-  SectionCard({required this.obj, super.key});
+  final Future objc;
+  SectionCard({required this.objc, super.key});
+
+  Future fetchData() async => await objc;
 
   final double arentir = MySize.arentir;
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: fetchData(),
+      builder: (context, ss) {
+        if (ss.hasError) {
+          return const SizedBox(child: Text("Error in data"));
+        } else if (ss.hasData) {
+          return buildConent(context, ss.data);
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  Column buildConent(BuildContext context, DiscountCategoryEntity obj) {
     return Column(
       children: [
         CustomDropDown(
@@ -63,12 +87,12 @@ class SectionCard extends StatelessWidget {
             ),
           ),
           onChange: (index) {
-            print("index:=$index  id:=${obj.subs![index].id}");
+            print("index:=$index  id:=${obj.subs[index].id}");
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => DiscountsInPage(
-                          title: "${obj.name} / ${obj.subs![index].name}",
+                          title: "${obj.name} / ${obj.subs[index].name}",
                           count: obj.count,
                           objs: [
                             DiscountEntity(
@@ -83,7 +107,7 @@ class SectionCard extends StatelessWidget {
                           ],
                         )));
           },
-          items: obj.subs!
+          items: obj.subs
               .map((e) => Container(
                   // color: Colors.red,
                   color: Colors.transparent,

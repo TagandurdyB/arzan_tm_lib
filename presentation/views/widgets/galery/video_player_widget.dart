@@ -1,10 +1,13 @@
 // import '/config/services/video_service.dart';
 // ignore_for_file: must_be_immutable
 
+import '/presentation/views/widgets/like_effect_widget.dart';
+
 import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import 'video_like_eff.dart';
 import 'video_player_forground.dart';
 
 class VideoPlayerWidget extends StatelessWidget {
@@ -28,6 +31,7 @@ class VideoPlayerWidget extends StatelessWidget {
               children: [
                 buildVideo(),
                 VideoPlayerForground(controller: controller),
+                const VideoLikeEff(),
               ],
             ),
           )

@@ -1,5 +1,5 @@
 import '../discounts/discount_entity.dart';
-import 'baner_entity.dart';
+import '../baner_entity.dart';
 import '../chosens/chosen_entity.dart';
 import 'main_page_card_entity.dart';
 import 'market_entity.dart';
@@ -45,24 +45,24 @@ class MainPageEntity {
         discountDatas: [DiscountEntity.empty],
       );
 
-  factory MainPageEntity.frowJson(Map<String, dynamic> json) {
-    try {
-      return MainPageEntity(
-        baners: BanerEntity.fromJsonList(json["baners"]),
-        markets: MarketEntity.fromJsonList(json["markets"]),
-        konkurs: MainPageCardEntity.frowJson(json["kunkurs"]),
-        saylananlarCount: json["saylananlar"]["count"],
-        saylananlarDatas:
-            ChosenEntity.fromJsonList(json["saylananlar"]["datas"]),
-        top: MainPageCardEntity.frowJson(json["top"]),
-        pictures: MainPageCardEntity.frowJson(json["pictures"]),
-        videos: MainPageCardEntity.frowJson(json["videos"]),
-        resmiler: MainPageCardEntity.frowJson(json["resmiler"]),
-        discountsCount: json["discounts"]["count"],
-        discountDatas: DiscountEntity.fromJsonList(json["discounts"]["datas"]),
-      );
-    } catch (err) {
-      throw ("Error in MainPageEntity : $err");
-    }
-  }
+  // factory MainPageEntity.frowJson(Map<String, dynamic> json) {
+  //   try {
+  //     return MainPageEntity(
+  //       baners: BanerEntity.fromJsonList(json["baners"]),
+  //       markets: MarketEntity.fromJsonList(json["markets"]),
+  //       konkurs: MainPageCardEntity.frowJson(json["kunkurs"]),
+  //       saylananlarCount: json["saylananlar"]["count"],
+  //       saylananlarDatas:
+  //           ChosenEntity.fromJsonList(json["saylananlar"]["datas"]),
+  //       top: MainPageCardEntity.frowJson(json["top"]),
+  //       pictures: MainPageCardEntity.frowJson(json["pictures"]),
+  //       videos: MainPageCardEntity.frowJson(json["videos"]),
+  //       resmiler: MainPageCardEntity.frowJson(json["resmiler"]),
+  //       discountsCount: json["discounts"]["count"],
+  //       discountDatas: DiscountEntity.fromJsonList(json["discounts"]["datas"]),
+  //     );
+  //   } catch (err) {
+  //     throw ("Error in MainPageEntity : $err");
+  //   }
+  // }
 }

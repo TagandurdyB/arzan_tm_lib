@@ -1,4 +1,4 @@
-import 'package:arzan_tm/domanin/entities/discounts/discount_category_entity.dart';
+import '/domanin/entities/discounts/discount_category_entity.dart';
 
 import '/domanin/entities/discounts/post_discount_entity.dart';
 import '/domanin/entities/register/response_entity.dart';
@@ -26,6 +26,19 @@ class DiscountsRepositoryImpl implements DiscountsRepository {
 
   @override
   Future<List<DiscountCategoryEntity>> discountCategories() async {
-    return await discountsRemoteDataSource.discountCategories();
+    try {
+      return await discountsRemoteDataSource.discountCategories();
+    } catch (err) {
+      throw ("DiscountsRepositoryImpl>discountCategories Error :$err");
+    }
+  }
+
+  @override
+  Future<List<DiscountSubcategoryEntity>> discountSubs(int categoryID) async {
+    try {
+      return await discountsRemoteDataSource.discountSub(categoryID);
+    } catch (err) {
+      throw ("DiscountsRepositoryImpl>discountSub Error :$err");
+    }
   }
 }

@@ -1,7 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/providers/data/banner_provider.dart';
+
 import '../../../domanin/entities/galery/big_content_card_entity.dart';
-import '../../providers/data/main_page_provider.dart';
 import '../../providers/view/provider_discaunts.dart';
 import '../widgets/card_title.dart';
 import '../widgets/carusel_slider.dart';
@@ -33,6 +34,7 @@ class VideosPage extends StatelessWidget {
       children: [
         CustomAppBar(
           titleW: CardTitle(
+            near: true,
             counter: 23,
             title: "Wideo",
             txtSize: arentir * 0.05,
@@ -66,7 +68,7 @@ class VideosPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: MyCarusel(
-        items: MainPageP.of(context).entity.baners.map((e) => e).toList(),
+        items: BannerP.of(context).banners,
       ),
     );
   }
