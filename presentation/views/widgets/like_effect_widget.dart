@@ -90,7 +90,7 @@ class _LikeEffectState extends State<LikeEffect>
         builder: (context, ss) {
           final query = MediaQuery.of(context).size;
           final circleSize =
-              (query.width * 0.5) * math.pow((_prossesAnim.value + 1), 2);
+              (query.height * 0.4) * math.pow((_prossesAnim.value + 1), 2);
           return Stack(
             alignment: Alignment.topCenter,
             children: [
@@ -135,7 +135,7 @@ class _LikeEffectState extends State<LikeEffect>
                 width: circleSize,
                 bottom: 0,
                 child: AnimatedOpacity(
-                  opacity: _prossesAnim.value,
+                  opacity: 1 - _prossesAnim.value,
                   duration: const Duration(milliseconds: 200),
                   child: CustomPaint(
                     foregroundPainter: BubblePainter(_prossesAnim, bubbles),
@@ -159,7 +159,7 @@ class BubblePainter extends CustomPainter {
     for (Bubble bubble in bubbles) {
       final offset = Offset(
         size.width / 2 + bubble.direction * animation.value,
-        size.height * 1.2 * (1 - animation.value) -
+        size.height * 1.7 * (1 - animation.value) -
             bubble.speed * animation.value +
             bubble.initialPosition * (1 - animation.value),
       );

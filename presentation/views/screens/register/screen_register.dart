@@ -1,11 +1,11 @@
 // ignore_for_file: must_be_immutable
 
-import '../../providers/data/provider_acaunt.dart';
-import '/presentation/views/screens/screen_login.dart';
-import '/presentation/views/screens/screen_sign_up.dart';
+import '../../../providers/data/provider_acaunt.dart';
+import 'screen_login.dart';
+import 'screen_sign_up.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/services/my_size.dart';
+import '../../../../config/services/my_size.dart';
 
 class ScreenRegister extends StatefulWidget {
   const ScreenRegister({super.key});

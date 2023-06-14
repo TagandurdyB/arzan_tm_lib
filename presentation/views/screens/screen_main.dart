@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/providers/data/discount_data_provider.dart';
+
 import '../widgets/widget_btn.dart';
 import '/domanin/entities/main_page/main_new_officials_entity.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +44,7 @@ class _ScreenMainState extends State<ScreenMain> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       MainPageP.of(context, listen: false).fillEntity();
+      DiscountDataP.of(context, listen: false).fillDiscounts();
     });
     super.initState();
   }
@@ -94,7 +97,8 @@ class _ScreenMainState extends State<ScreenMain> {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
             sliver: DiscountView(
-              objs: objM.discountDatas,
+              // objs: objM.discountDatas,
+              objs: DiscountDataP.of(context).discounts,
             ),
           ),
           const SliverPadding(padding: EdgeInsets.all(20))
@@ -192,10 +196,11 @@ class _ScreenMainState extends State<ScreenMain> {
               const WidgetBtn(),
               TextButton(
                 onPressed: () {
-                  BannerP.of(context, listen: false)
-                      .fillBanner("Balkan", "Discount")
-                      .then((value) =>
-                          Navigator.pushNamed(context, Rout.discounts));
+                  Navigator.pushNamed(context, Rout.discounts);
+                  // BannerP.of(context, listen: false)
+                  //     .fillBanner("Balkan", "Discount")
+                  //     .then((value) =>
+                  //         Navigator.pushNamed(context, Rout.discounts));
                 },
                 child: const Text(
                   "Hemmesi",

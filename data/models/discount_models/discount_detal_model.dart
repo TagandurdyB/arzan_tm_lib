@@ -1,5 +1,6 @@
 // ignore_for_file: overridden_fields
 
+import '../../../config/vars/formater.dart';
 import '../../../domanin/entities/discounts/discount_detal_entity.dart';
 
 class DiscountDetalModel extends DiscountDetalEntity {
@@ -111,25 +112,25 @@ class DiscountDetalModel extends DiscountDetalEntity {
 
   factory DiscountDetalModel.frowJson(Map<String, dynamic> json) =>
       DiscountDetalModel(
-        userImg: json["userImg"],
-        userName: json["userName"],
-        pictures: json["pictures"],
+        userImg: json["userImg"] ?? "",
+        userName: json["userName"] ?? "100haryt",
+        pictures: json["pictures"] ?? [json["discount_img"]],
         id: json["id"],
-        createdAt: json["createdAt"],
-        viewed: json["viewed"],
-        liked: json["liked"],
-        chated: json["chated"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        viewed: int.parse(json["viewed"]),
+        liked: json["liked"] ?? 0,
+        chated: json["chated"] ?? 0,
         title: json["title"],
-        oldPrice: json["oldPrice"],
-        newPrice: json["newPrice"],
-        mod: json["mod"],
-        userId: json["userId"],
-        isOfficial: json["isOfficial"],
-        startedAt: json["startedAt"],
-        endedAt: json["endedAt"],
-        about: json["about"],
-        tags: json["tags"],
-        phone: json["phone"],
+        oldPrice: int.parse(json["price"]) ,
+        newPrice: int.parse(json["discount_price"]) ,
+        mod: 23, //json["mod"],
+        userId: json["userId"] ?? 0,
+        isOfficial: json["isOfficial"] ?? false,
+        startedAt: DateTime.parse(json["start_date"]),
+        endedAt: DateTime.parse(json["end_date"]),
+        about: json["about"] ?? "",
+        tags: Formater.tagSeperator(json["hashtags"]),
+        phone: "+993${json["phone_num"]}",
       );
 
   // Map<String, dynamic> toJson() => {

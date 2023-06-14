@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import '../../models/discount_models/discount_detal_model.dart';
 import '/data/models/discount_models/discout_category_model.dart';
 
 import '../../models/discount_models/post_discount_model.dart';
@@ -14,10 +15,10 @@ import '../../models/discount_models/discount_model.dart';
 import 'package:http/http.dart' as http;
 
 import 'http_vars.dart';
-import 'https_funcs.dart';
 
 abstract class DiscountsRemoteDataSource {
   Future<List<DiscountModel>> getDiscounts();
+  Future<DiscountDetalModel> getDetal(int id);
   Future<ResponseModel> postDiscount(PostDiscountModel obj);
   Future<List<DiscountCategoryModel>> discountCategories();
   Future<List<DiscountSubcategoryModel>> discountSub(int categoryID);
@@ -30,10 +31,35 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
   Future<List<DiscountModel>> getDiscounts() async {
     final response =
         await httpClient.get(Uris.discounts, headers: Headers.contentJson);
-    return HttpsFuncs.responseChecker(
-      response,
-      DiscountModel.fromJsonList(json.decode(response.body)),
-    );
+    final res = json.decode(response.body)["discounts"];
+    print("response discount:=$res");
+    if (response.statusCode == 200) {
+      return DiscountModel.fromJsonList(res);
+    } else {
+      return [];
+    }
+    // return HttpsFuncs.responseChecker(
+    //   response,
+    //   DiscountModel.fromJsonList(json.decode(response.body)),
+    // );
+    // print("asdasdas BAnner:=${BanerModel.fromJsonList(apiBanner)}");
+  }
+
+  @override
+  Future<DiscountDetalModel> getDetal(int id) async {
+    final response =
+        await httpClient.get(Uris.disDetal(id), headers: Headers.contentJson);
+    final res = json.decode(response.body)["discount"];
+    print("response discount detal:=$res");
+    if (response.statusCode == 200) {
+      return DiscountDetalModel.frowJson(res);
+    } else {
+      return DiscountDetalModel.empty();
+    }
+    // return HttpsFuncs.responseChecker(
+    //   response,
+    //   DiscountModel.fromJsonList(json.decode(response.body)),
+    // );
     // print("asdasdas BAnner:=${BanerModel.fromJsonList(apiBanner)}");
   }
 

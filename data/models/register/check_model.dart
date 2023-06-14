@@ -4,14 +4,14 @@ import '/domanin/entities/register/check_entity.dart';
 
 class CheckModel extends CheckEntity {
   @override
-  final String uniqueId;
+  final String? uniqueId;
   @override
   final String phone;
   @override
   final bool isEmpty;
 
   CheckModel({
-    required this.uniqueId,
+     this.uniqueId,
     required this.phone,
     this.isEmpty = true,
   }) : super(phone: phone, uniqueId: uniqueId);

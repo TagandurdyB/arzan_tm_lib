@@ -1,20 +1,20 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-import '../../../config/routes/my_route.dart';
+import '../../../../config/routes/my_route.dart';
 import '/domanin/entities/register/sign_up_entity.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
 import '/presentation/views/widgets/my_pop_widget.dart';
 
-import '../../../config/services/device_info.dart';
-import '../../../config/services/my_size.dart';
+import '../../../../config/services/device_info.dart';
+import '../../../../config/services/my_size.dart';
 import '/presentation/views/widgets/my_container.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/vars/constants.dart';
-import '../widgets/ReadyInput/login_arzan_input.dart';
-import '../widgets/ReadyInput/ready_input_base.dart';
-import '../widgets/form_error_message.dart';
-import '../widgets/next_btn.dart';
+import '../../../../config/vars/constants.dart';
+import '../../widgets/ReadyInput/login_arzan_input.dart';
+import '../../widgets/ReadyInput/ready_input_base.dart';
+import '../../widgets/form_error_message.dart';
+import '../../widgets/next_btn.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

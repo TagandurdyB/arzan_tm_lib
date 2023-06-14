@@ -35,6 +35,13 @@ class RegisterRepositoryImpl implements RegisterRepository {
   }
 
   @override
+  Future<ResponseEntity> postRecover(UserRequestEntity obj) async {
+    final model =
+        await mainPageRemoteDataSource.postRecover(UserRequestModel.fromEntity(obj));
+    return model;
+  }
+
+  @override
   Future<UserResponseModel> postLogIn(LoginEntity obj) async {
     final model =
         await mainPageRemoteDataSource.postLogIn(LogInModel.fromEntity(obj));

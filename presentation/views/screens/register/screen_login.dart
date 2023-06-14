@@ -1,22 +1,20 @@
+import 'package:flutter/material.dart';
+
+import '../../../../config/routes/my_route.dart';
+import '../../../../config/services/device_info.dart';
+import '../../../../config/services/my_size.dart';
+import '../../../../config/vars/constants.dart';
+import '../../../providers/data/hive_provider.dart';
+import '../../../providers/data/provider_acaunt.dart';
+import '../../widgets/ReadyInput/login_arzan_input.dart';
+import '../../widgets/ReadyInput/ready_input_base.dart';
+import '../../widgets/form_error_message.dart';
+import '../../widgets/my_container.dart';
+import '../../widgets/my_pop_widget.dart';
+import '../../widgets/next_btn.dart';
 import '/domanin/entities/register/log_in_entity.dart';
 
 import '/presentation/providers/view/provider_navigation.dart';
-
-import '../../providers/data/hive_provider.dart';
-
-import '../../../config/services/device_info.dart';
-import '../../../config/services/my_size.dart';
-import '../widgets/my_pop_widget.dart';
-import '/presentation/views/widgets/my_container.dart';
-import 'package:flutter/material.dart';
-
-import '../../../config/routes/my_route.dart';
-import '../../../config/vars/constants.dart';
-import '../../providers/data/provider_acaunt.dart';
-import '../widgets/ReadyInput/login_arzan_input.dart';
-import '../widgets/ReadyInput/ready_input_base.dart';
-import '../widgets/form_error_message.dart';
-import '../widgets/next_btn.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -65,22 +63,24 @@ class _LoginScreenState extends State<LoginScreen> {
           //Text!
           final bool status = response.isEmpty;
           //bolmalysy!
-          ProviderNav.of(context, listen: false).changeScreen(0);
+          if (!status) ProviderNav.of(context, listen: false).changeScreen(0);
           print("Login Status $status");
           MyPopUpp.popMessage(
             context,
             () {
-              AcauntP.of(context, listen: false).saveUserInfo(context, response);
-              final hiveP = HiveP.of(context, listen: false);
-              hiveP.saveStr(
-                  "993${RIBase.getText(Tags.rILoginPhone)}", Tags.hivePhone);
-              hiveP.saveBool(true, Tags.isLogin);
-              if (!status) AcauntP.of(context, listen: false).logIned;
-              
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Rout.home, (route) => route.isFirst);
+              if (!status) {
+                final acauntP = AcauntP.of(context, listen: false);
+                acauntP.saveUserInfo(context, response);
+                final hiveP = HiveP.of(context, listen: false);
+                hiveP.saveStr(
+                    "993${RIBase.getText(Tags.rILoginPhone)}", Tags.hivePhone);
+                hiveP.saveBool(true, Tags.isLogin);
+                acauntP.logIned;
+                Navigator.pushNamedAndRemoveUntil(
+                    context, Rout.home, (route) => route.isFirst);
+              }
             },
-            status ? "Siz doly hasaba alynmadyk!" : "Hoş geldiňiz!",
+            status ? Words.loginNO : Words.loginOK,
             status,
           );
         });

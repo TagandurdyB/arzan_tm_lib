@@ -42,6 +42,13 @@ class Words {
   static const String buyOk =
       '''Siz üstünlikli hyzmat satyn aldyňyz administrasiya
 siz bilen habar tutar''';
+  static const String loginNO = '''Siz doly hasaba alynmadyk
+ýa-da maglumatlary ters girizdiňiz!''';
+  static const String loginOK = "Hoş geldiňiz!";
+  static const String recoverNO = "Açar sözi çalşylmady!";
+  static const String recoverOK = "Açar sözi üstünlükli çalşyldy!";
+  static const String disDetalAbout =
+      "Dinamiki surata düşüriň we ulanyjy interfeýsiňizi indiki derejä çykarmak üçin oýlanyşykly döredilen C33 realme bilen suwuk wizuallardan lezzet alyň. Bu telefon, AI bilen dolandyrylýan 50 MP kamerany görkezýär, bu düşnüksiz suratlary aýdyňlyk bilen ajaýyp düşürmäge mümkinçilik berýär. Mundan başga-da, bu smartfona 5000 mAh uly batareýa goşulyp, üznüksiz öndürijilikden lezzet alyp bilersiňiz we işdäki öndürijiligiňizi ýokarlandyryp bilersiňiz. Mundan başga-da, ajaýyp “Unisoc T612” prosessor bilen işleýän, ajaýyp iş tejribesinden lezzet alyp bilersiňiz. Mundan başga-da, C33 meýdanynyň giňligi 16.5 sm (6.5) paneliň kömegi bilen wizual tejribäňizi ýokary derejä çykaryp bilersiňiz.";
 
   //============================================================================
 }

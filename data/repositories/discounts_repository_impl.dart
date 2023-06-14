@@ -1,3 +1,4 @@
+import '../../domanin/entities/discounts/discount_detal_entity.dart';
 import '/domanin/entities/discounts/discount_category_entity.dart';
 
 import '/domanin/entities/discounts/post_discount_entity.dart';
@@ -15,6 +16,11 @@ class DiscountsRepositoryImpl implements DiscountsRepository {
   @override
   Future<List<DiscountEntity>> getDiscounts() async {
     return await discountsRemoteDataSource.getDiscounts();
+  }
+
+ @override
+  Future<DiscountDetalEntity> getDetal(int id) async {
+    return await discountsRemoteDataSource.getDetal(id);
   }
 
   @override

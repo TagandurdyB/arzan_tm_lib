@@ -1,3 +1,5 @@
+import 'package:arzan_tm/domanin/entities/discounts/discount_detal_entity.dart';
+
 import '/domanin/entities/discounts/post_discount_entity.dart';
 
 import '../../../domanin/entities/register/response_entity.dart';
@@ -55,6 +57,27 @@ class DiscountDataP extends ChangeNotifier {
       throw ("Error DiscountDataP: $err");
     }
   }
+
+//Detal==========================================================================
+  DiscountDetalEntity detal = DiscountDetalEntity.empty();
+  Future<void> fillDetal(int id) async {
+    try {
+      detal = await discountsCase.detal(id);
+      notifyListeners();
+    } catch (err) {
+      throw ("Error DiscountDataP: $err");
+    }
+  }
+
+  Future<DiscountDetalEntity> fetchDetal(int id) async {
+    try {
+      return await discountsCase.detal(id);
+    } catch (err) {
+      throw ("Error DiscountDataP: $err");
+    }
+  }
+//Detal==========================================================================
+
 //Categories==========================================================================
   // MainPageEntity entity = MainPageEntity.empty;
   // MainPageEntity entity = MainPageEntity.frowJson(api);

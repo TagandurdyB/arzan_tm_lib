@@ -1,10 +1,12 @@
 class UserRequestEntity {
   final String phone;
-  final String token;
+  final String? pass;
+  final String? token;
 
   UserRequestEntity({
     required this.phone,
-    required this.token,
+    this.pass,
+    this.token,
   });
 }
 

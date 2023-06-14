@@ -29,7 +29,7 @@ class BanerModel extends BanerEntity {
   factory BanerModel.frowJson(Map<String, dynamic> json) {
     try {
       return BanerModel(
-          id: int.parse(json["id"]),
+          id: json["id"],
           img: json["banner_img"],
           note: json["note"] ?? "",
           title: json["title"] ?? "",

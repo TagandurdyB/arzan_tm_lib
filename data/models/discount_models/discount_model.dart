@@ -47,10 +47,10 @@ class DiscountModel extends DiscountEntity {
     try {
       return DiscountModel(
         id: json["id"],
-        mod: json["mod"] ?? 0,
-        viewed: 0, //json["viewed"],
+        mod:   0,
+        viewed: int.parse(json["viewed"]), //json["viewed"],
         img: json["discount_img"],
-        createdAt: DateTime.now(), //json["createdAt"],
+        createdAt: DateTime.parse(json["createdAt"]), //json["createdAt"],
         title: json["title"],
       );
     } catch (err) {

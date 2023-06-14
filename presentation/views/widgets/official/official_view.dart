@@ -37,6 +37,7 @@ class _OfficialViewState extends State<OfficialView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => DiscountDetal(
+                              id: 1,
                               obj: DiscountDetalEntity(
                                 userImg:
                                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",

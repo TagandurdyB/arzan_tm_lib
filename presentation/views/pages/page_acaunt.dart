@@ -25,9 +25,10 @@ class AcauntPage extends StatelessWidget {
 
   int acauntIndex(BuildContext context) {
     final String role = HiveP.of(context).readStr(Tags.hiveRole)!;
+    print("user:=$role");
     if (role == "user") {
       return 0;
-    } else if (role == "official") {
+    } else if (role == "offical") {
       return 1;
     } else {
       return 2;

@@ -1,10 +1,10 @@
 class CheckEntity {
-  final String uniqueId;
+  final String? uniqueId;
   final String phone;
   final bool isEmpty;
 
   CheckEntity({
-    required this.uniqueId,
+    this.uniqueId,
     required this.phone,
     this.isEmpty = true,
   });

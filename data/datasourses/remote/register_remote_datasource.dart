@@ -16,6 +16,7 @@ abstract class RegisterRemoteDataSource {
   Future<ResponseModel> postSignUp(SignUpModel obj);
   Future<UserResponseModel> postLogIn(LogInModel obj);
   Future<ResponseModel> postCheck(CheckModel obj);
+  Future<ResponseModel> postRecover(UserRequestModel obj);
   Future<UserResponseModel> postUser(UserRequestModel obj);
 }
 
@@ -82,6 +83,26 @@ class RegisterDataSourceImpl implements RegisterRemoteDataSource {
         print("Error in Check!!! :${response.body}");
         print("Error in Check!!! :${obj.toJson()}");
         return ResponseModel.frowJson(json.decode(response.body));
+      }
+    });
+  }
+
+  @override
+  Future<ResponseModel> postRecover(UserRequestModel obj) async {
+    return await httpClient
+        .post(Uris.recover,
+            headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
+        .then((response) {
+      final res = json.decode(response.body);
+      if (response.statusCode == 200) {
+        // final status = res[""];
+        print("***recover $res");
+        return ResponseModel.frowJson(res);
+      } else {
+        print("Error in recover!!! statusCode:${response.statusCode}");
+        print("Error in recover!!! :${response.body}");
+        print("Error in recover!!! :${obj.toJson()}");
+        return ResponseModel.frowJson(res);
       }
     });
   }

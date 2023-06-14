@@ -6,9 +6,14 @@ class Uris {
   static Uri login = Uri.parse("$IP/login");
   static Uri checkUser = Uri.parse("$IP/userinformation");
   static Uri checkAcaunt = Uri.parse("$IP/checkactivate");
-  static Uri banner(String welayat, String page) => Uri.parse("$IP/banners");
+  static Uri recover = Uri.parse("$IP/user_reset");
+  static Uri banner(String welayat, String page) =>
+      Uri.parse("https://it.net.tm/arzanapi/api/v1/banner");
   // Uri.parse("$IP/arzanapi/api/v1/mobile?welayat=$welayat?page=$page");
-  static Uri discounts = Uri.parse("$IP/arzanapi/api/v1/mobile");
+  static Uri discounts =
+      Uri.parse("https://it.net.tm/arzanapi/api/v1/discount");
+  static Uri disDetal(int id) =>
+      Uri.parse("https://it.net.tm/arzanapi/api/v1/discount/edit/$id");
   static Uri postDiscount =
       Uri.parse("$IP/arzanapi/api/v1/discount/mobile/create");
   static Uri discoutCategories = Uri.parse("$IP/categories");

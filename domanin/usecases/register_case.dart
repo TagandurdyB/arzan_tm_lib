@@ -13,8 +13,12 @@ class RegisterCase {
 
   Future<ResponseEntity> postSignUp(SignUpEntity obj) async =>
       await register.postSignUp(obj);
+      
   Future<ResponseEntity> postCheck(CheckEntity obj) async =>
       await register.postCheck(obj);
+  Future<ResponseEntity> postRecover(UserRequestEntity obj) async =>
+      await register.postRecover(obj);
+      
   Future<UserResponseEntity> postLogIn(LoginEntity obj) async =>
       await register.postLogIn(obj);
   Future<UserResponseEntity> postUser(UserRequestEntity obj) async =>

@@ -1,5 +1,11 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/providers/data/discount_data_provider.dart';
+
+import '../../../../config/routes/my_route.dart';
+import '../../../../config/vars/constants.dart';
+import '/config/services/connection.dart';
+
 import '../../../../config/services/launcher_service.dart';
 import '/config/vars/formater.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
@@ -14,25 +20,67 @@ import 'package:flutter/material.dart';
 import '../../scaffold/custom_app_bar.dart';
 import '../zoom/page_multi_zoom.dart';
 
-class DiscountDetal extends StatelessWidget {
-  final DiscountDetalEntity obj;
-  DiscountDetal({required this.obj, super.key});
+class DiscountDetal extends StatefulWidget {
+  final DiscountDetalEntity? obj;
+  final int id;
+  const DiscountDetal({this.obj, required this.id, super.key});
 
+  @override
+  State<DiscountDetal> createState() => _DiscountDetalState();
+}
+
+class _DiscountDetalState extends State<DiscountDetal> {
   final double arentir = MySize.arentir;
-  late BuildContext context;
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnect();
+  }
+
+  void checkConnect() async {
+    final bool isConnect = await ConnectionService.isConnected();
+    if (!isConnect) Navigator.pushNamed(context, Rout.disconnect);
+    // if (!isConnect) {
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     DiscountDataP.of(context, listen: false).fillDetal(widget.id);
+    //   });
+    // } else {
+    //   Navigator.pushNamed(context, Rout.disconnect);
+    // }
+  }
+
+  late DiscountDetalEntity obj;
+
   @override
   Widget build(BuildContext context) {
+    // obj = DiscountDataP.of(context).detal;
     return ScaffoldNo(
-      body: Column(children: [
-        CustomAppBar(
-          titleW: buildTitle(obj.userImg, obj.userName),
-        ),
-        Expanded(
-            child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: buildContent,
-        ))
-      ]),
+      body: FutureBuilder(
+          future:
+              DiscountDataP.of(context, listen: false).fetchDetal(widget.id),
+          builder: (context, ss) {
+            if (ss.hasError) {
+              return Center(child: Text("Error: ${ss.error}"));
+            } else if (ss.hasData) {
+              obj = ss.data!;
+              return Column(children: [
+                CustomAppBar(
+                  titleW: buildTitle(obj.userImg, obj.userName),
+                ),
+                Expanded(
+                    child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: buildContent,
+                ))
+              ]);
+            } else {
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.green,
+              ));
+            }
+          }),
     );
   }
 
@@ -94,7 +142,7 @@ class DiscountDetal extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(arentir * 0.03),
           child: Text(
-            obj.about,
+            obj.about == "" ? Words.disDetalAbout : obj.about,
             style: TextStyle(fontSize: arentir * 0.041),
           ),
         ),
@@ -119,11 +167,7 @@ class DiscountDetal extends StatelessWidget {
       buildBtn(() {}, Icons.chat_outlined),
       buildBtn(() {}, Icons.switch_access_shortcut_add_rounded),
       const Expanded(child: SizedBox()),
-      buildBtn(
-        () {},
-        Icons.favorite_border,
-        color: const Color(0xffE50027),
-      ),
+      LikeBtn(iconSize: arentir * 0.07),
     ]);
   }
 
@@ -303,7 +347,8 @@ class _ImgIndicatorViewState extends State<ImgIndicatorView> {
                                     startIndex: index,
                                   )));
                     },
-                    child: ShimmerImg(imageUrl: widget.imgs[index]))),
+                    child: ShimmerImg(
+                        fit: BoxFit.contain, imageUrl: widget.imgs[index]))),
             onPageChanged: (index) => setState(() => _viewedIndex = index),
           ),
           Positioned(

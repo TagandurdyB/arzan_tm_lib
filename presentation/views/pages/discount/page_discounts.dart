@@ -93,13 +93,14 @@ class _DiscountsPageState extends State<DiscountsPage> {
         ),
       ])),
       SliverPadding(
-        padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
+        padding: EdgeInsets.only(
+            left: arentir * 0.02, right: arentir * 0.02, bottom: arentir * 0.3),
         sliver: selectPage == 0
             ? DiscountView(
                 objs: providDD.discounts,
               )
             : selectPage == 1
-                ? DiscountCategories()
+                ? const DiscountCategories()
                 : DiscountSections(),
       )
       // Expanded(

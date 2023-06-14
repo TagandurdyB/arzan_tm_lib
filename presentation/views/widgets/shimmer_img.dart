@@ -30,13 +30,22 @@ class ShimmerImg extends StatelessWidget {
       imageUrl: imageUrl,
       cacheManager: CacheManager(Config("images",
           stalePeriod: const Duration(days: 15), maxNrOfCacheObjects: 500)),
-      placeholder: (context, url) => Shimmer.fromColors(
+      // progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+      //     child: CircularProgressIndicator(value: downloadProgress.progress)),
+      progressIndicatorBuilder: (context, url, downloadProgress) =>
+          Shimmer.fromColors(
         baseColor: themeColor.shimmerBg,
         highlightColor: themeColor.shimmerLine,
         enabled: true,
         direction: ShimmerDirection.ltr,
         period: const Duration(seconds: 1),
-        child: child ?? Container(color: Colors.grey),
+        child: child ??
+            Container(
+              color: Colors.grey,
+              alignment: Alignment.center,
+              child:
+                  CircularProgressIndicator(value: downloadProgress.progress),
+            ),
       ),
       errorWidget: (context, url, error) => buildError(),
       // imageBuilder: ,

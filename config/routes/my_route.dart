@@ -27,7 +27,7 @@ import '/presentation/views/pages/page_videos.dart';
 import '../../presentation/views/pages/page_acaunt.dart';
 import '../../presentation/views/pages/chosen/page_chosen.dart';
 
-import '/presentation/views/pages/page_send_sms.dart';
+import '../../presentation/views/pages/register/page_send_sms.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/providers/data/provider_acaunt.dart';
@@ -35,7 +35,7 @@ import '../../presentation/views/pages/page_about.dart';
 import '../../presentation/views/pages/page_home.dart';
 import '../../presentation/views/pages/page_logo.dart';
 import '../../presentation/views/pages/page_new_pass.dart';
-import '../../presentation/views/pages/page_recovery_phone.dart';
+import '../../presentation/views/pages/register/page_recovery_phone.dart';
 import '../../presentation/views/screens/screen_search.dart';
 import '../../presentation/views/pages/page_settings.dart';
 import '../../presentation/views/pages/page_verification.dart';
@@ -53,6 +53,7 @@ class Rout {
   static const String signUpVerifi = "/SignUpVerificarionPage";
   static const String newPass = "/NewPassPage";
   static const String sendSMS = "/SendSmsPage";
+  static const String sendRecoverSMS = "/SendSmsPage(isRecover:true)";
   static const String chosen = "/ChosenPage";
   static const String acaunt = "/AcauntPage";
   static const String images = "/ImagesPage";
@@ -101,15 +102,16 @@ class Rout {
         ),
     newPass: (context) => const NewPassPage(),
     sendSMS: (context) => SendSmsPage(),
+    sendRecoverSMS: (context) => SendSmsPage(isRecover: true),
     chosen: (context) => ChosenPage(),
     acaunt: (context) => AcauntPage(),
     images: (context) => const ImagesPage(),
     // imagesDetal:(context)=> const ImageDetalPage(),
     videos: (context) => VideosPage(),
-    tops: (context) => TopsPage(),
+    tops: (context) => const TopsPage(),
     discounts: (context) => const DiscountsPage(),
     legalInfo: (context) => const LegalInfoPage(),
-    officials: (context) =>  OfficialsPage(),
+    officials: (context) => OfficialsPage(),
     favorites: (context) => const FavoritesPage(),
     contact: (context) => const ContactPage(),
     share: (context) => const SharePage(),

@@ -34,6 +34,11 @@ class AcauntP extends ChangeNotifier {
     return entity;
   }
 
+  Future<ResponseEntity> recover(UserRequestEntity obj) async {
+    final ResponseEntity entity = await registerCase.postRecover(obj);
+    return entity;
+  }
+
   Future<UserResponseEntity> logIn(LoginEntity obj) async {
     final UserResponseEntity entity = await registerCase.postLogIn(obj);
     if (entity.isEmpty == false) {

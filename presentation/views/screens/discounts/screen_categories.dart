@@ -40,10 +40,10 @@ class DiscountCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final objs = context.watch<DiscountDataP>().categories;
-    return SliverList(
-      delegate: SliverChildListDelegate(
-          objs.map((obj) => CategoryCard(objc: obj)).toList()),
-    );
+    return  SliverList(
+        delegate: SliverChildListDelegate(
+            objs.map((obj) => CategoryCard(objc: obj)).toList()),
+      );
   }
 
   // SliverList(

@@ -3,7 +3,7 @@ import '/presentation/providers/data/provider_acaunt.dart';
 import 'package:flutter/material.dart';
 
 import 'profile/profile_screens.dart';
-import 'screen_register.dart';
+import 'register/screen_register.dart';
 import 'profile/screen_user.dart';
 
 // ignore: must_be_immutable

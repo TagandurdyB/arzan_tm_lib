@@ -1,3 +1,4 @@
+import '../entities/discounts/discount_detal_entity.dart';
 import '/domanin/entities/discounts/post_discount_entity.dart';
 
 import '/domanin/entities/register/response_entity.dart';
@@ -10,6 +11,8 @@ class DiscountsCase {
   DiscountsCase(this.repository);
 
   Future<List<DiscountEntity>> get() async => await repository.getDiscounts();
+  Future<DiscountDetalEntity> detal(int id) async =>
+      await repository.getDetal(id);
   Future<ResponseEntity> postDiscount(PostDiscountEntity obj) async =>
       await repository.postDiscount(obj);
   Future<List> categories() async => await repository.discountCategories();

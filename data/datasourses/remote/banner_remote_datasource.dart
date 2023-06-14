@@ -17,9 +17,10 @@ class BannerDataSourceImpl implements BannerRemoteDataSource {
   Future<List<BanerModel>> getBanners(String welayat, String page) async {
     final response = await httpClient.get(Uris.banner(welayat, page),
         headers: Headers.contentJson);
-    final res = json.decode(response.body);
+    final res = json.decode(response.body)["banners"] as List;
+    final resList = res.where((element) => element["type"] == "App").toList();
     if (response.statusCode == 200) {
-      return BanerModel.fromJsonList(res);
+      return BanerModel.fromJsonList(resList);
     } else {
       return [];
     }

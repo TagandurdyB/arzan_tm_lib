@@ -1,22 +1,24 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-import '../../../config/services/device_info.dart';
-import '../../providers/data/hive_provider.dart';
+import '../../../../config/services/device_info.dart';
+import '../../../providers/data/hive_provider.dart';
 import '/domanin/entities/register/check_entity.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../config/services/launcher_service.dart';
-import '../../providers/data/provider_acaunt.dart';
-import '../widgets/my_pop_widget.dart';
+import '../../../../config/services/launcher_service.dart';
+import '../../../providers/data/provider_acaunt.dart';
+import '../../widgets/my_pop_widget.dart';
 import '/presentation/views/widgets/ReadyInput/ready_input_base.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/vars/constants.dart';
-import '../scaffold/recovery_scaffold.dart';
-import '../widgets/next_btn.dart';
+import '../../../../config/vars/constants.dart';
+import '../../scaffold/recovery_scaffold.dart';
+import '../../widgets/next_btn.dart';
+import 'page_pass.dart';
 
 class SendSmsPage extends StatelessWidget {
-  SendSmsPage({super.key});
+  final bool isRecover;
+  SendSmsPage({this.isRecover = false, super.key});
   int raund = 0;
 
   void _funcSend() async {
@@ -59,10 +61,8 @@ class SendSmsPage extends StatelessWidget {
           // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
           hiveP.saveStr("user", Tags.hiveRole);
           MyPopUpp.popMessage(context, () {
-            AcauntP.of(context, listen: false).changeScreen(0);
-            // ProviderNav.of(context, listen: false).changeScreen(0);
-            // Navigator.pushNamedAndRemoveUntil(
-            //     context, Rout.home, (route) => route.isFirst);
+            // AcauntP.of(context, listen: false).changeScreen(0);
+            isRecover ? _signUpFunc() : _recoverFunc(response.token!);
           }, "Siz üstünlükli tassyklandyňyz!", !response.status);
         } else if (raund < 5) {
           checkTimer();
@@ -76,6 +76,15 @@ class SendSmsPage extends StatelessWidget {
           "Anyklanylmady! Siz sms ugratmadyk bolmagyňyz mümkin. Täzeden synanşyň!",
           true);
     }
+  }
+
+  void _signUpFunc() => AcauntP.of(context, listen: false).changeScreen(0);
+
+  void _recoverFunc(String token) {
+    // Recover
+    Navigator.pop(context);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => PasswordPage(token: token)));
   }
 
   late BuildContext context;

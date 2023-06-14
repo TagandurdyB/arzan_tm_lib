@@ -6,12 +6,15 @@ class UserRequestModel extends UserRequestEntity {
   @override
   final String phone;
   @override
-  final String token;
+  final String? pass;
+  @override
+  final String? token;
 
   UserRequestModel({
     required this.phone,
-    required this.token,
-  }) : super(phone: phone, token: token);
+    this.pass,
+    this.token,
+  }) : super(phone: phone, pass: pass, token: token);
 
   static UserRequestModel get empty => UserRequestModel(
         phone: '',
@@ -22,6 +25,7 @@ class UserRequestModel extends UserRequestEntity {
     try {
       return UserRequestModel(
         phone: entity.phone,
+        pass: entity.pass,
         token: entity.token,
       );
     } catch (err) {
@@ -32,6 +36,7 @@ class UserRequestModel extends UserRequestEntity {
   @override
   Map<String, dynamic> toJson() => {
         "phone": phone,
+        "pass": pass,
         "token": token,
       };
 }
@@ -89,8 +94,8 @@ class UserResponseModel extends UserResponseEntity {
   factory UserResponseModel.frowJson(Map<String, dynamic> json) {
     try {
       return UserResponseModel(
-        uniqueId: json["uniqueId"]??"",
-        id: int.parse(json["id"]??"0"),
+        uniqueId: json["uniqueId"] ?? "",
+        id: int.parse(json["id"] ?? "0"),
         name: json["name"],
         email: json["email"],
         phone: json["phone"] ?? "no",
