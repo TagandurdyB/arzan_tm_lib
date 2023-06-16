@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import '../../../config/services/soud_service.dart';
+
 class Bubble {
   final Color color;
   final double direction;
@@ -27,7 +29,7 @@ class LikeEffect extends StatefulWidget {
   const LikeEffect(
       {required this.bubbleCount,
       this.onTap,
-      this.duration = const Duration(seconds: 7),
+      this.duration = const Duration(seconds: 3),
       this.isLiked = false,
       this.child,
       super.key});
@@ -90,7 +92,7 @@ class _LikeEffectState extends State<LikeEffect>
         builder: (context, ss) {
           final query = MediaQuery.of(context).size;
           final circleSize =
-              (query.height * 0.4) * math.pow((_prossesAnim.value + 1), 2);
+              (query.height * 0.2) * math.pow((_prossesAnim.value + 1), 2);
           return Stack(
             alignment: Alignment.topCenter,
             children: [
@@ -100,6 +102,7 @@ class _LikeEffectState extends State<LikeEffect>
                     if (!isLiked) {
                       _animControl.reset();
                       _animControl.forward();
+                      SoundService.playLike;
                     }
                     isLiked = !isLiked;
                     if (widget.onTap != null) widget.onTap!(isLiked);
@@ -131,7 +134,7 @@ class _LikeEffectState extends State<LikeEffect>
                 // ),
               ),
               Positioned(
-                height: circleSize,
+                height: circleSize / 2,
                 width: circleSize,
                 bottom: 0,
                 child: AnimatedOpacity(

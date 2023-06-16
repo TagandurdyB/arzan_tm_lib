@@ -17,7 +17,7 @@ class _VideoLikeEffState extends State<VideoLikeEff> {
   @override
   Widget build(BuildContext context) {
     return LikeEffect(
-      bubbleCount: 250,
+      bubbleCount: 75,
       onTap: (bool val) {
         setState(() => isLike = val);
       },

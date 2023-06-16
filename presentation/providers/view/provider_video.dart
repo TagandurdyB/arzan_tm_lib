@@ -34,6 +34,11 @@ class VideoP extends ChangeNotifier {
     }
   }
 
+  void get forvordHidden {
+    _isForvardShow = false;
+    notifyListeners();
+  }
+
   bool _isLadscape = false;
   bool get isLadscape => _isLadscape;
   bool _isPortrade = true;

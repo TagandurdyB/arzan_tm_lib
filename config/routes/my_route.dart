@@ -1,3 +1,4 @@
+import '../../presentation/views/pages/lotties/page_500.dart';
 import '/presentation/views/pages/lotties/page_disconntect.dart';
 import '/presentation/views/pages/lotties/page_not_found.dart';
 
@@ -75,6 +76,7 @@ class Rout {
 
   //Lotties=============================================
   static const String page404 = "/Page404";
+  static const String page500 = "/Page500";
   static const String pageNotFound = "/PageNotFound";
   static const String disconnect = "/PageDisconnect";
 
@@ -122,6 +124,7 @@ class Rout {
     boughts: (context) => const BoughtsPage(),
     //Lotties=============================================
     page404: (context) => Page404(),
+    page500: (context) => Page500(),
     pageNotFound: (context) => PageNotFound(),
     disconnect: (context) => PageDisconnect(),
     //====================================================

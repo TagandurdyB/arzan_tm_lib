@@ -24,8 +24,8 @@ class ResponseModel extends ResponseEntity {
   factory ResponseModel.frowJson(Map<String, dynamic> json) {
     try {
       return ResponseModel(
-        result: json["result"],
-        status: json["status"]=="true",
+        result: json["message"],
+        status: json["status"],
         token: json["token"],
         isEmpty: false,
       );

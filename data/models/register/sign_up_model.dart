@@ -68,10 +68,10 @@ class SignUpModel extends SignUpEntity {
 
   @override
   Map<String, dynamic> toJson() => {
-        "uniqe_id": uniqueId,
+    
         "name": userName,
-        "pass": userPassword,
-        "phone": userPhone,
-        "link": inviterLink,
+        "password": userPassword,
+        "phone": "+$userPhone",
+        // "link": inviterLink,
       };
 }

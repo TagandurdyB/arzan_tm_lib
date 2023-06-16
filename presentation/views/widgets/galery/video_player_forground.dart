@@ -7,8 +7,6 @@ import '../../../../config/services/my_size.dart';
 import '../../../../config/vars/formater.dart';
 import '../../../providers/view/provider_video.dart';
 
-import 'dart:ui' as ui;
-
 import '../read_more_text.dart';
 
 class VideoPlayerForground extends StatelessWidget {
@@ -25,17 +23,20 @@ class VideoPlayerForground extends StatelessWidget {
     providVdo = VideoP.of(context, listen: false);
     return Visibility(
       visible: providV.isForvardShow,
-      child: Container(
-          alignment: Alignment.center,
-          color: Colors.black54,
-          child: Stack(
+      child: GestureDetector(
+        onDoubleTap: ()=>providVdo.forvordHidden,
+        child: Container(
             alignment: Alignment.center,
-            children: [
-              // const Expanded(child: SizedBox()),
-              buildPlayPause,
-              buildBottom
-            ],
-          )),
+            color: Colors.black54,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // const Expanded(child: SizedBox()),
+                buildPlayPause,
+                buildBottom
+              ],
+            )),
+      ),
     );
   }
 
@@ -46,32 +47,6 @@ class VideoPlayerForground extends StatelessWidget {
         providV.isPlayed ? Icons.play_arrow : Icons.pause,
         color: Colors.white,
         size: arentir * 0.15,
-      ),
-    );
-  }
-
-  Widget get buildPlayPause1 {
-    return GestureDetector(
-      onTap: _funcPlayPause,
-      child: Container(
-        width: arentir * 0.2,
-        height: arentir * 0.2,
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          // color: Colors.red,
-          borderRadius: BorderRadius.circular(arentir * 1),
-        ),
-        child: BackdropFilter(
-          filter: ui.ImageFilter.blur(
-            sigmaX: 50.0,
-            sigmaY: 50.0,
-          ),
-          child: Icon(
-            providV.isPlayed ? Icons.play_arrow : Icons.pause,
-            color: Colors.white,
-            size: arentir * 0.15,
-          ),
-        ),
       ),
     );
   }

@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan_tm/presentation/views/pages/lotties/page_500.dart';
+
 import '/presentation/providers/data/discount_data_provider.dart';
 
 import '../../../../config/routes/my_route.dart';
@@ -61,7 +63,7 @@ class _DiscountDetalState extends State<DiscountDetal> {
               DiscountDataP.of(context, listen: false).fetchDetal(widget.id),
           builder: (context, ss) {
             if (ss.hasError) {
-              return Center(child: Text("Error: ${ss.error}"));
+              return Page500();
             } else if (ss.hasData) {
               obj = ss.data!;
               return Column(children: [

@@ -25,6 +25,7 @@ class RegisterDataSourceImpl implements RegisterRemoteDataSource {
   RegisterDataSourceImpl(this.httpClient);
   @override
   Future<ResponseModel> postSignUp(SignUpModel obj) async {
+    print("URL://${Uris.register}");
     return await httpClient
         .post(Uris.register,
             headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
@@ -69,20 +70,21 @@ class RegisterDataSourceImpl implements RegisterRemoteDataSource {
 
   @override
   Future<ResponseModel> postCheck(CheckModel obj) async {
+    print("request postCheck+ + + :=+${obj.phone}");
     return await httpClient
         .post(Uris.checkAcaunt,
             headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
         .then((response) {
+      final res = json.decode(response.body);
+      print("response postCheck:=$res");
       if (response.statusCode == 200) {
-        print("*** ${json.decode(response.body)}");
-        final String token = json.decode(response.body)["token"];
-        print("token:=$token");
-        return ResponseModel.frowJson(json.decode(response.body));
+        print("*** $res");
+        return ResponseModel.frowJson(res);
       } else {
         print("Error in Check!!! statusCode:${response.statusCode}");
         print("Error in Check!!! :${response.body}");
         print("Error in Check!!! :${obj.toJson()}");
-        return ResponseModel.frowJson(json.decode(response.body));
+        return ResponseModel.frowJson(res);
       }
     });
   }

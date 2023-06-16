@@ -332,7 +332,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget get buildDropItems {
     return Column(
       children: [
-        buildDropItem(selectedItem == 0, Words.vreification1, 0),
+        // buildDropItem(selectedItem == 0, Words.vreification1, 0),
         buildDropItem(selectedItem == 1, Words.vreification2, 1),
       ],
     );

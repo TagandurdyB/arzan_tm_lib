@@ -108,7 +108,7 @@ class CustomDrawer extends StatelessWidget {
           route: Rout.contact),
       // DrawerBtn(Icons.share_outlined, "Paýlaşmak", context, route: Rout.share),
       DrawerBtn(Icons.share_outlined, "Paýlaşmak", context,
-          route: Rout.disconnect),
+          route: Rout.page500),
     ]);
   }
 
