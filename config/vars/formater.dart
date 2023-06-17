@@ -65,6 +65,74 @@ class Formater {
     final result = items.where((element) => element == item);
     return result.isNotEmpty;
   }
+
+  static bool hasChar(String str) {
+    int length = 0;
+    for (int i = 0; i <= 9; i++) {
+      if (str.contains("$i")) length++;
+    }
+    for (int i = 0; i < simbols.length; i++) {
+      if (str.contains(simbols[i])) length++;
+    }
+    final int finalLength = str.length - length;
+    return finalLength > 0;
+  }
+
+  static bool isUpperCase(String letter) {
+    if (!hasChar(letter)) return false;
+    return letter == letter.toUpperCase();
+  }
+
+  static bool hasUpper(String text) {
+    for (int i = 0; i < text.length; i++) {
+      if (isUpperCase(text[i])) return true;
+    }
+    return false;
+  }
+
+  static bool isLowerCase(String letter) {
+    if (!hasChar(letter)) return false;
+    return letter == letter.toLowerCase();
+  }
+
+  static bool hasLower(String text) {
+    for (int i = 0; i < text.length; i++) {
+      if (isLowerCase(text[i])) return true;
+    }
+    return false;
+  }
+
+  static bool hasNum(String text) {
+    for (int i = 0; i <= 9; i++) {
+      if (text.contains("$i")) return true;
+    }
+    return false;
+  }
+
+  static List simbols = [
+    "!",
+    "@",
+    "#",
+    "\$",
+    "%",
+    "^",
+    "&",
+    "*",
+    "(",
+    ")",
+    "-",
+    "_",
+    "+",
+    "=",
+    " ",
+    "/",
+  ];
+  static bool hasSimbol(String text) {
+    for (int i = 0; i < simbols.length; i++) {
+      if (text.contains(simbols[i])) return true;
+    }
+    return false;
+  }
 }
 
 class TimeConterter {

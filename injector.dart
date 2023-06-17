@@ -2,13 +2,13 @@ import '/presentation/providers/data/chosen_data_provider.dart';
 
 import '/domanin/usecases/discounts_case.dart';
 
-import '/domanin/usecases/banner_case.dart';
+import 'domanin/usecases/values_case.dart';
 
-import '/presentation/providers/data/banner_provider.dart';
+import 'presentation/providers/data/values_provider.dart';
 
-import 'data/datasourses/remote/banner_remote_datasource.dart';
+import 'data/datasourses/remote/values_remote_datasource.dart';
 import 'data/datasourses/remote/discounts_remote_datasource.dart';
-import 'data/repositories/banner_repository_impl.dart';
+import 'data/repositories/values_repository_impl.dart';
 import 'data/repositories/discounts_repository_impl.dart';
 import 'presentation/providers/data/discount_data_provider.dart';
 
@@ -71,10 +71,10 @@ class Injector extends StatelessWidget {
                     registerCase: RegisterCase(RegisterRepositoryImpl(
                         RegisterDataSourceImpl(http.Client()))),
                   )),
-          ChangeNotifierProvider<BannerP>(
-              create: (_) => BannerP(
-                    bannerCase: BannerCase(BannerRepositoryImpl(
-                        BannerDataSourceImpl(http.Client()))),
+          ChangeNotifierProvider<ValuesP>(
+              create: (_) => ValuesP(
+                    valuesCase: ValuesCase(ValuesRepositoryImpl(
+                        ValuesDataSourceImpl(http.Client()))),
                   )),
           ChangeNotifierProvider<DiscountDataP>(
               create: (_) => DiscountDataP(

@@ -6,7 +6,7 @@ import '../widgets/widget_btn.dart';
 import '/domanin/entities/main_page/main_new_officials_entity.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/data/banner_provider.dart';
+import '../../providers/data/values_provider.dart';
 import '../widgets/main_page_widgets/main_new_officials.dart';
 import '/domanin/entities/main_page/main_page_entity.dart';
 
@@ -166,7 +166,7 @@ class _ScreenMainState extends State<ScreenMain> {
       );
 
   Widget get buildSlider {
-    final banner = context.watch<BannerP>().banners;
+    final banner = context.watch<ValuesP>().banners;
     return Container(
       alignment: Alignment.topCenter,
       // child: CustomCarusel(

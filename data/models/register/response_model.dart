@@ -23,10 +23,13 @@ class ResponseModel extends ResponseEntity {
 
   factory ResponseModel.frowJson(Map<String, dynamic> json) {
     try {
+      print("message type:=${json["message"].runtimeType}");
+      print("status type:=${json["status"].runtimeType}");
+      // print("token type:=${json["data"]["token"].runtimeType}");
       return ResponseModel(
-        result: json["message"],
+        result: json["message"] ?? "null",
         status: json["status"],
-        token: json["token"],
+        token: json["data"] != null ? json["data"]["token"] : null,
         isEmpty: false,
       );
     } catch (err) {

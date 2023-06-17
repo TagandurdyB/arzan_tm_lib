@@ -1,5 +1,5 @@
 class SignUpEntity {
-  final String uniqueId;
+  final String? uniqueId;
   final String userName;
   final String userPassword;
   final String userPhone;
@@ -7,7 +7,7 @@ class SignUpEntity {
   final bool isEmpty;
 
   SignUpEntity({
-    required this.uniqueId,
+     this.uniqueId,
     required this.userName,
     required this.userPassword,
     required this.userPhone,

@@ -123,7 +123,7 @@ class ProfileUser extends StatelessWidget {
             iconGroup(Icons.phone, obj.phone, const Color(0xff727272)),
             const SizedBox(height: 10),
             iconGroup(Icons.location_on_outlined,
-                hiveP.readStr(Tags.hiveWelayat)!, const Color(0xff727272)),
+                hiveP.readStr(Tags.hiveLocation)!, const Color(0xff727272)),
             Padding(
               padding: EdgeInsets.symmetric(vertical: arentir * 0.08),
               child: buildStatistics,

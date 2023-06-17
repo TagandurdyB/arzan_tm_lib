@@ -1,12 +1,14 @@
+import '/domanin/entities/location_entity.dart';
+
 import '../../../domanin/entities/baner_entity.dart';
-import '/domanin/usecases/banner_case.dart';
+import '../../../domanin/usecases/values_case.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 
-class BannerP extends ChangeNotifier {
-  final BannerCase bannerCase;
-  BannerP({required this.bannerCase});
+class ValuesP extends ChangeNotifier {
+  final ValuesCase valuesCase;
+  ValuesP({required this.valuesCase});
 
   // MainPageEntity entity = MainPageEntity.empty;
   // MainPageEntity entity = MainPageEntity.frowJson(api);
@@ -18,10 +20,21 @@ class BannerP extends ChangeNotifier {
 
   Future<void> fillBanner(String welayat, String page) async {
     try {
-      banners = await bannerCase.get(welayat, page);
+      banners = await valuesCase.getBanners(welayat, page);
       notifyListeners();
     } catch (err) {
-      throw ("Error BannerP>fillBanner: $err");
+      throw ("Error ValuesP>fillBanner: $err");
+    }
+  }
+
+  List<LocationEntity> locations = [];
+
+  Future<void> fillLocations() async {
+    try {
+      locations = await valuesCase.getLocation();
+      notifyListeners();
+    } catch (err) {
+      throw ("Error ValuesP>fillLocations: $err");
     }
   }
 
@@ -34,6 +47,6 @@ class BannerP extends ChangeNotifier {
   //   // }
   // }
 
-  static BannerP of(BuildContext context, {bool listen = true}) =>
-      Provider.of<BannerP>(context, listen: listen);
+  static ValuesP of(BuildContext context, {bool listen = true}) =>
+      Provider.of<ValuesP>(context, listen: listen);
 }

@@ -83,12 +83,14 @@ class Tags {
   static const String rIPostPrice = "Ready Input Post Price";
   static const String rIPostDiscount = "Ready Input Post Discount";
   //hive========================================================================
-  static const String hiveBase = "Hive Theme Base";
+  static const String hiveBase = "Hive Value Base";
+  static const String hiveFavorites = "Hive Favorites Base";
   //================
   static const String themeSystem = "Hive Theme System";
   static const String themeLight = "Hive Theme Light";
   //================
-  static const String hiveWelayat = "Hive Welayat";
+  static const String hiveLocation = "Hive Welayat";
+  static const String hiveLocationId = "Hive Welayat ID";
   //================
   static const String hiveToken = "Hive Token";
   static const String hiveRole = "Hive Role";

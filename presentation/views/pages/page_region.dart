@@ -1,5 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import '/domanin/entities/location_entity.dart';
+
+import '/presentation/providers/data/values_provider.dart';
+
 import '../../../config/routes/my_route.dart';
 import '../../../config/vars/constants.dart';
 import '../../providers/data/hive_provider.dart';
@@ -26,6 +30,7 @@ class RegionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     this.context = context;
+    final valueP = ValuesP.of(context);
     return ScaffoldNo(
       bgColor: const Color(0xff20992C),
       body: ListView(
@@ -47,19 +52,23 @@ class RegionPage extends StatelessWidget {
             child: Image.asset("assets/Karta.png"),
           ),
           Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                  regions.length, (index) => buildBtn(regions[index]))),
-                  const SizedBox(height: 70)
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: valueP.locations.map((e) => buildBtn(e)).toList(),
+            // children: List.generate(
+            //     regions.length, (index) => buildBtn(regions[index])),
+          ),
+          const SizedBox(height: 70)
         ],
       ),
     );
   }
 
-  Widget buildBtn(String text) {
+  Widget buildBtn(LocationEntity obj) {
     return GestureDetector(
       onTap: () {
-        HiveP.of(context, listen: false).saveStr(text, Tags.hiveWelayat);
+        final hiveP = HiveP.of(context, listen: false);
+        hiveP.saveStr(obj.name, Tags.hiveLocation);
+        hiveP.saveInt(obj.id, Tags.hiveLocationId);
         Navigator.pushNamedAndRemoveUntil(
             context, Rout.home, (route) => route.isFirst);
       },
@@ -80,7 +89,7 @@ class RegionPage extends StatelessWidget {
           margin: EdgeInsets.all(arentir * 0.02),
           alignment: Alignment.center,
           child: Text(
-            text,
+            obj.name,
             style: TextStyle(
                 color: const Color(0xff20992C),
                 fontWeight: FontWeight.bold,

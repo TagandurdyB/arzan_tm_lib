@@ -4,6 +4,7 @@ import '../../../../config/routes/my_route.dart';
 import '../../../../config/services/device_info.dart';
 import '../../../../config/services/my_size.dart';
 import '../../../../config/vars/constants.dart';
+import '../../../../config/vars/formater.dart';
 import '../../../providers/data/hive_provider.dart';
 import '../../../providers/data/provider_acaunt.dart';
 import '../../widgets/ReadyInput/login_arzan_input.dart';
@@ -49,39 +50,37 @@ class _LoginScreenState extends State<LoginScreen> {
       isPressBefore = true;
       final bool isValidForm = formKey.currentState!.validate();
       if (isValidForm) {
-        //Login post
         haveError = false;
         MyPopUpp.popLoading(context);
         AcauntP.of(context, listen: false)
-            .logIn(LoginEntity(
+            .logInPost(LoginEntity(
           uniqueId: unicID,
-          phone: "993${RIBase.getText(Tags.rILoginPhone)}",
+          phone: "+993${RIBase.getText(Tags.rILoginPhone)}",
           userPassword: RIBase.getText(Tags.rILoginPass),
-          // userPassword: RIBase.getText(Tags.rILoginPass),
         ))
             .then((response) {
-          //Text!
-          final bool status = response.isEmpty;
-          //bolmalysy!
-          if (!status) ProviderNav.of(context, listen: false).changeScreen(0);
-          print("Login Status $status");
+          final bool status = response.status;
+          if (status) ProviderNav.of(context, listen: false).changeScreen(0);
           MyPopUpp.popMessage(
             context,
             () {
-              if (!status) {
+              if (status) {
+                print("Login Status $status   token=${response.token}");
+                print("token decode=${Formater.jWTDecode(response.token!)}");
                 final acauntP = AcauntP.of(context, listen: false);
-                acauntP.saveUserInfo(context, response);
+                // acauntP.saveUserInfo(context, response);
                 final hiveP = HiveP.of(context, listen: false);
                 hiveP.saveStr(
-                    "993${RIBase.getText(Tags.rILoginPhone)}", Tags.hivePhone);
+                    "+993${RIBase.getText(Tags.rILoginPhone)}", Tags.hivePhone);
+                hiveP.saveStr(response.token, Tags.hiveToken);
                 hiveP.saveBool(true, Tags.isLogin);
                 acauntP.logIned;
                 Navigator.pushNamedAndRemoveUntil(
                     context, Rout.home, (route) => route.isFirst);
               }
             },
-            status ? Words.loginNO : Words.loginOK,
-            status,
+            status ? Words.loginOK : Words.loginNO,
+            !status,
           );
         });
       } else {
@@ -94,6 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     this.context = context;
     return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
       physics: const BouncingScrollPhysics(),
       child: Form(
         key: formKey,

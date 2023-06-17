@@ -26,28 +26,30 @@ class DiscountDataP extends ChangeNotifier {
   //   // }
   // }
 
-  List<DiscountEntity> discounts = DiscountEntity.fromJsonList(
-    [
-      {
-        "id": 1,
-        "mod": 23,
-        "img":
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
-        "title": "Mebel zakaz1",
-        "created_at": DateTime.now(),
-        "viewed": 0,
-      },
-      {
-        "id": 2,
-        "mod": 23,
-        "img":
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
-        "title": "Mebel zakaz2 ",
-        "created_at": DateTime.now(),
-        "viewed": 0,
-      },
-    ],
-  );
+  // List<DiscountEntity> discounts = DiscountEntity.fromJsonList(
+  //   [
+  //     {
+  //       "id": 1,
+  //       "mod": 23,
+  //       "img":
+  //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
+  //       "title": "Mebel zakaz1",
+  //       "created_at": DateTime.now(),
+  //       "viewed": 0,
+  //     },
+  //     {
+  //       "id": 2,
+  //       "mod": 23,
+  //       "img":
+  //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
+  //       "title": "Mebel zakaz2 ",
+  //       "created_at": DateTime.now(),
+  //       "viewed": 0,
+  //     },
+  //   ],
+  // );
+
+  List<DiscountEntity> discounts = [];
 
   Future<void> fillDiscounts() async {
     try {

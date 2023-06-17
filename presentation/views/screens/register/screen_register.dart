@@ -1,8 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import '/presentation/views/screens/register/screen_sign_ups.dart';
+
 import '../../../providers/data/provider_acaunt.dart';
 import 'screen_login.dart';
-import 'screen_sign_up.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/services/my_size.dart';
@@ -19,7 +20,7 @@ class _ScreenRegisterState extends State<ScreenRegister> {
 
   final List<Widget> screens = [
     const LoginScreen(),
-    const SignUpScreen(),
+    SignUpsScreen(),
   ];
 
   late AcauntP providA, providAdo;
@@ -27,27 +28,28 @@ class _ScreenRegisterState extends State<ScreenRegister> {
   Widget build(BuildContext context) {
     providA = AcauntP.of(context);
     providAdo = AcauntP.of(context, listen: false);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          buildTopBar,
-          buildPageChanger(providA.screenIndex),
-          const SizedBox(height: 20),
-          Expanded(child: screens[providA.screenIndex]),
-        ],
-      ),
+    return Column(
+      children: [
+        buildTopBar,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: buildPageChanger(providA.screenIndex),
+        ),
+        const SizedBox(height: 20),
+        Expanded(child: screens[providA.screenIndex]),
+      ],
     );
   }
 
   Widget get buildTopBar => Container(
         // color: Colors.red,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         color: Colors.transparent,
         height: kToolbarHeight,
         child: Row(
           children: [
             Text(
-              "Agza bol",
+              providA.screenIndex == 0 ? "Ulgama girmek" : "Agza bol",
               style: TextStyle(
                   fontSize: MySize.arentir * 0.06, fontWeight: FontWeight.bold),
             ),

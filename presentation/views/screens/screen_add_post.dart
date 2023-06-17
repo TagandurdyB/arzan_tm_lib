@@ -67,7 +67,7 @@ class AddPostScreen extends StatelessWidget {
                     statedAt: providPostDo.startDate!,
                     endedAt: providPostDo.endDate!,
                     welayat: HiveP.of(context, listen: false)
-                        .readStr(Tags.hiveWelayat)!,
+                        .readStr(Tags.hiveLocation)!,
                     categoryId: 1,
                     subCategoryId: 1,
                   ))

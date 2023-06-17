@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import '../../providers/data/banner_provider.dart';
+import '../../providers/data/values_provider.dart';
 import '../widgets/widget_btn.dart';
 import '/presentation/providers/data/provider_gallery.dart';
 
@@ -81,7 +81,7 @@ class _ImagesPageState extends State<ImagesPage> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: MyCarusel(
-        items: BannerP.of(context).banners,
+        items: ValuesP.of(context).banners,
       ),
     );
   }

@@ -1,5 +1,5 @@
 import '../../../config/themes/styles.dart';
-import '../../providers/data/banner_provider.dart';
+import '../../providers/data/values_provider.dart';
 import '/presentation/providers/data/discount_data_provider.dart';
 
 import '/domanin/entities/register/user_http_entity.dart';
@@ -50,8 +50,10 @@ class _LogoPageState extends State<LogoPage> {
 
   void checkUserInfo() async {
     final hiveP = HiveP.of(context, listen: false);
-    final welayat = hiveP.readStr(Tags.hiveWelayat);
-    BannerP.of(context, listen: false).fillBanner(welayat ?? Words.TM, "main");
+    final welayat = hiveP.readStr(Tags.hiveLocation);
+    final valuesP = ValuesP.of(context, listen: false);
+    valuesP.fillBanner(welayat ?? Words.TM, "main");
+    valuesP.fillLocations();
 
     final token = hiveP.readStr(Tags.hiveToken);
     final phone = hiveP.readStr(Tags.hivePhone);
@@ -72,7 +74,7 @@ class _LogoPageState extends State<LogoPage> {
         AcauntP.of(context, listen: false).logIned;
       }
 
-      if (hiveP.readStr(Tags.hiveWelayat) != null) {
+      if (hiveP.readStr(Tags.hiveLocation) != null) {
         Navigator.pushReplacementNamed(context, Rout.home);
       } else {
         Navigator.pushReplacementNamed(context, Rout.region);

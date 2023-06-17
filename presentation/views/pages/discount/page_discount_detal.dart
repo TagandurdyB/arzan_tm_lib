@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan_tm/domanin/entities/discounts/discount_entity.dart';
 import 'package:arzan_tm/presentation/views/pages/lotties/page_500.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../../domanin/entities/hive_boxes.dart';
 import '/presentation/providers/data/discount_data_provider.dart';
 
 import '../../../../config/routes/my_route.dart';
@@ -23,9 +26,9 @@ import '../../scaffold/custom_app_bar.dart';
 import '../zoom/page_multi_zoom.dart';
 
 class DiscountDetal extends StatefulWidget {
-  final DiscountDetalEntity? obj;
+  final DiscountEntity parrentObj;
   final int id;
-  const DiscountDetal({this.obj, required this.id, super.key});
+  const DiscountDetal({required this.parrentObj, required this.id, super.key});
 
   @override
   State<DiscountDetal> createState() => _DiscountDetalState();
@@ -165,12 +168,34 @@ class _DiscountDetalState extends State<DiscountDetal> {
 
   Widget get buildGadgets {
     return Row(children: [
-      buildBtn(() {}, Icons.bookmark_outline_outlined),
+      buildFavoriteBtn,
       buildBtn(() {}, Icons.chat_outlined),
       buildBtn(() {}, Icons.switch_access_shortcut_add_rounded),
       const Expanded(child: SizedBox()),
       LikeBtn(iconSize: arentir * 0.07),
     ]);
+  }
+
+  Widget get buildFavoriteBtn => ValueListenableBuilder<Box<DiscountEntity>>(
+      valueListenable: Boxes.getFavoriteDiscounts().listenable(),
+      builder: (context, box, _) {
+        final mybox = Boxes.getFavoriteDiscounts();
+        final isFavorite = mybox.get(widget.id) != null;
+        return buildBtn(
+            () => isFavorite
+                ? deleteDemo(widget.parrentObj)
+                : addFavorite(widget.parrentObj),
+            isFavorite ? Icons.bookmark : Icons.bookmark_outline_outlined,
+            color: const Color(0xff0EC243));
+      });
+
+  Future addFavorite(DiscountEntity obj) async {
+    final box = Boxes.getFavoriteDiscounts();
+    box.put(widget.id, obj);
+  }
+
+  void deleteDemo(DiscountEntity obj) {
+    obj.delete();
   }
 
   Widget buildBtn(Function func, IconData iconD, {Color color = Colors.black}) {

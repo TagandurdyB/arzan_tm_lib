@@ -87,7 +87,7 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
     //===============================================================================================
 
     var request = http.MultipartRequest('POST', Uris.postDiscount)
-      ..headers.addAll(Headers.addPost(token))
+      ..headers.addAll(Headers.bearer(token))
       ..fields.addAll(element)
       ..files.add(imgList[0]);
 

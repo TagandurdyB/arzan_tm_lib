@@ -6,7 +6,7 @@ import '../../widgets/indicator_btns.dart';
 import '/config/services/my_size.dart';
 import '/presentation/providers/data/discount_data_provider.dart';
 
-import '../../../providers/data/banner_provider.dart';
+import '../../../providers/data/values_provider.dart';
 import '../../../providers/view/provider_discaunts.dart';
 import '../../widgets/carusel_slider.dart';
 import '../../widgets/discount/discount_view.dart';
@@ -115,7 +115,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: MyCarusel(
-        items: BannerP.of(context).banners,
+        items: ValuesP.of(context).banners,
       ),
     );
   }

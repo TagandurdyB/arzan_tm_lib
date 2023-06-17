@@ -1,10 +1,21 @@
-class DiscountEntity {
+import 'package:hive/hive.dart';
+part 'discount_entity.g.dart';
+
+@HiveType(typeId: 0)
+class DiscountEntity extends HiveObject{
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final int mod;
+  @HiveField(2)
   final int viewed;
+  @HiveField(3)
   final String img;
+  @HiveField(4)
   final DateTime createdAt;
+  @HiveField(5)
   final String title;
+  @HiveField(6)
   DiscountEntity({
     required this.id,
     required this.mod,
@@ -22,23 +33,4 @@ class DiscountEntity {
         createdAt: DateTime.now(),
         title: "",
       );
-
-  factory DiscountEntity.frowJson(Map<String, dynamic> json) {
-    try {
-      return DiscountEntity(
-        id: json["id"],
-        mod: json["mod"],
-        viewed: json["viewed"],
-        img: json["img"],
-        createdAt: json["created_at"],
-        title: json["title"],
-      );
-    } catch (err) {
-      throw ("Error in DiscountEntity : $err");
-    }
-  }
-
-  static List<DiscountEntity> fromJsonList(
-          List<Map<String, dynamic>> jsonList) =>
-      jsonList.map((json) => DiscountEntity.frowJson(json)).toList();
 }

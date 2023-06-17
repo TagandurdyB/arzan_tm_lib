@@ -34,7 +34,7 @@ class PodScreen extends StatelessWidget {
           imgUrl:
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnaZk2AqKXvnJCHHGwQVriC9rElnP2nEL4g&usqp=CAU",
           name: "Julian Herbs",
-          city: HiveP.of(context).readStr(Tags.hiveWelayat)!,
+          city: HiveP.of(context).readStr(Tags.hiveLocation)!,
           money: 1285,
         ),
         IndicatorBtns(

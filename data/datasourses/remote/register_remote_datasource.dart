@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 
 abstract class RegisterRemoteDataSource {
   Future<ResponseModel> postSignUp(SignUpModel obj);
-  Future<UserResponseModel> postLogIn(LogInModel obj);
+  Future<ResponseModel> postLogIn(LogInModel obj);
   Future<ResponseModel> postCheck(CheckModel obj);
   Future<ResponseModel> postRecover(UserRequestModel obj);
   Future<UserResponseModel> postUser(UserRequestModel obj);
@@ -44,26 +44,27 @@ class RegisterDataSourceImpl implements RegisterRemoteDataSource {
   }
 
   @override
-  Future<UserResponseModel> postLogIn(LogInModel obj) async {
+  Future<ResponseModel> postLogIn(LogInModel obj) async {
+    print("response login:=${obj.toJson()}");
     return await httpClient
         .post(Uris.login,
             headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
         .then((response) {
       final res = json.decode(response.body);
-      print("response:=$res");
+      print("response login:=$res");
       if (response.statusCode == 200) {
-        if (res["status"] == null) {
-          final String token = json.decode(response.body)["token"];
+        if (res["status"]) {
+          final String token = res["data"]["token"];
           print("token:=$token");
-          return UserResponseModel.frowJson(json.decode(response.body));
+          return ResponseModel.frowJson(res);
         } else {
-          return UserResponseModel.empty;
+          return ResponseModel.empty;
         }
       } else {
         print("Error in Login!!! statusCode:${response.statusCode}");
         print("Error in Login!!! :$res");
         print("Error in Login!!! :${obj.toJson()}");
-        return UserResponseModel.frowJson(json.decode(response.body));
+        return ResponseModel.frowJson(res);
       }
     });
   }

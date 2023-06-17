@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import '/presentation/providers/data/banner_provider.dart';
+import '../../providers/data/values_provider.dart';
 
 import '../../../domanin/entities/galery/big_content_card_entity.dart';
 import '../../providers/view/provider_discaunts.dart';
@@ -68,7 +68,7 @@ class VideosPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: MyCarusel(
-        items: BannerP.of(context).banners,
+        items: ValuesP.of(context).banners,
       ),
     );
   }

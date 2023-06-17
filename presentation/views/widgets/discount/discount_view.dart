@@ -38,32 +38,33 @@ class _DiscountViewState extends State<DiscountView> {
                     MaterialPageRoute(
                         builder: (context) => DiscountDetal(
                               id: widget.objs[index].id,
-                              obj: DiscountDetalEntity(
-                                userImg:
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
-                                userName: "100haryt",
-                                pictures: [
-                                  // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
-                                  widget.objs[index].img
-                                ],
-                                id: 1,
-                                createdAt: DateTime.now(),
-                                viewed: 14756,
-                                liked: 5693,
-                                chated: 216,
-                                title: widget.objs[index].title,
-                                oldPrice: 9000,
-                                newPrice: 6930,
-                                mod: 23,
-                                userId: 2,
-                                isOfficial: true,
-                                startedAt: widget.objs[index].createdAt,
-                                endedAt: DateTime.now(),
-                                about:
-                                    "Dinamiki surata düşüriň we ulanyjy interfeýsiňizi indiki derejä çykarmak üçin oýlanyşykly döredilen C33 realme bilen suwuk wizuallardan lezzet alyň. Bu telefon, AI bilen dolandyrylýan 50 MP kamerany görkezýär, bu düşnüksiz suratlary aýdyňlyk bilen ajaýyp düşürmäge mümkinçilik berýär. Mundan başga-da, bu smartfona 5000 mAh uly batareýa goşulyp, üznüksiz öndürijilikden lezzet alyp bilersiňiz we işdäki öndürijiligiňizi ýokarlandyryp bilersiňiz. Mundan başga-da, ajaýyp “Unisoc T612” prosessor bilen işleýän, ajaýyp iş tejribesinden lezzet alyp bilersiňiz. Mundan başga-da, C33 meýdanynyň giňligi 16.5 sm (6.5) paneliň kömegi bilen wizual tejribäňizi ýokary derejä çykaryp bilersiňiz.",
-                                tags: ["realme", "phone"],
-                                phone: "+99365168618",
-                              ),
+                              parrentObj: widget.objs[index],
+                              // obj: DiscountDetalEntity(
+                              //   userImg:
+                              //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
+                              //   userName: "100haryt",
+                              //   pictures: [
+                              //     // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJgQkIzfThEOELfWHJbRXvDPbuAEIRo8Dog&usqp=CAU",
+                              //     widget.objs[index].img
+                              //   ],
+                              //   id: 1,
+                              //   createdAt: DateTime.now(),
+                              //   viewed: 14756,
+                              //   liked: 5693,
+                              //   chated: 216,
+                              //   title: widget.objs[index].title,
+                              //   oldPrice: 9000,
+                              //   newPrice: 6930,
+                              //   mod: 23,
+                              //   userId: 2,
+                              //   isOfficial: true,
+                              //   startedAt: widget.objs[index].createdAt,
+                              //   endedAt: DateTime.now(),
+                              //   about:
+                              //       "Dinamiki surata düşüriň we ulanyjy interfeýsiňizi indiki derejä çykarmak üçin oýlanyşykly döredilen C33 realme bilen suwuk wizuallardan lezzet alyň. Bu telefon, AI bilen dolandyrylýan 50 MP kamerany görkezýär, bu düşnüksiz suratlary aýdyňlyk bilen ajaýyp düşürmäge mümkinçilik berýär. Mundan başga-da, bu smartfona 5000 mAh uly batareýa goşulyp, üznüksiz öndürijilikden lezzet alyp bilersiňiz we işdäki öndürijiligiňizi ýokarlandyryp bilersiňiz. Mundan başga-da, ajaýyp “Unisoc T612” prosessor bilen işleýän, ajaýyp iş tejribesinden lezzet alyp bilersiňiz. Mundan başga-da, C33 meýdanynyň giňligi 16.5 sm (6.5) paneliň kömegi bilen wizual tejribäňizi ýokary derejä çykaryp bilersiňiz.",
+                              //   tags: ["realme", "phone"],
+                              //   phone: "+99365168618",
+                              // ),
                             )));
               },
               child: buildDiscountCard(index, providD.cloumnCount));

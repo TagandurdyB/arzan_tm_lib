@@ -55,11 +55,12 @@ class SendSmsPage extends StatelessWidget {
       )
           .then((response) {
         if (response.status) {
-          final hiveP = HiveP.of(context, listen: false);
-          hiveP.saveStr(response.token!, Tags.hiveToken);
-          hiveP.saveBool(true, Tags.isLogin);
-          // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
-          hiveP.saveStr("user", Tags.hiveRole);
+          // final hiveP = HiveP.of(context, listen: false);
+          // hiveP.saveStr(response.token!, Tags.hiveToken);
+          // hiveP.saveBool(true, Tags.isLogin);
+          // // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
+          // hiveP.saveStr("user", Tags.hiveRole);
+
           MyPopUpp.popMessage(context, () {
             // AcauntP.of(context, listen: false).changeScreen(0);
             isRecover ? _signUpFunc() : _recoverFunc(response.token!);

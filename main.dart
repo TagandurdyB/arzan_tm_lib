@@ -7,11 +7,16 @@ import 'package:flutter/material.dart';
 import 'config/routes/my_route.dart';
 import 'config/services/my_orientation.dart';
 import 'config/vars/constants.dart';
+import 'domanin/entities/discounts/discount_entity.dart';
 import 'injector.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+
+  Hive.registerAdapter(DiscountEntityAdapter());
+  await Hive.openBox<DiscountEntity>(Tags.hiveFavorites);
+
   await Hive.openBox(Tags.hiveBase);
   MyOrientation.systemUiOverlayStyle();
   runApp(const Injector(router: MyApp()));

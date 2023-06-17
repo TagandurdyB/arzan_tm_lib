@@ -56,6 +56,6 @@ class LogInModel extends LoginEntity {
   Map<String, dynamic> toJson() => {
         // "uniqueId": uniqueId,
         "phone": phone,
-        "pass": userPassword,
+        "password": userPassword,
       };
 }

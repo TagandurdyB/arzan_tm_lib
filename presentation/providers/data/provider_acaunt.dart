@@ -39,11 +39,8 @@ class AcauntP extends ChangeNotifier {
     return entity;
   }
 
-  Future<UserResponseEntity> logIn(LoginEntity obj) async {
-    final UserResponseEntity entity = await registerCase.postLogIn(obj);
-    if (entity.isEmpty == false) {
-      _isSign = true;
-    }
+  Future<ResponseEntity> logInPost(LoginEntity obj) async {
+    final ResponseEntity entity = await registerCase.postLogIn(obj);
     notifyListeners();
     return entity;
   }
@@ -66,6 +63,19 @@ class AcauntP extends ChangeNotifier {
   int get screenIndex => _screenIndex;
   void changeScreen(int index) {
     _screenIndex = index;
+    notifyListeners();
+  }
+
+  PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
+  int _signIndex = 0;
+  int get signIndex => _signIndex;
+  void changeSign(int index) {
+    _signIndex = index;
+    pageController.animateToPage(_signIndex,
+        duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
     notifyListeners();
   }
 

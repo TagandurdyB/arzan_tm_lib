@@ -4,7 +4,7 @@ import '/domanin/entities/register/sign_up_entity.dart';
 
 class SignUpModel extends SignUpEntity {
   @override
-  final String uniqueId;
+  final String? uniqueId;
   @override
   final String userName;
   @override
@@ -17,7 +17,7 @@ class SignUpModel extends SignUpEntity {
   final bool isEmpty;
 
   SignUpModel({
-    required this.uniqueId,
+    this.uniqueId,
     required this.userName,
     required this.userPassword,
     required this.userPhone,
@@ -68,7 +68,6 @@ class SignUpModel extends SignUpEntity {
 
   @override
   Map<String, dynamic> toJson() => {
-    
         "name": userName,
         "password": userPassword,
         "phone": "+$userPhone",
