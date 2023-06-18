@@ -1,3 +1,5 @@
+import 'package:video_player/video_player.dart';
+
 import '/domanin/entities/galery/big_content_card_entity.dart';
 import '../../../domanin/entities/baner_entity.dart';
 import 'package:provider/provider.dart';
@@ -151,6 +153,131 @@ class GalleryP extends ChangeNotifier {
       throw ("Error GalleryP fillImagesEntity: $err");
     }
   }
+
+//=================================================================================
+  PageController videoSpiveController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
+  void startVideo(int page) {
+    videoSpiveController.jumpToPage(page);
+    _isNext = false;
+    _isOld = false;
+    notifyListeners();
+  }
+
+  bool _isNext = false, _isOld = false;
+  bool get isNext => _isNext;
+  bool get isOld => _isOld;
+
+  void get svipeOld {
+    if (_isNext) {
+      _isNext = false;
+    } else {
+      _isOld = true;
+    }
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      if (_isOld) {
+        _isOld = false;
+        videoSpiveController.previousPage(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut);
+        notifyListeners();
+      }
+    });
+    notifyListeners();
+  }
+
+  void get svipeNext {
+    if (_isOld) {
+      _isOld = false;
+    } else {
+      _isNext = true;
+    }
+    switchToNextVideo();
+    // Future.delayed(const Duration(seconds: 2)).then((value) {
+    //   if (_isNext) {
+    //     _isNext = false;
+    //     videoSpiveController.nextPage(
+    //         duration: const Duration(milliseconds: 200),
+    //         curve: Curves.easeInOut);
+    //     notifyListeners();
+    //   }
+    // });
+    notifyListeners();
+  }
+
+//=================================================================================
+// VideoPlayerController? videoControl()=>VideoService( videoUrl: )
+// VideoPlayerController? videoControl()=>VideoService( videoUrl: )
+
+  // void createVideo(String videoURL) {
+  //   VideoService(videoUrl: videoURL).create;
+  //   notifyListeners();
+  // }
+
+  // VideoPlayerController? get videoControl => VideoService().control;
+  // void get disposeVideo => VideoService().disposeVideo;
+
+  VideoPlayerController? _controller;
+  List<String> _videoUrls = [];
+  VideoPlayerController? get controller => _controller;
+
+  set controller(VideoPlayerController? value) {
+    _controller?.dispose();
+    _controller = value;
+    notifyListeners();
+  }
+
+  void play() {
+    _controller?.play();
+    notifyListeners();
+  }
+
+  void pause() {
+    _controller?.pause();
+    notifyListeners();
+  }
+
+  void seekTo(Duration position) {
+    _controller?.seekTo(position);
+    notifyListeners();
+  }
+
+  switchToNextVideo() {
+    // _videoUrls.insert(0, _videoUrls.removeAt(_videoUrls.length - 1));
+    initializeVideoPlayer(_videoUrls[2]).then((value) {
+      if (_isNext) {
+        _isNext = false;
+        videoSpiveController.nextPage(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut);
+        notifyListeners();
+      }
+    });
+  }
+
+  Future<void> initializeVideoPlayer(String videoUrl) async {
+    final controller = VideoPlayerController.network(videoUrl);
+    await controller.initialize();
+    controller.setLooping(true);
+    controller.play();
+    this.controller = controller;
+  }
+
+  void setVideoUrls(List<String> urls) {
+    _videoUrls = urls;
+    initializeVideoPlayer(urls[1]);
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+//=================================================================================
+//=================================================================================
 
   static GalleryP of(BuildContext context, {bool listen = true}) =>
       Provider.of<GalleryP>(context, listen: listen);

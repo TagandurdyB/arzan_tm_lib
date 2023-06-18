@@ -53,7 +53,10 @@ class RegionPage extends StatelessWidget {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: valueP.locations.map((e) => buildBtn(e)).toList(),
+            children: valueP.locations.map((e) {
+              print("build");
+              return buildBtn(e);
+            }).toList(),
             // children: List.generate(
             //     regions.length, (index) => buildBtn(regions[index])),
           ),

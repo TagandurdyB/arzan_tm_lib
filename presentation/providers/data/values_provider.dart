@@ -31,6 +31,7 @@ class ValuesP extends ChangeNotifier {
 
   Future<void> fillLocations() async {
     try {
+      print("here 0902390");
       locations = await valuesCase.getLocation();
       notifyListeners();
     } catch (err) {

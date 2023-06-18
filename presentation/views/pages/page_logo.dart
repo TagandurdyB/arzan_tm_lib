@@ -44,6 +44,7 @@ class _LogoPageState extends State<LogoPage> {
       checkUserInfo();
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         DiscountDataP.of(context, listen: false).fillCategories();
+        ValuesP.of(context, listen: false).fillLocations();
       });
     }
   }
@@ -74,11 +75,13 @@ class _LogoPageState extends State<LogoPage> {
         AcauntP.of(context, listen: false).logIned;
       }
 
-      if (hiveP.readStr(Tags.hiveLocation) != null) {
         Navigator.pushReplacementNamed(context, Rout.home);
-      } else {
-        Navigator.pushReplacementNamed(context, Rout.region);
-      }
+
+      // if (hiveP.readStr(Tags.hiveLocation) != null) {
+      //   Navigator.pushReplacementNamed(context, Rout.home);
+      // } else {
+      //   Navigator.pushReplacementNamed(context, Rout.region);
+      // }
     } else {
       Navigator.pushReplacementNamed(context, Rout.disconnect);
     }

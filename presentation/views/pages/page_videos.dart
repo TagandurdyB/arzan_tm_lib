@@ -83,7 +83,8 @@ class VideosPage extends StatelessWidget {
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
       thumbinalImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-      videoUrl: "assets/video0.mp4",
+      videoUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
       allCount: 12,
       allShaered: 720,
       allViewed: 14756,
@@ -99,7 +100,8 @@ class VideosPage extends StatelessWidget {
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
       thumbinalImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
-      videoUrl: "assets/video2.mp4",
+      videoUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
       allCount: 12,
       allShaered: 720,
       allViewed: 14756,
@@ -116,7 +118,8 @@ class VideosPage extends StatelessWidget {
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
       thumbinalImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
-      videoUrl: "assets/video1.mp4",
+      videoUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
       allCount: 12,
       allShaered: 720,
       allViewed: 14756,
@@ -132,7 +135,8 @@ class VideosPage extends StatelessWidget {
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
       thumbinalImg:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
-      videoUrl: "assets/video3.mp4",
+      videoUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
       allCount: 12,
       allShaered: 720,
       allViewed: 14756,

@@ -1,9 +1,11 @@
 import 'package:arzan_tm/presentation/views/widgets/next_btn.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/data/provider_gallery.dart';
 import '../../providers/view/provider_video.dart';
 import '../widgets/custom_avatar.dart';
 import '/config/services/my_orientation.dart';
-import 'package:video_player/video_player.dart';
 
 import '../widgets/galery/video_player_widget.dart';
 
@@ -37,18 +39,107 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   @override
   Widget build(BuildContext context) {
     return PageView(
-      physics: const BouncingScrollPhysics(),
+      controller: GalleryP.of(context).videoSpiveController,
+      physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       onPageChanged: (value) => VideoP.of(context, listen: false).svipeVideo,
-      children: widget.objs.map((e) => CustomVideoPlayer(obj: e)).toList(),
+      children: List.generate(widget.objs.length, (index) {
+        if (widget.objs.length == index + 1) {
+          return buildVideoSviper(
+              widget.objs[index], widget.objs[index - 1].videoUrl!, "", "Last");
+        } else if (index == 0) {
+          return buildVideoSviper(widget.objs[index], "",
+              widget.objs[index + 1].videoUrl!, "First");
+        } else {
+          return buildVideoSviper(
+              widget.objs[index],
+              widget.objs[index - 1].videoUrl!,
+              widget.objs[index + 1].videoUrl!,
+              "");
+        }
+      }),
+      // children: widget.objs.map((e) => buildVideoSviper(e)).toList(),
       // children: [CustomVideoPlayer(obj: ,)],
+    );
+  }
+
+  int startY = 0, endY = 0;
+  Widget buildVideoSviper(
+      BigCardEntity obj, String old, String next, String videoStatus) {
+    final galeryP = GalleryP.of(context);
+    return GestureDetector(
+      onVerticalDragDown: (details) {
+        startY = details.globalPosition.dy.round();
+        print("vertical Drag down : $startY");
+      },
+      onVerticalDragUpdate: (details) {
+        endY = details.globalPosition.dy.round();
+      },
+      onVerticalDragEnd: (details) {
+        setState(() {
+          final int drag = startY - endY;
+          print("vertical Drag end : $drag");
+          if (drag.abs() > 100) {
+            final geleryPdo = GalleryP.of(context, listen: false);
+            if (drag > 0) {
+              //asak yokary
+              //next video
+              geleryPdo.svipeNext;
+            } else {
+              //yokardan asak
+              //old video
+              geleryPdo.svipeOld;
+            }
+          }
+        });
+      },
+      child: Column(
+        children: [
+          buildLoading(galeryP.isOld, false, videoStatus),
+          Expanded(
+              child:
+                  CustomVideoPlayer(obj: obj, oldVideo: old, nextVideo: next)),
+          buildLoading(galeryP.isNext, true, videoStatus),
+        ],
+      ),
     );
   }
 }
 
+Widget buildLoading(bool isShow, bool isLast, String videoStatus) =>
+    AnimatedCrossFade(
+      duration: const Duration(milliseconds: 200),
+      firstChild: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        // color: Colors.red,
+        child: (isLast && videoStatus == "Last") ||
+                (!isLast && videoStatus == "First")
+            ? buildText(videoStatus)
+            : Lottie.asset("assets/loading4.json",
+                reverse: true,
+                width: MySize.arentir * 0.2,
+                height: MySize.arentir * 0.2,
+                fit: BoxFit.fill),
+      ),
+      secondChild: const SizedBox(),
+      crossFadeState:
+          isShow ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+    );
+
+Widget buildText(String text) => SafeArea(
+      child: Material(
+        color: Colors.transparent,
+        child: Text("$text Video",
+            style: TextStyle(
+                color: Colors.white, fontSize: MySize.arentir * 0.05)),
+      ),
+    );
+
 class CustomVideoPlayer extends StatefulWidget {
   final BigCardEntity obj;
-  const CustomVideoPlayer({required this.obj, super.key});
+  final String oldVideo, nextVideo;
+  const CustomVideoPlayer(
+      {required this.obj, this.nextVideo = "", this.oldVideo = "", super.key});
 
   @override
   State<CustomVideoPlayer> createState() => _CustomVideoPlayerState();
@@ -56,20 +147,28 @@ class CustomVideoPlayer extends StatefulWidget {
 
 class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   final double arentir = MySize.arentir;
-  late VideoPlayerController control;
+  // late VideoPlayerController control;
+  GalleryP? _controllerProvider;
 
   @override
   void initState() {
-    control = VideoPlayerController.asset(widget.obj.videoUrl!)
-      ..addListener(() => setState(() {}))
-      ..setLooping(true)
-      ..initialize().then((value) => control.play());
+    // control = VideoPlayerController.network(widget.obj.videoUrl!)
+    //   ..addListener(() => setState(() {}))
+    //   ..setLooping(true)
+    //   ..initialize().then((value) => control.play());
+    //
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     //   final providV = VideoP.of(context, listen: false);
     //   providV.startVideo(() => setState(() {}));
     //   providV.looping;
     // });
     super.initState();
+    _controllerProvider = GalleryP.of(context, listen: false);
+    _controllerProvider?.setVideoUrls([
+      widget.oldVideo,
+      widget.obj.videoUrl!,
+      widget.nextVideo,
+    ]);
   }
 
   @override
@@ -79,7 +178,12 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
     // });
     // MyOrientation.enableNavigationBar;
 
-    control.dispose();
+    // control.dispose();
+    // _controllerProvider?.controller?.dispose();
+    // controller.dispose();
+
+    // _controllerProvider?.dispose();
+    // _controllerProvider?.controller = null;
     super.dispose();
   }
 
@@ -91,20 +195,38 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         onTap: () {
           VideoP.of(context, listen: false).forvardShow;
         },
-        child: Container(
-          color: Colors.transparent,
-          alignment: Alignment.center,
-          height: double.infinity,
-          width: double.infinity,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // CustomAppBar(title: obj.name),
-              VideoPlayerWidget(controller: control),
-              buildTitle,
-            ],
-          ),
-        ),
+        child: Consumer<GalleryP>(builder: (context, provider, child) {
+          final controller = provider.controller;
+          if (controller != null && controller.value.isInitialized) {
+            return Container(
+              color: Colors.transparent,
+              alignment: Alignment.center,
+              height: double.infinity,
+              width: double.infinity,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // CustomAppBar(title: obj.name),
+                  VideoPlayerWidget(controller: controller),
+                  buildTitle,
+                ],
+              ),
+            );
+          } else {
+            return Align(
+              alignment: Alignment.center,
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                // color: Colors.red,
+                child: Lottie.asset("assets/loading4.json",
+                    reverse: true,
+                    width: MySize.arentir * 0.2,
+                    height: MySize.arentir * 0.2,
+                    fit: BoxFit.fill),
+              ),
+            );
+          }
+        }),
       ),
     );
   }
