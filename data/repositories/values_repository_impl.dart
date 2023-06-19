@@ -10,7 +10,7 @@ class ValuesRepositoryImpl implements ValuesRepository {
   ValuesRepositoryImpl(this.valuesRemoteDataSource);
 
   @override
-  Future<List<BanerEntity>> getBanners(String welayat, String page) async {
+  Future<List<BanerEntity>> getBanners(int welayat, int page) async {
     return await valuesRemoteDataSource.getBanners(welayat, page);
   }
 

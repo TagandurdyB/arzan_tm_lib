@@ -1,3 +1,4 @@
+
 // ignore_for_file: must_be_immutable
 
 import '../../providers/data/values_provider.dart';
@@ -17,9 +18,10 @@ import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import 'page_video_player.dart';
+import 'page_videos.dart';
 
-class VideosPage extends StatelessWidget {
-  VideosPage({super.key});
+class CanalVideosPage extends StatelessWidget {
+  CanalVideosPage({super.key});
 
   final double arentir = MySize.arentir;
   late BuildContext context;
@@ -177,5 +179,6 @@ class VideosPage extends StatelessWidget {
   }
 
   void _goImgDetal(BigCardEntity obj) => Navigator.push(context,
-      MaterialPageRoute(builder: (context) => VideoPlayerPage(objs: objs)));
+      MaterialPageRoute(builder: (context) => VideosPage(objs: objs)));
+      // MaterialPageRoute(builder: (context) => VideoPlayerPage(objs: objs)));
 }

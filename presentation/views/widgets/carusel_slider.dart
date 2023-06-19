@@ -113,57 +113,61 @@ class _CustomCaruselState extends State<CustomCarusel> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            ClipRRect(
-              borderRadius:
-                  BorderRadius.all(Radius.circular(widget.borderRadius)),
-              child: Container(
-                padding: widget.padding,
-                decoration: BoxDecoration(
-                  //  boxShadow: ShadowsLight.all,
-                  color: Colors.grey.withOpacity(0.25),
-                ),
-                width: widget.width,
-                height: widget.height,
-                child: PageView.builder(
-                  controller: controller,
-                  onPageChanged: (int index) {
-                    setState(() {
-                      pageIndex = index - 1;
-                      if (index == length + 1) {
-                        pageIndex = 0;
-                        controller.jumpToPage(1);
-                      } else if (index == 0) {
-                        controller.jumpToPage(length);
-                      }
-                    });
-                  },
-                  itemCount: length + 2,
-                  itemBuilder: (context, index) {
-                    int reightIndex = index == 0
-                        ? length - 1
-                        : index == length + 1
-                            ? 0
-                            : index - 1;
-                    return widget.items[reightIndex];
-                  },
+    if (length > 0) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              ClipRRect(
+                borderRadius:
+                    BorderRadius.all(Radius.circular(widget.borderRadius)),
+                child: Container(
+                  padding: widget.padding,
+                  decoration: BoxDecoration(
+                    //  boxShadow: ShadowsLight.all,
+                    color: Colors.grey.withOpacity(0.25),
+                  ),
+                  width: widget.width,
+                  height: widget.height,
+                  child: PageView.builder(
+                    controller: controller,
+                    onPageChanged: (int index) {
+                      setState(() {
+                        pageIndex = index - 1;
+                        if (index == length + 1) {
+                          pageIndex = 0;
+                          controller.jumpToPage(1);
+                        } else if (index == 0) {
+                          controller.jumpToPage(length);
+                        }
+                      });
+                    },
+                    itemCount: length + 2,
+                    itemBuilder: (context, index) {
+                      int reightIndex = index == 0
+                          ? length - 1
+                          : index == length + 1
+                              ? 0
+                              : index - 1;
+                      return widget.items[reightIndex];
+                    },
+                  ),
                 ),
               ),
-            ),
-            Visibility(
-                visible: widget.showDots && !widget.isDotsOut,
-                child: buildDots),
-          ],
-        ),
-        Visibility(
-            visible: widget.showDots && widget.isDotsOut, child: buildDots),
-      ],
-    );
+              Visibility(
+                  visible: widget.showDots && !widget.isDotsOut,
+                  child: buildDots),
+            ],
+          ),
+          Visibility(
+              visible: widget.showDots && widget.isDotsOut, child: buildDots),
+        ],
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 
   Widget get buildDots {

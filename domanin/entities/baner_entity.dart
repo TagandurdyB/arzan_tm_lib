@@ -3,12 +3,14 @@ class BanerEntity {
   final String img;
   final String note;
   final String title;
+  final String link;
   final bool isEmpty;
   BanerEntity({
     required this.id,
     required this.img,
     this.note = "",
     this.title = "",
+    this.link = "",
     this.isEmpty = true,
   });
 

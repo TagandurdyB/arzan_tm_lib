@@ -3,8 +3,9 @@ class Uris {
   static String ip = "http://it.net.tm:8888";
   //Seyit Local
   // static String ip2 = "http://172.16.11.144:8080/api/v1";
+  static String ip2 = "http://172.16.11.144:8080/api/v1";
   //Arzan server
-  static String ip2 = "http://95.85.126.113:8080/api/v1";
+  // static String ip2 = "http://95.85.126.113:8080/api/v1";
   //////////////////////////////////////////////////////////////////////
   static Uri mainPage = Uri.parse("$ip/arzanapi/api/v1/mobile");
   static Uri register = Uri.parse("$ip2/account/signup");
@@ -13,8 +14,9 @@ class Uris {
   static Uri checkAcaunt = Uri.parse("$ip2/account/verify/check");
   static Uri recover = Uri.parse("$ip/user_reset");
   static Uri locations = Uri.parse("$ip2/location/list");
-  static Uri banner(String welayat, String page) =>
-      Uri.parse("https://it.net.tm/arzanapi/api/v1/banner");
+  static Uri banner(int welayat, int pageId) =>
+      Uri.parse("$ip2/banner/list?page_id=$pageId&location_id=$welayat");
+  // Uri.parse("https://it.net.tm/arzanapi/api/v1/banner");
   // Uri.parse("$IP/arzanapi/api/v1/mobile?welayat=$welayat?page=$page");
   static Uri discounts =
       Uri.parse("https://it.net.tm/arzanapi/api/v1/discount");

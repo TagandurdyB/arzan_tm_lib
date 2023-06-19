@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import '../../../../config/services/device_info.dart';
-import '../../../providers/data/hive_provider.dart';
 import '/domanin/entities/register/check_entity.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -79,7 +78,10 @@ class SendSmsPage extends StatelessWidget {
     }
   }
 
-  void _signUpFunc() => AcauntP.of(context, listen: false).changeScreen(0);
+  void _signUpFunc() {
+    AcauntP.of(context, listen: false).changeScreen(0);
+    Navigator.pop(context);
+  }
 
   void _recoverFunc(String token) {
     // Recover

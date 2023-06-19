@@ -23,7 +23,7 @@ import '../../presentation/views/pages/discount/page_discounts.dart';
 import '/presentation/views/pages/page_tops.dart';
 
 import '/presentation/views/pages/page_images.dart';
-import '/presentation/views/pages/page_videos.dart';
+import '../../presentation/views/gallery/page_canal_videos.dart';
 
 import '../../presentation/views/pages/page_acaunt.dart';
 import '../../presentation/views/pages/chosen/page_chosen.dart';
@@ -109,7 +109,7 @@ class Rout {
     acaunt: (context) => AcauntPage(),
     images: (context) => const ImagesPage(),
     // imagesDetal:(context)=> const ImageDetalPage(),
-    videos: (context) => VideosPage(),
+    videos: (context) => CanalVideosPage(),
     tops: (context) => const TopsPage(),
     discounts: (context) => const DiscountsPage(),
     legalInfo: (context) => const LegalInfoPage(),

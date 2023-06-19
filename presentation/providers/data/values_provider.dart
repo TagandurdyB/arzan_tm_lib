@@ -18,12 +18,21 @@ class ValuesP extends ChangeNotifier {
 
   List<BanerEntity> banners = [];
 
-  Future<void> fillBanner(String welayat, String page) async {
+  Future<void> fillBanner(int welayat, int page) async {
     try {
       banners = await valuesCase.getBanners(welayat, page);
       notifyListeners();
     } catch (err) {
       throw ("Error ValuesP>fillBanner: $err");
+    }
+  }
+
+  Future<List<BanerEntity>> getBanner(int welayat, int page) async {
+    try {
+      banners = await valuesCase.getBanners(welayat, page);
+      return banners;
+    } catch (err) {
+      throw ("Error ValuesP>getBanner: $err");
     }
   }
 

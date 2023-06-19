@@ -51,11 +51,6 @@ class _LogoPageState extends State<LogoPage> {
 
   void checkUserInfo() async {
     final hiveP = HiveP.of(context, listen: false);
-    final welayat = hiveP.readStr(Tags.hiveLocation);
-    final valuesP = ValuesP.of(context, listen: false);
-    valuesP.fillBanner(welayat ?? Words.TM, "main");
-    valuesP.fillLocations();
-
     final token = hiveP.readStr(Tags.hiveToken);
     final phone = hiveP.readStr(Tags.hivePhone);
     if (token != null && phone != null) {
@@ -75,13 +70,13 @@ class _LogoPageState extends State<LogoPage> {
         AcauntP.of(context, listen: false).logIned;
       }
 
-        Navigator.pushReplacementNamed(context, Rout.home);
+      Navigator.pushReplacementNamed(context, Rout.home);
 
-      // if (hiveP.readStr(Tags.hiveLocation) != null) {
-      //   Navigator.pushReplacementNamed(context, Rout.home);
-      // } else {
-      //   Navigator.pushReplacementNamed(context, Rout.region);
-      // }
+      if (hiveP.readStr(Tags.hiveLocation) != null) {
+        Navigator.pushReplacementNamed(context, Rout.home);
+      } else {
+        Navigator.pushReplacementNamed(context, Rout.region);
+      }
     } else {
       Navigator.pushReplacementNamed(context, Rout.disconnect);
     }

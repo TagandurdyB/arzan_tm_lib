@@ -6,7 +6,7 @@ class ValuesCase {
   final ValuesRepository repository;
   ValuesCase(this.repository);
 
-  Future<List<BanerEntity>> getBanners(String welayat, String page) async =>
+  Future<List<BanerEntity>> getBanners(int welayat, int page) async =>
       await repository.getBanners(welayat, page);
 
   Future<List<LocationEntity>> getLocation() async =>

@@ -54,7 +54,6 @@ class RegionPage extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: valueP.locations.map((e) {
-              print("build");
               return buildBtn(e);
             }).toList(),
             // children: List.generate(
@@ -78,7 +77,9 @@ class RegionPage extends StatelessWidget {
       child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: HiveP.of(context).readInt(Tags.hiveLocationId) == obj.id
+                ? Colors.orange[500]
+                : Colors.white,
             borderRadius: BorderRadius.circular(arentir * 0.02),
             border: Border.all(color: Colors.black, width: 2),
             // boxShadow: const [

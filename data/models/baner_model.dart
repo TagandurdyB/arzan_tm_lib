@@ -9,6 +9,8 @@ class BanerModel extends BanerEntity {
   final String img;
   @override
   final String note;
+    @override
+  final String link;
   @override
   final String title;
   @override
@@ -17,6 +19,7 @@ class BanerModel extends BanerEntity {
     required this.id,
     required this.img,
     this.note = "",
+    this.link = "",
     this.title = "",
     this.isEmpty = true,
   }) : super(
@@ -30,9 +33,10 @@ class BanerModel extends BanerEntity {
     try {
       return BanerModel(
           id: json["id"],
-          img: json["banner_img"],
+          img: json["image"],
           note: json["note"] ?? "",
           title: json["title"] ?? "",
+          link: json["link"] ?? "",
           isEmpty: false);
     } catch (err) {
       throw ("Error in BanerModel : $err");
