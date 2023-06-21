@@ -5,8 +5,11 @@ import 'package:video_player/video_player.dart';
 
 import '../../../config/vars/constants.dart';
 import '../../../domanin/entities/galery/video_entity.dart';
+import '../../../domanin/usecases/gallery_case.dart';
 
 class VideoDataP extends ChangeNotifier {
+  final GalleryCase galleryCase;
+  VideoDataP({required this.galleryCase});
 //Swipe========================================================================
   PageController videoSpiveController = PageController(
     initialPage: 1,
@@ -24,7 +27,7 @@ class VideoDataP extends ChangeNotifier {
   bool get isOld => _isOld;
 
   //Video=========================================================
-   VideoPlayerController? _controller;
+  VideoPlayerController? _controller;
   VideoPlayerController? get controller => _controller;
   // List<String> _videoUrls = [];
   set controller(VideoPlayerController? value) {
@@ -33,7 +36,7 @@ class VideoDataP extends ChangeNotifier {
     notifyListeners();
   }
 
-    void play() {
+  void play() {
     _controller?.play();
     notifyListeners();
   }
@@ -42,7 +45,6 @@ class VideoDataP extends ChangeNotifier {
     _controller?.pause();
     notifyListeners();
   }
-
 
   Future<void> initializeVideoPlayer(String videoUrl) async {
     final controller = VideoPlayerController.network(videoUrl);
@@ -67,18 +69,21 @@ class VideoDataP extends ChangeNotifier {
   //   });
   // }
 //Next==============================================================================================
-    switchToNextVideo() {
+  switchToNextVideo() {
     // _videoUrls.insert(0, _videoUrls.removeAt(_videoUrls.length - 1));
-    initializeVideoPlayer(_videoUrls[2]).then((value) {
-      if (_isNext) {
-        _isNext = false;
-    
-        notifyListeners();
-      }
-    });
+    if (video.next != null) {
+      fillVideo(video.next!).then(
+        (value) => initializeVideoPlayer(value.videoUrl).then((value) {
+          if (_isNext) {
+            _isNext = false;
+            svipeNext;
+            notifyListeners();
+          }
+        }),
+      );
+    }
   }
 //=====================================================================================================
-
 
   void get dispodeVideo {
     _controller?.dispose();
@@ -94,21 +99,27 @@ class VideoDataP extends ChangeNotifier {
     } else {
       _isOld = true;
     }
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      if (_isOld) {
-        _isOld = false;
-        if (obj.provious != null) {
-          videoSpiveController
-              .previousPage(
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeInOut)
-              .then((value) => videoSpiveController.nextPage(
-                  duration: const Duration(milliseconds: 1),
-                  curve: Curves.linear));
-        }
-        notifyListeners();
-      }
-    });
+
+    if (video.provious != null) {
+      fillVideo(video.provious!).then(
+        (entity) => initializeVideoPlayer(entity.videoUrl).then((value) {
+          if (_isNext) {
+            _isNext = false;
+            videoSpiveController
+                .previousPage(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut)
+                .then((value) => videoSpiveController
+                    .nextPage(
+                        duration: const Duration(milliseconds: 1),
+                        curve: Curves.linear)
+                    .then((value) => video = entity));
+            notifyListeners();
+          }
+        }),
+      );
+    }
+
     notifyListeners();
   }
 
@@ -118,28 +129,41 @@ class VideoDataP extends ChangeNotifier {
     } else {
       _isNext = true;
     }
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      if (_isNext) {
-        _isNext = false;
-        if (obj.next != null) {
-          videoSpiveController
-              .nextPage(
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeInOut)
-              .then((value) => videoSpiveController
-                  .previousPage(
-                      duration: const Duration(milliseconds: 1),
-                      curve: Curves.linear)
-                  .then((value) {}));
-        }
-        notifyListeners();
-      }
-    });
+    if (video.next != null) {
+      fillVideo(video.next!).then(
+        (entity) => initializeVideoPlayer(entity.videoUrl).then((value) {
+          if (_isNext) {
+            _isNext = false;
+            videoSpiveController
+                .nextPage(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut)
+                .then((value) => videoSpiveController
+                    .previousPage(
+                        duration: const Duration(milliseconds: 1),
+                        curve: Curves.linear)
+                    .then((value) => video = entity));
+            notifyListeners();
+          }
+        }),
+      );
+    }
     notifyListeners();
   }
 
 //=================================================================================
-  VideoEntity obj = VideoEntity(
+  // VideoEntity obj = VideoEntity(
+  //   title: "lo sdfsdfr sdf sdgsdy twer afzsdf g aszdgvzdsgfv zsdfcвп",
+  //   videoUrl:
+  //       "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+  //   likeCount: 14785,
+  //   user: UserModel(
+  //       id: 1, avatarImg: "", name: "100haryt.com", role: Role.Official),
+  //   provious: 1,
+  //   next: 3,
+  // );
+
+  VideoEntity video = VideoEntity(
     title: "lo sdfsdfr sdf sdgsdy twer afzsdf g aszdgvzdsgfv zsdfcвп",
     videoUrl:
         "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
@@ -150,16 +174,30 @@ class VideoDataP extends ChangeNotifier {
     next: 3,
   );
 
-    VideoEntity videoEntity = VideoEntity(
-    title: "lo sdfsdfr sdf sdgsdy twer afzsdf g aszdgvzdsgfv zsdfcвп",
-    videoUrl:
-        "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
-    likeCount: 14785,
-    user: UserModel(
-        id: 1, avatarImg: "", name: "100haryt.com", role: Role.Official),
-    provious: 1,
-    next: 3,
-  );
+  List<VideoCardEntity> videos = [];
+  // VideoEntity video = VideoEntity.empty;
+
+  void fillVideos() async {
+    try {
+      videos = await galleryCase.getVideos();
+      // fillSubs();
+      notifyListeners();
+    } catch (err) {
+      throw ("Error VideoDataP>fillVideos(): $err");
+    }
+  }
+
+  Future<VideoEntity> fillVideo(int id) async {
+    try {
+      video = await galleryCase.getVideo(id);
+      return video;
+      // fillSubs();
+      // notifyListeners();
+    } catch (err) {
+      throw ("Error VideoDataP>fillVideo(id): $err");
+    }
+  }
+
 //=================================================================================
 
   static VideoDataP of(BuildContext context, {bool listen = true}) =>

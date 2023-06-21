@@ -60,6 +60,10 @@ class VideoCardModel extends VideoCardEntity {
         provious: json["provious"],
         isEmpty: false,
       );
+
+  static List<VideoCardModel> frowJsonList(
+          List<Map<String, dynamic>> jsonList) =>
+      jsonList.map((json) => VideoCardModel.frowJson(json)).toList();
 }
 
 class VideoModel extends VideoEntity {

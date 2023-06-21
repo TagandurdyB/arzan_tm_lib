@@ -7,10 +7,10 @@ import '../repositories/gallery_repository .dart';
 class GalleryCase {
   final GalleryRepository repository;
   GalleryCase(this.repository);
-  Future<GalleryEntity> getImages() async => await repository.getImages();
 
-  Future<List<ImgCardEntity>> getImgEntitis() async =>
-      await repository.getImgEntitis();
+  // Future<GalleryEntity> getImages() async => await repository.getImages();
+  // Future<List<ImgCardEntity>> getImgEntitis() async =>
+  //     await repository.getImgEntitis();
 
   Future<List<VideoCardEntity>> getVideos() async =>
       await repository.getVideos();

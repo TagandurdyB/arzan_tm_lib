@@ -66,8 +66,8 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
   @override
   Future<ResponseModel> postDiscount(PostDiscountModel obj) async {
     final myBase = Hive.box(Tags.hiveBase);
-    // final String token = myBase.get(Tags.hiveToken);
-    // print("+*+$token");
+    final String token = myBase.get(Tags.hiveToken);
+    print("+*+$token");
 
     print("+*+${obj.toJson()}");
     Map<String, String> element = {
@@ -88,7 +88,7 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
 
 print("request:=${obj.toJson()}");
     var request = http.MultipartRequest('POST', Uris.postDiscount)
-      // ..headers.addAll(Headers.bearer(token))
+      ..headers.addAll(Headers.bearer(token))
       ..fields.addAll(obj.toJson())
       ..files.addAll(imgList);
 

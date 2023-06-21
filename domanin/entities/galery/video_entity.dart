@@ -36,4 +36,7 @@ class VideoEntity {
     this.provious,
     this.isEmpty = true,
   });
+
+  static VideoEntity get empty => VideoEntity(
+      title: "", videoUrl: "", likeCount: 0, user: UserEntity.empty);
 }

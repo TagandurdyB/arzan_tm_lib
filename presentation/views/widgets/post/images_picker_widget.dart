@@ -36,33 +36,36 @@ class ImagesPickerWidget extends StatelessWidget {
   }
 
   Widget buildPickImgCard() {
-    return GestureDetector(
-      onTap: () async => await ImgPicker.pick(context),
-      child: DottedBorder(
-        padding: const EdgeInsets.all(0),
-        borderType: BorderType.RRect,
-        radius: const Radius.circular(10),
-        dashPattern: const [10, 10],
-        color: Colors.grey,
-        strokeWidth: 2,
-        child: Container(
-          width: arentir * 0.43,
-          clipBehavior: Clip.hardEdge,
-          padding: EdgeInsets.symmetric(
-              vertical: arentir * 0.09, horizontal: arentir * 0.15),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              Icon(
-                Icons.add_photo_alternate_outlined,
-                color: Color(0xff0EC243),
-              ),
-              Text(
-                "Surat goş",
-                style: TextStyle(color: Color(0xff0EC243)),
-              )
-            ],
+    return Visibility(
+      visible: providPost.imgPaths.length<10,
+      child: GestureDetector(
+        onTap: () async => await ImgPicker.pick(context),
+        child: DottedBorder(
+          padding: const EdgeInsets.all(0),
+          borderType: BorderType.RRect,
+          radius: const Radius.circular(10),
+          dashPattern: const [10, 10],
+          color: Colors.grey,
+          strokeWidth: 2,
+          child: Container(
+            width: arentir * 0.43,
+            clipBehavior: Clip.hardEdge,
+            padding: EdgeInsets.symmetric(
+                vertical: arentir * 0.09, horizontal: arentir * 0.15),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Icon(
+                  Icons.add_photo_alternate_outlined,
+                  color: Color(0xff0EC243),
+                ),
+                Text(
+                  "Surat goş",
+                  style: TextStyle(color: Color(0xff0EC243)),
+                )
+              ],
+            ),
           ),
         ),
       ),

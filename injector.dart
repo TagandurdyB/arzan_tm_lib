@@ -1,7 +1,11 @@
+import 'package:arzan/domanin/usecases/gallery_case.dart';
+
 import '/presentation/providers/data/chosen_data_provider.dart';
 
 import '/domanin/usecases/discounts_case.dart';
 
+import 'data/datasourses/remote/gallery_remote_datasource.dart';
+import 'data/repositories/gellery_repository_impl.dart';
 import 'domanin/usecases/values_case.dart';
 
 import 'presentation/providers/data/values_provider.dart';
@@ -84,9 +88,16 @@ class Injector extends StatelessWidget {
                   )),
           ChangeNotifierProvider<ChosenDataP>(
               create: (context) => ChosenDataP()),
+
+          ChangeNotifierProvider<VideoDataP>(
+              create: (context) => VideoDataP(
+                    galleryCase: GalleryCase(GalleryRepositoryImpl(
+                        GalleryDataSourceImpl(http.Client()))),
+                  )),
+
           ChangeNotifierProvider<GalleryP>(create: (context) => GalleryP()),
           //=============================================
-          ChangeNotifierProvider<VideoDataP>(create: (context) => VideoDataP()),
+
           ///////////////////////////////////////////////////////////////////////
           ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP()),
           ChangeNotifierProvider<ProviderNav>(

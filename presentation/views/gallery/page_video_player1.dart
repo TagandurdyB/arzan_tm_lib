@@ -1,3 +1,7 @@
+import 'package:provider/provider.dart';
+
+import '../../providers/view/provider_video.dart';
+import '../widgets/galery/video_player_widget.dart';
 import '/presentation/providers/data/video_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -15,18 +19,21 @@ class PageVidePlayer1 extends StatefulWidget {
 
 class _PageVidePlayer1State extends State<PageVidePlayer1> {
   late VideoDataP videoDo, videoP;
-
   @override
   void initState() {
     super.initState();
     MyOrientation.disableSystemUI;
-    videoDo = VideoDataP.of(context, listen: false);
-    videoP = VideoDataP.of(context);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      // VideoDataP.of(context, listen: false).fillVideo(2);
+      VideoDataP.of(context, listen: false).initializeVideoPlayer(
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4");
+    });
   }
 
   @override
   void dispose() {
     MyOrientation.setPortraitUp();
+    videoDo.dispodeVideo;
     super.dispose();
   }
 
@@ -38,12 +45,19 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      controller: VideoDataP.of(context).videoSpiveController,
-      scrollDirection: Axis.vertical,
-      itemCount: 3,
-      itemBuilder: (context, index) => buildTest(index),
+    videoDo = VideoDataP.of(context, listen: false);
+    videoP = VideoDataP.of(context);
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: videoP.videoSpiveController,
+          scrollDirection: Axis.vertical,
+          children: List.generate(3, (index) => buildTest(index))
+          // itemCount: 3,
+          // itemBuilder: (context, index) => buildTest(index),
+
+          ),
     );
   }
 
@@ -75,13 +89,42 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
         });
       },
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           buildLoad(true),
           Expanded(
-            child: Container(
-              width: double.infinity,
-              height: 100,
-              color: colors[index],
+            child: GestureDetector(
+              onTap: () {
+                VideoP.of(context, listen: false).forvardShow;
+              },
+              child: Consumer<VideoDataP>(builder: (context, provider, child) {
+                final controller = provider.controller;
+                if (controller != null && controller.value.isInitialized) {
+                  return Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      height: 100,
+                      color: colors[index],
+                      child: index == 1
+                          ? VideoPlayerWidget(controller: controller)
+                          : const SizedBox(),
+                    ),
+                  );
+                } else {
+                  return Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      // color: Colors.red,
+                      child: Lottie.asset("assets/loading4.json",
+                          reverse: true,
+                          width: MySize.arentir * 0.2,
+                          height: MySize.arentir * 0.2,
+                          fit: BoxFit.fill),
+                    ),
+                  );
+                }
+              }),
             ),
           ),
           buildLoad(false),
@@ -91,7 +134,7 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
   }
 
   Widget buildLoad(bool isUp) {
-    final obj = videoP.obj;
+    final obj = videoP.video;
     final bool isLimit = isUp ? obj.provious == null : obj.next == null;
     return AnimatedCrossFade(
       // visible: isUp ? videoP.isOld : videoP.isNext,
