@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/domanin/entities/discounts/discount_entity.dart';
-import 'package:arzan_tm/presentation/views/pages/lotties/page_500.dart';
+import '/domanin/entities/discounts/discount_entity.dart';
+import '/presentation/views/pages/lotties/page_500.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../domanin/entities/hive_boxes.dart';

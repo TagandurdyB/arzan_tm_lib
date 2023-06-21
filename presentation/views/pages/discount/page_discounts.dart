@@ -77,9 +77,9 @@ class _DiscountsPageState extends State<DiscountsPage> {
           padding: const EdgeInsets.all(16),
           child: IndicatorBtns(
             items: [
-              IndicatorItem(text: "Hemmesi", func: () {}),
-              IndicatorItem(text: "Kategoriýa", func: () {}),
-              IndicatorItem(text: "Bölümler", func: () {}),
+              IndicatorItem(text: "Hemmesi"),
+              IndicatorItem(text: "Kategoriýa"),
+              IndicatorItem(text: "Bölümler"),
             ],
             height: arentir * 0.11,
             activeColor: const Color(0xff00C52B),

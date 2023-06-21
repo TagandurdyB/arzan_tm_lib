@@ -1,3 +1,8 @@
+// ignore_for_file: must_be_immutable
+
+import '../../../domanin/entities/galery/content_card_entity.dart';
+import '/domanin/entities/galery/video_entity.dart';
+
 import '/config/services/my_size.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
@@ -7,12 +12,13 @@ import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import '../../../config/vars/formater.dart';
-import '../../../domanin/entities/galery/big_content_card_entity.dart';
 import 'page_video_player.dart';
+import 'page_video_player1.dart';
 
 class VideosPage extends StatelessWidget {
-  final List<BigCardEntity> objs;
-  VideosPage({required this.objs, super.key});
+  final List<VideoCardEntity> objs;
+  final ContentCardEntity obj;
+  VideosPage({required this.objs,required this.obj, super.key});
 
   final double arentir = MySize.arentir;
   late BuildContext context;
@@ -38,24 +44,25 @@ class VideosPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CustomAvatar(
-            imgUrl: objs[0].userImg,
+            imgUrl: obj.user.avatarImg,
             radius: arentir * 0.09,
           ),
+           SizedBox(width: arentir*0.02),
           Expanded(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(objs[0].userName,
+                Text(obj.user.name,
                     style: TextStyle(fontSize: arentir * 0.04)),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     buildCountIcon(Icons.supervised_user_circle_outlined),
-                    Text(" Görenler: ${objs[0].allViewed}  ",
+                    Text(" Görenler: ${obj.viewed}  ",
                         style: countStyle),
                     buildCountIcon(Icons.ondemand_video),
-                    Text(" Wideo sany: ${objs[0].allCount}", style: countStyle),
+                    Text(" Wideo sany: ${obj.allCount}", style: countStyle),
                   ],
                 ),
               ],
@@ -83,7 +90,8 @@ class VideosPage extends StatelessWidget {
   Widget buildVideoCard(int index) {
     return GestureDetector(
       onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => VideoPlayerPage(objs: objs))),
+          MaterialPageRoute(builder: (context) => const PageVidePlayer1(initId: 1))),
+          // MaterialPageRoute(builder: (context) => const VideoPlayerPage())),
       child: Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
@@ -100,15 +108,15 @@ class VideosPage extends StatelessWidget {
               width: arentir * 0.29,
               height: arentir * 0.31,
               child: ShimmerImg(
-                  fit: BoxFit.fitHeight, imageUrl: objs[index].banerImg),
+                  fit: BoxFit.fitHeight, imageUrl: objs[index].thumbinalImg),
             ),
             buildPlay,
             Positioned(
               bottom: arentir * 0.01,
               left: arentir * 0.02,
               child: Visibility(
-                  visible: objs[index].allViewed > 0,
-                  child: buildIconView(objs[index].allViewed)),
+                  visible: obj.viewed > 0,
+                  child: buildIconView(obj.viewed)),
             ),
           ],
         ),

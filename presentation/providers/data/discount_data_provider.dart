@@ -1,4 +1,6 @@
-import 'package:arzan_tm/domanin/entities/discounts/discount_detal_entity.dart';
+import 'package:arzan/domanin/entities/discounts/discount_category_entity.dart';
+
+import '/domanin/entities/discounts/discount_detal_entity.dart';
 
 import '/domanin/entities/discounts/post_discount_entity.dart';
 
@@ -85,28 +87,28 @@ class DiscountDataP extends ChangeNotifier {
   // MainPageEntity entity = MainPageEntity.frowJson(api);
 
   List _categories = [];
-  List get categories => _categories;
+  List<DiscountCategoryEntity> get categories => _categories.cast<DiscountCategoryEntity>();
   void fillCategories() async {
     try {
       _categories = await discountsCase.categories();
-      fillSubs();
+      // fillSubs();
       notifyListeners();
     } catch (err) {
       throw ("Error DiscountDataP>fillCategories(): $err");
     }
   }
 
-  void fillSubs() async {
-    try {
-      _categories = _categories
-          .map((category) async =>
-              category.forSubList(await discountsCase.subs(category.id)))
-          .toList();
-      notifyListeners();
-    } catch (err) {
-      throw ("Error DiscountDataP>fillCategories>fillSubs(): $err");
-    }
-  }
+  // void fillSubs() async {
+  //   try {
+  //     _categories = _categories
+  //         .map((category) async =>
+  //             category.forSubList(await discountsCase.subs(category.id)))
+  //         .toList();
+  //     notifyListeners();
+  //   } catch (err) {
+  //     throw ("Error DiscountDataP>fillCategories>fillSubs(): $err");
+  //   }
+  // }
 //!Categories=========================================================================
 
   Future<ResponseEntity> addPost(PostDiscountEntity obj) async {

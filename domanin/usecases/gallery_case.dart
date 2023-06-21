@@ -1,5 +1,4 @@
-import '/domanin/entities/galery/video_card_entity.dart';
-
+import '../entities/galery/video_entity.dart';
 import '/domanin/entities/galery/gallery_entity.dart';
 
 import '../entities/galery/img_card_entity.dart';
@@ -13,8 +12,7 @@ class GalleryCase {
   Future<List<ImgCardEntity>> getImgEntitis() async =>
       await repository.getImgEntitis();
 
-  Future<GalleryEntity> getVideos() async => await repository.getVideos();
-
-    Future<List<VideoCardEntity>> getVideoEntitis() async =>
-      await repository.getVideoEntitis();
+  Future<List<VideoCardEntity>> getVideos() async =>
+      await repository.getVideos();
+  Future<VideoEntity> getVideo(int id) async => await repository.getVideo(id);
 }

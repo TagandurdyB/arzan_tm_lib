@@ -2,7 +2,6 @@ import '../../../config/themes/styles.dart';
 import '../../providers/data/values_provider.dart';
 import '/presentation/providers/data/discount_data_provider.dart';
 
-import '/domanin/entities/register/user_http_entity.dart';
 
 import '../../../config/services/connection.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
@@ -54,12 +53,13 @@ class _LogoPageState extends State<LogoPage> {
     final token = hiveP.readStr(Tags.hiveToken);
     final phone = hiveP.readStr(Tags.hivePhone);
     if (token != null && phone != null) {
-      final acauntP = AcauntP.of(context, listen: false);
-      acauntP
-          .checkUser(UserRequestEntity(phone: phone, token: token))
-          .then((response) {
-        acauntP.saveUserInfo(context, response);
-      });
+      ////////Check User Info
+      // final acauntP = AcauntP.of(context, listen: false);
+      // acauntP
+      //     .checkUser(UserRequestEntity(phone: phone, token: token))
+      //     .then((response) {
+      //   acauntP.saveUserInfo(context, response);
+      // });
     }
   }
 
@@ -70,7 +70,7 @@ class _LogoPageState extends State<LogoPage> {
         AcauntP.of(context, listen: false).logIned;
       }
 
-      Navigator.pushReplacementNamed(context, Rout.home);
+      // Navigator.pushReplacementNamed(context, Rout.home);
 
       if (hiveP.readStr(Tags.hiveLocation) != null) {
         Navigator.pushReplacementNamed(context, Rout.home);
@@ -141,14 +141,16 @@ class _LogoPageState extends State<LogoPage> {
     }
   }
 
-  Widget buildLogo() => Stack(
+  Widget buildLogo()  {
+    final double arentir=MediaQuery.of(context).size.width;
+    return Stack(
         alignment: Alignment.center,
         children: [
           Positioned(
             top: 200,
             child: Container(
-              width: MySize.arentir * 0.7,
-              height: MySize.arentir * 0.7,
+              width: arentir * 0.7,
+              height: arentir * 0.7,
               decoration: const BoxDecoration(
                   // color: Colors.red,
                   image: DecorationImage(
@@ -160,16 +162,16 @@ class _LogoPageState extends State<LogoPage> {
               bottom: 50,
               child: SizedBox(
                 //color: Colors.red,
-                width: MySize.arentir * 0.5,
+                width: arentir * 0.5,
                 child: Column(
                   children: [
                     Text("www.arzan.info",
-                        style: StylesLight().site(MySize.arentir * 0.07)),
+                        style: StylesLight().site(arentir * 0.06)),
                     Text("MAGLUMAT PLATFORMASY",
-                        style: StylesLight().site(MySize.arentir * 0.027)),
+                        style: StylesLight().site(arentir * 0.027)),
                   ],
                 ),
               ))
         ],
-      );
+      );}
 }

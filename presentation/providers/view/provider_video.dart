@@ -78,6 +78,19 @@ class VideoP extends ChangeNotifier {
     //  changeScreenMode(ScreenMode.portrate);
   }
 
+  int _cloumnCount = 2;
+  int get cloumnCount => _cloumnCount;
+  void get tongleColumn {
+    // _minScale();
+    // maxScale;
+    if (_cloumnCount < 3) {
+      _cloumnCount++;
+    } else {
+      _cloumnCount = 1;
+    }
+    notifyListeners();
+  }
+
   static VideoP of(BuildContext context, {bool listen = true}) =>
       Provider.of<VideoP>(context, listen: listen);
 }

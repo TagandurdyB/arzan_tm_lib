@@ -16,6 +16,6 @@ class DiscountsCase {
   Future<ResponseEntity> postDiscount(PostDiscountEntity obj) async =>
       await repository.postDiscount(obj);
   Future<List> categories() async => await repository.discountCategories();
-  Future<List> subs(int categoryID) async =>
-      await repository.discountSubs(categoryID);
+  // Future<List> subs(int categoryID) async =>
+  //     await repository.discountSubs(categoryID);
 }

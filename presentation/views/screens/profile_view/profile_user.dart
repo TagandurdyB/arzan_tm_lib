@@ -2,9 +2,9 @@
 
 import 'dart:ui';
 
-import 'package:arzan_tm/presentation/views/widgets/arzan_coin.dart';
-import 'package:arzan_tm/presentation/views/widgets/next_btn.dart';
-import 'package:arzan_tm/presentation/views/widgets/shimmer_img.dart';
+import '/presentation/views/widgets/arzan_coin.dart';
+import '/presentation/views/widgets/next_btn.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 import '../../../../config/routes/my_route.dart';
 import '/presentation/views/widgets/my_container.dart';

@@ -1,4 +1,4 @@
-import '/domanin/entities/location_entity.dart';
+import '../../../domanin/entities/value_entity.dart';
 
 import '../../../domanin/entities/baner_entity.dart';
 import '../../../domanin/usecases/values_case.dart';
@@ -36,7 +36,7 @@ class ValuesP extends ChangeNotifier {
     }
   }
 
-  List<LocationEntity> locations = [];
+  List<ValueEntity> locations = [];
 
   Future<void> fillLocations() async {
     try {

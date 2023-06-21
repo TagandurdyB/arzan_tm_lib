@@ -1,3 +1,5 @@
+import 'package:arzan/presentation/views/widgets/ReadyInput/ready_input_base.dart';
+
 import '/domanin/entities/discounts/discount_category_entity.dart';
 import '/presentation/views/widgets/custom_dropdown.dart';
 
@@ -31,6 +33,8 @@ class _PostFormWidgetState extends State<PostFormWidget> {
 
   late DiscountDataP providDD;
 
+  ScrollController tagControl = ScrollController();
+
   final double arentir = MySize.arentir;
   @override
   Widget build(BuildContext context) {
@@ -55,12 +59,87 @@ class _PostFormWidgetState extends State<PostFormWidget> {
           hidden: "Doly maglumaty",
         ),
         buildSections,
-        const ArzanInputs(
+        ArzanInputs(
           tag: Tags.rIPostHash,
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          prefix: SizedBox(),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          prefix: Container(
+            // color: Colors.red,
+            // margin: EdgeInsets.only(right: arentir*0.1),sdfshjhhh
+            // width: arentir * 0.7,
+            child: SingleChildScrollView(
+              // controller: ,
+              controller: tagControl,
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                      providPost.tags.length,
+                      (index) => GestureDetector(
+                            onTap: () {
+                              providPostdo.removeTag(index);
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: const Color(0xff09C24E),
+                                    borderRadius:
+                                        BorderRadius.circular(arentir * 0.01)),
+                                padding: EdgeInsets.all(arentir * 0.005),
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: arentir * 0.01),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      "#${providPost.tags[index]}",
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    //  IcoASDn(Icons.delete_forever_outlined, color: Colors.white , size: arentir*0.04,)
+                                  ],
+                                )),
+                          ))
+                  // tags
+                  //     .map((e) => GestureDetector(
+                  //       onTap: (){
+                  //         setState(() {
+                  //           tags.removeAt(value)
+                  //         });
+                  //       },
+                  //       child: Container(
+                  //           decoration: BoxDecoration(
+                  //               color: const Color(0xff09C24E),
+                  //               borderRadius:
+                  //                   BorderRadius.circular(arentir * 0.01)),
+                  //           padding: EdgeInsets.all(arentir * 0.005),
+                  //           margin:
+                  //               EdgeInsets.symmetric(horizontal: arentir * 0.01),
+                  //           child: Text(
+                  //             e,
+                  //             style: const TextStyle(color: Colors.white),
+                  //           )),
+                  //     ))
+                  //     .toList(),
+                  ),
+            ),
+          ),
           label: "Hash tag (#tag #tag2)",
           hidden: "Hash tag (#tag #tag2)",
+          onChanged: (String value) {
+            if (value[value.length - 1] == " ") {
+              RIBase.getControl(Tags.rIPostHash).clear();
+              providPostdo.addTag(value);
+              setState(() {
+                Future.delayed(const Duration(milliseconds: 100))
+                    .then((value) => tagControl.animateTo(
+                          tagControl.position.maxScrollExtent,
+                          duration: const Duration(milliseconds: 100),
+                          curve: Curves.fastOutSlowIn,
+                        ));
+              });
+              print("space");
+            }
+          },
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -108,8 +187,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
     );
   }
 
-  List<DiscountCategoryEntity> objc = [];
-  List<DiscountSubcategoryEntity> objs = [];
+  // List<DiscountCategoryEntity> objc = [];
   DiscountCategoryEntity? category;
   DiscountSubcategoryEntity? sub;
 
@@ -121,11 +199,11 @@ class _PostFormWidgetState extends State<PostFormWidget> {
       CategoryText("Bölüm saýlaň", color: const Color(0xffAAAAAA));
 
   Widget get buildSections {
-    objc = [];
-    // ignore: avoid_function_literals_in_foreach_calls
-    providDD.categories.forEach((cetegory) async {
-      objc.add(await cetegory);
-    });
+    // objc = [];
+    // // ignore: avoid_function_literals_in_foreach_calls
+    // providDD.categories.forEach((cetegory) async {
+    //   objc.add(await cetegory);
+    // });
 
     final categories = providDD.categories
         .map((cetegory) => buildCategories(cetegory))
@@ -141,13 +219,15 @@ class _PostFormWidgetState extends State<PostFormWidget> {
           items: categories,
           onChange: (index) {
             setState(() {
-              category = objc[index];
-              categoryVal = categories[index];
+              category =
+                  DiscountDataP.of(context, listen: false).categories[index];
+              categoryVal = buildCategories(category!);
               subcategVal =
                   CategoryText("Bölüm saýlaň", color: const Color(0xffAAAAAA));
               subCategories =
                   category!.subs.map((e) => CategoryText(e.name)).toList();
             });
+            providPostdo.changeCategory(category!.id);
           },
         ),
         const SizedBox(height: 16),
@@ -164,6 +244,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
                 sub = category!.subs[index];
                 subcategVal = subCategories[index];
               });
+              providPostdo.changeSubId(sub!.id);
             },
           ),
         ),
@@ -172,20 +253,8 @@ class _PostFormWidgetState extends State<PostFormWidget> {
     );
   }
 
-  Future fetchData(Future obj) async => await obj;
-
-  Widget buildCategories(Future obj) {
-    return FutureBuilder(
-        future: fetchData(obj),
-        builder: (context, ss) {
-          if (ss.hasError) {
-            return Text("Error in build err:${ss.error}");
-          } else if (ss.hasData) {
-            return CategoryText(ss.data.name);
-          } else {
-            return const SizedBox();
-          }
-        });
+  Widget buildCategories(DiscountCategoryEntity obj) {
+    return CategoryText(obj.name);
   }
 
   Widget get buildPrice {
@@ -198,12 +267,12 @@ class _PostFormWidgetState extends State<PostFormWidget> {
             setState(() => isPrice = val);
           },
         ),
-        Expanded(
+        const Expanded(
           child: ArzanInputs(
-            readOnly: !isPrice,
+            // readOnly: !isPrice,
             tag: Tags.rIPostPrice,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            prefix: const SizedBox(),
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            prefix: SizedBox(),
             type: TextInputType.number,
             label: "Baha",
             hidden: "Baha",
@@ -251,7 +320,9 @@ class _PostFormWidgetState extends State<PostFormWidget> {
 
   Widget buildDate(bool isStart) {
     return GestureDetector(
-      onTap: () => _calendar(isStart),
+      onTap: () {
+        if (isDate) _calendar(isStart);
+      },
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(

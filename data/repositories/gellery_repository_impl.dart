@@ -1,11 +1,8 @@
-import '../../domanin/entities/value_entity.dart';
 
-import '../../domanin/entities/baner_entity.dart';
 
-import '../../domanin/repositories/values_reposotory.dart';
-import '../datasourses/remote/values_remote_datasource.dart';
+import '../../domanin/repositories/gallery_repository .dart';
 
-class ValuesRepositoryImpl implements ValuesRepository {
+class GalleryRepositoryImpl implements GalleryRepository {
   final ValuesRemoteDataSource valuesRemoteDataSource;
   ValuesRepositoryImpl(this.valuesRemoteDataSource);
 

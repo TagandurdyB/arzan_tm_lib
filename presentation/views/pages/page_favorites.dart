@@ -1,5 +1,5 @@
-import 'package:arzan_tm/domanin/entities/discounts/discount_entity.dart';
-import 'package:arzan_tm/presentation/views/scaffold/custom_app_bar.dart';
+import '/domanin/entities/discounts/discount_entity.dart';
+import '/presentation/views/scaffold/custom_app_bar.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../domanin/entities/hive_boxes.dart';

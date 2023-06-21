@@ -1,4 +1,8 @@
-import 'package:arzan_tm/presentation/views/widgets/next_btn.dart';
+import '../../../config/vars/constants.dart';
+import '../../../domanin/entities/user_entity.dart';
+import '/domanin/entities/galery/video_entity.dart';
+
+import '/presentation/views/widgets/next_btn.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -11,30 +15,74 @@ import '../widgets/galery/video_player_widget.dart';
 
 import '/config/services/my_size.dart';
 
-import '/domanin/entities/galery/big_content_card_entity.dart';
-
 import 'package:flutter/material.dart';
 
 class VideoPlayerPage extends StatefulWidget {
-  final List<BigCardEntity> objs;
-  const VideoPlayerPage({required this.objs, super.key});
+  const VideoPlayerPage({super.key});
 
   @override
   State<VideoPlayerPage> createState() => _VideoPlayerPageState();
 }
 
 class _VideoPlayerPageState extends State<VideoPlayerPage> {
+  late GalleryP videoP;
+
   @override
   void initState() {
     super.initState();
+    videoP = GalleryP.of(context, listen: false);
     MyOrientation.disableSystemUI;
   }
 
   @override
   void dispose() {
     MyOrientation.setPortraitUp();
+    videoP.dispodeVideo;
     super.dispose();
   }
+
+  List<VideoEntity> objs = [
+    VideoEntity(
+       user: UserEntity(avatarImg: "", id: 1 , name: "100haryt", role: Role.Official),
+      title:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      videoUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+      likeCount: 1456,
+      provious: null,
+      next: 2,
+    ),
+    VideoEntity(
+       user: UserEntity(avatarImg: "", id: 1 , name: "100haryt", role: Role.Official),
+      title:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      videoUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+      likeCount: 1456,
+      provious: null,
+      next: 2,
+    ),
+    VideoEntity(
+       user: UserEntity(avatarImg: "", id: 1 , name: "100haryt", role: Role.Official),
+      title:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      videoUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+      likeCount: 1456,
+      provious: null,
+      next: 2,
+    ),
+    VideoEntity(
+       user: UserEntity(avatarImg: "", id: 1 , name: "100haryt", role: Role.Official),
+      title:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      videoUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+      likeCount: 1456,
+      provious: null,
+      next: 2,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +91,18 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       onPageChanged: (value) => VideoP.of(context, listen: false).svipeVideo,
-      children: List.generate(widget.objs.length, (index) {
-        if (widget.objs.length == index + 1) {
+      children: List.generate(objs.length, (index) {
+        if (objs.length == index + 1) {
           return buildVideoSviper(
-              widget.objs[index], widget.objs[index - 1].videoUrl!, "", "Last");
+              objs[index], objs[index - 1].videoUrl, "", "Last");
         } else if (index == 0) {
-          return buildVideoSviper(widget.objs[index], "",
-              widget.objs[index + 1].videoUrl!, "First");
+          return buildVideoSviper(
+              objs[index], "", objs[index + 1].videoUrl, "First");
         } else {
           return buildVideoSviper(
-              widget.objs[index],
-              widget.objs[index - 1].videoUrl!,
-              widget.objs[index + 1].videoUrl!,
+              objs[index],
+              objs[index - 1].videoUrl,
+              objs[index + 1].videoUrl,
               "");
         }
       }),
@@ -65,7 +113,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
 
   int startY = 0, endY = 0;
   Widget buildVideoSviper(
-      BigCardEntity obj, String old, String next, String videoStatus) {
+      VideoEntity obj, String old, String next, String videoStatus) {
     final galeryP = GalleryP.of(context);
     return GestureDetector(
       onVerticalDragDown: (details) {
@@ -136,7 +184,7 @@ Widget buildText(String text) => SafeArea(
     );
 
 class CustomVideoPlayer extends StatefulWidget {
-  final BigCardEntity obj;
+  final VideoEntity obj;
   final String oldVideo, nextVideo;
   const CustomVideoPlayer(
       {required this.obj, this.nextVideo = "", this.oldVideo = "", super.key});
@@ -166,7 +214,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
     _controllerProvider = GalleryP.of(context, listen: false);
     _controllerProvider?.setVideoUrls([
       widget.oldVideo,
-      widget.obj.videoUrl!,
+      widget.obj.videoUrl,
       widget.nextVideo,
     ]);
   }

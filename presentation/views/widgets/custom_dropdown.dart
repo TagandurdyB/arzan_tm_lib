@@ -37,11 +37,10 @@ class CustomDropDown extends StatefulWidget {
 
 class _CustomDropDownState extends State<CustomDropDown> {
   bool isOpen = false;
-  List items = [];
   @override
   void initState() {
     isOpen = widget.isOpen;
-    items = widget.items;
+    widget.items;
     super.initState();
   }
 
@@ -125,16 +124,16 @@ class _CustomDropDownState extends State<CustomDropDown> {
             : null,
         child: Column(
             children: List.generate(
-                items.length + 1,
-                (index) => index != items.length
+                widget.items.length + 1,
+                (index) => index != widget.items.length
                     ? GestureDetector(
-                        onTap: () => setState(() {
-                              isOpen = false;
-                              if (widget.onChange != null) {
-                                widget.onChange!(index);
-                              }
-                            }),
-                        child: items[index])
+                        onTap: () {
+                          setState(() => isOpen = false);
+                          if (widget.onChange != null) {
+                            widget.onChange!(index);
+                          }
+                        },
+                        child: widget.items[index])
                     : SizedBox(
                         height: widget.height ?? 16,
                       ))),

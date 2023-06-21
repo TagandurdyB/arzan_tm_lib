@@ -37,6 +37,7 @@ import 'data/datasourses/local/hive_local_datacource.dart';
 import 'data/repositories/hive_repository_impl.dart';
 import 'domanin/usecases/hive_case.dart';
 import 'presentation/providers/data/data_provider_theme.dart';
+import 'presentation/providers/data/video_data_provider.dart';
 import 'presentation/providers/view/provider_video.dart';
 import 'presentation/providers/view/provider_navigation.dart';
 
@@ -84,6 +85,8 @@ class Injector extends StatelessWidget {
           ChangeNotifierProvider<ChosenDataP>(
               create: (context) => ChosenDataP()),
           ChangeNotifierProvider<GalleryP>(create: (context) => GalleryP()),
+          //=============================================
+          ChangeNotifierProvider<VideoDataP>(create: (context) => VideoDataP()),
           ///////////////////////////////////////////////////////////////////////
           ChangeNotifierProvider<ThemeP>(create: (context) => ThemeP()),
           ChangeNotifierProvider<ProviderNav>(

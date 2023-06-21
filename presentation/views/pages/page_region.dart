@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import '/domanin/entities/location_entity.dart';
+import '../../../domanin/entities/value_entity.dart';
 
 import '/presentation/providers/data/values_provider.dart';
 
@@ -65,7 +65,8 @@ class RegionPage extends StatelessWidget {
     );
   }
 
-  Widget buildBtn(LocationEntity obj) {
+  Widget buildBtn(ValueEntity obj) {
+    bool isSelected=HiveP.of(context).readInt(Tags.hiveLocationId) == obj.id;
     return GestureDetector(
       onTap: () {
         final hiveP = HiveP.of(context, listen: false);
@@ -77,8 +78,8 @@ class RegionPage extends StatelessWidget {
       child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: HiveP.of(context).readInt(Tags.hiveLocationId) == obj.id
-                ? Colors.orange[500]
+            color: isSelected
+                ? const Color(0xff20992C)
                 : Colors.white,
             borderRadius: BorderRadius.circular(arentir * 0.02),
             border: Border.all(color: Colors.black, width: 2),
@@ -95,7 +96,7 @@ class RegionPage extends StatelessWidget {
           child: Text(
             obj.name,
             style: TextStyle(
-                color: const Color(0xff20992C),
+                color:isSelected?Colors.black: const Color(0xff20992C),
                 fontWeight: FontWeight.bold,
                 fontSize: arentir * 0.06),
           )),

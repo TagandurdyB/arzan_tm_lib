@@ -1,6 +1,8 @@
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:video_player/video_player.dart';
 
+import 'constants.dart';
+
 class Formater {
   static String twoDigit(int n) {
     return n.toString().padLeft(2, "0");
@@ -126,12 +128,29 @@ class Formater {
     "=",
     " ",
     "/",
+    " ",
+    "'",
+    "\"",
   ];
   static bool hasSimbol(String text) {
     for (int i = 0; i < simbols.length; i++) {
       if (text.contains(simbols[i])) return true;
     }
     return false;
+  }
+
+
+    static Role strToRole(String role) {
+    switch (role) {
+      case "user":
+        return Role.User;
+      case "official":
+        return Role.Official;
+      case "expired":
+        return Role.Expired;
+      default:
+        return Role.Gost;
+    }
   }
 }
 
@@ -167,4 +186,6 @@ class TimeConterter {
   String get getDuration => _getDuration();
 
   String get getTime => "${_getPosition()} / ${_getDuration()}";
+
+
 }

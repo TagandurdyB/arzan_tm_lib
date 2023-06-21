@@ -44,32 +44,19 @@ class DiscountSections extends StatelessWidget {
     objs = context.watch<DiscountDataP>().categories;
     return SliverList(
       delegate: SliverChildListDelegate(
-          objs.map((obj) => SectionCard(objc: obj)).toList()),
+          objs.map((obj) => SectionCard(obj: obj)).toList()),
     );
   }
 }
 
 class SectionCard extends StatelessWidget {
-  final Future objc;
-  SectionCard({required this.objc, super.key});
-
-  Future fetchData() async => await objc;
+  final DiscountCategoryEntity obj;
+  SectionCard({required this.obj, super.key});
 
   final double arentir = MySize.arentir;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: fetchData(),
-      builder: (context, ss) {
-        if (ss.hasError) {
-          return const SizedBox(child: Text("Error in data"));
-        } else if (ss.hasData) {
-          return buildConent(context, ss.data);
-        } else {
-          return const CircularProgressIndicator();
-        }
-      },
-    );
+    return buildConent(context, obj);
   }
 
   Column buildConent(BuildContext context, DiscountCategoryEntity obj) {

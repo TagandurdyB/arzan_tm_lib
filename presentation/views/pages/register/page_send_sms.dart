@@ -79,6 +79,7 @@ class SendSmsPage extends StatelessWidget {
   }
 
   void _signUpFunc() {
+    print("Sign up");
     AcauntP.of(context, listen: false).changeScreen(0);
     Navigator.pop(context);
   }

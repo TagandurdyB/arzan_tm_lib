@@ -2,8 +2,11 @@
 
 import 'dart:ui' as ui;
 
+import '/config/vars/formater.dart';
+import '/domanin/entities/user_entity.dart';
+
 import '../../../../../config/services/my_size.dart';
-import '../../../../../domanin/entities/galery/big_content_card_entity.dart';
+import '../../../../../domanin/entities/galery/content_card_entity.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +14,7 @@ import '../../../../providers/view/provider_theme.dart';
 import '../../custom_avatar.dart';
 
 class BigContentCard extends StatelessWidget {
-  final BigCardEntity obj;
+  final ContentCardEntity obj;
   final Widget? child;
   final Function? onTap;
   final Widget? baner;
@@ -28,8 +31,7 @@ class BigContentCard extends StatelessWidget {
         if (onTap != null) onTap!();
       },
       child: Container(
-        margin:
-            obj.userName != "" ? EdgeInsets.only(bottom: arentir * 0.03) : null,
+        margin: EdgeInsets.only(bottom: arentir * 0.03),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: Theme.of(context).canvasColor,
@@ -40,16 +42,9 @@ class BigContentCard extends StatelessWidget {
         width: arentir * 0.9,
         // height: arentir * 0.95,
         child: Column(children: [
-          Visibility(
-              visible: obj.userName != "",
-              child: buildTitle(obj.userImg, obj.userName)),
-          baner ?? buildBaner(),
-          buildBottom(
-            obj.allCount,
-            obj.allViewed,
-            obj.allShaered,
-            obj.name,
-          ),
+          buildTitle(obj.user),
+          baner ?? buildBaner,
+          buildBottom,
           // const Expanded(child: SizedBox()),
           Visibility(
             visible: child != null,
@@ -61,15 +56,15 @@ class BigContentCard extends StatelessWidget {
     );
   }
 
-  Widget buildBaner() {
+  Widget get buildBaner {
     return Stack(
       alignment: Alignment.center,
       children: [
         SizedBox(
-            height: obj.videoUrl == null ? arentir * 0.3 : arentir * 0.4,
+            height: obj.isPicture ? arentir * 0.3 : arentir * 0.4,
             width: arentir * 0.9,
             child: ShimmerImg(imageUrl: obj.banerImg)),
-        Visibility(visible: obj.videoUrl != null, child: buildPlay),
+        Visibility(visible: !obj.isPicture , child: buildPlay),
       ],
     );
   }
@@ -93,20 +88,20 @@ class BigContentCard extends StatelessWidget {
     );
   }
 
-  Widget buildTitle(String imgUrl, String title) {
+  Widget buildTitle(UserEntity user) {
     return Padding(
       padding: EdgeInsets.all(arentir * 0.02),
       child: Row(
         children: [
           CustomAvatar(
-            imgUrl: imgUrl,
+            imgUrl: user.avatarImg,
             // bgColor: Colors.blue,
             radius: arentir * 0.08,
             borderWidth: 2,
           ),
           buildStar,
           Text(
-            title,
+            user.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -134,7 +129,7 @@ class BigContentCard extends StatelessWidget {
     );
   }
 
-  Widget buildBottom(int imgCount, int viewed, int geriBildirim, String text) {
+  Widget get buildBottom {
     return Padding(
       padding: EdgeInsets.all(arentir * 0.03),
       child: Column(
@@ -142,15 +137,21 @@ class BigContentCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              buildIconNum(Icons.image_outlined, imgCount),
-              buildIconNum(Icons.remove_red_eye_outlined, viewed),
-              buildIconNum(
-                  Icons.switch_access_shortcut_add_rounded, geriBildirim),
+               Visibility(
+                visible: !obj.isPicture,
+                child: buildIconText(Formater.calendar(obj.createdAt??DateTime.now()))),
+                SizedBox(width: arentir*0.02),
+              Visibility(
+                visible: obj.isPicture,
+                child: buildIconNum(Icons.image_outlined, obj.allCount)),
+              buildIconNum(Icons.remove_red_eye_outlined, obj.viewed),
+              // buildIconNum(
+              //     Icons.switch_access_shortcut_add_rounded, geriBildirim),
             ],
           ),
           SizedBox(height: arentir * 0.02),
           Text(
-            text,
+            obj.title,
             style: TextStyle(fontSize: arentir * 0.038),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -168,12 +169,16 @@ class BigContentCard extends StatelessWidget {
         color: const Color(0xff747474),
       ),
       SizedBox(width: arentir * 0.01),
-      Text(
-        "$num",
-        style:
-            TextStyle(fontSize: arentir * 0.03, color: const Color(0xff747474)),
-      ),
+      buildIconText("$num "),
       SizedBox(width: arentir * 0.03),
     ]);
+  }
+
+  Text buildIconText(String text) {
+    return Text(
+      text,
+      style:
+          TextStyle(fontSize: arentir * 0.03, color: const Color(0xff747474)),
+    );
   }
 }

@@ -39,12 +39,12 @@ class DiscountsRepositoryImpl implements DiscountsRepository {
     }
   }
 
-  @override
-  Future<List<DiscountSubcategoryEntity>> discountSubs(int categoryID) async {
-    try {
-      return await discountsRemoteDataSource.discountSub(categoryID);
-    } catch (err) {
-      throw ("DiscountsRepositoryImpl>discountSub Error :$err");
-    }
-  }
+  // @override
+  // Future<List<DiscountSubcategoryEntity>> discountSubs(int categoryID) async {
+  //   try {
+  //     return await discountsRemoteDataSource.discountSub(categoryID);
+  //   } catch (err) {
+  //     throw ("DiscountsRepositoryImpl>discountSub Error :$err");
+  //   }
+  // }
 }

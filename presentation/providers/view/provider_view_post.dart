@@ -47,6 +47,31 @@ class PostP extends ChangeNotifier {
     notifyListeners();
   }
 
+  int _categoryId = 0;
+  int get categoryId => _categoryId;
+  void changeCategory(int id) {
+    _categoryId = id;
+    notifyListeners();
+  }
+
+  int _subCategoryId = 0;
+  int get subCategoryId => _subCategoryId;
+  void changeSubId(int id) {
+    _subCategoryId = id;
+    notifyListeners();
+  }
+
+  List<String> tags = [];
+  void addTag(String tag) {
+    tags.add(tag);
+    notifyListeners();
+  }
+
+  void removeTag(int index) {
+    tags.removeAt(index);
+    notifyListeners();
+  }
+
   static PostP of(BuildContext context, {bool listen = true}) =>
       Provider.of<PostP>(context, listen: listen);
 }

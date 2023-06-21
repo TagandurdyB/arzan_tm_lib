@@ -2,15 +2,14 @@ class PostDiscountEntity {
   final List<String> images;
   final String name;
   final String description;
-  final String hashtags;
-  final String phone;
+  final List<String>? hashtags;
+  final String? phone;
   final int price;
-  final int oldPrice;
-  final DateTime statedAt;
-  final DateTime endedAt;
+  final int? oldPrice;
+  final DateTime? statedAt;
+  final DateTime? endedAt;
   final int categoryId;
   final int subCategoryId;
-  final String welayat;
   final bool isEmpty;
   PostDiscountEntity({
     required this.images,
@@ -24,7 +23,6 @@ class PostDiscountEntity {
     required this.endedAt,
     this.subCategoryId = 0,
     this.categoryId = 0,
-    this.welayat = "Balkan",
     this.isEmpty = true,
   });
 
@@ -32,7 +30,7 @@ class PostDiscountEntity {
         isEmpty: true,
         description: '',
         endedAt: DateTime.now(),
-        hashtags: '',
+        hashtags: [],
         images: [],
         name: '',
         phone: '',
@@ -56,17 +54,16 @@ class PostDiscountEntity {
   //       isEmpty: false,
   //     );
 
-  Map<String, dynamic> toJson() => {
-        "description": description,
-        "endedAt": endedAt,
-        "hashtags": hashtags,
-        "name": name,
-        "phone": phone,
-        "oldPrice": oldPrice,
-        "price": price,
-        "statedAt": statedAt,
-        "welayat": welayat,
-        "categoryId": categoryId,
-        "subCategoryId": subCategoryId,
-      };
+  // Map<String, dynamic> toJson() => {
+  //       "description": description,
+  //       "endedAt": endedAt,
+  //       "hashtags": hashtags,
+  //       "name": name,
+  //       "phone": phone,
+  //       "oldPrice": oldPrice,
+  //       "price": price,
+  //       "statedAt": statedAt,
+  //       "categoryId": categoryId,
+  //       "subCategoryId": subCategoryId,
+  //     };
 }

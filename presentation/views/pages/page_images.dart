@@ -5,7 +5,6 @@ import '../widgets/widget_btn.dart';
 import '/presentation/providers/data/provider_gallery.dart';
 
 import '/presentation/views/widgets/galery/folder_cards/midle_folder_card.dart';
-import '/presentation/views/widgets/galery/folder_cards/small_folder_card.dart';
 
 import '/presentation/views/widgets/card_title.dart';
 
@@ -13,7 +12,7 @@ import '../../providers/view/provider_discaunts.dart';
 import '../widgets/carusel_slider.dart';
 import '/presentation/views/pages/page_image_detal.dart';
 
-import '../../../domanin/entities/galery/big_content_card_entity.dart';
+import '../../../domanin/entities/galery/content_card_entity.dart';
 import '../widgets/galery/folder_cards/big_content_card.dart';
 
 import '../../../config/services/my_size.dart';
@@ -45,7 +44,7 @@ class _ImagesPageState extends State<ImagesPage> {
   late DiscountProvid providD, providDdo;
 
   late GalleryP providG, providGdo;
-  late List<BigCardEntity> objs;
+  late List<ContentCardEntity> objs;
 
   @override
   Widget build(BuildContext context) {
@@ -115,11 +114,11 @@ class _ImagesPageState extends State<ImagesPage> {
                 onTap: () => _goImgDetal(index),
                 obj: objs[index],
               );
-            case 3:
-              return SmallFolderCard(
-                onTap: () => _goImgDetal(index),
-                obj: objs[index],
-              );
+            // case 3:
+            //   return SmallFolderCard(
+            //     onTap: () => _goImgDetal(index),
+            //     obj: objs[index],
+            //   );
 
             default:
               return BigContentCard(
@@ -135,8 +134,8 @@ class _ImagesPageState extends State<ImagesPage> {
       MaterialPageRoute(
           builder: (context) => ImageDetalPage(
                 // obj: const [],
-                userImg: objs[index].userImg,
-                userName: objs[index].userName,
+                userImg: objs[index].user.avatarImg,
+                userName: objs[index].user.name,
                 userId: objs[index].id,
               )));
 }

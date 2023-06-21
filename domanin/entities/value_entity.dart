@@ -1,13 +1,15 @@
-class LocationEntity {
+class ValueEntity {
   final int id;
   final String name;
+  final int count;
   final bool isEmpty;
 
-  LocationEntity({
+  ValueEntity({
     required this.id,
     required this.name,
+    this.count=0,
     this.isEmpty = true,
   });
 
-  static LocationEntity get empty => LocationEntity(id: 0, name: "");
+  static ValueEntity get empty => ValueEntity(id: 0, name: "");
 }

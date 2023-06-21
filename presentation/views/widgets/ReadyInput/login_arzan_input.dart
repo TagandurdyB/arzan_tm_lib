@@ -14,6 +14,7 @@ class ArzanInputs extends StatefulWidget {
   final int maxLines;
   final bool readOnly;
   final EdgeInsetsGeometry? padding;
+  final Function? onChanged;
   const ArzanInputs({
     super.key,
     this.maxLength,
@@ -27,6 +28,7 @@ class ArzanInputs extends StatefulWidget {
     this.padding,
     this.iconD = Icons.edit,
     this.label = "",
+    this.onChanged,
     this.readOnly = false,
   });
 
@@ -150,6 +152,9 @@ class _ArzanInputsState extends State<ArzanInputs> {
       validator: (String? value) {
         if (widget.validator != null) return widget.validator!(value);
         return null;
+      },
+      onChanged: (value) {
+        if(widget.onChanged!=null)widget.onChanged!(value);
       },
     );
   }

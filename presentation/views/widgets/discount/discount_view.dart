@@ -1,4 +1,6 @@
-import '../../../../domanin/entities/discounts/discount_detal_entity.dart';
+import 'package:arzan/config/vars/constants.dart';
+
+import '../../../providers/data/hive_provider.dart';
 import '../../pages/discount/page_discount_detal.dart';
 import '../../../../domanin/entities/discounts/discount_entity.dart';
 
@@ -27,9 +29,10 @@ class _DiscountViewState extends State<DiscountView> {
   @override
   Widget build(BuildContext context) {
     final providD = DiscountProvid.of(context);
+    final typeOfYou=HiveP.of(context).readInt(Tags.hiveTypeOfYou)??2;
     return SliverGrid.builder(
         itemCount: widget.objs.length,
-        gridDelegate: _delegateChanger(providD.cloumnCount),
+        gridDelegate: _delegateChanger(typeOfYou),
         itemBuilder: (context, index) {
           return GestureDetector(
               onTap: () {
@@ -67,7 +70,7 @@ class _DiscountViewState extends State<DiscountView> {
                               // ),
                             )));
               },
-              child: buildDiscountCard(index, providD.cloumnCount));
+              child: buildDiscountCard(index, typeOfYou));
           // return Entry.scale(
           //     visible: providD.scaleVisible,
           //     scale: 0,

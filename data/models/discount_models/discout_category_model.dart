@@ -35,11 +35,11 @@ class DiscountCategoryModel extends DiscountCategoryEntity {
   factory DiscountCategoryModel.frowJson(Map<String, dynamic> json) {
     try {
       return DiscountCategoryModel(
-        id: int.parse(json["id"]),
-        imgUrl: json["imgUrl"],
+        id: json["id"],
+        imgUrl: json["image"],
         name: json["name"],
         count: json["count"] ?? 0,
-        subs: json["subs"] ?? [],
+        subs: json["sub_categories"] !=null?DiscountSubcategoryModel.fromJsonList(json["sub_categories"]): [],
         isEmpty: false,
       );
     } catch (err) {
@@ -83,7 +83,7 @@ class DiscountSubcategoryModel extends DiscountSubcategoryEntity {
   factory DiscountSubcategoryModel.frowJson(Map<String, dynamic> json) {
     try {
       return DiscountSubcategoryModel(
-        id: int.parse(json["id"]),
+        id: json["id"],
         name: json["name"],
         isEmpty: false,
       );

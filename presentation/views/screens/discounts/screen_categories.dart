@@ -42,7 +42,7 @@ class DiscountCategories extends StatelessWidget {
     final objs = context.watch<DiscountDataP>().categories;
     return  SliverList(
         delegate: SliverChildListDelegate(
-            objs.map((obj) => CategoryCard(objc: obj)).toList()),
+            objs.map((obj) => CategoryCard(obj: obj)).toList()),
       );
   }
 
@@ -55,31 +55,14 @@ class DiscountCategories extends StatelessWidget {
 }
 
 class CategoryCard extends StatelessWidget {
-  final Future objc;
-  CategoryCard({required this.objc, super.key});
+  final DiscountCategoryEntity obj;
+  CategoryCard({required this.obj, super.key});
 
   final double arentir = MySize.arentir;
 
-  Future fetchData() async => await objc;
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: fetchData(),
-        builder: (context, ss) {
-          if (ss.hasError) {
-            return const Text("Error get data");
-          } else if (ss.hasData) {
-            return buildContent(context, ss.data);
-          } else {
-            return const CircularProgressIndicator();
-          }
-        });
-  }
-
-  GestureDetector buildContent(
-      BuildContext context, DiscountCategoryEntity obj) {
-    return GestureDetector(
+       return GestureDetector(
       onTap: () {
         final List<DiscountEntity> objs = [
           DiscountEntity(
@@ -129,5 +112,8 @@ class CategoryCard extends StatelessWidget {
         ),
       ),
     );
+
   }
+
+
 }

@@ -1,5 +1,7 @@
 // ignore_for_file: overridden_fields
 
+import 'dart:convert';
+
 import '/domanin/entities/discounts/post_discount_entity.dart';
 
 class PostDiscountModel extends PostDiscountEntity {
@@ -10,23 +12,21 @@ class PostDiscountModel extends PostDiscountEntity {
   @override
   final String description;
   @override
-  final String hashtags;
+  final List<String>? hashtags;
   @override
-  final String phone;
+  final String? phone;
   @override
   final int price;
   @override
-  final int oldPrice;
+  final int? oldPrice;
   @override
-  final DateTime statedAt;
+  final DateTime? statedAt;
   @override
-  final DateTime endedAt;
+  final DateTime? endedAt;
   @override
   final int categoryId;
   @override
   final int subCategoryId;
-  @override
-  final String welayat;
   @override
   final bool isEmpty;
   PostDiscountModel({
@@ -41,7 +41,6 @@ class PostDiscountModel extends PostDiscountEntity {
     required this.endedAt,
     this.subCategoryId = 0,
     this.categoryId = 0,
-    this.welayat = "Balkan",
     this.isEmpty = true,
   }) : super(
           images: images,
@@ -55,14 +54,13 @@ class PostDiscountModel extends PostDiscountEntity {
           endedAt: DateTime.now(),
           subCategoryId: subCategoryId,
           categoryId: categoryId,
-          welayat: welayat,
         );
 
   static PostDiscountModel empty() => PostDiscountModel(
         isEmpty: true,
         description: '',
         endedAt: DateTime.now(),
-        hashtags: '',
+        hashtags: [],
         images: [],
         name: '',
         phone: '',
@@ -98,6 +96,8 @@ class PostDiscountModel extends PostDiscountEntity {
         phone: entity.phone,
         price: entity.price,
         statedAt: entity.statedAt,
+        categoryId: entity.categoryId,
+        subCategoryId: entity.subCategoryId,
         isEmpty: false,
       );
     } catch (err) {
@@ -105,18 +105,16 @@ class PostDiscountModel extends PostDiscountEntity {
     }
   }
 
-  @override
-  Map<String, dynamic> toJson() => {
+  Map<String, String> toJson() => {
         "description": description,
-        "end_date": endedAt.toString(),
-        "hashtags": hashtags,
+        "end_date": endedAt != null ? endedAt.toString() : '',
+        "tags": hashtags != null ? jsonEncode(hashtags) : jsonEncode([]),
         "title": name,
-        "phone_num": phone,
-        "discount_price": oldPrice,
-        "price": price,
-        "start_date": statedAt.toString(),
-        "welayat": welayat,
-        "categoryId": categoryId,
-        "subCategoryId": subCategoryId,
+        "phone": phone ?? "",
+        "discount": oldPrice != null ? "$oldPrice" : "0",
+        "price": price.toString(),
+        "start_date": statedAt != null ? statedAt.toString() : '',
+        "category_id": categoryId.toString(),
+        "sub_category_id": subCategoryId.toString(),
       };
 }

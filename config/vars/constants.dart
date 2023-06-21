@@ -2,6 +2,8 @@
 
 import '../services/my_size.dart';
 
+enum Role { User, Official, Expired, Gost }
+
 class Nums {
   static const int logoTime = 5;
   static double site = MySize.arentir * 0.07;
@@ -99,6 +101,10 @@ class Tags {
   static const String hivePhone = "Hive User Phone";
   static const String hiveAvatarImg = "Hive User Avatar Image";
   static const String hiveEmail = "Hive User Email";
+  //================
+  static const String hiveVideoType = "Hive Video Type ID";
+  static const String hiveTypeOfYou = "Hive Type Of You int";
+  static const String hiveVideoCategory = "Hive Video Category ID";
   //================
   static const String isLogin = "Hive Login now";
   //================

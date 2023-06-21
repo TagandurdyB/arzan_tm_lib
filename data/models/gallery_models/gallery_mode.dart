@@ -3,13 +3,13 @@
 import '/domanin/entities/galery/gallery_entity.dart';
 
 import '../baner_model.dart';
-import 'big_card_model.dart';
+import 'content_card_model.dart';
 
 class GalleryModel extends GalleryEntity {
   @override
   final List<BanerModel> banners;
   @override
-  final List<BigCardModel> folders;
+  final List<ContentCardModel> folders;
   @override
   final bool isEmpty;
   GalleryModel({
@@ -25,7 +25,7 @@ class GalleryModel extends GalleryEntity {
 
   factory GalleryModel.frowJson(Map<String, dynamic> json) => GalleryModel(
         banners: BanerModel.fromJsonList(json["banners"]),
-        folders: BigCardModel.fromJsonList(json["folders"]),
+        folders: ContentCardModel.fromJsonList(json["folders"]),
         isEmpty: false,
       );
 

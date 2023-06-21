@@ -21,7 +21,7 @@ abstract class DiscountsRemoteDataSource {
   Future<DiscountDetalModel> getDetal(int id);
   Future<ResponseModel> postDiscount(PostDiscountModel obj);
   Future<List<DiscountCategoryModel>> discountCategories();
-  Future<List<DiscountSubcategoryModel>> discountSub(int categoryID);
+  // Future<List<DiscountSubcategoryModel>> discountSub(int categoryID);
 }
 
 class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
@@ -66,8 +66,8 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
   @override
   Future<ResponseModel> postDiscount(PostDiscountModel obj) async {
     final myBase = Hive.box(Tags.hiveBase);
-    final String token = myBase.get(Tags.hiveToken);
-    print("+*+$token");
+    // final String token = myBase.get(Tags.hiveToken);
+    // print("+*+$token");
 
     print("+*+${obj.toJson()}");
     Map<String, String> element = {
@@ -76,20 +76,21 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
 
     List<http.MultipartFile> imgList = [];
     //MultiImage=====================================================================================
-    // for (int i = 0; i < obj.images.length; i++) {
-    //   var multipartFile =  await http.MultipartFile.fromPath('image[]', obj.images[i].path);
-    //   imgList.add(multipartFile);
-    // }
+    for (int i = 0; i < obj.images.length; i++) {
+      var multipartFile =  await http.MultipartFile.fromPath('image', obj.images[i]);
+      imgList.add(multipartFile);
+    }
     //SingleImage====================================================================================
-    var multipartFile =
-        await http.MultipartFile.fromPath('image', obj.images[0]);
-    imgList.add(multipartFile);
+    // var multipartFile =
+    //     await http.MultipartFile.fromPath('image', obj.images[0]);
+    // imgList.add(multipartFile);
     //===============================================================================================
 
+print("request:=${obj.toJson()}");
     var request = http.MultipartRequest('POST', Uris.postDiscount)
-      ..headers.addAll(Headers.bearer(token))
-      ..fields.addAll(element)
-      ..files.add(imgList[0]);
+      // ..headers.addAll(Headers.bearer(token))
+      ..fields.addAll(obj.toJson())
+      ..files.addAll(imgList);
 
     var response = await request.send();
     var responseAnswer = await http.Response.fromStream(response);
@@ -104,7 +105,7 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
     final categoryResponse = await httpClient.get(Uris.discoutCategories,
         headers: Headers.contentJson);
     if (categoryResponse.statusCode == 200) {
-      final categoryRes = json.decode(categoryResponse.body) as List;
+      final categoryRes = json.decode(categoryResponse.body)["data"] as List;
       print("Category response:=$categoryRes");
       return DiscountCategoryModel.fromJsonList(categoryRes);
     } else {
@@ -112,24 +113,24 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
     }
   }
 
-  @override
-  Future<List<DiscountSubcategoryModel>> discountSub(int categoryID) async {
-    print("categorysub request:$categoryID");
-    return await http
-        .post(Uris.discoutSubcategories,
-            headers: Headers.contentJson,
-            body: jsonEncode({"category": categoryID}))
-        .then(
-      (response) {
-        final subRes = json.decode(response.body);
-        print("categorysub response:=$subRes");
-        if (response.statusCode == 200 && subRes.runtimeType == List) {
-          return DiscountSubcategoryModel.fromJsonList(
-              jsonDecode(response.body));
-        } else {
-          return [];
-        }
-      },
-    );
-  }
+  // @override
+  // Future<List<DiscountSubcategoryModel>> discountSub(int categoryID) async {
+  //   print("categorysub request:$categoryID");
+  //   return await http
+  //       .post(Uris.discoutSubcategories,
+  //           headers: Headers.contentJson,
+  //           body: jsonEncode({"category": categoryID}))
+  //       .then(
+  //     (response) {
+  //       final subRes = json.decode(response.body);
+  //       print("categorysub response:=$subRes");
+  //       if (response.statusCode == 200 && subRes.runtimeType == List) {
+  //         return DiscountSubcategoryModel.fromJsonList(
+  //             jsonDecode(response.body));
+  //       } else {
+  //         return [];
+  //       }
+  //     },
+  //   );
+  // }
 }

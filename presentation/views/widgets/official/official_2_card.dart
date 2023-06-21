@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:arzan_tm/presentation/views/widgets/custom_avatar.dart';
-import 'package:arzan_tm/presentation/views/widgets/next_btn.dart';
+import '/presentation/views/widgets/custom_avatar.dart';
+import '/presentation/views/widgets/next_btn.dart';
 
 import '../../../../config/vars/formater.dart';
 import '../../../providers/view/provider_theme.dart';

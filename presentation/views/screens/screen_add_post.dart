@@ -3,7 +3,6 @@
 import '/presentation/views/widgets/ReadyInput/ready_input_base.dart';
 
 import '../../../config/vars/constants.dart';
-import '../../providers/data/hive_provider.dart';
 import '/domanin/entities/discounts/post_discount_entity.dart';
 
 import '../../providers/data/discount_data_provider.dart';
@@ -54,22 +53,34 @@ class AddPostScreen extends StatelessWidget {
         const SizedBox(height: 20),
         NextBtn(
             func: () {
+              final map=[
+                providPostDo.imgPaths ,
+                 RIBase.getText(Tags.rIPostName) ,
+                 RIBase.getText(Tags.rIPostAbout) ,
+                 providPostDo.tags ,
+                 "+993${RIBase.getText(Tags.rIPostPhone)}", 
+                 int.parse(RIBase.getText(Tags.rIPostPrice)) ,
+                 int.parse(RIBase.getText(Tags.rIPostDiscount)) ,
+                 providPostDo.startDate!,
+                 providPostDo.endDate!, 
+                 providPostDo.categoryId, 
+                 providPostDo.subCategoryId
+              ];
+              print("PostDiscountEntity:=$map");
               _loadPop();
               DiscountDataP.of(context, listen: false)
                   .addPost(PostDiscountEntity(
                     images: providPostDo.imgPaths,
                     name: RIBase.getText(Tags.rIPostName),
                     description: RIBase.getText(Tags.rIPostAbout),
-                    hashtags: RIBase.getText(Tags.rIPostHash),
-                    phone: RIBase.getText(Tags.rIPostPhone),
+                    hashtags: providPostDo.tags,
+                    phone: "+993${RIBase.getText(Tags.rIPostPhone)}",
                     price: int.parse(RIBase.getText(Tags.rIPostPrice)),
                     oldPrice: int.parse(RIBase.getText(Tags.rIPostDiscount)),
                     statedAt: providPostDo.startDate!,
                     endedAt: providPostDo.endDate!,
-                    welayat: HiveP.of(context, listen: false)
-                        .readStr(Tags.hiveLocation)!,
-                    categoryId: 1,
-                    subCategoryId: 1,
+                    categoryId: providPostDo.categoryId,
+                    subCategoryId: providPostDo.subCategoryId,
                   ))
                   .then((entity) => _popMessage(entity.result, entity.status));
             },

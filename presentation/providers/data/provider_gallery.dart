@@ -1,6 +1,8 @@
+import '/config/vars/constants.dart';
+import '/domanin/entities/user_entity.dart';
 import 'package:video_player/video_player.dart';
 
-import '/domanin/entities/galery/big_content_card_entity.dart';
+import '../../../domanin/entities/galery/content_card_entity.dart';
 import '../../../domanin/entities/baner_entity.dart';
 import 'package:provider/provider.dart';
 
@@ -76,59 +78,67 @@ class GalleryP extends ChangeNotifier {
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvH1EzNpeLrLdzhgXUYZJPhRTG79SANegPg&usqp=CAU"),
     ],
     folders: [
-      BigCardEntity(
+      ContentCardEntity(
         id: 1,
-        userImg:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
-        userName: "100haryt.com",
+        user: UserEntity(
+            avatarImg:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
+            name: "100haryt.com",
+            id: 1,
+            role: Role.Official),
         banerImg:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
         allCount: 12,
-        allShaered: 720,
-        allViewed: 14756,
-        name:
+        viewed: 14756,
+        title:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
         isEmpty: false,
       ),
-      BigCardEntity(
+      ContentCardEntity(
         id: 1,
-        userImg:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvtyA_jv76ISEwn237GbPT--KbTNBIGyhVIQ&usqp=CAU",
-        userName: "Mercedes-Benz",
-        banerImg:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
-        allCount: 12,
-        allShaered: 720,
-        allViewed: 14756,
-        name:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-        isEmpty: false,
-      ),
-      BigCardEntity(
-        id: 1,
-        userImg:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
-        userName: "100haryt.com",
+        user: UserEntity(
+            avatarImg:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
+            name: "100haryt.com",
+            id: 1,
+            role: Role.Official),
         banerImg:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
         allCount: 12,
-        allShaered: 720,
-        allViewed: 14756,
-        name:
+        viewed: 14756,
+        title:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
         isEmpty: false,
       ),
-      BigCardEntity(
+      ContentCardEntity(
         id: 1,
-        userImg:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvtyA_jv76ISEwn237GbPT--KbTNBIGyhVIQ&usqp=CAU",
-        userName: "Mercedes-Benz",
+        user: UserEntity(
+            avatarImg:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
+            name: "100haryt.com",
+            id: 1,
+            role: Role.Official),
         banerImg:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZui21swzEVf2tksEznL2hLUe2259EdwUxIg&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
         allCount: 12,
-        allShaered: 720,
-        allViewed: 14756,
-        name:
+        viewed: 14756,
+        title:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+        isEmpty: false,
+      ),
+      ContentCardEntity(
+        id: 1,
+        user: UserEntity(
+            avatarImg:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTjWfJm21yqNcNxD_yQO3fI08q2OKIVN54g&usqp=CAU",
+            name: "100haryt.com",
+            id: 1,
+            role: Role.Official),
+        banerImg:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgA2PcagAvTYNabGcNcrbs924tnZBrIbjwpQ&usqp=CAU",
+        allCount: 12,
+        viewed: 14756,
+        title:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
         isEmpty: false,
       ),
@@ -270,10 +280,10 @@ class GalleryP extends ChangeNotifier {
     initializeVideoPlayer(urls[1]);
   }
 
-  @override
-  void dispose() {
+  void get dispodeVideo {
     _controller?.dispose();
-    super.dispose();
+    _controller = null;
+    notifyListeners();
   }
 
 //=================================================================================

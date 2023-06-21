@@ -1,4 +1,4 @@
-import 'package:arzan_tm/presentation/views/pages/lotties/page_500.dart';
+import '/presentation/views/pages/lotties/page_500.dart';
 import 'package:flutter/material.dart';
 
 class CustomFuture extends StatelessWidget {

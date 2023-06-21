@@ -1,46 +1,102 @@
-// ignore_for_file: overridden_fields
+// ignore_for_file: override_on_non_overriding_member, overridden_fields
 
-import '/domanin/entities/galery/video_card_entity.dart';
+import 'package:arzan/data/models/user_model.dart';
 
-class VideoModel extends VideoCardEntity {
+import '../../../domanin/entities/galery/video_entity.dart';
+
+class VideoCardModel extends VideoCardEntity {
   @override
   final int id;
   @override
   final String thumbinalImg;
   @override
+  final String title;
+  @override
+  final DateTime createdAt;
+  @override
+  final int viewCount;
+  @override
+  final UserModel user;
+  @override
+  final int? next;
+  @override
+  final int? provious;
+  @override
+  final bool isEmpty;
+  VideoCardModel({
+    required this.id,
+    required this.thumbinalImg,
+    required this.title,
+    required this.createdAt,
+    required this.viewCount,
+    required this.user,
+    this.next,
+    this.provious,
+    this.isEmpty = true,
+  }) : super(
+            id: id,
+            createdAt: createdAt,
+            thumbinalImg: thumbinalImg,
+            title: title,
+            user: user,
+            viewCount: viewCount);
+
+  static VideoCardModel empty() => VideoCardModel(
+      id: 0,
+      thumbinalImg: "",
+      title: "",
+      user: UserModel.empty,
+      createdAt: DateTime.now(),
+      viewCount: 0);
+
+  factory VideoCardModel.frowJson(Map<String, dynamic> json) => VideoCardModel(
+        id: json["id"],
+        thumbinalImg: json["thumbinalImg"],
+        title: json["title"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        viewCount: json["viewCount"],
+        user: UserModel.fromJson(json["user"]),
+        next: json["next"],
+        provious: json["provious"],
+        isEmpty: false,
+      );
+}
+
+class VideoModel extends VideoEntity {
+  @override
+  final String title;
+  @override
   final String videoUrl;
   @override
-  final int liked;
+  final int likeCount;
+  @override
+  final UserModel user;
+  @override
+  final int? next;
+  @override
+  final int? provious;
   @override
   final bool isEmpty;
   VideoModel({
-    required this.id,
-    required this.thumbinalImg,
+    required this.title,
     required this.videoUrl,
-    this.liked = 0,
+    required this.likeCount,
+    required this.user,
+    this.next,
+    this.provious,
     this.isEmpty = true,
-  }) : super(id: id, thumbinalImg: thumbinalImg, videoUrl: videoUrl);
+  }) : super(title: '', videoUrl: '', likeCount: 0, user: user);
 
   static VideoModel empty() =>
-      VideoModel(id: 0, thumbinalImg: "", videoUrl: "");
+      VideoModel(title: "", videoUrl: "", likeCount: 0, user: UserModel.empty);
 
   factory VideoModel.frowJson(Map<String, dynamic> json) => VideoModel(
-        id: json["id"],
-        thumbinalImg: json["thumbinalImg"],
+        likeCount: json["likeCount"],
+        title: json["title"],
         videoUrl: json["videoUrl"],
-        liked: json["liked"],
+        user: UserModel.fromJson(json["user"]),
+        next: json["next"],
+        provious: json["provious"],
         isEmpty: false,
       );
-
-  static List<VideoModel> frowJsonList(List<Map<String, dynamic>> jsonList) =>
-      jsonList.map((json) => VideoModel.frowJson(json)).toList();
-
-  @override
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "thumbinalImg": thumbinalImg,
-        "videoUrl": videoUrl,
-        "liked": liked,
-        "isEmpty": isEmpty,
-      };
 }
