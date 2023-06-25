@@ -73,10 +73,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 hiveP.saveStr(
                     "+993${RIBase.getText(Tags.rILoginPhone)}", Tags.hivePhone);
                 hiveP.saveStr(response.token, Tags.hiveToken);
+                final String role =
+                    Formater.jWTDecode(response.token!)["subscription_type"]
+                        ["type"];
+                hiveP.saveStr(role, Tags.hiveRole);
+                print("Role := $role");
                 hiveP.saveBool(true, Tags.isLogin);
                 acauntP.logIned;
-                Navigator.pushNamedAndRemoveUntil(
-                    context, Rout.home, (route) => route.isFirst);
+                // Navigator.pushNamedAndRemoveUntil(
+                //     context, Rout.home, (route) => route.isFirst);
               }
             },
             status ? Words.loginOK : Words.loginNO,

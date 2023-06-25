@@ -6,14 +6,18 @@ class ImgPicker {
   static Future<List<String>> pick(context) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
+      allowMultiple: true,
       // allowedExtensions: ["txt"],
     );
 
     if (result != null) {
       final PlatformFile imgFile = result.files.first;
+      final List<String> imgs = result.paths.map((e) => e!).toList();
       debugPrint(
           "==================================================================================================");
-      PostP.of(context, listen: false).addImgPath(imgFile.path!);
+      final postP = PostP.of(context, listen: false);
+      // postP.addImgPath(imgFile.path!);
+      postP.addImgsPath(imgs);
       // final List<List<String>> objs = await TestConverter().txtToTest(txtFile);
       // if (objs.isEmpty) {
       //   debugPrint("txt can't convert test!!!");
@@ -28,4 +32,6 @@ class ImgPicker {
     }
     return [];
   }
+
+  
 }

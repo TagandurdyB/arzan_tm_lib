@@ -25,7 +25,7 @@ class GalleryModel extends GalleryEntity {
 
   factory GalleryModel.frowJson(Map<String, dynamic> json) => GalleryModel(
         banners: BanerModel.fromJsonList(json["banners"]),
-        folders: ContentCardModel.fromJsonList(json["folders"]),
+        folders: ContentCardModel.fromJsonListV(json["folders"]),
         isEmpty: false,
       );
 

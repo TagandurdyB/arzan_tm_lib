@@ -21,11 +21,11 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
   @override
   bool? getHiveBool(String tag) {
     try {
-      final bool _value = myBase.get(tag);
+      final bool? _value = myBase.get(tag);
       print("$tag geted success!");
       return _value;
     } catch (err) {
-      print("Error on Hive bool get!!!");
+      print("Error on Hive bool get!!! Tag:=$tag");
       print("Error :$err");
       return null;
     }
@@ -37,7 +37,7 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
       myBase.put(tag, value);
       print("$tag savad success!");
     } catch (err) {
-      print("Error on Hive bool save!!!");
+      print("Error on Hive bool save!!! Tag:=$tag");
       print("Error :$err");
     }
   }
@@ -45,11 +45,11 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
   @override
   String? getHiveStr(String tag) {
     try {
-      final String _value = myBase.get(tag);
+      final String? _value = myBase.get(tag);
       print("$tag geted success!");
       return _value;
     } catch (err) {
-      print("Error on Hive Str get!!!");
+      print("Error on Hive Str get!!! Tag:=$tag");
       print("Error :$err");
       return null;
     }
@@ -61,7 +61,7 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
       myBase.put(tag, value);
       print("$tag savad success!");
     } catch (err) {
-      print("Error on Hive saveHiveStr save!!!");
+      print("Error on Hive saveHiveStr save!!! Tag:=$tag");
       print("Error :$err");
     }
   }
@@ -69,11 +69,11 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
   @override
   int? getHiveInt(String tag) {
     try {
-      final int _value = myBase.get(tag);
+      final int? _value = myBase.get(tag);
       print("$tag geted success!");
       return _value;
     } catch (err) {
-      print("Error on Hive int get!!!");
+      print("Error on Hive int get!!! Tag:=$tag");
       print("Error :$err");
       return null;
     }
@@ -85,7 +85,7 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
       myBase.put(tag, value);
       print("$tag savad success!");
     } catch (err) {
-      print("Error on Hive saveHiveInt save!!!");
+      print("Error on Hive saveHiveInt save!!! Tag:=$tag");
       print("Error :$err");
     }
   }

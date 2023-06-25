@@ -1,12 +1,19 @@
-import '/domanin/entities/galery/img_card_entity.dart';
+// ignore_for_file: overridden_fields
 
-class ImgCardModel extends ImgCardEntity {
+import '../../../domanin/entities/galery/img_entity.dart';
+
+class ImgModel extends ImgEntity {
+  @override
   final int id;
+  @override
   final String img;
+  @override
   final int viewed;
+  @override
   final int liked;
+  @override
   final bool isEmpty;
-  ImgCardModel({
+  ImgModel({
     required this.id,
     this.img = "",
     this.viewed = 0,
@@ -14,24 +21,25 @@ class ImgCardModel extends ImgCardEntity {
     this.isEmpty = true,
   }) : super(id: id);
 
-  static ImgCardModel empty() => ImgCardModel(id: 0);
+  static ImgModel empty() => ImgModel(id: 0);
 
-  factory ImgCardModel.frowJson(Map<String, dynamic> json) => ImgCardModel(
+  factory ImgModel.frowJson(Map<String, dynamic> json) => ImgModel(
         id: json["id"],
-        img: json["img"],
-        viewed: json["viewed"],
-        liked: json["liked"],
+        img: "http://95.85.126.113:8080/${json["url"]}",
+        viewed: json["view_count"],
+        liked: json["like_count"],
         isEmpty: false,
       );
 
-  static List<ImgCardModel> frowJsonList(List<Map<String, dynamic>> jsonList) =>
-      jsonList.map((json) => ImgCardModel.frowJson(json)).toList();
+  static List<ImgModel> fromJsonList(List jsonList) =>
+      jsonList.map((json) => ImgModel.frowJson(json)).toList();
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "img": img,
-        "viewed": viewed,
-        "liked": liked,
-        "isEmpty": isEmpty,
-      };
+  // @override
+  // Map<String, dynamic> toJson() => {
+  //       "id": id,
+  //       "img": img,
+  //       "viewed": viewed,
+  //       "liked": liked,
+  //       "isEmpty": isEmpty,
+  //     };
 }

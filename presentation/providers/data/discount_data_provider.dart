@@ -80,14 +80,34 @@ class DiscountDataP extends ChangeNotifier {
       throw ("Error DiscountDataP: $err");
     }
   }
+
 //Detal==========================================================================
+//Sort==========================================================================
+  Future<List<DiscountEntity>> fetchCategoryD(int categoryId) async {
+    try {
+      return await discountsCase.categoryPost(categoryId);
+    } catch (err) {
+      throw ("Error DiscountDataP>fetchCategoryD: $err");
+    }
+  }
+
+  Future<List<DiscountEntity>> fetchSubCategory(int subId) async {
+    try {
+      return await discountsCase.subCategoryPost(subId);
+    } catch (err) {
+      throw ("Error DiscountDataP>fetchSubCategory: $err");
+    }
+  }
+
+//Sort==========================================================================
 
 //Categories==========================================================================
   // MainPageEntity entity = MainPageEntity.empty;
   // MainPageEntity entity = MainPageEntity.frowJson(api);
 
   List _categories = [];
-  List<DiscountCategoryEntity> get categories => _categories.cast<DiscountCategoryEntity>();
+  List<DiscountCategoryEntity> get categories =>
+      _categories.cast<DiscountCategoryEntity>();
   void fillCategories() async {
     try {
       _categories = await discountsCase.categories();
@@ -113,6 +133,7 @@ class DiscountDataP extends ChangeNotifier {
 
   Future<ResponseEntity> addPost(PostDiscountEntity obj) async {
     final ResponseEntity entity = await discountsCase.postDiscount(obj);
+    print("entity :=${entity.result} , ${entity.status}");
     return entity;
   }
 

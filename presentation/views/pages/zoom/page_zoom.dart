@@ -1,5 +1,6 @@
 import '../../scaffold/no_app_bar_scaffold.dart';
 import '../../widgets/btns_group.dart';
+import '../../widgets/shimmer_img.dart';
 import '/presentation/views/scaffold/custom_app_bar.dart';
 
 import '/config/services/my_size.dart';
@@ -7,11 +8,13 @@ import 'package:flutter/material.dart';
 
 class ZoomPage extends StatefulWidget {
   final String image;
+  final ImageType type;
   final int count, index;
   final int? liked;
   const ZoomPage(
       {required this.image,
       required this.count,
+      this.type = ImageType.network,
       required this.index,
       this.liked,
       super.key});
@@ -70,14 +73,14 @@ class _ZoomPageState extends State<ZoomPage>
           ],
         ),
         Positioned(
-          bottom: 30,
+          bottom: MySize.arentir*0.15,
           right: 30,
           child: Visibility(
             visible: widget.liked != null,
             child: LikeBtn(
               onTap: (bool val) {},
-              textSize: 18,
-              iconSize: 20,
+              textSize: MySize.arentir*0.06,
+              iconSize: MySize.arentir*0.07,
               likeCount: widget.liked ?? 0,
             ),
           ),
@@ -119,9 +122,14 @@ class _ZoomPageState extends State<ZoomPage>
           transformationController: controller,
           // scaleEnabled: false,
           child: SizedBox(
-              height: double.infinity,
-              width: MySize.width,
-              child: Image.network(widget.image, fit: BoxFit.fitWidth)),
+            height: double.infinity,
+            width: MySize.width,
+            child: ShimmerImg(
+                imageUrl: widget.image,
+                type: widget.type,
+                fit: BoxFit.fitWidth),
+            //child: Image.network(widget.image, fit: BoxFit.fitWidth)
+          ),
         ),
       );
 }

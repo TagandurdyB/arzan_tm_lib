@@ -4,7 +4,6 @@ import '../../../providers/data/hive_provider.dart';
 import '../../pages/discount/page_discount_detal.dart';
 import '../../../../domanin/entities/discounts/discount_entity.dart';
 
-import '/presentation/providers/view/provider_discaunts.dart';
 import '/presentation/views/widgets/discount/discount_2_card.dart';
 
 // import 'package:entry/entry.dart';
@@ -28,8 +27,7 @@ class _DiscountViewState extends State<DiscountView> {
 
   @override
   Widget build(BuildContext context) {
-    final providD = DiscountProvid.of(context);
-    final typeOfYou=HiveP.of(context).readInt(Tags.hiveTypeOfYou)??2;
+    final typeOfYou = HiveP.of(context).readInt(Tags.hiveTypeOfYou) ?? 2;
     return SliverGrid.builder(
         itemCount: widget.objs.length,
         gridDelegate: _delegateChanger(typeOfYou),
@@ -70,7 +68,7 @@ class _DiscountViewState extends State<DiscountView> {
                               // ),
                             )));
               },
-              child: buildDiscountCard(index, typeOfYou));
+              child:  buildDiscountCard(index, typeOfYou));
           // return Entry.scale(
           //     visible: providD.scaleVisible,
           //     scale: 0,

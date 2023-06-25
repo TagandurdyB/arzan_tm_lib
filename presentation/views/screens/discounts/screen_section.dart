@@ -6,7 +6,6 @@ import '/presentation/providers/data/discount_data_provider.dart';
 
 import '../../../../domanin/entities/discounts/discount_category_entity.dart';
 
-import '../../../../config/vars/formater.dart';
 import '../../../../domanin/entities/discounts/discount_entity.dart';
 import '../../pages/discount/page_discounts_in.dart';
 import '/presentation/views/widgets/custom_dropdown.dart';
@@ -68,7 +67,7 @@ class SectionCard extends StatelessWidget {
           mainValue: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "${obj.name} (${Formater.rounder(obj.count)})",
+              "${obj.name} (${obj.subs.length})",
               style: TextStyle(
                   fontSize: arentir * 0.04, fontWeight: FontWeight.bold),
             ),
@@ -81,17 +80,21 @@ class SectionCard extends StatelessWidget {
                     builder: (context) => DiscountsInPage(
                           title: "${obj.name} / ${obj.subs[index].name}",
                           count: obj.count,
-                          objs: [
-                            DiscountEntity(
-                              id: 1,
-                              createdAt: DateTime.now(),
-                              img:
-                                  "https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg",
-                              mod: 23,
-                              title: "Mebel zakaz alyarys islendik gornusde",
-                              viewed: 121,
-                            ),
-                          ],
+                          id: obj.id,
+                          isSub: true,
+                          // objs: [
+                          //   DiscountEntity(
+                          //     id: 1,
+                          //     createdAt: DateTime.now(),
+                          //     img:
+                          //         "https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg",
+                          //     mod: 23,
+                          //     title: "Mebel zakaz alyarys islendik gornusde",
+                          //     description:
+                          //         "Mebel zakaz alyarysasdasd islendik gornusde",
+                          //     viewed: 121,
+                          //   ),
+                          // ],
                         )));
           },
           items: obj.subs

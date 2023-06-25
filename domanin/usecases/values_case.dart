@@ -11,4 +11,10 @@ class ValuesCase {
 
   Future<List<ValueEntity>> getLocation() async =>
       await repository.getLocations();
+
+  Future<List<ValueEntity>> getVideoCategories() async =>
+      await repository.getVideoCategories();
+
+  Future<List<ValueEntity>> getImgCategories() async =>
+      await repository.getImgCategories();
 }

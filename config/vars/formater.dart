@@ -131,6 +131,8 @@ class Formater {
     " ",
     "'",
     "\"",
+    ".",
+    ",",
   ];
   static bool hasSimbol(String text) {
     for (int i = 0; i < simbols.length; i++) {
@@ -139,9 +141,8 @@ class Formater {
     return false;
   }
 
-
-    static Role strToRole(String role) {
-    switch (role) {
+  static Role strToRole(String role) {
+    switch (role.toLowerCase()) {
       case "user":
         return Role.User;
       case "official":
@@ -151,6 +152,31 @@ class Formater {
       default:
         return Role.Gost;
     }
+  }
+
+  static int roleStrToInt(String role) {
+    switch (role.toLowerCase()) {
+      case "user":
+        return 0;
+      case "official":
+        return 1;
+      case "expired":
+        return 2;
+      default:
+        return 3;
+    }
+  }
+
+  static int modFinder(int price, int discount) {
+    if (price > discount && discount > 0) {
+      final double mod = (discount * 100 / price);
+      if (mod.floor() == 100) {
+        return 99;
+      } else {
+        return 100 - mod.floor();
+      }
+    }
+    return 0;
   }
 }
 
@@ -186,6 +212,4 @@ class TimeConterter {
   String get getDuration => _getDuration();
 
   String get getTime => "${_getPosition()} / ${_getDuration()}";
-
-
 }

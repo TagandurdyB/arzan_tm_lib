@@ -1,14 +1,19 @@
 import 'package:arzan/domanin/entities/galery/video_entity.dart';
+import 'package:arzan/domanin/entities/register/response_entity.dart';
 
-import '/domanin/entities/galery/gallery_entity.dart';
+import '../entities/galery/content_card_entity.dart';
 
-import '../entities/galery/img_card_entity.dart';
+import '../entities/galery/img_entity.dart';
 
 abstract class GalleryRepository {
-  // Future<GalleryEntity> getImages();
-  // Future<List<ImgCardEntity>> getImgEntitis();
+  Future<List<ContentCardEntity>> getImgFolders(int id);
+  Future<List<ImgEntity>> getImages(int id);
 
-  Future<List<VideoCardEntity>> getVideos();
+  Future<List<ContentCardEntity>> getVideos(int id);
   Future<VideoEntity> getVideo(int id);
 
+
+  Future<ResponseEntity> likePost(int id);
+
+  
 }

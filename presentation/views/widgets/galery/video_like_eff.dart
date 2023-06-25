@@ -1,3 +1,5 @@
+import 'package:arzan/presentation/providers/data/video_data_provider.dart';
+
 import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +21,9 @@ class _VideoLikeEffState extends State<VideoLikeEff> {
     return LikeEffect(
       bubbleCount: 75,
       onTap: (bool val) {
+        final videoDo = VideoDataP.of(context, listen: false);
+        final int index = videoDo.videoIndex;
+        videoDo.likePost(videoDo.videos![index].id);
         setState(() => isLike = val);
       },
       child: Container(
@@ -33,7 +38,7 @@ class _VideoLikeEffState extends State<VideoLikeEff> {
                 size: 21,
                 color: const Color(0xffE50027),
               ),
-              Text("1521",
+              Text("0",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

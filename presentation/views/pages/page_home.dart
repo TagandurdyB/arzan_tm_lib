@@ -52,12 +52,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final provid = ProviderNav.of(context);
     final welayatId = HiveP.of(context).readInt(Tags.hiveLocationId);
+    final valueDo = ValuesP.of(context, listen: false);
     return ScaffoldNo(
       drawer: CustomDrawer(),
       bottomNavigationBar: const CustomNavigationBar(),
       body: CustomFuture(
-          future:
-              ValuesP.of(context, listen: false).getBanner(welayatId ?? 0, 1),
+          future: valueDo.getBanner(welayatId ?? 0, 1),
           builder: (context, banners) {
             return Stack(
               children: List.generate(

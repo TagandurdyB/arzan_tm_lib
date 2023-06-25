@@ -12,7 +12,6 @@ import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import '../../../config/vars/formater.dart';
-import 'page_video_player.dart';
 import 'page_video_player1.dart';
 
 class VideosPage extends StatelessWidget {
@@ -90,7 +89,7 @@ class VideosPage extends StatelessWidget {
   Widget buildVideoCard(int index) {
     return GestureDetector(
       onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const PageVidePlayer1(initId: 1))),
+          MaterialPageRoute(builder: (context) => const PageVidePlayer1())),
           // MaterialPageRoute(builder: (context) => const VideoPlayerPage())),
       child: Container(
         clipBehavior: Clip.hardEdge,

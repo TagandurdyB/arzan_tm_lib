@@ -6,7 +6,6 @@ import 'dart:ui' as ui;
 import '../../../../../config/services/my_size.dart';
 import '../../../../../config/vars/formater.dart';
 import '../../../../../domanin/entities/galery/content_card_entity.dart';
-import '../../../gallery/page_video_player1.dart';
 import '../../shimmer_img.dart';
 
 class VideoSmallCard extends StatelessWidget {
@@ -27,8 +26,12 @@ class VideoSmallCard extends StatelessWidget {
 
     Widget buildVideoCard() {
     return GestureDetector(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) =>  PageVidePlayer1(initId: obj.id))),
+      onTap: (){
+        if(onTap!=null)onTap!();
+      },
+      // onTap: () => Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) =>  PageVidePlayer1(initId: obj.id))),
+      
           // MaterialPageRoute(builder: (context) => const VideoPlayerPage())),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: arentir*0.01),

@@ -1,4 +1,4 @@
-import '../../../../domanin/entities/galery/img_card_entity.dart';
+import '../../../../domanin/entities/galery/img_entity.dart';
 
 import '../../../../config/services/my_size.dart';
 import "package:flutter/material.dart";
@@ -7,7 +7,7 @@ import '../../../providers/view/provider_theme.dart';
 import "image_card.dart";
 
 class ImageCardGroup extends StatelessWidget {
-  final List<ImgCardEntity> objs;
+  final List<ImgEntity> objs;
   final double? height;
   ImageCardGroup({super.key, this.height, required this.objs});
   final double arentir = MySize.arentir;

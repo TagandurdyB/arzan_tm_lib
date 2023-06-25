@@ -32,6 +32,7 @@ class ChosenPage extends StatelessWidget {
     return Column(
       children: [
         Wrap(
+          runSpacing: arentir*0.02,
             spacing: arentir * 0.02,
             children: List.generate(providM.entity.saylananlarCount, (index) {
               final obj = providM.entity.saylananlarDatas[index];

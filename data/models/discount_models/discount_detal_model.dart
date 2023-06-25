@@ -1,13 +1,13 @@
 // ignore_for_file: overridden_fields
 
+import 'package:arzan/data/models/user_model.dart';
+
 import '../../../config/vars/formater.dart';
 import '../../../domanin/entities/discounts/discount_detal_entity.dart';
 
 class DiscountDetalModel extends DiscountDetalEntity {
   @override
-  final String userImg;
-  @override
-  final String userName;
+  final UserModel user;
   @override
   final List<String> pictures;
   @override
@@ -29,8 +29,6 @@ class DiscountDetalModel extends DiscountDetalEntity {
   @override
   final int mod;
   @override
-  final int userId;
-  @override
   final bool isOfficial;
   @override
   final DateTime startedAt;
@@ -46,8 +44,7 @@ class DiscountDetalModel extends DiscountDetalEntity {
   @override
   final bool isEmpty;
   DiscountDetalModel({
-    required this.userImg,
-    required this.userName,
+    required this.user,
     required this.pictures,
     required this.id,
     required this.createdAt,
@@ -58,7 +55,6 @@ class DiscountDetalModel extends DiscountDetalEntity {
     required this.oldPrice,
     required this.newPrice,
     required this.mod,
-    required this.userId,
     required this.isOfficial,
     required this.startedAt,
     required this.endedAt,
@@ -67,8 +63,7 @@ class DiscountDetalModel extends DiscountDetalEntity {
     required this.phone,
     this.isEmpty = false,
   }) : super(
-            userImg: userImg,
-            userName: userName,
+           user:user,
             pictures: pictures,
             id: id,
             createdAt: createdAt,
@@ -79,7 +74,7 @@ class DiscountDetalModel extends DiscountDetalEntity {
             oldPrice: oldPrice,
             newPrice: newPrice,
             mod: mod,
-            userId: userId,
+           
             isOfficial: isOfficial,
             startedAt: startedAt,
             endedAt: endedAt,
@@ -88,8 +83,7 @@ class DiscountDetalModel extends DiscountDetalEntity {
             phone: phone);
 
   static DiscountDetalModel empty() => DiscountDetalModel(
-        userImg: "",
-        userName: "",
+        user: UserModel.empty,
         pictures: [],
         id: 0,
         createdAt: DateTime.now(),
@@ -100,7 +94,7 @@ class DiscountDetalModel extends DiscountDetalEntity {
         oldPrice: 0,
         newPrice: 0,
         mod: 0,
-        userId: 0,
+     
         isOfficial: false,
         startedAt: DateTime.now(),
         endedAt: DateTime.now(),
@@ -112,8 +106,9 @@ class DiscountDetalModel extends DiscountDetalEntity {
 
   factory DiscountDetalModel.frowJson(Map<String, dynamic> json) =>
       DiscountDetalModel(
-        userImg: json["userImg"] ?? "",
-        userName: json["userName"] ?? "100haryt",
+        // userImg: json["userImg"] ?? "",
+        // userName: json["userName"] ?? "100haryt",
+        user: json["user"],
         pictures: json["pictures"] ?? [json["discount_img"]],
         id: json["id"],
         createdAt: DateTime.parse(json["createdAt"]),
@@ -124,7 +119,7 @@ class DiscountDetalModel extends DiscountDetalEntity {
         oldPrice: int.parse(json["price"]) ,
         newPrice: int.parse(json["discount_price"]) ,
         mod: 23, //json["mod"],
-        userId: json["userId"] ?? 0,
+   
         isOfficial: json["isOfficial"] ?? false,
         startedAt: DateTime.parse(json["start_date"]),
         endedAt: DateTime.parse(json["end_date"]),

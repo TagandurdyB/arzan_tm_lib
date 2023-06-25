@@ -4,11 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PostP extends ChangeNotifier {
-  final List<String> _images = [];
+  List<String> _images = [];
   List<String> get imgPaths => _images;
 
   void addImgPath(String path) {
     _images.add(path);
+    notifyListeners();
+  }
+
+  void addImgsPath(List<String> paths) {
+    final int fullLength = _images.length + paths.length;
+    if (fullLength <= 8) {
+      _images.addAll(paths);
+    } else {
+      _images = List.generate(8, (index) => (_images + paths)[index]);
+    }
+    // if(_images.length<=8){
+    // _images.addAll(paths);
+    // }else{
+
+    // }
     notifyListeners();
   }
 
@@ -69,6 +84,27 @@ class PostP extends ChangeNotifier {
 
   void removeTag(int index) {
     tags.removeAt(index);
+    notifyListeners();
+  }
+
+  bool _isPhone = true;
+  bool get isPhone => _isPhone;
+  void changePhone(bool phone) {
+    _isPhone = phone;
+    notifyListeners();
+  }
+
+  bool _isDate = false;
+  bool get isDate => _isDate;
+  void changeIsDate(bool isDate) {
+    _isDate = isDate;
+    notifyListeners();
+  }
+
+  bool _isReaded = false;
+  bool get isReaded => _isReaded;
+  void changeReader(bool reader) {
+    _isReaded = reader;
     notifyListeners();
   }
 

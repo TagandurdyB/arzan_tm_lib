@@ -1,5 +1,11 @@
+import 'package:arzan/domanin/entities/user_entity.dart';
 import 'package:arzan/presentation/views/widgets/ReadyInput/ready_input_base.dart';
+import 'package:arzan/presentation/views/widgets/shimmer_img.dart';
 
+import '../../../../domanin/entities/discounts/discount_detal_entity.dart';
+import '../../../providers/data/hive_provider.dart';
+import '../../screens/discounts/screen_discout_detal.dart';
+import '../my_pop_widget.dart';
 import '/domanin/entities/discounts/discount_category_entity.dart';
 import '/presentation/views/widgets/custom_dropdown.dart';
 
@@ -10,10 +16,48 @@ import '/config/vars/formater.dart';
 import '/config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../config/routes/my_route.dart';
 import '../../../../config/vars/constants.dart';
 import '../ReadyInput/login_arzan_input.dart';
 import '../check_group.dart';
+
+String validateFunc(BuildContext context) {
+  final providPostDo = PostP.of(context, listen: false);
+  final List<String> images = providPostDo.imgPaths;
+  final String name = RIBase.getText(Tags.rIPostName);
+  final String description = RIBase.getText(Tags.rIPostAbout);
+  final List<String> tags = providPostDo.tags;
+  final String phone = "+993${RIBase.getText(Tags.rIPostPhone)}";
+  final String price = RIBase.getText(Tags.rIPostPrice).isEmpty
+      ? "0"
+      : RIBase.getText(Tags.rIPostPrice);
+  final String discont = RIBase.getText(Tags.rIPostDiscount).isEmpty
+      ? "0"
+      : RIBase.getText(Tags.rIPostDiscount);
+  final DateTime? start = providPostDo.startDate;
+  final DateTime? end = providPostDo.endDate;
+  final int categoryId = providPostDo.categoryId;
+  final int subCategoryId = providPostDo.subCategoryId;
+
+  String validate = "";
+
+  if (providPostDo.imgPaths.isEmpty) {
+    validate = "Surat saýlaň";
+  } else if (name == "") {
+    validate = "Ad ýazyň";
+  } else if (description == "") {
+    validate = "Doly maglumat ýazyň";
+  } else if (categoryId == 0) {
+    validate = "Kategoriýa saýlaň";
+  } else if (subCategoryId == 0) {
+    validate = "Bölüm saýlaň";
+  } else if (price == "0") {
+    validate = "Baha ýazyň";
+  } else if (!PostP.of(context, listen: false).isReaded) {
+    validate = "Düzgünleri okaň";
+  }
+
+  return validate;
+}
 
 class PostFormWidget extends StatefulWidget {
   const PostFormWidget({super.key});
@@ -28,8 +72,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
   bool isDate = false;
   bool isInfo = false;
 
-  late PostP providPost;
-  late PostP providPostdo;
+  late PostP providPost, providPostDo;
 
   late DiscountDataP providDD;
 
@@ -39,7 +82,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
   @override
   Widget build(BuildContext context) {
     providPost = PostP.of(context);
-    providPostdo = PostP.of(context, listen: false);
+    providPostDo = PostP.of(context, listen: false);
     providDD = DiscountDataP.of(context);
     return Column(
       children: [
@@ -62,73 +105,50 @@ class _PostFormWidgetState extends State<PostFormWidget> {
         ArzanInputs(
           tag: Tags.rIPostHash,
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          prefix: Container(
-            // color: Colors.red,
-            // margin: EdgeInsets.only(right: arentir*0.1),sdfshjhhh
-            // width: arentir * 0.7,
-            child: SingleChildScrollView(
-              // controller: ,
-              controller: tagControl,
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  // mainAxisSize: MainAxisSize.min,
-                  children: List.generate(
-                      providPost.tags.length,
-                      (index) => GestureDetector(
-                            onTap: () {
-                              providPostdo.removeTag(index);
-                            },
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff09C24E),
-                                    borderRadius:
-                                        BorderRadius.circular(arentir * 0.01)),
-                                padding: EdgeInsets.all(arentir * 0.005),
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: arentir * 0.01),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "#${providPost.tags[index]}",
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                    //  IcoASDn(Icons.delete_forever_outlined, color: Colors.white , size: arentir*0.04,)
-                                  ],
-                                )),
-                          ))
-                  // tags
-                  //     .map((e) => GestureDetector(
-                  //       onTap: (){
-                  //         setState(() {
-                  //           tags.removeAt(value)
-                  //         });
-                  //       },
-                  //       child: Container(
-                  //           decoration: BoxDecoration(
-                  //               color: const Color(0xff09C24E),
-                  //               borderRadius:
-                  //                   BorderRadius.circular(arentir * 0.01)),
-                  //           padding: EdgeInsets.all(arentir * 0.005),
-                  //           margin:
-                  //               EdgeInsets.symmetric(horizontal: arentir * 0.01),
-                  //           child: Text(
-                  //             e,
-                  //             style: const TextStyle(color: Colors.white),
-                  //           )),
-                  //     ))
-                  //     .toList(),
-                  ),
-            ),
+          prefix: SingleChildScrollView(
+            // controller: ,
+            controller: tagControl,
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisSize: MainAxisSize.min,
+                children: List.generate(
+                    providPost.tags.length,
+                    (index) => GestureDetector(
+                          onTap: () {
+                            providPostDo.removeTag(index);
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff09C24E),
+                                  borderRadius:
+                                      BorderRadius.circular(arentir * 0.01)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: arentir * 0.005),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: arentir * 0.01),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "#${providPost.tags[index]}",
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  Icon(
+                                    Icons.delete_forever_outlined,
+                                    color: Colors.white,
+                                    size: arentir * 0.04,
+                                  )
+                                ],
+                              )),
+                        ))),
           ),
           label: "Hash tag (#tag #tag2)",
           hidden: "Hash tag (#tag #tag2)",
           onChanged: (String value) {
             if (value[value.length - 1] == " ") {
               RIBase.getControl(Tags.rIPostHash).clear();
-              providPostdo.addTag(value);
+              providPostDo.addTag(value);
               setState(() {
                 Future.delayed(const Duration(milliseconds: 100))
                     .then((value) => tagControl.animateTo(
@@ -137,7 +157,6 @@ class _PostFormWidgetState extends State<PostFormWidget> {
                           curve: Curves.fastOutSlowIn,
                         ));
               });
-              print("space");
             }
           },
         ),
@@ -148,12 +167,14 @@ class _PostFormWidgetState extends State<PostFormWidget> {
               startVal: true,
               padding: const EdgeInsets.only(bottom: 15),
               onChange: (bool val) {
-                setState(() => isPhone = val);
+                RIBase.eraseDate(Tags.rIPostPhone);
+                providPostDo.changePhone(val);
+                // setState(() => isPhone = val);
               },
             ),
             Expanded(
               child: ArzanInputs(
-                readOnly: !isPhone,
+                readOnly: !providPost.isPhone,
                 tag: Tags.rIPostPhone,
                 maxLength: 8,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -227,7 +248,8 @@ class _PostFormWidgetState extends State<PostFormWidget> {
               subCategories =
                   category!.subs.map((e) => CategoryText(e.name)).toList();
             });
-            providPostdo.changeCategory(category!.id);
+            providPostDo.changeCategory(category!.id);
+            providPostDo.changeSubId(0);
           },
         ),
         const SizedBox(height: 16),
@@ -244,7 +266,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
                 sub = category!.subs[index];
                 subcategVal = subCategories[index];
               });
-              providPostdo.changeSubId(sub!.id);
+              providPostDo.changeSubId(sub!.id);
             },
           ),
         ),
@@ -301,7 +323,8 @@ class _PostFormWidgetState extends State<PostFormWidget> {
         CustomCheck(
           padding: const EdgeInsets.only(bottom: 6),
           onChange: (bool val) {
-            setState(() => isDate = val);
+            providPostDo.changeIsDate(val);
+            // setState(() => isDate = val);
           },
         ),
         Column(
@@ -321,7 +344,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
   Widget buildDate(bool isStart) {
     return GestureDetector(
       onTap: () {
-        if (isDate) _calendar(isStart);
+        if (providPostDo.isDate) _calendar(isStart);
       },
       child: Container(
         alignment: Alignment.center,
@@ -357,9 +380,9 @@ class _PostFormWidgetState extends State<PostFormWidget> {
       initialEntryMode: DatePickerEntryMode.calendarOnly,
     ).then((date) {
       if (isStart) {
-        providPostdo.changeStart(date!);
+        providPostDo.changeStart(date!);
       } else {
-        providPostdo.changeEnd(date!);
+        providPostDo.changeEnd(date!);
       }
     });
   }
@@ -371,12 +394,60 @@ class _PostFormWidgetState extends State<PostFormWidget> {
         CustomCheck(
           // padding: const EdgeInsets.only(bottom: 15),
           onChange: (bool val) {
-            setState(() => isInfo = val);
+            // setState(() => isInfo = val);
+            providPostDo.changeReader(val);
           },
         ),
         const Expanded(child: Text("Düzgünleri okadym")),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context, Rout.legalInfo),
+          onTap: () {
+            //Navigator.pushNamed(context, Rout.legalInfo);
+             MyPopUpp.popLoading(context);
+             final String validate = validateFunc(context);
+            if (validate != "") {
+              MyPopUpp.popMessage(context, null, validate, true);
+            } else {
+              Navigator.pop(context);
+              final hiveDo = HiveP.of(context, listen: false);
+              final price = RIBase.getText(Tags.rIPostPrice);
+              final int priceInt = price.isEmpty ? 0 : int.parse(price);
+              final discount = RIBase.getText(Tags.rIPostDiscount);
+              final int discountInt =
+                  discount.isEmpty ? 0 : int.parse(discount);
+
+              final DiscountDetalEntity obj = DiscountDetalEntity(
+                id: 0,
+                user: UserEntity(
+                    id: hiveDo.readInt(Tags.hiveId) ?? 0,
+                    avatarImg: "",
+                    name: "100haryt123",
+                    role: Role.User),
+                about: RIBase.getText(Tags.rIPostAbout),
+                createdAt: DateTime.now(),
+                endedAt: providPostDo.endDate ?? DateTime.now(),
+                startedAt: providPostDo.startDate ?? DateTime.now(),
+                oldPrice: price.isEmpty ? 0 : int.parse(price),
+                newPrice: discount.isEmpty ? 0 : int.parse(discount),
+                liked: 0,
+                chated: 0,
+                isOfficial: false,
+                mod: Formater.modFinder(priceInt, discountInt),
+                phone: RIBase.getText(Tags.rIPostPhone),
+                pictures: providPostDo.imgPaths,
+                tags: providPostDo.tags,
+                title: RIBase.getText(Tags.rIPostName),
+                viewed: 0,
+                isEmpty: false,
+              );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DiscountDetalScreen(
+                        type: ImageType.file,
+                            obj: obj,
+                          )));
+            }
+          },
           child: Row(children: const [
             Icon(Icons.remove_red_eye_outlined, color: Color(0xff0EC243)),
             SizedBox(width: 8),

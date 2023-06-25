@@ -16,25 +16,72 @@ class ValuesP extends ChangeNotifier {
   // List<BanerEntity> baners =
   //     apiBanner.map((e) => BanerEntity.frowJson(e)).toList();
 
-  List<BanerEntity> banners = [];
+  List<BanerEntity> mainBanners = [];
+  List<BanerEntity> imgBanners = [];
+  List<BanerEntity> videoBanners = [];
 
-  Future<void> fillBanner(int welayat, int page) async {
-    try {
-      banners = await valuesCase.getBanners(welayat, page);
-      notifyListeners();
-    } catch (err) {
-      throw ("Error ValuesP>fillBanner: $err");
-    }
-  }
+  // Future<bool> fillBanner(int welayat, int page) async {
+  //   try {
+  //     banners = await valuesCase.getBanners(welayat, page);
+  //     notifyListeners();
+  //     return true;
+  //   } catch (err) {
+  //     throw ("Error ValuesP>fillBanner: $err");
+  //   }
+  // }
 
   Future<List<BanerEntity>> getBanner(int welayat, int page) async {
     try {
-      banners = await valuesCase.getBanners(welayat, page);
-      return banners;
+      // banners = await valuesCase.getBanners(welayat, page);
+      // return banners;
+      final banner = await valuesCase.getBanners(welayat, page);
+      switch (page) {
+        case 1:
+          mainBanners = banner;
+          break;
+        case 2:
+          imgBanners = banner;
+          break;
+        case 3:
+          videoBanners = banner;
+          break;
+        default:
+      }
+      return banner;
     } catch (err) {
       throw ("Error ValuesP>getBanner: $err");
     }
   }
+
+
+
+  List<ValueEntity> videoCategories = [];
+
+  void fillVideoCategories() async {
+    try {
+      videoCategories = await valuesCase.getVideoCategories();
+      // fillSubs();
+      notifyListeners();
+    } catch (err) {
+      throw ("Error VideoDataP>fillVideoCategories(): $err");
+    }
+  }
+
+    List<ValueEntity> imgCategories = [];
+
+  void fillImgCategories() async {
+    try {
+      videoCategories = await valuesCase.getImgCategories();
+      // fillSubs();
+      notifyListeners();
+    } catch (err) {
+      throw ("Error VideoDataP>fillImgCategories(): $err");
+    }
+  }
+  // void changeBanner(List<BanerEntity> banner) {
+  //   banners = banner;
+  //   notifyListeners();
+  // }
 
   List<ValueEntity> locations = [];
 

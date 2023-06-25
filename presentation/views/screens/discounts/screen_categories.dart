@@ -40,10 +40,10 @@ class DiscountCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final objs = context.watch<DiscountDataP>().categories;
-    return  SliverList(
-        delegate: SliverChildListDelegate(
-            objs.map((obj) => CategoryCard(obj: obj)).toList()),
-      );
+    return SliverList(
+      delegate: SliverChildListDelegate(
+          objs.map((obj) => CategoryCard(obj: obj)).toList()),
+    );
   }
 
   // SliverList(
@@ -62,7 +62,7 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-       return GestureDetector(
+    return GestureDetector(
       onTap: () {
         final List<DiscountEntity> objs = [
           DiscountEntity(
@@ -72,6 +72,7 @@ class CategoryCard extends StatelessWidget {
                 "https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg",
             mod: 23,
             title: "Mebel zakaz alyarys islendik gornusde",
+            description: "Mebel zakaz alyarys islendik gornusde",
             viewed: 121,
           ),
         ];
@@ -79,7 +80,11 @@ class CategoryCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DiscountsInPage(
-                    title: obj.name, count: obj.count, objs: objs)));
+                      title: obj.name,
+                      count: obj.count,
+                      id: obj.id,
+                      isSub: false,
+                    )));
       },
       child: Container(
         clipBehavior: Clip.hardEdge,
@@ -112,8 +117,5 @@ class CategoryCard extends StatelessWidget {
         ),
       ),
     );
-
   }
-
-
 }

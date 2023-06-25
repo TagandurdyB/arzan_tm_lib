@@ -10,5 +10,8 @@ abstract class DiscountsRepository {
   Future<DiscountDetalEntity> getDetal(int id);
   Future<ResponseEntity> postDiscount(PostDiscountEntity obj);
   Future<List<DiscountCategoryEntity>> discountCategories();
+  Future<List<DiscountEntity>> categoryPost(int id);
+  Future<List<DiscountEntity>> subCategoryPost(int id);
+
   // Future<List<DiscountSubcategoryEntity>> discountSubs(int categoryID);
 }

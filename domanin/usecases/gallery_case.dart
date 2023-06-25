@@ -1,18 +1,24 @@
-import '../entities/galery/video_entity.dart';
-import '/domanin/entities/galery/gallery_entity.dart';
+import 'package:arzan/domanin/entities/register/response_entity.dart';
 
-import '../entities/galery/img_card_entity.dart';
+import '../entities/galery/content_card_entity.dart';
+import '../entities/galery/video_entity.dart';
+
+import '../entities/galery/img_entity.dart';
 import '../repositories/gallery_repository .dart';
 
 class GalleryCase {
   final GalleryRepository repository;
   GalleryCase(this.repository);
 
-  // Future<GalleryEntity> getImages() async => await repository.getImages();
-  // Future<List<ImgCardEntity>> getImgEntitis() async =>
-  //     await repository.getImgEntitis();
+  Future<List<ContentCardEntity>> getImgFolders(int id) async =>
+      await repository.getImgFolders(id);
+  Future<List<ImgEntity>> getImages(int folderID) async =>
+      await repository.getImages(folderID);
 
-  Future<List<VideoCardEntity>> getVideos() async =>
-      await repository.getVideos();
+  Future<List<ContentCardEntity>> getVideos(int id) async =>
+      await repository.getVideos(id);
   Future<VideoEntity> getVideo(int id) async => await repository.getVideo(id);
+
+  Future<ResponseEntity> likePost(int id) async =>
+      await repository.likePost(id);
 }

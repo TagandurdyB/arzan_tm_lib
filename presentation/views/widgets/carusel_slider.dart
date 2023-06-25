@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:arzan/presentation/views/widgets/shimmer_img.dart';
+
 import '../../../domanin/entities/baner_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -23,24 +25,28 @@ class MyCarusel extends StatelessWidget {
   }
 
   Widget buildContent(BanerEntity obj) {
-    return Image.network(
-      obj.img,
+    return ShimmerImg(
+      imageUrl: obj.img,
       fit: BoxFit.cover,
-      loadingBuilder: (context, child, placeholder) {
-        if (placeholder == null) return child;
-        return Container(color: Colors.grey);
-      },
-      errorBuilder: (context, obj, stack) {
-        return Shimmer.fromColors(
-          baseColor: Colors.grey.withOpacity(0.25),
-          highlightColor: Colors.grey.withOpacity(0.6),
-          enabled: true,
-          direction: ShimmerDirection.ltr,
-          period: const Duration(seconds: 1),
-          child: Container(color: Colors.grey.withOpacity(0.5)),
-        );
-      },
     );
+    // return Image.network(
+    //   obj.img,
+    //   fit: BoxFit.cover,
+    //   loadingBuilder: (context, child, placeholder) {
+    //     if (placeholder == null) return child;
+    //     return Container(color: Colors.grey);
+    //   },
+    //   errorBuilder: (context, obj, stack) {
+    //     return Shimmer.fromColors(
+    //       baseColor: Colors.grey.withOpacity(0.25),
+    //       highlightColor: Colors.grey.withOpacity(0.6),
+    //       enabled: true,
+    //       direction: ShimmerDirection.ltr,
+    //       period: const Duration(seconds: 1),
+    //       child: Container(color: Colors.grey.withOpacity(0.5)),
+    //     );
+    //   },
+    // );
   }
 }
 
@@ -85,27 +91,28 @@ class CustomCarusel extends StatefulWidget {
 class _CustomCaruselState extends State<CustomCarusel> {
   late PageController controller;
   late Timer timer;
-  late int length;
 
   @override
   void initState() {
-    length = widget.items.length;
-    controller = PageController(
-      initialPage: 1,
-      keepPage: true,
-    );
-    timer = Timer.periodic(widget.duration, (time) {
-      setState(() {
-        controller.nextPage(duration: widget.transition, curve: Curves.easeIn);
+    if (widget.items.isNotEmpty) {
+      controller = PageController(
+        initialPage: 1,
+        keepPage: true,
+      );
+      timer = Timer.periodic(widget.duration, (time) {
+        controller.nextPage(
+            duration: widget.transition, curve: Curves.easeInBack);
       });
-    });
+    }
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
-    timer.cancel();
+    if (widget.items.isNotEmpty) {
+      timer.cancel();
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -113,7 +120,7 @@ class _CustomCaruselState extends State<CustomCarusel> {
 
   @override
   Widget build(BuildContext context) {
-    if (length > 0) {
+    if (widget.items.isNotEmpty) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -136,19 +143,19 @@ class _CustomCaruselState extends State<CustomCarusel> {
                     onPageChanged: (int index) {
                       setState(() {
                         pageIndex = index - 1;
-                        if (index == length + 1) {
+                        if (index == widget.items.length + 1) {
                           pageIndex = 0;
                           controller.jumpToPage(1);
                         } else if (index == 0) {
-                          controller.jumpToPage(length);
+                          controller.jumpToPage(widget.items.length);
                         }
                       });
                     },
-                    itemCount: length + 2,
+                    itemCount: widget.items.length + 2,
                     itemBuilder: (context, index) {
                       int reightIndex = index == 0
-                          ? length - 1
-                          : index == length + 1
+                          ? widget.items.length - 1
+                          : index == widget.items.length + 1
                               ? 0
                               : index - 1;
                       return widget.items[reightIndex];
@@ -178,7 +185,7 @@ class _CustomCaruselState extends State<CustomCarusel> {
       child: FittedBox(
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: List.generate(length, (index) {
+          children: List.generate(widget.items.length, (index) {
             final radius =
                 index == pageIndex ? widget.activDotRadius : widget.dotRadius;
             return Container(

@@ -18,4 +18,15 @@ class ValuesRepositoryImpl implements ValuesRepository {
   Future<List<ValueEntity>> getLocations() async {
     return await valuesRemoteDataSource.getLocations();
   }
+
+  @override
+  Future<List<ValueEntity>> getVideoCategories() async {
+    return await valuesRemoteDataSource.getVideoCategories();
+  }
+
+
+    @override
+  Future<List<ValueEntity>> getImgCategories() async {
+    return await valuesRemoteDataSource.getImgCategories();
+  }
 }

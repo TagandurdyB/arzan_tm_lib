@@ -1,3 +1,5 @@
+import '../../../../config/vars/constants.dart';
+import '../../../providers/data/hive_provider.dart';
 import '/presentation/views/widgets/official/official_1_card.dart';
 
 import '../../../../domanin/entities/official_entity.dart';
@@ -25,9 +27,10 @@ class _OfficialViewState extends State<OfficialView> {
   @override
   Widget build(BuildContext context) {
     final providD = DiscountProvid.of(context);
+    final typeOfYou=HiveP.of(context).readInt(Tags.hiveTypeOfYou)??2;
     return SliverGrid.builder(
         itemCount: widget.objs.length,
-        gridDelegate: _delegateChanger(providD.cloumnCount),
+        gridDelegate: _delegateChanger(typeOfYou),
         itemBuilder: (context, index) {
           return GestureDetector(
               onTap: () {
@@ -68,7 +71,7 @@ class _OfficialViewState extends State<OfficialView> {
                 //               ),
                 //             )));
               },
-              child: buildDiscountCard(index, providD.cloumnCount));
+              child: buildDiscountCard(index, typeOfYou));
           // return Entry.scale(
           //     visible: providD.scaleVisible,
           //     scale: 0,

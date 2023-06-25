@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:arzan/data/datasourses/remote/http_vars.dart';
+
 import '/presentation/providers/data/data_provider_theme.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -9,9 +13,19 @@ import 'config/services/my_orientation.dart';
 import 'config/vars/constants.dart';
 import 'domanin/entities/discounts/discount_entity.dart';
 import 'injector.dart';
+import 'package:http_proxy/http_proxy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+//proxy==================================
+  print("IP:=${Uris.ip}    PORT:=${Uris.port}");
+  HttpProxy httpProxy = await HttpProxy.createHttpProxy();
+  httpProxy.host = Uris.ip; // replace with your server ip
+  httpProxy.port = Uris.port; // replace with your server port
+  HttpOverrides.global = httpProxy;
+//=======================================
+
   await Hive.initFlutter();
 
   Hive.registerAdapter(DiscountEntityAdapter());

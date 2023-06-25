@@ -45,24 +45,26 @@ class MainPageEntity {
         discountDatas: [DiscountEntity.empty],
       );
 
-  // factory MainPageEntity.frowJson(Map<String, dynamic> json) {
-  //   try {
-  //     return MainPageEntity(
-  //       baners: BanerEntity.fromJsonList(json["baners"]),
-  //       markets: MarketEntity.fromJsonList(json["markets"]),
-  //       konkurs: MainPageCardEntity.frowJson(json["kunkurs"]),
-  //       saylananlarCount: json["saylananlar"]["count"],
-  //       saylananlarDatas:
-  //           ChosenEntity.fromJsonList(json["saylananlar"]["datas"]),
-  //       top: MainPageCardEntity.frowJson(json["top"]),
-  //       pictures: MainPageCardEntity.frowJson(json["pictures"]),
-  //       videos: MainPageCardEntity.frowJson(json["videos"]),
-  //       resmiler: MainPageCardEntity.frowJson(json["resmiler"]),
-  //       discountsCount: json["discounts"]["count"],
-  //       discountDatas: DiscountEntity.fromJsonList(json["discounts"]["datas"]),
-  //     );
-  //   } catch (err) {
-  //     throw ("Error in MainPageEntity : $err");
-  //   }
-  // }
+  factory MainPageEntity.frowJson(Map<String, dynamic> json) {
+    try {
+      return MainPageEntity(
+        // baners: BanerEntity.fromJsonList(json["baners"]),
+        baners: [BanerEntity.empty],
+        markets: MarketEntity.fromJsonList(json["markets"]),
+        konkurs: MainPageCardEntity.frowJson(json["kunkurs"]),
+        saylananlarCount: ChosenEntity.fromJsonList(json["saylananlar"]["datas"]).length,//json["saylananlar"]["count"],
+        saylananlarDatas:
+            ChosenEntity.fromJsonList(json["saylananlar"]["datas"]),
+        top: MainPageCardEntity.frowJson(json["top"]),
+        pictures: MainPageCardEntity.frowJson(json["pictures"]),
+        videos: MainPageCardEntity.frowJson(json["videos"]),
+        resmiler: MainPageCardEntity.frowJson(json["resmiler"]),
+        discountsCount: json["discounts"]["count"],
+        // discountDatas: DiscountEntity.fromJsonList(json["discounts"]["datas"]),
+        discountDatas: [DiscountEntity.empty],
+      );
+    } catch (err) {
+      throw ("Error in MainPageEntity : $err");
+    }
+  }
 }

@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan/presentation/views/widgets/custom_future.dart';
+
 import '/presentation/views/widgets/widget_btn.dart';
 
 import '../../../../config/vars/formater.dart';
@@ -16,11 +18,13 @@ import 'package:flutter/material.dart';
 import '../../scaffold/no_app_bar_scaffold.dart';
 
 class DiscountsInPage extends StatelessWidget {
-  final List<DiscountEntity> objs;
   final String title;
+  final int id;
+  final bool isSub;
   final int count;
   DiscountsInPage({
-    required this.objs,
+    required this.id,
+    required this.isSub,
     required this.count,
     required this.title,
     super.key,
@@ -29,6 +33,8 @@ class DiscountsInPage extends StatelessWidget {
   final double arentir = MySize.arentir;
   late DiscountProvid providD, providDdo;
 
+  List<DiscountEntity> objs = [];
+
   late DiscountDataP providDD;
   @override
   Widget build(BuildContext context) {
@@ -36,29 +42,36 @@ class DiscountsInPage extends StatelessWidget {
     providDdo = DiscountProvid.of(context, listen: false);
     providDD = DiscountDataP.of(context);
     return ScaffoldNo(
-      body: Column(children: [
-        CustomAppBar(
-          titleW: Row(children: const [
-            SizedBox(
-              child: Text(
-                "Arzanladyşlar",
-                style: TextStyle(fontSize: 22),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+      body: CustomFuture(
+          future: isSub
+              ? providDD.fetchSubCategory(id)
+              : providDD.fetchCategoryD(id),
+          builder: (context, objs) {
+            this.objs = objs;
+            return Column(children: [
+              CustomAppBar(
+                titleW: Row(children: const [
+                  SizedBox(
+                    child: Text(
+                      "Arzanladyşlar",
+                      style: TextStyle(fontSize: 22),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Text(
+                    " (135)",
+                    style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff008631)),
+                  ),
+                ]),
+                actions: const [WidgetBtn()],
               ),
-            ),
-            Text(
-              " (135)",
-              style: TextStyle(
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff008631)),
-            ),
-          ]),
-          actions: const [WidgetBtn()],
-        ),
-        Expanded(child: buildContent),
-      ]),
+              Expanded(child: buildContent),
+            ]);
+          }),
     );
   }
 

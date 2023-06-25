@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../config/vars/constants.dart';
+import '../../../config/vars/formater.dart';
 import '../../providers/data/hive_provider.dart';
 import '../screens/acaunts/guest.dart';
 import '../screens/acaunts/pod.dart';
@@ -25,13 +26,6 @@ class AcauntPage extends StatelessWidget {
 
   int acauntIndex(BuildContext context) {
     final String role = HiveP.of(context).readStr(Tags.hiveRole)!;
-    print("user:=$role");
-    if (role == "user") {
-      return 0;
-    } else if (role == "offical") {
-      return 1;
-    } else {
-      return 2;
-    }
+    return Formater.roleStrToInt(role);
   }
 }

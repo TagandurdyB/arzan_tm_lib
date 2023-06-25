@@ -111,12 +111,12 @@ class _DiscountsPageState extends State<DiscountsPage> {
     ]);
   }
 
-  Widget get buildBanner {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: MyCarusel(
-        items: ValuesP.of(context).banners,
-      ),
-    );
-  }
+  // Widget get buildBanner {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(20),
+  //     child: MyCarusel(
+  //       items: ValuesP.of(context).banners,
+  //     ),
+  //   );
+  // }
 }

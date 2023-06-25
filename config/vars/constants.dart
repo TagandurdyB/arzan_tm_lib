@@ -39,6 +39,7 @@ class Words {
   //Messages==================================================================
   static const String loading = "Garaşmagyňyzy haýyş edýeris!";
   static const String disconnect = "Internede çatylmagyňyzy haýyş edýeris!";
+  static const String soon = "Basym geler!";
   static const String error500 = "Serwerde mesele ýüze çykdy!";
   static const String buyValidation = "Maglumatlary doly giriziň!";
   static const String buyNo = "Balansyňyzda ýeterlik ball ýok!";

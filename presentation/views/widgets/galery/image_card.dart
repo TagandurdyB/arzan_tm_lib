@@ -3,7 +3,7 @@ import 'dart:ui';
 import '/config/vars/formater.dart';
 
 import '../../../../config/services/my_size.dart';
-import '../../../../domanin/entities/galery/img_card_entity.dart';
+import '../../../../domanin/entities/galery/img_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../shimmer_img.dart';
@@ -11,7 +11,7 @@ import '../shimmer_img.dart';
 class ImageCard extends StatelessWidget {
   final double? width;
   final double? height;
-  final ImgCardEntity obj;
+  final ImgEntity obj;
   final Function? onTab;
   ImageCard(
       {required this.obj, this.width, this.height, this.onTab, super.key});
@@ -22,7 +22,7 @@ class ImageCard extends StatelessWidget {
     return buildContent(obj);
   }
 
-  Widget buildContent(ImgCardEntity obj) {
+  Widget buildContent(ImgEntity obj) {
     return GestureDetector(
       onTap: () {
         if (onTab != null) onTab!(obj);
@@ -63,7 +63,7 @@ class ImageCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        // color: Colors.orange,
+        color: Colors.green,
         borderRadius: BorderRadius.circular(arentir * 0.01),
       ),
       padding: EdgeInsets.all(arentir * 0.005),

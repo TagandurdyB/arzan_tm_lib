@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan/presentation/providers/data/video_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -17,14 +18,17 @@ class VideoPlayerForground extends StatelessWidget {
   final double arentir = MySize.arentir;
   late VideoP providV;
   late VideoP providVdo;
+  late VideoDataP videoP;
+
   @override
   Widget build(BuildContext context) {
+    videoP = VideoDataP.of(context);
     providV = VideoP.of(context);
     providVdo = VideoP.of(context, listen: false);
     return Visibility(
       visible: providV.isForvardShow,
       child: GestureDetector(
-        onDoubleTap: ()=>providVdo.forvordHidden,
+        onDoubleTap: () => providVdo.forvordHidden,
         child: Container(
             alignment: Alignment.center,
             color: Colors.black54,
@@ -75,20 +79,22 @@ class VideoPlayerForground extends StatelessWidget {
     );
   }
 
-  Widget get buildTitle => Container(
-        padding: const EdgeInsets.all(8),
-        width: arentir * 0.6,
-        child: const ReadMoreText(
-          duration: Duration(milliseconds: 300),
-          text:
-              '''Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв''',
-        ),
-        // const Text(
-        //   style:
-        //       TextStyle(color: Colors.white, overflow: TextOverflow.ellipsis),
-        //   maxLines: 3,
-        // ),
-      );
+  Widget get buildTitle {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      width: arentir * 0.6,
+      child: ReadMoreText(
+        duration: const Duration(milliseconds: 300),
+        text: videoP.videos![videoP.videoIndex].title,
+        // '''Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв Видео для вдохновения враолывлоалфыщышвойтоатоыдлфыварывапирыв''',
+      ),
+      // const Text(
+      //   style:
+      //       TextStyle(color: Colors.white, overflow: TextOverflow.ellipsis),
+      //   maxLines: 3,
+      // ),
+    );
+  }
 
   Widget get buildBottomGadgets {
     return Padding(
@@ -130,11 +136,11 @@ class VideoPlayerForground extends StatelessWidget {
   }
 
   Widget get buildTimer {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text(
-        TimeConterter(controller).getPosition,
-        style: const TextStyle(color: Colors.white),
-      ),
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      // Text(
+      //   TimeConterter(controller).getPosition,
+      //   style: const TextStyle(color: Colors.white),
+      // ),
       Text(
         TimeConterter(controller).getDuration,
         style: const TextStyle(color: Colors.white),

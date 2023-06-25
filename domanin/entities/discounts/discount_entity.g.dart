@@ -23,6 +23,7 @@ class DiscountEntityAdapter extends TypeAdapter<DiscountEntity> {
       img: fields[3] as String,
       createdAt: fields[4] as DateTime,
       title: fields[5] as String,
+      description: fields[6] as String,
     );
   }
 
@@ -41,7 +42,9 @@ class DiscountEntityAdapter extends TypeAdapter<DiscountEntity> {
       ..writeByte(4)
       ..write(obj.createdAt)
       ..writeByte(5)
-      ..write(obj.title);
+      ..write(obj.title)
+      ..writeByte(6)
+      ..write(obj.description);
   }
 
   @override

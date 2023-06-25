@@ -1,4 +1,6 @@
 // ignore_for_file: must_be_immutable
+import 'package:arzan/presentation/providers/view/provider_navigation.dart';
+
 import '../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 import '../../../config/routes/my_route.dart';
@@ -42,7 +44,16 @@ class CustomDrawer extends StatelessWidget {
 
   Widget get buildLogin {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Rout.acaunt),
+      onTap: () {
+        final role =
+            HiveP.of(context, listen: false).readStr(Tags.hiveRole) != null;
+        if (role) {
+          Navigator.pushNamed(context, Rout.acaunt);
+        } else {
+          Navigator.pop(context);
+          ProviderNav.of(context, listen: false).changeScreen(4);
+        }
+      },
       child: Container(
         alignment: Alignment.center,
         color: Colors.green.shade100,

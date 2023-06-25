@@ -33,7 +33,7 @@ class BanerModel extends BanerEntity {
     try {
       return BanerModel(
           id: json["id"],
-          img: json["image"],
+          img: "http://95.85.126.113/"+json["image"]["url"],
           note: json["note"] ?? "",
           title: json["title"] ?? "",
           link: json["link"] ?? "",

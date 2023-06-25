@@ -1,74 +1,92 @@
+import 'package:arzan/config/services/my_size.dart';
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
+import '../../../config/services/my_orientation.dart';
+import '../../../domanin/entities/galery/content_card_entity.dart';
+import '../../providers/data/video_data_provider.dart';
 import '../../providers/view/provider_video.dart';
 import '../widgets/custom_avatar.dart';
 import '../widgets/galery/video_player_widget.dart';
 import '../widgets/next_btn.dart';
-import '/presentation/providers/data/video_data_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
-import '../../../config/services/my_orientation.dart';
-import '../../../config/services/my_size.dart';
-
-class PageVidePlayer1 extends StatefulWidget {
-  const PageVidePlayer1({super.key});
+class VideoPlayer2 extends StatefulWidget {
+  const VideoPlayer2({super.key});
 
   @override
-  State<PageVidePlayer1> createState() => _PageVidePlayer1State();
+  State<VideoPlayer2> createState() => _VideoPlayer2State();
 }
 
-class _PageVidePlayer1State extends State<PageVidePlayer1> {
-  late VideoDataP videoDo, videoP;
+class _VideoPlayer2State extends State<VideoPlayer2> {
+  late VideoDataP videoP;
 
   @override
   void initState() {
-    super.initState();
     MyOrientation.disableSystemUI;
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // VideoDataP.of(context, listen: false).fillVideo(2);
-      videoDo = VideoDataP.of(context, listen: false);
-      videoDo.initVideo();
-      // VideoDataP.of(context, listen: false).initializeVideoPlayer(
-      //     // "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
-      //     // "http://95.85.126.113:8080/static/video/f7a6a57195e8e6ffd372b072794fddf1.mp4",
-      //     );
-    });
+    super.initState();
   }
 
   @override
   void dispose() {
     MyOrientation.setPortraitUp();
-    //  VideoDataP.of(context, listen: false).dispodeVideo;
-    videoDo.dispodeVideo;
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    videoP = VideoDataP.of(context);
+
+    final List<ContentCardEntity> videos = videoP.videos ?? [];
+    return PageView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      controller: videoP.videoSpiveController,
+      scrollDirection: Axis.vertical,
+      itemCount: videos.length,
+      itemBuilder: (context, index) {
+        return Container(
+          color: Colors.red,
+          child: Text("$index"));
+      },
+    );
+  }
+}
+
+class VideoPlayScreen extends StatefulWidget {
+  final int index;
+  const VideoPlayScreen({required this.index, super.key});
+
+  @override
+  State<VideoPlayScreen> createState() => _VideoPlayScreenState();
+}
+
+class _VideoPlayScreenState extends State<VideoPlayScreen> {
+  late VideoDataP videoDo, videoP;
   final double arentir = MySize.arentir;
+  int startY = 0, endY = 0;
+
+// late VideoPlayerController control;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      VideoDataP.of(context, listen: false).initVideo;
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      VideoDataP.of(context, listen: false).dispodeVideo;
+    });
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     videoDo = VideoDataP.of(context, listen: false);
     videoP = VideoDataP.of(context);
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: PageView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: videoP.videoSpiveController,
-        scrollDirection: Axis.vertical,
-        itemCount: VideoDataP.of(context).videos!.length,
-        itemBuilder: (context, index) {
-          return buildTest(index);
-        },
-        // children: List.generate(VideoDataP.of(context).videos!.length, (index) => buildTest(index))
-        // itemCount: 3,
-        // itemBuilder: (context, index) => buildTest(index),
-      ),
-    );
-  }
-
-  int startY = 0, endY = 0;
-  Widget buildTest(int index) {
     return GestureDetector(
       onVerticalDragDown: (details) {
         startY = details.globalPosition.dy.round();
@@ -85,11 +103,11 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
             if (drag > 0) {
               //asak yokary
               //next video
-              videoDo.svipeNext(context);
+              videoDo.svipeNext;
             } else {
               //yokardan asak
               //old video
-              videoDo.svipeOld(context);
+              videoDo.svipeOld;
             }
           }
         });
@@ -97,8 +115,7 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          buildLoad(true, index),
-          // Container(color: Colors.white, child: Text("Index:=$index  videoIndex:=${VideoDataP.of(context).videoIndex}")),
+          buildLoad(true),
           Expanded(
             child: GestureDetector(
               onTap: () {
@@ -111,20 +128,14 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
                     width: double.infinity,
                     height: 100,
                     color: Colors.black,
-                    child: Stack(
-                      children: [
-                        VideoPlayerWidget(controller: controller),
-                        buildTitle(index),
-                      ],
-                    ),
-                    // child: index == 1
-                    //     ? Stack(
-                    //         children: [
-                    //           VideoPlayerWidget(controller: controller),
-                    //           buildTitle,
-                    //         ],
-                    //       )
-                    //     : const SizedBox(),
+                    child: widget.index == 1
+                        ? Stack(
+                            children: [
+                              VideoPlayerWidget(controller: controller),
+                              buildTitle,
+                            ],
+                          )
+                        : const SizedBox(),
                   );
                 } else {
                   return Align(
@@ -143,14 +154,13 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
               }),
             ),
           ),
-          buildLoad(false, index),
+          buildLoad(false),
         ],
       ),
     );
   }
 
-  Widget buildTitle(index) {
-    // final VideoDataP.of(context).videos
+  Widget get buildTitle {
     return Visibility(
       visible: VideoP.of(context).isForvardShow,
       child: Column(
@@ -165,10 +175,8 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
                   }),
               Expanded(
                   child: buildUser(
-                // "https://play-lh.googleusercontent.com/326hZ9pubFetmymUcBe3ZX0gTG_DLdjiDdkleC04Gft-YtiJrBzGrQPNJGqghy6Nfg=w240-h480-rw",
-                videoP.videos![index].user.avatarImg,
-                // "100haryt.com",
-                videoP.videos![index].user.name,
+                "https://play-lh.googleusercontent.com/326hZ9pubFetmymUcBe3ZX0gTG_DLdjiDdkleC04Gft-YtiJrBzGrQPNJGqghy6Nfg=w240-h480-rw",
+                "100haryt.com",
               )),
 
               Container(
@@ -235,10 +243,9 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
     );
   }
 
-  Widget buildLoad(bool isUp, int index) {
-    // final obj = videoP.video;
-    // final int videoIndex = videoP.videoIndex;
-    final bool isLimit = isUp ? index == 0 : index == videoP.videos!.length - 1;
+  Widget buildLoad(bool isUp) {
+    final obj = videoP.video;
+    final bool isLimit = isUp ? obj.provious == null : obj.next == null;
     return AnimatedCrossFade(
       // visible: isUp ? videoP.isOld : videoP.isNext,
       duration: const Duration(microseconds: 300),
@@ -251,20 +258,16 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
                   height: MySize.arentir * 0.2,
                   fit: BoxFit.fill),
             )
-          : !isUp
-              ? Material(
-                  color: Colors.transparent,
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      height: 70,
-                      child: const Text(
-                        // index == 0 ? "First Video" : 
-                        "Last Video",
-                        style:
-                            TextStyle(color: Colors.white, fontSize: 18),
-                      )))
-              : const SizedBox(),
+          : Material(
+              color: Colors.transparent,
+              child: Container(
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  height: 70,
+                  child: Text(
+                    obj.next == null ? "Last" : "First",
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ))),
       secondChild: const SizedBox(),
       crossFadeState: (isUp ? videoP.isOld : videoP.isNext)
           ? CrossFadeState.showFirst

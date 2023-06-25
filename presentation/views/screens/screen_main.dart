@@ -22,7 +22,6 @@ import 'package:flutter/material.dart';
 import '../../../config/routes/my_route.dart';
 import '../scaffold/my_app_bar.dart';
 import '../widgets/card_title.dart';
-import '../widgets/chosen/chosen_page_view.dart';
 import '../widgets/discount/discount_view.dart';
 import '../widgets/main_page_widgets/long_card.dart';
 
@@ -59,20 +58,30 @@ class _ScreenMainState extends State<ScreenMain> {
     this.context = context;
     // objM = MainPageP.of(context).entity;
     objM = context.watch<MainPageP>().entity;
-    return Column(
-      children: [
-        // ProviderNav.of(context).isSearch ? SearchBar() : MainBar(),
-        const MainBar(),
-        Expanded(
-            child: Stack(
-          children: [
-            buildContent,
-            Offstage(
-                offstage: !ProviderNav.of(context).isSearch,
-                child: ScreenSearch())
-          ],
-        )),
-      ],
+    return RefreshIndicator(
+      edgeOffset: 50,
+      color: Colors.green,
+      backgroundColor: Colors.white10,
+      onRefresh: () {
+        MainPageP.of(context, listen: false).fillEntity();
+        DiscountDataP.of(context, listen: false).fillDiscounts();
+        return Future<void>.delayed(const Duration(seconds: 2));
+      },
+      child: Column(
+        children: [
+          // ProviderNav.of(context).isSearch ? SearchBar() : MainBar(),
+          const MainBar(),
+          Expanded(
+              child: Stack(
+            children: [
+              buildContent,
+              Offstage(
+                  offstage: !ProviderNav.of(context).isSearch,
+                  child: ScreenSearch())
+            ],
+          )),
+        ],
+      ),
     );
   }
 
@@ -96,10 +105,12 @@ class _ScreenMainState extends State<ScreenMain> {
           const SliverPadding(padding: EdgeInsets.all(10)),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
-            sliver: DiscountView(
-              // objs: objM.discountDatas,
-              objs: DiscountDataP.of(context).discounts,
-            ),
+            sliver: DiscountDataP.of(context).discounts.isNotEmpty
+                ? DiscountView(
+                    // objs: objM.discountDatas,
+                    objs: DiscountDataP.of(context).discounts,
+                  )
+                : null,
           ),
           const SliverPadding(padding: EdgeInsets.all(20))
         ],
@@ -116,11 +127,12 @@ class _ScreenMainState extends State<ScreenMain> {
             //     onTap: () => Navigator.pushNamed(context, Rout.contest),
             //     imageUrl: objM.konkurs.img,
             //     title: "Konkurs"),
-            ChosenPageView(
-              allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
-              objs: objM.saylananlarDatas,
-              count: objM.saylananlarCount,
-            ),
+
+            // ChosenPageView(
+            //   allBtnOnTap: () => Navigator.pushNamed(context, Rout.chosen),
+            //   objs: objM.saylananlarDatas,
+            //   count: objM.saylananlarCount,
+            // ),
             LongCard(
                 counter: objM.top.count,
                 onTap: () => Navigator.pushNamed(context, Rout.tops),
@@ -166,7 +178,7 @@ class _ScreenMainState extends State<ScreenMain> {
       );
 
   Widget get buildSlider {
-    final banner = context.watch<ValuesP>().banners;
+    final banner = context.watch<ValuesP>().mainBanners;
     return Container(
       alignment: Alignment.topCenter,
       // child: CustomCarusel(
@@ -178,7 +190,7 @@ class _ScreenMainState extends State<ScreenMain> {
       // ),
       padding: const EdgeInsets.all(16),
       child: MyCarusel(
-        items: banner,
+        items: ValuesP.of(context).mainBanners,
       ),
     );
   }

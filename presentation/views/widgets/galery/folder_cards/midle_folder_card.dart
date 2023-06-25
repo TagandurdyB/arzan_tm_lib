@@ -40,7 +40,7 @@ class MidleFolderCard extends StatelessWidget {
           // border: Border.all(width: 1, color: const Color(0xff00C52B)),
         ),
         width: arentir * 0.44,
-        // height: arentir * 0.95,
+        height: arentir * 0.6,
         child: Column(children: [
           buildTitle(obj.user),
           baner ?? buildBaner,

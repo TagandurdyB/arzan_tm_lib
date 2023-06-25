@@ -18,7 +18,17 @@ class DiscountsRepositoryImpl implements DiscountsRepository {
     return await discountsRemoteDataSource.getDiscounts();
   }
 
+  @override
+  Future<List<DiscountEntity>> categoryPost(int id) async {
+    return await discountsRemoteDataSource.categoryPost(id);
+  }
+
  @override
+  Future<List<DiscountEntity>> subCategoryPost(int id) async {
+    return await discountsRemoteDataSource.subCategoryPost(id);
+  }
+
+  @override
   Future<DiscountDetalEntity> getDetal(int id) async {
     return await discountsRemoteDataSource.getDetal(id);
   }

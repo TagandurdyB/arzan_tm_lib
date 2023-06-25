@@ -16,6 +16,7 @@ class DiscountEntity extends HiveObject{
   @HiveField(5)
   final String title;
   @HiveField(6)
+  final String description;
   DiscountEntity({
     required this.id,
     required this.mod,
@@ -23,6 +24,7 @@ class DiscountEntity extends HiveObject{
     required this.img,
     required this.createdAt,
     required this.title,
+    required this.description,
   });
 
   static DiscountEntity get empty => DiscountEntity(
@@ -32,5 +34,6 @@ class DiscountEntity extends HiveObject{
         img: "",
         createdAt: DateTime.now(),
         title: "",
+        description: "",
       );
 }

@@ -28,7 +28,7 @@ class SendSmsPage extends StatelessWidget {
     }
     // LauncherService.sms(Words.phone);
     LauncherService().sendSMS(Words.phone, "ArzanTm");
-    MyPopUpp.popLoading(context);
+    // MyPopUpp.popLoading(context);
 
     checkTimer();
     // SuccessPop.pop(context, true);
@@ -61,10 +61,25 @@ class SendSmsPage extends StatelessWidget {
           // hiveP.saveStr("user", Tags.hiveRole);
 
           MyPopUpp.popMessage(context, () {
+            if (!isRecover) {
+              print("Sign up");
+              AcauntP.of(context, listen: false).changeScreen(0);
+              // Navigator.pop(context);
+            }
+
             // AcauntP.of(context, listen: false).changeScreen(0);
-            isRecover ? _signUpFunc() : _recoverFunc(response.token!);
+            else {
+
+              // Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PasswordPage(token: response.token!)));
+            }
+            //  _recoverFunc(response.token!);
           }, "Siz üstünlükli tassyklandyňyz!", !response.status);
-        } else if (raund < 5) {
+        } else if (raund < 10) {
           checkTimer();
         }
       });

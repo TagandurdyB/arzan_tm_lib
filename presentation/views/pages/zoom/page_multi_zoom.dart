@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/shimmer_img.dart';
 import 'page_zoom.dart';
 
 class MultiZoomPage extends StatefulWidget {
   final List<String> images;
+  final ImageType type;
   final int startIndex;
   const MultiZoomPage(
-      {required this.images, required this.startIndex, super.key});
+      {required this.images,this.type=ImageType.network, required this.startIndex, super.key});
 
   @override
   State<MultiZoomPage> createState() => _MultiZoomPageState();
@@ -32,6 +34,7 @@ class _MultiZoomPageState extends State<MultiZoomPage> {
         children: List.generate(
             imgs.length,
             (index) => ZoomPage(
+              type: widget.type,
                   image: imgs[index],
                   count: imgs.length,
                   index: index + 1,

@@ -1,11 +1,11 @@
 // ignore_for_file: must_be_immutable
 
+import '../../../domanin/entities/discounts/post_discount_entity.dart';
+import '../../providers/data/discount_data_provider.dart';
 import '/presentation/views/widgets/ReadyInput/ready_input_base.dart';
 
 import '../../../config/vars/constants.dart';
-import '/domanin/entities/discounts/post_discount_entity.dart';
 
-import '../../providers/data/discount_data_provider.dart';
 import '/config/services/my_size.dart';
 import '/presentation/views/widgets/my_pop_widget.dart';
 import '/presentation/views/widgets/next_btn.dart';
@@ -53,83 +53,61 @@ class AddPostScreen extends StatelessWidget {
         const SizedBox(height: 20),
         NextBtn(
             func: () {
-              final map=[
-                providPostDo.imgPaths ,
-                 RIBase.getText(Tags.rIPostName) ,
-                 RIBase.getText(Tags.rIPostAbout) ,
-                 providPostDo.tags ,
-                 "+993${RIBase.getText(Tags.rIPostPhone)}", 
-                 int.parse(RIBase.getText(Tags.rIPostPrice)) ,
-                 int.parse(RIBase.getText(Tags.rIPostDiscount)) ,
-                 providPostDo.startDate!,
-                 providPostDo.endDate!, 
-                 providPostDo.categoryId, 
-                 providPostDo.subCategoryId
+              final List<String> images = providPostDo.imgPaths;
+              final String name = RIBase.getText(Tags.rIPostName);
+              final String description = RIBase.getText(Tags.rIPostAbout);
+              final List<String> tags = providPostDo.tags;
+              final String phone = "+993${RIBase.getText(Tags.rIPostPhone)}";
+              final String price = RIBase.getText(Tags.rIPostPrice).isEmpty
+                  ? "0"
+                  : RIBase.getText(Tags.rIPostPrice);
+              final String discont = RIBase.getText(Tags.rIPostDiscount).isEmpty
+                  ? "0"
+                  : RIBase.getText(Tags.rIPostDiscount);
+              final DateTime? start = providPostDo.startDate;
+              final DateTime? end = providPostDo.endDate;
+              final int categoryId = providPostDo.categoryId;
+              final int subCategoryId = providPostDo.subCategoryId;
+
+              final list = [
+                images,
+                RIBase.getText(Tags.rIPostName),
+                description,
+                tags,
+                phone,
+                price,
+                discont,
+                start,
+                end,
+                categoryId,
+                subCategoryId
               ];
-              print("PostDiscountEntity:=$map");
-              _loadPop();
-              DiscountDataP.of(context, listen: false)
-                  .addPost(PostDiscountEntity(
-                    images: providPostDo.imgPaths,
-                    name: RIBase.getText(Tags.rIPostName),
-                    description: RIBase.getText(Tags.rIPostAbout),
-                    hashtags: providPostDo.tags,
-                    phone: "+993${RIBase.getText(Tags.rIPostPhone)}",
-                    price: int.parse(RIBase.getText(Tags.rIPostPrice)),
-                    oldPrice: int.parse(RIBase.getText(Tags.rIPostDiscount)),
-                    statedAt: providPostDo.startDate!,
-                    endedAt: providPostDo.endDate!,
-                    categoryId: providPostDo.categoryId,
-                    subCategoryId: providPostDo.subCategoryId,
-                  ))
-                  .then((entity) => _popMessage(entity.result, entity.status));
+              print("PostDiscountEntity:=$list");
+              MyPopUpp.popLoading(context);
+              final String validate = validateFunc(context);
+              if (validate != "") {
+                MyPopUpp.popMessage(context, null, validate, true);
+              } else {
+                DiscountDataP.of(context, listen: false)
+                    .addPost(PostDiscountEntity(
+                      images: images,
+                      name: name,
+                      description: description,
+                      hashtags: tags,
+                      phone: phone,
+                      price: int.parse(price),
+                      oldPrice: int.parse(discont),
+                      statedAt: start,
+                      endedAt: end,
+                      categoryId: categoryId,
+                      subCategoryId: subCategoryId,
+                    ))
+                    .then((entity) => MyPopUpp.popMessage(
+                        context, null, entity.result, !entity.status));
+              }
             },
             text: "Goşmak"),
       ],
     );
-  }
-
-  void _loadPop() {
-    MyPopUpp(
-        borderRadius: arentir * 0.04,
-        width: arentir * 0.5,
-        height: arentir * 0.4,
-        content: Column(
-          children: [
-            const CircularProgressIndicator(
-              color: Color(0xff0EC243),
-            ),
-            const SizedBox(height: 10),
-            Text("Az wagt garaşmagyňyzy haýyş edýäris!",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: arentir * 0.04)),
-          ],
-        )).pop(context);
-  }
-
-  void _popMessage(String message, bool isError) {
-    MyPopUpp(
-        width: arentir * 0.5,
-        height: arentir * 0.4,
-        borderRadius: arentir * 0.04,
-        content: Column(
-          children: [
-            Icon(
-              isError ? Icons.error_outline : Icons.check_circle_outlined,
-              color: isError ? Colors.red : Colors.green,
-              size: arentir * 0.15,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: arentir * 0.04),
-            ),
-          ],
-        )).pop(context);
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Navigator.pop(context);
-      Navigator.pop(context);
-    });
   }
 }

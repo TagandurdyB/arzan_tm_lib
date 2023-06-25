@@ -51,18 +51,17 @@ class VideoCardModel extends VideoCardEntity {
 
   factory VideoCardModel.frowJson(Map<String, dynamic> json) => VideoCardModel(
         id: json["id"],
-        thumbinalImg: json["thumbinalImg"],
+        thumbinalImg: json["thumbnail"]["url"],
         title: json["title"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        viewCount: json["viewCount"],
+        createdAt: DateTime.parse(json["created_at"]),
+        viewCount: json["viewed_count"],
         user: UserModel.fromJson(json["user"]),
         next: json["next"],
         provious: json["provious"],
         isEmpty: false,
       );
 
-  static List<VideoCardModel> frowJsonList(
-          List<Map<String, dynamic>> jsonList) =>
+  static List<VideoCardModel> frowJsonList(List jsonList) =>
       jsonList.map((json) => VideoCardModel.frowJson(json)).toList();
 }
 

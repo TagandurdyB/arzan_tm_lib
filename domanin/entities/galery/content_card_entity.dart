@@ -7,6 +7,7 @@ class ContentCardEntity {
   final DateTime? createdAt;
   final int viewed;
   final String title;
+  final String videoUrl;
   final int allCount;
   final bool pinnad;
   final bool isPicture;
@@ -19,6 +20,7 @@ class ContentCardEntity {
     this.createdAt,
     required this.viewed,
     required this.title,
+     this.videoUrl="",
     required this.allCount,
     this.pinnad = false,
     this.isPicture = false,
@@ -29,6 +31,7 @@ class ContentCardEntity {
       id: 0,
       user: UserEntity.empty,
       banerImg: "",
+      videoUrl: "",
       viewed: 0,
       title: "",
       allCount: 0);

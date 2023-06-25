@@ -1,6 +1,9 @@
+import 'package:arzan/domanin/entities/user_entity.dart';
+
 class DiscountDetalEntity {
-  final String userImg;
-  final String userName;
+  final UserEntity user;
+  // final String userImg;
+  // final String userName;
   final List<String> pictures;
   final int id;
   final DateTime createdAt;
@@ -11,7 +14,6 @@ class DiscountDetalEntity {
   final int oldPrice;
   final int newPrice;
   final int mod;
-  final int userId;
   final bool isOfficial;
   final DateTime startedAt;
   final DateTime endedAt;
@@ -21,8 +23,9 @@ class DiscountDetalEntity {
 
   final bool isEmpty;
   DiscountDetalEntity({
-    required this.userImg,
-    required this.userName,
+    required this.user,
+    // required this.userImg,
+    // required this.userName,
     required this.pictures,
     required this.id,
     required this.createdAt,
@@ -33,7 +36,6 @@ class DiscountDetalEntity {
     required this.oldPrice,
     required this.newPrice,
     required this.mod,
-    required this.userId,
     required this.isOfficial,
     required this.startedAt,
     required this.endedAt,
@@ -44,8 +46,9 @@ class DiscountDetalEntity {
   });
 
   static DiscountDetalEntity empty() => DiscountDetalEntity(
-        userImg: "",
-        userName: "",
+        // userImg: "",
+        // userName: "",
+        user: UserEntity.empty,
         pictures: [],
         id: 0,
         createdAt: DateTime.now(),
@@ -56,7 +59,6 @@ class DiscountDetalEntity {
         oldPrice: 0,
         newPrice: 0,
         mod: 0,
-        userId: 0,
         isOfficial: false,
         startedAt: DateTime.now(),
         endedAt: DateTime.now(),

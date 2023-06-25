@@ -12,6 +12,7 @@ class CustomFuture extends StatelessWidget {
       future: future,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
+          print("Error custom future:= ${snapshot.error}");
           return Page500();
         } else if (snapshot.hasData) {
           return builder(context, snapshot.data);

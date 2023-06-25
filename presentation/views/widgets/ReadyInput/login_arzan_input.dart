@@ -117,7 +117,6 @@ class _ArzanInputsState extends State<ArzanInputs> {
             const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         labelStyle: const TextStyle(color: Colors.grey),
         errorStyle: const TextStyle(height: 0),
-        // prefix: widget.prefix,
         prefixIcon: widget.prefix == null ? Icon(widget.iconD) : null,
         prefix: widget.prefix,
         prefixIconColor: enableBorderColor,

@@ -18,9 +18,12 @@ import 'http_vars.dart';
 
 abstract class DiscountsRemoteDataSource {
   Future<List<DiscountModel>> getDiscounts();
+  Future<List<DiscountModel>> categoryPost(int id);
+  Future<List<DiscountModel>> subCategoryPost(int id);
   Future<DiscountDetalModel> getDetal(int id);
   Future<ResponseModel> postDiscount(PostDiscountModel obj);
   Future<List<DiscountCategoryModel>> discountCategories();
+
   // Future<List<DiscountSubcategoryModel>> discountSub(int categoryID);
 }
 
@@ -31,7 +34,7 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
   Future<List<DiscountModel>> getDiscounts() async {
     final response =
         await httpClient.get(Uris.discounts, headers: Headers.contentJson);
-    final res = json.decode(response.body)["discounts"];
+    final res = json.decode(response.body)["data"] as List;
     print("response discount:=$res");
     if (response.statusCode == 200) {
       return DiscountModel.fromJsonList(res);
@@ -43,6 +46,32 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
     //   DiscountModel.fromJsonList(json.decode(response.body)),
     // );
     // print("asdasdas BAnner:=${BanerModel.fromJsonList(apiBanner)}");
+  }
+
+  @override
+  Future<List<DiscountModel>> categoryPost(int id) async {
+    final response = await httpClient.get(Uris.categoryPost(id),
+        headers: Headers.contentJson);
+    final res = json.decode(response.body)["data"] as List;
+    print("response categoryPost:=$res");
+    if (response.statusCode == 200) {
+      return DiscountModel.fromJsonList(res);
+    } else {
+      return [];
+    }
+  }
+
+  @override
+  Future<List<DiscountModel>> subCategoryPost(int id) async {
+    final response = await httpClient.get(Uris.subCategoryPost(id),
+        headers: Headers.contentJson);
+    final res = json.decode(response.body)["data"] as List;
+    print("response subCategoryPost:=$res");
+    if (response.statusCode == 200) {
+      return DiscountModel.fromJsonList(res);
+    } else {
+      return [];
+    }
   }
 
   @override
@@ -77,7 +106,8 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
     List<http.MultipartFile> imgList = [];
     //MultiImage=====================================================================================
     for (int i = 0; i < obj.images.length; i++) {
-      var multipartFile =  await http.MultipartFile.fromPath('image', obj.images[i]);
+      var multipartFile =
+          await http.MultipartFile.fromPath('image', obj.images[i]);
       imgList.add(multipartFile);
     }
     //SingleImage====================================================================================
@@ -86,7 +116,7 @@ class DiscountsDataSourceImpl implements DiscountsRemoteDataSource {
     // imgList.add(multipartFile);
     //===============================================================================================
 
-print("request:=${obj.toJson()}");
+    print("request:=${obj.toJson()}");
     var request = http.MultipartRequest('POST', Uris.postDiscount)
       ..headers.addAll(Headers.bearer(token))
       ..fields.addAll(obj.toJson())
@@ -97,7 +127,7 @@ print("request:=${obj.toJson()}");
     print("+*+${responseAnswer.statusCode}");
     print("+*+${responseAnswer.body}");
 
-    return ResponseModel.empty;
+    return ResponseModel.frowJson(jsonDecode(responseAnswer.body));
   }
 
   @override

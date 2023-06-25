@@ -37,7 +37,7 @@ class ImagesPickerWidget extends StatelessWidget {
 
   Widget buildPickImgCard() {
     return Visibility(
-      visible: providPost.imgPaths.length<10,
+      visible: providPost.imgPaths.length<8,
       child: GestureDetector(
         onTap: () async => await ImgPicker.pick(context),
         child: DottedBorder(
@@ -48,21 +48,24 @@ class ImagesPickerWidget extends StatelessWidget {
           color: Colors.grey,
           strokeWidth: 2,
           child: Container(
-            width: arentir * 0.43,
+            width: arentir * 0.19,
             clipBehavior: Clip.hardEdge,
             padding: EdgeInsets.symmetric(
-                vertical: arentir * 0.09, horizontal: arentir * 0.15),
+                vertical: arentir * 0.05, horizontal: arentir * 0.03),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Icon(
+              children:  [
+                const Icon(
                   Icons.add_photo_alternate_outlined,
                   color: Color(0xff0EC243),
                 ),
                 Text(
                   "Surat goş",
-                  style: TextStyle(color: Color(0xff0EC243)),
+                  style: TextStyle(
+                    fontSize: arentir*0.03,
+                    color: const Color(0xff0EC243)),
+                  maxLines: 2,
                 )
               ],
             ),
@@ -80,8 +83,8 @@ class ImagesPickerWidget extends StatelessWidget {
         // mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            width: arentir * 0.43,
-            height: arentir * 0.27,
+            width: arentir * 0.19,
+            height: arentir * 0.19,
             child: Image.file(providPost.imgFileAt(index)),
           ),
           GestureDetector(

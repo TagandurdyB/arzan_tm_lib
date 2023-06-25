@@ -86,16 +86,19 @@ class Injector extends StatelessWidget {
                     discountsCase: DiscountsCase(DiscountsRepositoryImpl(
                         DiscountsDataSourceImpl(http.Client()))),
                   )),
-          ChangeNotifierProvider<ChosenDataP>(
-              create: (context) => ChosenDataP()),
+          ChangeNotifierProvider<ChosenDataP>(create: (_) => ChosenDataP()),
 
           ChangeNotifierProvider<VideoDataP>(
-              create: (context) => VideoDataP(
+              create: (_) => VideoDataP(
                     galleryCase: GalleryCase(GalleryRepositoryImpl(
                         GalleryDataSourceImpl(http.Client()))),
                   )),
 
-          ChangeNotifierProvider<GalleryP>(create: (context) => GalleryP()),
+          ChangeNotifierProvider<GalleryP>(
+              create: (_) => GalleryP(
+                    galleryCase: GalleryCase(GalleryRepositoryImpl(
+                        GalleryDataSourceImpl(http.Client()))),
+                  )),
           //=============================================
 
           ///////////////////////////////////////////////////////////////////////

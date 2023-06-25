@@ -1,10 +1,10 @@
-import '/domanin/entities/galery/img_card_entity.dart';
+import '../../../../domanin/entities/galery/img_entity.dart';
 import 'package:flutter/material.dart';
 
 import 'page_zoom.dart';
 
 class MultiImgZoomPage extends StatefulWidget {
-  final List<ImgCardEntity> images;
+  final List<ImgEntity> images;
   final int startIndex;
   const MultiImgZoomPage(
       {required this.images, required this.startIndex, super.key});

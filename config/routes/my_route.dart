@@ -1,4 +1,5 @@
 import '../../presentation/views/pages/lotties/page_500.dart';
+import '../../presentation/views/pages/lotties/page_soon.dart';
 import '/presentation/views/pages/lotties/page_disconntect.dart';
 import '/presentation/views/pages/lotties/page_not_found.dart';
 
@@ -22,7 +23,7 @@ import '/presentation/views/pages/page_legal_info.dart';
 import '../../presentation/views/pages/discount/page_discounts.dart';
 import '/presentation/views/pages/page_tops.dart';
 
-import '/presentation/views/pages/page_images.dart';
+import '../../presentation/views/gallery/page_images.dart';
 import '../../presentation/views/gallery/page_canal_videos.dart';
 
 import '../../presentation/views/pages/page_acaunt.dart';
@@ -77,13 +78,14 @@ class Rout {
   //Lotties=============================================
   static const String page404 = "/Page404";
   static const String page500 = "/Page500";
+  static const String soon = "/PageSoon";
   static const String pageNotFound = "/PageNotFound";
   static const String disconnect = "/PageDisconnect";
 
   static Map<String, Widget Function(dynamic)> pages = {
     logo: (context) => const LogoPage(),
     region: (context) => RegionPage(),
-    home: (context) => HomePage(),
+    home: (context) => const HomePage(),
     about: (context) => const AboutPage(),
     settings: (context) => SettingsPage(),
     search: (context) => ScreenSearch(),
@@ -120,13 +122,14 @@ class Rout {
     contest: (context) => const ContestPage(),
     buyCoin: (context) => BuyCionPage(),
     buyService: (context) => const BuyServicePage(),
-    bank: (context) => const BankPage(),
+    bank: (context) =>  BankPage(),
     boughts: (context) => const BoughtsPage(),
     //Lotties=============================================
     page404: (context) => Page404(),
     page500: (context) => Page500(),
     pageNotFound: (context) => PageNotFound(),
     disconnect: (context) => PageDisconnect(),
+    soon: (context) => PageSoon(),
     //====================================================
   };
 }

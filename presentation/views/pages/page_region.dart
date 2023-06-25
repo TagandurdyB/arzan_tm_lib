@@ -36,20 +36,21 @@ class RegionPage extends StatelessWidget {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              "Welayat saylaň",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: arentir * 0.06),
-            ),
-          ),
+        
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 25),
             child: Image.asset("assets/Karta.png"),
+          ),
+            Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              "Sebitiňizi saýlaň",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: arentir * 0.045),
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -81,24 +82,26 @@ class RegionPage extends StatelessWidget {
             color: isSelected
                 ? const Color(0xff20992C)
                 : Colors.white,
-            borderRadius: BorderRadius.circular(arentir * 0.02),
-            border: Border.all(color: Colors.black, width: 2),
-            // boxShadow: const [
-            //   BoxShadow(blurRadius: 7, color: Colors.blue, spreadRadius: -1)
-            // ],
+            borderRadius: BorderRadius.circular(arentir * 0.1),
+            // border: isSelected?Border.all(color: Colors.white, width: 2):null,
+            boxShadow: const [
+              BoxShadow(
+                offset: Offset(0, 5),
+                blurRadius: 7, color: Colors.black, spreadRadius: -1)
+            ],
             // gradient: const LinearGradient(
             //     colors: [Color(0xff21652C), Color(0xff62A720)]),
           ),
-          width: arentir * 0.7,
-          height: arentir * 0.15,
+          width: arentir * 0.6,
+          height: arentir * 0.12,
           margin: EdgeInsets.all(arentir * 0.02),
           alignment: Alignment.center,
           child: Text(
             obj.name,
             style: TextStyle(
-                color:isSelected?Colors.black: const Color(0xff20992C),
+                color:isSelected?Colors.white: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: arentir * 0.06),
+                fontSize: arentir * 0.05),
           )),
     );
   }

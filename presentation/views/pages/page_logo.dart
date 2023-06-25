@@ -2,7 +2,6 @@ import '../../../config/themes/styles.dart';
 import '../../providers/data/values_provider.dart';
 import '/presentation/providers/data/discount_data_provider.dart';
 
-
 import '../../../config/services/connection.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
 
@@ -15,6 +14,7 @@ import '../../../config/services/my_size.dart';
 import '../../../config/vars/constants.dart';
 import '../../providers/view/provider_theme.dart';
 import '../widgets/my_container.dart';
+import 'package:lottie/lottie.dart';
 
 class LogoPage extends StatefulWidget {
   const LogoPage({super.key});
@@ -89,7 +89,11 @@ class _LogoPageState extends State<LogoPage> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          color: Colors.green,
+          gradient: LinearGradient(
+            colors: [Color(0xff1D823B), Color(0xff2D8346), Color(0xff03C93E)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           image: DecorationImage(
               fit: BoxFit.fitWidth,
               image: ExactAssetImage("assets/logo_bg.png")),
@@ -141,37 +145,48 @@ class _LogoPageState extends State<LogoPage> {
     }
   }
 
-  Widget buildLogo()  {
-    final double arentir=MediaQuery.of(context).size.width;
+  Widget buildLogo() {
+    final double arentir = MediaQuery.of(context).size.width;
     return Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            top: 200,
-            child: Container(
-              width: arentir * 0.7,
-              height: arentir * 0.7,
-              decoration: const BoxDecoration(
-                  // color: Colors.red,
-                  image: DecorationImage(
-                      fit: BoxFit.contain,
-                      image: ExactAssetImage("assets/logo_png.png"))),
-            ),
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          top: 200,
+          child: Container(
+            width: arentir * 0.7,
+            height: arentir * 0.7,
+            decoration: const BoxDecoration(
+                // color: Colors.red,
+                image: DecorationImage(
+                    fit: BoxFit.contain,
+                    image: ExactAssetImage("assets/logo_png.png"))),
           ),
-          Positioned(
-              bottom: 50,
-              child: SizedBox(
-                //color: Colors.red,
-                width: arentir * 0.5,
-                child: Column(
-                  children: [
-                    Text("www.arzan.info",
-                        style: StylesLight().site(arentir * 0.06)),
-                    Text("MAGLUMAT PLATFORMASY",
-                        style: StylesLight().site(arentir * 0.027)),
-                  ],
-                ),
-              ))
-        ],
-      );}
+        ),
+        Positioned(
+            bottom: 50,
+            child: SizedBox(
+              //color: Colors.red,
+              width: arentir * 0.5,
+              child: Column(
+                children: [
+                  Text("www.arzan.info",
+                      style: StylesLight().site(arentir * 0.06)),
+                  Text("MAGLUMAT PLATFORMASY",
+                      style: StylesLight().site(arentir * 0.027)),
+                ],
+              ),
+            )),
+        Positioned(
+            bottom: arentir * 0.3,
+            child: SizedBox(
+              width: arentir * 0.3,
+              height: arentir * 0.3,
+              child: Lottie.asset("assets/loading0.json", 
+              repeat: true, 
+              // reverse: true,
+              ),
+            )),
+      ],
+    );
+  }
 }
