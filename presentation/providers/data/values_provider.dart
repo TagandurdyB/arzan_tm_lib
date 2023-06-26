@@ -57,7 +57,7 @@ class ValuesP extends ChangeNotifier {
 
   List<ValueEntity> videoCategories = [];
 
-  void fillVideoCategories() async {
+  Future<void> fillVideoCategories() async {
     try {
       videoCategories = await valuesCase.getVideoCategories();
       // fillSubs();
@@ -71,7 +71,7 @@ class ValuesP extends ChangeNotifier {
 
   void fillImgCategories() async {
     try {
-      videoCategories = await valuesCase.getImgCategories();
+      imgCategories = await valuesCase.getImgCategories();
       // fillSubs();
       notifyListeners();
     } catch (err) {

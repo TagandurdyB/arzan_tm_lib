@@ -37,7 +37,7 @@ class Words {
 
   static List<String> welayats = [TM, AG, BN, AH, MR, LB, DZ];
   //Messages==================================================================
-  static const String loading = "Garaşmagyňyzy haýyş edýeris!";
+  static const String loading = "Garaşmagyňyzy haýyş edýäris!";
   static const String disconnect = "Internede çatylmagyňyzy haýyş edýeris!";
   static const String soon = "Basym geler!";
   static const String error500 = "Serwerde mesele ýüze çykdy!";

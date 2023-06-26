@@ -29,12 +29,22 @@ class AcauntP extends ChangeNotifier {
     return entity;
   }
 
+  Future<ResponseEntity> checkRecover(CheckEntity obj) async {
+    final ResponseEntity entity = await registerCase.postCheckRecover(obj);
+    return entity;
+  }
+
   Future<UserResponseEntity> checkUser(UserRequestEntity obj) async {
     final UserResponseEntity entity = await registerCase.postUser(obj);
     return entity;
   }
 
-  Future<ResponseEntity> recover(UserRequestEntity obj) async {
+  Future<ResponseEntity> exist(UserRequestEntity obj) async {
+    final ResponseEntity entity = await registerCase.postExist(obj);
+    return entity;
+  }
+
+ Future<ResponseEntity> recover(UserRequestEntity obj) async {
     final ResponseEntity entity = await registerCase.postRecover(obj);
     return entity;
   }

@@ -1,4 +1,5 @@
 //Like Effect==================================================
+import 'package:arzan/presentation/providers/data/video_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -43,19 +44,27 @@ class _LikeEffectState extends State<LikeEffect>
   late AnimationController _animControl;
   late Animation<double> _prossesAnim;
   late bool isLiked;
+  late VideoDataP videoDo, videoP;
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _animControl = AnimationController(
+        vsync: this,
+        duration: widget.duration,
+      );
+      _prossesAnim = CurvedAnimation(
+        parent: _animControl,
+        curve: const Interval(0.0, 0.65),
+      );
+
+      videoDo = VideoDataP.of(context, listen: false);
+      videoDo.changeLikeAnim(_animControl);
+      videoDo.changeLikeProsses(_prossesAnim);
+    });
+
     isLiked = widget.isLiked;
     bubblGenerator(widget.bubbleCount);
-    _animControl = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    );
-    _prossesAnim = CurvedAnimation(
-      parent: _animControl,
-      curve: const Interval(0.0, 0.65),
-    );
 
     super.initState();
   }
@@ -85,69 +94,78 @@ class _LikeEffectState extends State<LikeEffect>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-        animation: Listenable.merge([
-          _prossesAnim,
-        ]),
-        builder: (context, ss) {
-          final query = MediaQuery.of(context).size;
-          final circleSize =
-              (query.height * 0.2) * math.pow((_prossesAnim.value + 1), 2);
-          return Stack(
-            alignment: Alignment.topCenter,
-            children: [
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    if (!isLiked) {
-                      _animControl.reset();
-                      _animControl.forward();
-                      SoundService.playLike;
-                    }
-                    isLiked = !isLiked;
-                    if (widget.onTap != null) widget.onTap!(isLiked);
-                  },
-                  child: widget.child ??
-                      const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      ),
+    videoP = VideoDataP.of(context);
+    videoDo = VideoDataP.of(context, listen: false);
+    if (videoDo.likeProssesAnim != null && videoDo.likeAnim != null) {
+      _prossesAnim = videoP.likeProssesAnim!;
+      _animControl = videoP.likeAnim!;
+      return AnimatedBuilder(
+          animation: Listenable.merge([
+            videoP.likeProssesAnim,
+          ]),
+          builder: (context, ss) {
+            final query = MediaQuery.of(context).size;
+            final circleSize =
+                (query.height * 0.2) * math.pow((_prossesAnim.value + 1), 2);
+            return Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      if (!isLiked) {
+                        videoP.playLike;
+                        // _animControl.reset();
+                        // _animControl.forward();
+                     //   SoundService.playLike;
+                      }
+                      isLiked = !isLiked;
+                      if (widget.onTap != null) widget.onTap!(isLiked);
+                    },
+                    child: widget.child ??
+                        const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        ),
+                  ),
+                  // child: GestureDetector(
+                  //   onTap: () {
+                  //     _animControl.reset();
+                  //     _animControl.forward();
+                  //     // if (_animControl.isCompleted) {
+                  //     //   print("reverse");
+                  //     //   _animControl.reset();
+                  //     //   _animControl.forward();
+                  //     // } else {
+                  //     //   print("forward");
+                  //     //   _animControl.forward();
+                  //     // }
+                  //   },
+                  //   child: const Icon(
+                  //     Icons.favorite,
+                  //     size: 110,
+                  //     color: Colors.red,
+                  //   ),
+                  // ),
                 ),
-                // child: GestureDetector(
-                //   onTap: () {
-                //     _animControl.reset();
-                //     _animControl.forward();
-                //     // if (_animControl.isCompleted) {
-                //     //   print("reverse");
-                //     //   _animControl.reset();
-                //     //   _animControl.forward();
-                //     // } else {
-                //     //   print("forward");
-                //     //   _animControl.forward();
-                //     // }
-                //   },
-                //   child: const Icon(
-                //     Icons.favorite,
-                //     size: 110,
-                //     color: Colors.red,
-                //   ),
-                // ),
-              ),
-              Positioned(
-                height: circleSize / 2,
-                width: circleSize,
-                bottom: 0,
-                child: AnimatedOpacity(
-                  opacity: 1 - _prossesAnim.value,
-                  duration: const Duration(milliseconds: 200),
-                  child: CustomPaint(
-                    foregroundPainter: BubblePainter(_prossesAnim, bubbles),
+                Positioned(
+                  height: circleSize / 2,
+                  width: circleSize,
+                  bottom: 0,
+                  child: AnimatedOpacity(
+                    opacity: 1 - _prossesAnim.value,
+                    duration: const Duration(milliseconds: 200),
+                    child: CustomPaint(
+                      foregroundPainter: BubblePainter(_prossesAnim, bubbles),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
-        });
+              ],
+            );
+          });
+    } else {
+      return const SizedBox();
+    }
   }
 }
 

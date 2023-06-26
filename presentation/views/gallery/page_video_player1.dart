@@ -1,3 +1,5 @@
+import 'package:arzan/presentation/providers/data/provider_acaunt.dart';
+import 'package:arzan/presentation/providers/view/provider_navigation.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/view/provider_video.dart';
@@ -105,7 +107,7 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
                 VideoP.of(context, listen: false).forvardShow;
               },
               child: Consumer<VideoDataP>(builder: (context, provider, child) {
-                final controller = provider.controller;
+                final controller = provider.getControlByIndex;
                 if (controller != null && controller.value.isInitialized) {
                   return Container(
                     width: double.infinity,
@@ -175,7 +177,14 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
                 width: arentir * 0.2,
                 margin: const EdgeInsets.all(8),
                 child: NextBtn(
-                  func: () {},
+                  func: () {
+                    if (!AcauntP.of(context, listen: false).isSing) {
+                      ProviderNav.of(context, listen: false).changeScreen(4);
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    }else{
+                      //Follow
+                    }
+                  },
                   text: "Yzarla",
                 ),
               )
@@ -259,10 +268,9 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
                       width: double.infinity,
                       height: 70,
                       child: const Text(
-                        // index == 0 ? "First Video" : 
+                        // index == 0 ? "First Video" :
                         "Last Video",
-                        style:
-                            TextStyle(color: Colors.white, fontSize: 18),
+                        style: TextStyle(color: Colors.white, fontSize: 18),
                       )))
               : const SizedBox(),
       secondChild: const SizedBox(),

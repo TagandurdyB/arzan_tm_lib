@@ -8,7 +8,7 @@ class LauncherService {
     return await launch("tel://$num");
   }
 
-  static Future<bool> sms(String num) async {
+  static Future<bool> sms(String num, String massage) async {
     // if (Platform.isAndroid) {
     //   //FOR Android
     //   url = 'sms:+6000000000?body=message';
@@ -17,7 +17,7 @@ class LauncherService {
     //   //FOR IOS
     //   url = 'sms:+6000000000&body=message';
     // }
-    final String url = 'sms$num:?body=ArzanTM';
+    final String url = 'sms$num:?body=$massage';
     return await launch(url);
   }
 

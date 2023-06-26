@@ -100,8 +100,10 @@ class MidleFolderCard extends StatelessWidget {
             borderWidth: 1,
           ),
           buildStar,
-          Text(user.name),
-          const Expanded(child: SizedBox()),
+          Expanded(child: Text(user.name, style: TextStyle(fontSize: arentir*0.03),)),
+          Visibility(
+            visible: obj.pinnad,
+            child: pinnet),
           // AllBtn(onTap: () {
           //   if (onTap != null) onTap!();
           // })
@@ -112,18 +114,26 @@ class MidleFolderCard extends StatelessWidget {
 
   Container get buildStar {
     return Container(
-      margin: const EdgeInsets.all(5),
+      margin:  EdgeInsets.all(arentir*0.01),
       decoration: BoxDecoration(
           color: const Color(0xffB47D3F),
-          border: Border.all(color: const Color(0xffE2BD83), width: 2),
+          border: Border.all(color: const Color(0xffE2BD83), width: 1),
           borderRadius: BorderRadius.circular(20)),
-      child: const Icon(
+      child:  Icon(
         Icons.star,
-        color: Color(0xffE2BD83),
-        size: 13,
+        color: const Color(0xffE2BD83),
+        size: arentir*0.025,
       ),
     );
   }
+
+Widget get pinnet{
+return  CircleAvatar(
+  backgroundColor: const Color(0xff00C53D),
+  radius: arentir*0.03,
+  child:  Icon(Icons.push_pin_outlined,color:Colors.white, size: arentir*0.04),
+);
+}
 
   Widget get buildBottom {
     return Padding(

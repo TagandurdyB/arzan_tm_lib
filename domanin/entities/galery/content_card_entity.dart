@@ -9,6 +9,7 @@ class ContentCardEntity {
   final String title;
   final String videoUrl;
   final int allCount;
+  final int likeCount;
   final bool pinnad;
   final bool isPicture;
   final bool isEmpty;
@@ -22,6 +23,7 @@ class ContentCardEntity {
     required this.title,
      this.videoUrl="",
     required this.allCount,
+    required this.likeCount,
     this.pinnad = false,
     this.isPicture = false,
     this.isEmpty = true,
@@ -33,6 +35,7 @@ class ContentCardEntity {
       banerImg: "",
       videoUrl: "",
       viewed: 0,
+      likeCount: 0,
       title: "",
       allCount: 0);
 

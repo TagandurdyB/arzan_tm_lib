@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../config/services/soud_service.dart';
+
 class SuccessBtn extends StatelessWidget {
   final String text;
   final Color color;
@@ -81,7 +83,7 @@ class DangerBtn extends StatelessWidget {
 class LikeBtn extends StatefulWidget {
   final Function? onTap;
   final int likeCount;
-  final bool isLiked;
+  final bool isLiked, isTongel;
   final Color iconColor, textColor;
   final Color? activeIconColor, passivIconColor;
   final double iconSize, textSize, spacing;
@@ -101,6 +103,7 @@ class LikeBtn extends StatefulWidget {
     this.textSize = 15,
     this.spacing = 4,
     this.isLiked = false,
+    this.isTongel = false,
   });
 
   @override
@@ -122,13 +125,21 @@ class _LikeBtnState extends State<LikeBtn> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (widget.onTap != null) widget.onTap!(isLiked);
         setState(() {
-          isLiked = !isLiked;
-          if (isLiked) {
+          if (widget.isTongel) {
+            isLiked = !isLiked;
+            if (isLiked) {
+              likeCount++;
+            } else {
+              likeCount--;
+            }
+            SoundService.playLike;
+            if (widget.onTap != null) widget.onTap!(isLiked);
+          } else if (!isLiked) {
+            isLiked = true;
             likeCount++;
-          } else {
-            likeCount--;
+            SoundService.playLike;
+            if (widget.onTap != null) widget.onTap!(isLiked);
           }
         });
       },

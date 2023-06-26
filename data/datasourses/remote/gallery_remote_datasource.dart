@@ -62,10 +62,10 @@ class GalleryDataSourceImpl implements GalleryRemoteDataSource {
   @override
   Future<List<ContentCardModel>> getVideos(int id) async {
     final myBase = Hive.box(Tags.hiveBase);
-    final String token = myBase.get(Tags.hiveToken);
+    final String? token = myBase.get(Tags.hiveToken);
     print("URL://${Uris.videoCards(id)}");
     final response = await httpClient.get(Uris.videoCards(id),
-        headers: Headers.bearer(token));
+        headers: token != null ? Headers.bearer(token) : Headers.contentJson);
     final res = json.decode(response.body)["data"];
     if (response.statusCode == 200) {
       print("GalleryDataSourceImpl getVideos*** $res");
@@ -106,36 +106,42 @@ class GalleryDataSourceImpl implements GalleryRemoteDataSource {
   @override
   Future<ResponseModel> likePost(int id) async {
     final myBase = Hive.box(Tags.hiveBase);
-    final String token = myBase.get(Tags.hiveToken);
+    final String? token = myBase.get(Tags.hiveToken);
     print("URL://${Uris.likePost}");
-    // final response =
-    //     await httpClient.get(Uris.likePost, headers: Headers.bearer(token));
-    // final res = json.decode(response.body);
-    // if (response.statusCode == 200) {
-    //   print("GalleryDataSourceImpl LikePost*** $res");
-    //   return ResponseModel.frowJson(res);
-    // } else {
-    //   print("Error in LikePost!!! statusCode:${response.statusCode}");
-    //   print("Error in LikePost!!!:${response.body}");
-    //   print("Error in LikePost!!! :$res");
-    //   return ResponseModel.frowJson(res);
-    // }
+    if (token != null) {
+      // final response =
+      //     await httpClient.get(Uris.likePost, headers: Headers.bearer(token));
+      // final res = json.decode(response.body);
+      // if (response.statusCode == 200) {
+      //   print("GalleryDataSourceImpl LikePost*** $res");
+      //   return ResponseModel.frowJson(res);
+      // } else {
+      //   print("Error in LikePost!!! statusCode:${response.statusCode}");
+      //   print("Error in LikePost!!!:${response.body}");
+      //   print("Error in LikePost!!! :$res");
+      //   return ResponseModel.frowJson(res);
+      // }
 
-    return await httpClient
-        .post(Uris.checkAcaunt,
-            headers: Headers.bearer(token), body: jsonEncode({"id": id}))
-        .then((response) {
-      final res = json.decode(response.body);
-      print("response likePost:=$res");
-      if (response.statusCode == 200) {
-        print("*** $res");
-        return ResponseModel.frowJson(res);
-      } else {
-        print("Error in likePost!!! statusCode:${response.statusCode}");
-        print("Error in likePost!!! :${response.body}");
-        print("Error in likePost!!! :${id}");
-        return ResponseModel.frowJson(res);
-      }
-    });
+      return await httpClient
+          .post(Uris.checkAcaunt,
+              headers:
+                  token != null ? Headers.bearer(token) : Headers.contentJson,
+              body: jsonEncode({"id": id}))
+          .then((response) {
+        final res = json.decode(response.body);
+        print("response likePost:=$res");
+        if (response.statusCode == 200) {
+          print("*** $res");
+          return ResponseModel.frowJson(res);
+        } else {
+          print("Error in likePost!!! statusCode:${response.statusCode}");
+          print("Error in likePost!!! :${response.body}");
+          print("Error in likePost!!! :${id}");
+          return ResponseModel.frowJson(res);
+        }
+      });
+    } else {
+      return ResponseModel(result: "I need Token", status: false);
+    }
   }
 }

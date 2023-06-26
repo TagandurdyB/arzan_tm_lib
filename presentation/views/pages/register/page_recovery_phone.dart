@@ -37,9 +37,9 @@ class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
         haveError = false;
         MyPopUpp.popLoading(context);
         AcauntP.of(context, listen: false)
-            .recover(UserRequestEntity(phone: RIBase.getText(Tags.rISignPhone)))
+            .exist(UserRequestEntity(phone: RIBase.getText(Tags.rISignPhone)))
             .then((response) {
-          if (response.result != "verify_phone") {
+          if (!response.status) {
             MyPopUpp.popMessage(
                 context, null, "Telefon belgi tapylmady!", true);
           } else {

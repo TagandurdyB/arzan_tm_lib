@@ -15,8 +15,8 @@ import '../../widgets/form_error_message.dart';
 import '../../widgets/next_btn.dart';
 
 class PasswordPage extends StatefulWidget {
-  final String? token;
-  const PasswordPage({this.token, super.key});
+  // final String? token;
+  const PasswordPage({ super.key});
 
   @override
   State<PasswordPage> createState() => _PasswordPageState();
@@ -37,11 +37,11 @@ class _PasswordPageState extends State<PasswordPage> {
         MyPopUpp.popLoading(context);
         AcauntP.of(context, listen: false)
             .recover(UserRequestEntity(
-                phone: RIBase.getText(Tags.rISignPhone),
-                pass: RIBase.getText(Tags.rISignPass),
-                token: widget.token))
+          phone: RIBase.getText(Tags.rISignPhone),
+          pass: RIBase.getText(Tags.rISignPass),
+        ))
             .then((response) {
-          final status = response.result == "password_changed";
+          final status = response.status;
           MyPopUpp.popMessage(context, () {
             if (status) {
               Navigator.pushNamedAndRemoveUntil(

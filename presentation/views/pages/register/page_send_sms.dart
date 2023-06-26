@@ -27,7 +27,12 @@ class SendSmsPage extends StatelessWidget {
       throw "I Need Mic";
     }
     // LauncherService.sms(Words.phone);
-    LauncherService().sendSMS(Words.phone, "ArzanTm");
+    if (isRecover) {
+      LauncherService().sendSMS(Words.phone,
+          "Recover_arzan_tm:sdaijkrfynvsufamOIJH&*&TB^*OYVRnasicu389");
+    } else {
+      LauncherService().sendSMS(Words.phone, "ArzanTm2023");
+    }
     // MyPopUpp.popLoading(context);
 
     checkTimer();
@@ -44,47 +49,64 @@ class SendSmsPage extends StatelessWidget {
   void checkTimer() async {
     raund++;
     final String unicID = await MyDevice.getUnic;
-    Future.delayed(const Duration(seconds: 5)).then((value) {
-      AcauntP.of(context, listen: false)
-          .checkActivate(
-        CheckEntity(
-          uniqueId: unicID,
-          phone: "993${RIBase.getText(Tags.rISignPhone)}",
-        ),
-      )
-          .then((response) {
-        if (response.status) {
-          // final hiveP = HiveP.of(context, listen: false);
-          // hiveP.saveStr(response.token!, Tags.hiveToken);
-          // hiveP.saveBool(true, Tags.isLogin);
-          // // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
-          // hiveP.saveStr("user", Tags.hiveRole);
-
-          MyPopUpp.popMessage(context, () {
-            if (!isRecover) {
+    Future.delayed(const Duration(seconds: 8)).then((value) {
+      if (!isRecover) {
+        AcauntP.of(context, listen: false)
+            .checkActivate(
+          CheckEntity(
+            uniqueId: unicID,
+            phone: "993${RIBase.getText(Tags.rISignPhone)}",
+          ),
+        )
+            .then((response) {
+          if (response.status) {
+            // final hiveP = HiveP.of(context, listen: false);
+            // hiveP.saveStr(response.token!, Tags.hiveToken);
+            // hiveP.saveBool(true, Tags.isLogin);
+            // // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
+            // hiveP.saveStr("user", Tags.hiveRole);
+            MyPopUpp.popMessage(context, () {
               print("Sign up");
               AcauntP.of(context, listen: false).changeScreen(0);
               // Navigator.pop(context);
-            }
-
-            // AcauntP.of(context, listen: false).changeScreen(0);
-            else {
-
+              // AcauntP.of(context, listen: false).changeScreen(0);
+              //  _recoverFunc(response.token!);
+            }, "Siz üstünlükli tassyklandyňyz!", !response.status);
+          } else if (raund < 10) {
+            checkTimer();
+          }
+        });
+      } else {
+        AcauntP.of(context, listen: false)
+            .checkRecover(
+          CheckEntity(
+            uniqueId: unicID,
+            phone: "993${RIBase.getText(Tags.rISignPhone)}",
+          ),
+        )
+            .then((response) {
+          if (response.status) {
+            // final hiveP = HiveP.of(context, listen: false);
+            // hiveP.saveStr(response.token!, Tags.hiveToken);
+            // hiveP.saveBool(true, Tags.isLogin);
+            // // hiveP.saveStr(response.role ??"user", Tags.hiveRole);
+            // hiveP.saveStr("user", Tags.hiveRole);
+            MyPopUpp.popMessage(context, () {
               // Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          PasswordPage(token: response.token!)));
-            }
-            //  _recoverFunc(response.token!);
-          }, "Siz üstünlükli tassyklandyňyz!", !response.status);
-        } else if (raund < 10) {
-          checkTimer();
-        }
-      });
+                      builder: (context) => const PasswordPage()));
+
+              //  _recoverFunc(response.token!);
+            }, "Siz üstünlükli tassyklandyňyz!", !response.status);
+          } else if (raund < 10) {
+            checkTimer();
+          }
+        });
+      }
     });
-    if (raund == 5) {
+    if (raund == 100) {
       MyPopUpp.popMessage(
           context,
           null,
@@ -93,18 +115,18 @@ class SendSmsPage extends StatelessWidget {
     }
   }
 
-  void _signUpFunc() {
-    print("Sign up");
-    AcauntP.of(context, listen: false).changeScreen(0);
-    Navigator.pop(context);
-  }
+  // void _signUpFunc() {
+  //   print("Sign up");
+  //   AcauntP.of(context, listen: false).changeScreen(0);
+  //   Navigator.pop(context);
+  // }
 
-  void _recoverFunc(String token) {
-    // Recover
-    Navigator.pop(context);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => PasswordPage(token: token)));
-  }
+  // void _recoverFunc(String token) {
+  //   // Recover
+  //   Navigator.pop(context);
+  //   Navigator.push(context,
+  //       MaterialPageRoute(builder: (context) => PasswordPage(token: token)));
+  // }
 
   late BuildContext context;
 

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:arzan/presentation/views/widgets/shimmer_img.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../providers/data/video_data_provider.dart';
@@ -42,12 +43,43 @@ class CanalVideosPage extends StatefulWidget {
 class _CanalVideosPageState extends State<CanalVideosPage> {
   final double arentir = MySize.arentir;
 
+  // final ScrollController _controller = ScrollController();
+
+  final iteamControl = ItemScrollController();
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       VideoDataP.of(context, listen: false).fillVideos(0);
+      VideoDataP.of(context, listen: false).chageSelectedVideoCategoryIndex(0);
       ValuesP.of(context, listen: false).fillVideoCategories();
+      // double minExtend = _controller.position.minScrollExtent;
+      // double maxExtend = _controller.position.maxScrollExtent;
+      // if (_controller.hasClients) {
+      //   animateToMaxMin(minExtend, maxExtend, 25, 1, _controller);
+      // }
+    });
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+    //   if (controller.hasClients) {
+    //     //do your stuff here
+    //     controller.animateTo(controller.position.maxScrollExtent,
+    //         duration: const Duration(seconds: 1), curve: Curves.linear);
+    //   }
+    // });
+  }
+
+  void scrollToIndex(int index) => iteamControl.scrollTo(
+      duration: const Duration(milliseconds: 500), index: index);
+
+  void animateToMaxMin(double min, double max, double direction, int second,
+      ScrollController scroll) {
+    scroll
+        .animateTo(direction,
+            duration: Duration(seconds: second), curve: Curves.linear)
+        .then((value) {
+      direction = direction == max ? min : max;
+      animateToMaxMin(min, max, direction, second, scroll);
     });
   }
 
@@ -63,6 +95,9 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
             color: Colors.green,
             backgroundColor: Colors.white10,
             onRefresh: () {
+              // animateToMaxMin(minExtend, maxExtend, maxExtend, 2, _controller);
+
+              //
               // MainPageP.of(context, listen: false).fillEntity();
               // DiscountDataP.of(context, listen: false).fillDiscounts();
               // ValuesP.of(context, listen: false).fillVideoBanner(
@@ -109,20 +144,31 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
   Widget get buildContent {
     categories = [ValueEntity(id: 0, name: "Hemmesi")] +
         ValuesP.of(context).videoCategories;
+    //  double minExtend = _controller.position.minScrollExtent;
+    // double maxExtend = _controller.position.maxScrollExtent;
+    // animateToMaxMin(minExtend, maxExtend, 25, 1, _controller);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            child: Row(
-                children: List.generate(
-                    categories.length, (index) => buildCategoryCard(index))),
+          SizedBox(
+            height: arentir * 0.13,
+            child: ScrollablePositionedList.builder(
+              // controller: _controller,
+              itemScrollController: iteamControl,
+              itemCount: categories.length,
+              itemBuilder: (context, index) => buildCategoryCard(index),
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              // children: List.generate(
+              //     categories.length, (index) => buildCategoryCard(index)),
+            ),
           ),
-         VideoDataP.of(context).selectVideoCategoryIndex!=0?  buildBanner2:buildBanner1,
+          VideoDataP.of(context).selectVideoCategoryIndex != 0
+              ? buildBanner2
+              : buildBanner1,
           Row(
             children: [
               Expanded(
@@ -151,14 +197,14 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
     );
   }
 
-
-
   Widget buildCategoryCard(int index) {
     final bool isSelect =
         index == VideoDataP.of(context).selectVideoCategoryIndex;
     final count = categories[index].count;
     return GestureDetector(
       onTap: () {
+        // _controller.(value);
+        scrollToIndex(index);
         VideoDataP.of(context, listen: false)
             .chageSelectedVideoCategoryIndex(index);
         VideoDataP.of(context, listen: false).fillVideos(categories[index].id);
@@ -183,17 +229,16 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
   }
 
   Widget get buildBanner2 {
-    final int index=VideoDataP.of(context).selectVideoCategoryIndex;
+    final int index = VideoDataP.of(context).selectVideoCategoryIndex;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        // color:Colors.red,
-       borderRadius: BorderRadius.circular(arentir*0.02)
-      ),
+          // color:Colors.red,
+          borderRadius: BorderRadius.circular(arentir * 0.02)),
       width: double.infinity,
-      height: arentir*0.5,
-      child: ShimmerImg(imageUrl: categories[index].img??""),
+      height: arentir * 0.5,
+      child: ShimmerImg(imageUrl: categories[index].img ?? ""),
     );
   }
 
@@ -306,7 +351,7 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
   Widget buildLoading() {
     return Wrap(
         spacing: arentir * 0.03,
-        runSpacing: arentir * 0.02 ,
+        runSpacing: arentir * 0.02,
         children: List.generate(12, (index) {
           switch (HiveP.of(context).readInt(Tags.hiveVideoType) ?? 2) {
             case 1:
@@ -433,6 +478,8 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
 
   void _goImgDetal(ContentCardEntity obj, int index) {
     VideoDataP.of(context, listen: false).changeIndex(index);
+    VideoDataP.of(context, listen: false).changePageIndex(index);
+    
     VideoDataP.of(context, listen: false).startVideo(index);
 
     print("Video 123123  $index  ${obj.videoUrl}");

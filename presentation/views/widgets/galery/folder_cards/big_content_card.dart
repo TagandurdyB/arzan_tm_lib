@@ -100,12 +100,16 @@ class BigContentCard extends StatelessWidget {
             borderWidth: 2,
           ),
           buildStar,
-          Text(
-            user.name,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+          Expanded(
+            child: Text(
+              user.name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-          const Expanded(child: SizedBox()),
+           Visibility(
+            visible: obj.pinnad,
+            child: pinnet),
           // AllBtn(onTap: () {
           //   if (onTap != null) onTap!();
           // })
@@ -129,11 +133,20 @@ class BigContentCard extends StatelessWidget {
     );
   }
 
+Widget get pinnet{
+return  CircleAvatar(
+  backgroundColor: const Color(0xff00C53D),
+  radius: arentir*0.03,
+  child:  Icon(Icons.push_pin_outlined,color:Colors.white, size: arentir*0.04),
+);
+}
+
   Widget get buildBottom {
     return Padding(
       padding: EdgeInsets.all(arentir * 0.03),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -153,6 +166,7 @@ class BigContentCard extends StatelessWidget {
           Text(
             obj.title,
             style: TextStyle(fontSize: arentir * 0.038),
+            textAlign: TextAlign.start,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

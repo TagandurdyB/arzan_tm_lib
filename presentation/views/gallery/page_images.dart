@@ -2,6 +2,7 @@
 
 import 'package:arzan/presentation/providers/data/hive_provider.dart';
 import 'package:arzan/presentation/views/widgets/custom_future.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../config/vars/constants.dart';
@@ -9,6 +10,7 @@ import '../../../domanin/entities/baner_entity.dart';
 import '../../../domanin/entities/value_entity.dart';
 import '../../providers/data/values_provider.dart';
 import '../../providers/view/provider_theme.dart';
+import '../widgets/shimmer_img.dart';
 import '../widgets/widget_btn.dart';
 import '/presentation/providers/data/provider_gallery.dart';
 
@@ -44,12 +46,18 @@ class _ImagesPageState extends State<ImagesPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ValuesP.of(context, listen: false).fillImgCategories();
+      GalleryP.of(context, listen: false).chageSelectedImgCategoryIndex(0);
       GalleryP.of(context, listen: false).fillImgFolders(0);
     });
     // _value=ValuesP.of(context, listen: false);
     // _value?.fillBanner(HiveP.of(context, listen: false).readInt(Tags.hiveLocationId)!, 2);
     super.initState();
   }
+
+  final iteamControl = ItemScrollController();
+
+  void scrollToIndex(int index) => iteamControl.scrollTo(
+      duration: const Duration(milliseconds: 500), index: index);
 
   @override
   late BuildContext context;
@@ -66,7 +74,7 @@ class _ImagesPageState extends State<ImagesPage> {
   @override
   Widget build(BuildContext context) {
     categories = [ValueEntity(id: 0, name: "Hemmesi")] +
-        ValuesP.of(context).videoCategories;
+        ValuesP.of(context).imgCategories;
     this.context = context;
     valueP = ValuesP.of(context);
     providG = GalleryP.of(context);
@@ -102,14 +110,32 @@ class _ImagesPageState extends State<ImagesPage> {
             }));
   }
 
-  SingleChildScrollView buildCategories() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(2),
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
-      child: Row(
-          children: List.generate(
-              categories.length, (index) => buildCategoryCard(index))),
+  // child: ScrollablePositionedList.builder(
+  //           // controller: _controller,
+  //           itemScrollController: iteamControl,
+  //           itemCount: categories.length,
+  //           itemBuilder: (context, index) => buildCategoryCard(index),
+  //           padding: const EdgeInsets.symmetric(horizontal: 2),
+  //           scrollDirection: Axis.horizontal,
+  //           physics: const BouncingScrollPhysics(),
+  //           // children: List.generate(
+  //           //     categories.length, (index) => buildCategoryCard(index)),
+  //         ),
+
+  Widget buildCategories() {
+    return SizedBox(
+      height: arentir * 0.13,
+      child: ScrollablePositionedList.builder(
+        // controller: _controller,
+        itemScrollController: iteamControl,
+        itemCount: categories.length,
+        itemBuilder: (context, index) => buildCategoryCard(index),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        // children: List.generate(
+        //     categories.length, (index) => buildCategoryCard(index)),
+      ),
     );
   }
 
@@ -118,6 +144,7 @@ class _ImagesPageState extends State<ImagesPage> {
     final count = categories[index].count;
     return GestureDetector(
       onTap: () {
+        scrollToIndex(index);
         providGdo.chageSelectedImgCategoryIndex(index);
         providGdo.fillImgFolders(categories[index].id);
         // VideoDataP.of(context, listen: false).fillVideos(categories[index].id);
@@ -143,14 +170,7 @@ class _ImagesPageState extends State<ImagesPage> {
 
   List<BanerEntity> banners = [];
 
-  Widget get buildBanner {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: MyCarusel(
-        items: banners,
-      ),
-    );
-  }
+
 
   Widget get buildContent {
     return Padding(
@@ -159,7 +179,10 @@ class _ImagesPageState extends State<ImagesPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildCategories(),
-          buildBanner,
+           GalleryP.of(context).selectImgCategoryIndex != 0
+              ? buildBanner2
+              : buildBanner1,
+          // buildBanner,
           SizedBox(height: arentir * 0.02),
           Align(
             alignment: Alignment.center,
@@ -172,6 +195,38 @@ class _ImagesPageState extends State<ImagesPage> {
       ),
     );
   }
+
+    Widget get buildBanner2 {
+    final int index = GalleryP.of(context).selectImgCategoryIndex;
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+          // color:Colors.red,
+          borderRadius: BorderRadius.circular(arentir * 0.02)),
+      width: double.infinity,
+      height: arentir * 0.5,
+      child: ShimmerImg(imageUrl: categories[index].img ?? "", fit: BoxFit.fitWidth,),
+    );
+  }
+
+  Widget get buildBanner1 {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: MyCarusel(
+        items: ValuesP.of(context).imgBanners,
+      ),
+    );
+  }
+
+  // Widget get buildBanner {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(10),
+  //     child: MyCarusel(
+  //       items: banners,
+  //     ),
+  //   );
+  // }
 
   Widget buildLoading() {
     return Wrap(

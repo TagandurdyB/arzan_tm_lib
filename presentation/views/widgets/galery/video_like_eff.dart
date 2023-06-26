@@ -29,20 +29,20 @@ class _VideoLikeEffState extends State<VideoLikeEff> {
       child: Container(
           alignment: Alignment.bottomRight,
           margin: EdgeInsets.symmetric(
-              vertical: arentir * 0.13, horizontal: arentir * 0.06),
+              vertical: arentir * 0.15, horizontal: arentir * 0.06),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 isLike ? Icons.favorite : Icons.favorite_border,
-                size: 21,
+                size: arentir*0.07,
                 color: const Color(0xffE50027),
               ),
-              Text("0",
+              Text(" 1560",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: arentir * 0.04)),
+                      fontSize: arentir * 0.05)),
             ],
           )),
     );

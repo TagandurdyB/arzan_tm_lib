@@ -72,6 +72,8 @@ class _PostFormWidgetState extends State<PostFormWidget> {
   bool isDate = false;
   bool isInfo = false;
 
+  bool isLight = true;
+
   late PostP providPost, providPostDo;
 
   late DiscountDataP providDD;
@@ -229,10 +231,11 @@ class _PostFormWidgetState extends State<PostFormWidget> {
     final categories = providDD.categories
         .map((cetegory) => buildCategories(cetegory))
         .toList();
-
+    isLight = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         CustomDropDown(
+          bgColor: isLight ? const Color(0xffF9FAFC) : Colors.transparent,
           isShadow: false,
           padding: 0,
           height: arentir * 0.1,
@@ -256,6 +259,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
         Visibility(
           visible: subCategories.isNotEmpty,
           child: CustomDropDown(
+            bgColor: isLight ? const Color(0xffF9FAFC) : Colors.transparent,
             isShadow: false,
             padding: 0,
             height: arentir * 0.1,
@@ -349,7 +353,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: const Color(0xffF9FAFC),
+            color: isLight ? const Color(0xffF9FAFC) : Colors.transparent,
             border: Border.all(color: const Color(0xffE5E5E5), width: 1),
             borderRadius: BorderRadius.circular(10)),
         height: arentir * 0.1,
@@ -402,8 +406,8 @@ class _PostFormWidgetState extends State<PostFormWidget> {
         GestureDetector(
           onTap: () {
             //Navigator.pushNamed(context, Rout.legalInfo);
-             MyPopUpp.popLoading(context);
-             final String validate = validateFunc(context);
+            MyPopUpp.popLoading(context);
+            final String validate = validateFunc(context);
             if (validate != "") {
               MyPopUpp.popMessage(context, null, validate, true);
             } else {
@@ -443,7 +447,7 @@ class _PostFormWidgetState extends State<PostFormWidget> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => DiscountDetalScreen(
-                        type: ImageType.file,
+                            type: ImageType.file,
                             obj: obj,
                           )));
             }

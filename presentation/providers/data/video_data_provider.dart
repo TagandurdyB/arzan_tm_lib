@@ -34,6 +34,16 @@ class VideoDataP extends ChangeNotifier {
   bool get isOld => _isOld;
 
   //Video=========================================================
+  List<VideoPlayerController?> _videoControls = [];
+  List<VideoPlayerController?> get videoControls => _videoControls;
+  VideoPlayerController? get getControlByIndex => _videoControls[_videoIndex];
+  set videoControlsFill(VideoPlayerController? value) {
+    _videoControls[_videoIndex]?.dispose();
+    _videoControls[_videoIndex] = value;
+    // _isVideoActive = true;
+    notifyListeners();
+  }
+
   VideoPlayerController? _controller;
   VideoPlayerController? get controller => _controller;
   // List<String> _videoUrls = [];
@@ -45,29 +55,29 @@ class VideoDataP extends ChangeNotifier {
   }
 
   void play() {
-    _controller?.play();
+    // _controller?.play();
+    _videoControls[_videoIndex]?.play();
     notifyListeners();
   }
 
   void pause() {
-    _controller?.pause();
+    // _controller?.pause();
+    _videoControls[_videoIndex]?.pause();
     notifyListeners();
   }
 
-  Future<void> initializeVideoPlayer(String videoUrl) async {
-    final controller =
-        VideoPlayerController.network(videoUrl, httpHeaders: {"Range": ""});
+  Future<void> initVideo() async {
+    print("video UR:=${videos![_videoIndex].videoUrl}");
+    final controller = VideoPlayerController.network(
+        videos![_videoIndex].videoUrl,
+        httpHeaders: {"Range": ""});
     controller.httpHeaders;
     await controller.initialize();
     // controller.addListener(() => notifyListeners());
     controller.setLooping(true);
     controller.play();
-    this.controller = controller;
-  }
+    videoControlsFill = controller;
 
-  Future<void> initVideo() async {
-    print("video UR:=${videos![_videoIndex].videoUrl}");
-    await initializeVideoPlayer(videos![_videoIndex].videoUrl);
     // await initializeVideoPlayer("http://10.15.0.76:8081/video");
     // http://95.85.126.113:8080/static/video/f7a6a57195e8e6ffd372b072794fddf1.mp4
 
@@ -93,33 +103,44 @@ class VideoDataP extends ChangeNotifier {
   //   });
   // }
 //Next==============================================================================================
-  switchToNextVideo() {
-    // _videoUrls.insert(0, _videoUrls.removeAt(_videoUrls.length - 1));
-    if (video.next != null) {
-      fillVideo(video.next!).then(
-        (value) => initializeVideoPlayer(value.videoUrl).then((value) {
-          if (_isNext) {
-            _isNext = false;
-            svipeNext;
-            notifyListeners();
-          }
-        }),
-      );
-    }
-  }
+  // switchToNextVideo() {
+  //   // _videoUrls.insert(0, _videoUrls.removeAt(_videoUrls.length - 1));
+  //   if (video.next != null) {
+  //     fillVideo(video.next!).then(
+  //       (value) => initializeVideoPlayer(value.videoUrl).then((value) {
+  //         if (_isNext) {
+  //           _isNext = false;
+  //           svipeNext;
+  //           notifyListeners();
+  //         }
+  //       }),
+  //     );
+  //   }
+  // }
 
 //=====================================================================================================
   bool _isVideoActive = false;
 
   void get dispodeVideo {
     print("salamsmsakdasjkd dispise");
-    _controller?.dispose();
+    // _controller?.dispose();
+    _videoControls[_videoIndex]?.dispose();
     _isVideoActive = false;
-    _controller = null;
+    // _controller = null;
+    _videoControls[_videoIndex] = null;
     notifyListeners();
   }
 
+  //   void get dispodeVideo {
+  //   print("salamsmsakdasjkd dispise");
+  //   _controller?.dispose();
+  //   _isVideoActive = false;
+  //   _controller = null;
+  //   notifyListeners();
+  // }
+
   //================================================================
+
   Future<VideoPlayerController> initSvipeVideo(String videoUrl) async {
     final controller =
         VideoPlayerController.network(videoUrl, httpHeaders: {"Range": ""});
@@ -144,34 +165,34 @@ class VideoDataP extends ChangeNotifier {
       if (videos != null) {
         if (0 < _videoIndex) {
           _videoIndex--;
-          initSvipeVideo(videos![_videoIndex].videoUrl).then((control) {
-            if (_isOld) {
-              _isOld = false;
-              videoSpiveController
-                  .previousPage(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeInOut)
-                  .then((value) {
-                if (_isVideoActive) {
-                  VideoP.of(context, listen: false).changePlayPause(false);
-                  controller = control;
-                  play();
-                }
-              });
-            }
-          });
+          // initSvipeVideo(videos![_videoIndex].videoUrl).then((control) {
+          if (_isOld) {
+            _isOld = false;
+            videoSpiveController
+                .previousPage(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut)
+                .then((value) {
+              // if (_isVideoActive) {
 
-          // initializeVideoPlayer(videos![_videoIndex].videoUrl).then((value) {
-          //   if (_isOld) {
-          //     _isOld = false;
-          //     videoSpiveController
-          //         .previousPage(
-          //             duration: const Duration(milliseconds: 200),
-          //             curve: Curves.easeInOut)
-          //         .then((value) => notifyListeners());
-          //   }
-          //   notifyListeners();
-          // });
+              _videoControls[_videoIndex + 1]?.pause();
+              if (_videoControls[_videoIndex] == null) {
+                initSvipeVideo(videos![_videoIndex].videoUrl).then((control) {
+                  videoControlsFill = control;
+                  VideoP.of(context, listen: false).changePlayPause(false);
+                  _pageIndex--;
+                  play();
+                });
+              } else {
+                VideoP.of(context, listen: false).changePlayPause(false);
+                _pageIndex--;
+                play();
+              }
+              // }
+              print(
+                  "Video page svipe Old=$_videoIndex    page Svidep old=$_pageIndex");
+            });
+          }
         } else {
           Future.delayed(const Duration(seconds: 1)).then((value) {
             _isOld = false;
@@ -192,35 +213,32 @@ class VideoDataP extends ChangeNotifier {
       if (videos != null) {
         if (videos!.length - 1 > _videoIndex) {
           _videoIndex++;
-          initSvipeVideo(videos![_videoIndex].videoUrl).then((control) {
-            if (_isNext) {
-              _isNext = false;
-              videoSpiveController
-                  .nextPage(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeInOut)
-                  .then((value) {
-                if (_isVideoActive) {
+          // initSvipeVideo(videos![_videoIndex].videoUrl).then((control) {
+          if (_isNext) {
+            _isNext = false;
+            videoSpiveController
+                .nextPage(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut)
+                .then((value) {
+              // if (_isVideoActive) {
+              _videoControls[_videoIndex - 1]?.pause();
+              if (_videoControls[_videoIndex] == null) {
+                initSvipeVideo(videos![_videoIndex].videoUrl).then((control) {
+                  videoControlsFill = control;
                   VideoP.of(context, listen: false).changePlayPause(false);
-                  controller = control;
+                  _pageIndex++;
                   play();
-                }
-              });
-            }
-          });
-
-          // initializeVideoPlayer(videos![_videoIndex].videoUrl).then((value) {
-          //   if (_isNext) {
-          //     _isNext = false;
-          //     videoSpiveController
-          //         .nextPage(
-          //             duration: const Duration(milliseconds: 200),
-          //             curve: Curves.easeInOut)
-          //         .then((value) => notifyListeners());
-          //   }
-          //   notifyListeners();
+                });
+              } else {
+                VideoP.of(context, listen: false).changePlayPause(false);
+                _pageIndex++;
+                play();
+              }
+              // }
+            });
+          }
           // });
-          // notifyListeners();
         } else {
           Future.delayed(const Duration(seconds: 1)).then((value) {
             _isNext = false;
@@ -229,26 +247,6 @@ class VideoDataP extends ChangeNotifier {
         }
       }
     }
-
-    // if (video.next != null) {
-    //   fillVideo(video.next!).then(
-    //     (entity) => initializeVideoPlayer(entity.videoUrl).then((value) {
-    //       if (_isNext) {
-    //         _isNext = false;
-    //         videoSpiveController
-    //             .nextPage(
-    //                 duration: const Duration(milliseconds: 200),
-    //                 curve: Curves.easeInOut)
-    //             .then((value) => videoSpiveController
-    //                 .previousPage(
-    //                     duration: const Duration(milliseconds: 1),
-    //                     curve: Curves.linear)
-    //                 .then((value) => video = entity));
-    //         notifyListeners();
-    //       }
-    //     }),
-    //   );
-    // }
     notifyListeners();
   }
 
@@ -288,8 +286,10 @@ class VideoDataP extends ChangeNotifier {
   void fillVideos(int categoryId) async {
     try {
       videos = null;
+      _videoControls = [];
       notifyListeners();
       videos = await galleryCase.getVideos(categoryId);
+      _videoControls = List.generate(videos!.length, (index) => null);
       // fillSubs();
       notifyListeners();
     } catch (err) {
@@ -315,6 +315,36 @@ class VideoDataP extends ChangeNotifier {
     _videoIndex = index;
     notifyListeners();
   }
+
+  int _pageIndex = 0;
+  int get pageIndex => _pageIndex;
+  void changePageIndex(int index) {
+    _pageIndex = index;
+    notifyListeners();
+  }
+
+//=================================================================================
+  AnimationController? _animControl;
+  AnimationController? get likeAnim => _animControl;
+  Animation<double>? _prossesAnim;
+  Animation<double>? get likeProssesAnim => _prossesAnim;
+  changeLikeAnim(AnimationController control) {
+    _animControl = control;
+    notifyListeners();
+  }
+
+  changeLikeProsses(Animation<double> prosses) {
+    _prossesAnim = prosses;
+    notifyListeners();
+  }
+
+  void get playLike {
+    if (_animControl != null) {
+      _animControl!.reset();
+      _animControl!.forward();
+    }
+  }
+
 //=================================================================================
 
   static VideoDataP of(BuildContext context, {bool listen = true}) =>

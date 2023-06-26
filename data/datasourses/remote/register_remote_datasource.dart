@@ -13,11 +13,16 @@ import 'http_vars.dart';
 import 'package:http/http.dart' as http;
 
 abstract class RegisterRemoteDataSource {
+  //SignUP====================================
   Future<ResponseModel> postSignUp(SignUpModel obj);
-  Future<ResponseModel> postLogIn(LogInModel obj);
   Future<ResponseModel> postCheck(CheckModel obj);
-  Future<ResponseModel> postRecover(UserRequestModel obj);
+  //Login=====================================
+  Future<ResponseModel> postLogIn(LogInModel obj);
   Future<UserResponseModel> postUser(UserRequestModel obj);
+  //Recover===================================
+  Future<ResponseModel> postExist(UserRequestModel obj);
+  Future<ResponseModel> postCheckRecover(CheckModel obj);
+  Future<ResponseModel> postRecover(UserRequestModel obj);
 }
 
 class RegisterDataSourceImpl implements RegisterRemoteDataSource {
@@ -91,26 +96,6 @@ class RegisterDataSourceImpl implements RegisterRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> postRecover(UserRequestModel obj) async {
-    return await httpClient
-        .post(Uris.recover,
-            headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
-        .then((response) {
-      final res = json.decode(response.body);
-      if (response.statusCode == 200) {
-        // final status = res[""];
-        print("***recover $res");
-        return ResponseModel.frowJson(res);
-      } else {
-        print("Error in recover!!! statusCode:${response.statusCode}");
-        print("Error in recover!!! :${response.body}");
-        print("Error in recover!!! :${obj.toJson()}");
-        return ResponseModel.frowJson(res);
-      }
-    });
-  }
-
-  @override
   Future<UserResponseModel> postUser(UserRequestModel obj) async {
     print("request:=${obj.toJson()}");
     return await httpClient
@@ -130,6 +115,72 @@ class RegisterDataSourceImpl implements RegisterRemoteDataSource {
         print("Error in Check User!!! :$res");
         print("Error in Check User!!! :${obj.toJson()}");
         return UserResponseModel.frowJson(json.decode(response.body));
+      }
+    });
+  }
+
+  //Recover=======================================================================================
+  @override
+  Future<ResponseModel> postExist(UserRequestModel obj) async {
+    print("request postExist+ + + :=+${obj.toJson()}");
+    return await httpClient
+        .post(Uris.exist,
+            headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
+        .then((response) {
+      final res = json.decode(response.body);
+      if (response.statusCode == 200) {
+        // final status = res[""];
+        print("***postExist $res");
+        return ResponseModel.frowJson(res);
+      } else {
+        print("Error in postExist!!! statusCode:${response.statusCode}");
+        print("Error in postExist!!! :${response.body}");
+        print("Error in postExist!!! :${obj.toJson()}");
+        return ResponseModel.frowJson(res);
+      }
+    });
+  }
+
+  @override
+  Future<ResponseModel> postCheckRecover(CheckModel obj) async {
+    print("request postCheckRecover+ + + :=+${obj.phone}");
+    return await httpClient
+        .post(Uris.chackRecover,
+            headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
+        .then((response) {
+      final res = json.decode(response.body);
+      print("response postCheckRecover:=$res");
+      if (response.statusCode == 200) {
+        print("*** $res");
+        return ResponseModel.frowJson(res);
+      } else {
+        print("Error in postCheckRecover!!! statusCode:${response.statusCode}");
+        print("Error in postCheckRecover!!! :${response.body}");
+        print("Error in postCheckRecover!!! :${obj.toJson()}");
+        return ResponseModel.frowJson(res);
+      }
+    });
+  }
+
+  @override
+  Future<ResponseModel> postRecover(UserRequestModel obj) async {
+    print("request postRecover+ + + :=+${obj.toJson()}");
+    return await httpClient
+        .post(Uris.recover,
+            headers: Headers.contentJson, body: jsonEncode(obj.toJson()))
+        .then((response) {
+      final res = json.decode(response.body);
+      if (response.statusCode == 200) {
+        // final status = res[""];
+        print("***recover $res");
+        // arzan.tm/photo
+        // arzan.tm/video
+        return ResponseModel.frowJson(res);
+      } else {
+        print("Error in recover!!! statusCode:${response.statusCode}");
+        print("Error in recover!!! :${response.body}");
+        print("Error in recover!!! :${obj.toJson()}");
+        return ResponseModel.frowJson(res);
       }
     });
   }

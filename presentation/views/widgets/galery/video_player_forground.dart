@@ -47,10 +47,14 @@ class VideoPlayerForground extends StatelessWidget {
   Widget get buildPlayPause {
     return GestureDetector(
       onTap: _funcPlayPause,
-      child: Icon(
-        providV.isPlayed ? Icons.play_arrow : Icons.pause,
-        color: Colors.white,
-        size: arentir * 0.15,
+      child: Container(
+        color:Colors.transparent,
+        padding: const EdgeInsets.all(50),
+        child: Icon(
+          providV.isPlayed ? Icons.play_arrow : Icons.pause,
+          color: Colors.white,
+          size: arentir * 0.15,
+        ),
       ),
     );
   }

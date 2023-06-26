@@ -17,10 +17,12 @@ class ContentCardModel extends ContentCardEntity {
   final int viewed;
   @override
   final String title;
-    @override
+  @override
   final String videoUrl;
   @override
   final int allCount;
+  @override
+  final int likeCount;
   @override
   final bool pinnad;
   @override
@@ -36,17 +38,26 @@ class ContentCardModel extends ContentCardEntity {
     required this.videoUrl,
     required this.title,
     required this.allCount,
+    required this.likeCount,
     this.pinnad = false,
     this.isPicture = false,
     this.isEmpty = true,
   }) : super(
-            id: 0, user: user,videoUrl: videoUrl, banerImg: '', allCount: 0, title: "", viewed: 0);
+            id: 0,
+            user: user,
+            videoUrl: videoUrl,
+            likeCount: 0,
+            banerImg: '',
+            allCount: 0,
+            title: "",
+            viewed: 0);
 
   static ContentCardEntity empty() => ContentCardEntity(
       id: 0,
       user: UserModel.empty,
       banerImg: "",
       videoUrl: "",
+      likeCount: 0,
       viewed: 0,
       title: "",
       allCount: 0);
@@ -59,6 +70,7 @@ class ContentCardModel extends ContentCardEntity {
         videoUrl: "http://95.85.126.113:8080/${json["video"]["url"]}",
         createdAt: DateTime.parse(json["created_at"]),
         viewed: json["viewed_count"],
+        likeCount: json["likes_count"],
         title: json["title"],
         allCount: json["allCount"] ?? 0,
         pinnad: json["pinnad"] ?? false,
@@ -73,6 +85,7 @@ class ContentCardModel extends ContentCardEntity {
         videoUrl: "",
         createdAt: DateTime.parse(json["created_at"]),
         viewed: json["view_count"],
+        likeCount: 0,
         title: json["title"],
         allCount: json["image_count"] ?? 0,
         pinnad: json["pinnad"] ?? false,
@@ -87,11 +100,8 @@ class ContentCardModel extends ContentCardEntity {
   static List<ContentCardModel> fromJsonListV(List jsonList) =>
       jsonList.map((json) => ContentCardModel.frowJsonV(json)).toList();
 
-
-
   static List<ContentCardModel> fromJsonListI(List jsonList) =>
       jsonList.map((json) => ContentCardModel.frowJsonI(json)).toList();
-
 
   // @override
   // Map<String, dynamic> toJson() => {

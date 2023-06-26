@@ -64,15 +64,17 @@ class ValuesDataSourceImpl implements ValuesRemoteDataSource {
 
   @override
   Future<List<ValueModel>> getImgCategories() async {
-    final response = await httpClient.get(Uris.videoCategories,
+    final response = await httpClient.get(Uris.imageCategories,
         headers: Headers.contentJson);
     List res = json.decode(response.body)["data"] as List;
     // final resList = res.where((element) => element["type"] == "App").toList();
+    print("Gallery>getImgCategories response:=$res");
     if (response.statusCode == 200) {
       return res
           .map((e) => ValueModel(
                 id: e["id"],
-                name: "http://${Uris.ip}:${Uris.port}/${e["image"]["url"]}",
+                name: e["category"]["name"],
+                img: "http://${Uris.ip}:${Uris.port}/${e["image"]["url"]}",
               ))
           .toList();
     } else {
