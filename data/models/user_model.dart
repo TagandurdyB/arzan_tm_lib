@@ -2,6 +2,7 @@
 
 import 'package:arzan/config/vars/formater.dart';
 
+import '../datasourses/remote/http_vars.dart';
 import '/domanin/entities/user_entity.dart';
 
 import '../../../config/vars/constants.dart';
@@ -27,8 +28,22 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
-        avatarImg: json["avatar_image"]["url"]??"",
+        avatarImg: json["avatar_image"]["url"] ?? "",
         name: json["name"],
-        role: Formater.strToRole(json["role"]),
+        role: Formater.strToRole(json["role"] ?? "USER"),
       );
+
+  factory UserModel.fromJsonForPostDetal(Map<String, dynamic> json) {
+    try {
+      return UserModel(
+        id: json["id"],
+        avatarImg:
+            "http://${Uris.ip}:${Uris.port}/${json["image"]["url"] ?? ""}",
+        name: json["name"],
+        role: Formater.strToRole(json["role"] ?? "USER"),
+      );
+    } catch (err) {
+      throw ("Error in fromJsonForPostDetal :=$err");
+    }
+  }
 }

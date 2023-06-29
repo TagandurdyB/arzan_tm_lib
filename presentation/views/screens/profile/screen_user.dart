@@ -2,15 +2,18 @@
 
 import 'dart:ui';
 
+import 'package:arzan/presentation/providers/data/discount_data_provider.dart';
+import 'package:arzan/presentation/views/pages/lotties/page_500.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../../../domanin/entities/discounts/discount_entity.dart';
+import '../../widgets/discount/discount_view.dart';
+import '../../widgets/widget_btn.dart';
 import '/presentation/views/widgets/arzan_coin.dart';
 import '/presentation/views/widgets/next_btn.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../../config/routes/my_route.dart';
-import '../../../providers/data/main_page_provider.dart';
-import '../../widgets/discount/discount_view.dart';
-import '../../widgets/widget_btn.dart';
 import '/presentation/views/widgets/my_container.dart';
 
 import '../../../../domanin/entities/profiles/user_profile_entity.dart';
@@ -21,56 +24,88 @@ import '../../../../config/services/my_size.dart';
 import '../../../../config/vars/constants.dart';
 import '../../../providers/data/hive_provider.dart';
 
-class ScreenUser extends StatelessWidget {
+class ScreenUser extends StatefulWidget {
   final UserProfileEntity obj;
-  ScreenUser({required this.obj, super.key});
+  const ScreenUser({required this.obj, super.key});
 
+  @override
+  State<ScreenUser> createState() => _ScreenUserState();
+}
+
+class _ScreenUserState extends State<ScreenUser> {
+  @override
   late BuildContext context;
+
   final arentir = MySize.arentir;
+
   late HiveP hiveP;
+
+  late DiscountDataP discountDo;
+  @override
+  void initState() {
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   // DiscountDataP.of(context, listen: false).fillPostsSelf(widget.obj.id);
+    // });
+    // discountDo = DiscountDataP.of(context, listen: false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final objM = context.watch<MainPageP>().entity;
+    // final objM = context.watch<MainPageP>().entity;
     hiveP = HiveP.of(context, listen: false);
     this.context = context;
-    return CustomScrollView(slivers: [
-      // ===============================================
-      SliverList(
-          delegate: SliverChildListDelegate([
-        buildTopBar,
-        buildContent,
-      ])),
-      // ===============================================
-      SliverAppBar(
-        backgroundColor: Theme.of(context).canvasColor,
-        pinned: true,
-        leading: const SizedBox(),
-        flexibleSpace: FlexibleSpaceBar(
-            background: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Pending",
-                style: TextStyle(fontSize: arentir * 0.05),
+
+    return FutureBuilder<List<DiscountEntity>>(
+        future: DiscountDataP.of(context)
+            .getPostsSelf(hiveP.readInt(Tags.hiveUserId) ?? 0),
+        builder: (context, ss) {
+          if (ss.hasError) {
+            print("error in self discounts err:=${ss.error}");
+            return Page500();
+          } else if (ss.hasData) {
+            return CustomScrollView(slivers: [
+              // ===============================================
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                buildTopBar,
+                buildContent,
+              ])),
+              // ===============================================
+              SliverAppBar(
+                backgroundColor: Theme.of(context).canvasColor,
+                pinned: true,
+                leading: const SizedBox(),
+                flexibleSpace: FlexibleSpaceBar(
+                    background: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Pending",
+                        style: TextStyle(fontSize: arentir * 0.05),
+                      ),
+                      const WidgetBtn(),
+                    ],
+                  ),
+                )),
               ),
-              const WidgetBtn(),
-            ],
-          ),
-        )),
-      ),
-      // ===============================================
-      SliverPadding(
-        padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
-        sliver: DiscountView(
-          objs: objM.discountDatas,
-        ),
-      ),
-      // ===============================================
-      const SliverPadding(padding: EdgeInsets.all(20))
-      // ===============================================
-    ]);
+              // // ===============================================
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: arentir * 0.02),
+                sliver: DiscountView(
+                  objs: ss.data!,
+                ),
+              ),
+              // ===============================================
+              const SliverPadding(padding: EdgeInsets.all(20))
+              // ===============================================
+            ]);
+          }else{
+            return const CircularProgressIndicator(color: Colors.green);
+          }
+        });
   }
 
   Widget get buildTopBar => Container(
@@ -90,9 +125,10 @@ class ScreenUser extends StatelessWidget {
                 width: MySize.width,
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
-                  child: obj.avatarImg == null || obj.avatarImg == ""
-                      ? Image.asset("assets/logo_png.png")
-                      : ShimmerImg(imageUrl: obj.avatarImg!),
+                  child:
+                      widget.obj.avatarImg == null || widget.obj.avatarImg == ""
+                          ? Image.asset("assets/logo_png.png")
+                          : ShimmerImg(imageUrl: widget.obj.avatarImg!),
                 ),
               ),
             ),
@@ -117,8 +153,9 @@ class ScreenUser extends StatelessWidget {
                 children: [
                   CustomAvatar(
                     isShadow: true,
-                    imgUrl: obj.avatarImg ?? "",
-                    content: obj.avatarImg == null || obj.avatarImg == ""
+                    imgUrl: widget.obj.avatarImg ?? "",
+                    content: widget.obj.avatarImg == null ||
+                            widget.obj.avatarImg == ""
                         ? Container(
                             color: Colors.green,
                             child: Image.asset("assets/logo_png.png"))
@@ -153,12 +190,12 @@ class ScreenUser extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              obj.name,
+              widget.obj.name,
               style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: arentir * 0.04),
             ),
             const SizedBox(height: 10),
-            iconGroup(Icons.phone, obj.phone, const Color(0xff727272)),
+            iconGroup(Icons.phone, widget.obj.phone, const Color(0xff727272)),
             const SizedBox(height: 10),
             iconGroup(Icons.location_on_outlined,
                 hiveP.readStr(Tags.hiveLocation)!, const Color(0xff727272)),
@@ -168,7 +205,15 @@ class ScreenUser extends StatelessWidget {
             ),
             NextBtn(
               func: () {
-                Navigator.pushNamed(context, Rout.buyService);
+                //Navigator.pushNamed(context, Rout.buyService);
+                Fluttertoast.showToast(
+                    msg: "Under development!",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
               },
               text: "Resmi hasap aç",
             ),
@@ -186,7 +231,7 @@ class ScreenUser extends StatelessWidget {
                   const ArzanCoin(radius: 20),
                   SizedBox(width: arentir * 0.02),
                   Text(
-                    "${obj.coin}",
+                    "${widget.obj.coin}",
                     style: TextStyle(fontSize: MySize.arentir * 0.04),
                   ),
                 ],
@@ -215,11 +260,11 @@ class ScreenUser extends StatelessWidget {
         // spacing: arentir * 0.02,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          buildCounter(obj.expected, "Garaşylýar"),
+          buildCounter(widget.obj.expected, "Garaşylýar"),
           vDivider,
-          buildCounter(obj.notAccepted, "Kabul edilmedi"),
+          buildCounter(widget.obj.notAccepted, "Kabul edilmedi"),
           vDivider,
-          buildCounter(obj.confirmed, "Tassyklandy"),
+          buildCounter(widget.obj.confirmed, "Tassyklandy"),
         ],
       );
 

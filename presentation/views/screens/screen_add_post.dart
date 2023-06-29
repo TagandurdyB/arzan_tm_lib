@@ -103,7 +103,7 @@ class AddPostScreen extends StatelessWidget {
                       subCategoryId: subCategoryId,
                     ))
                     .then((entity) => MyPopUpp.popMessage(
-                        context, null, entity.result, !entity.status));
+                        context, null, entity.result!, !entity.status));
               }
             },
             text: "Goşmak"),

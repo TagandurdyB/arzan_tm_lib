@@ -1,4 +1,8 @@
 // ignore_for_file: must_be_immutable
+import 'package:arzan/presentation/providers/data/discount_data_provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../../config/routes/my_route.dart';
 import '../../../config/vars/constants.dart';
 import '../../providers/view/provider_navigation.dart';
 import '../widgets/ReadyInput/ready_input_base.dart';
@@ -72,6 +76,7 @@ class _MainBarState extends State<MainBar> with TickerProviderStateMixin {
             _controller.reverse();
             providN.changeSearch(false);
             RIBase.eraseDate(Tags.rIMainSearch);
+            DiscountDataP.of(context, listen: false).fillDiscounts(0, 0);
           } else {
             Scaffold.of(context).openDrawer();
           }
@@ -89,7 +94,7 @@ class _MainBarState extends State<MainBar> with TickerProviderStateMixin {
     final themeColors = Theme.of(context).inputDecorationTheme;
     return Container(
       height: 40,
-      margin: const EdgeInsets.only(top: 10, bottom: 10, right: 16),
+      margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
       child: SearchInput(
         focus: focus,
         tag: Tags.rIMainSearch,
@@ -107,6 +112,8 @@ class _MainBarState extends State<MainBar> with TickerProviderStateMixin {
           final providN = ProviderNav.of(context, listen: false);
           providN.changeSearchBg(Theme.of(context).canvasColor);
           providN.changeSaved(true);
+          DiscountDataP.of(context, listen: false)
+              .fillSearch(RIBase.getText(Tags.rIMainSearch));
         },
       ),
     );
@@ -119,8 +126,18 @@ class _MainBarState extends State<MainBar> with TickerProviderStateMixin {
           alignment: Alignment.center,
           color: Colors.transparent,
           // margin: const EdgeInsets.only(right: 16, top: 8),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          onTap: () {},
+          padding: const EdgeInsets.only(right: 16),
+          onTap: () {
+            //Navigator.pushNamed(context, Rout.soon);
+             Fluttertoast.showToast(
+                            msg: "Under development!",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+          },
           child: Icon(
             color: Theme.of(context).appBarTheme.iconTheme!.color,
             Icons.notifications_none,

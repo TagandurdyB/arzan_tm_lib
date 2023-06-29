@@ -106,8 +106,8 @@ class _SignPassScreenState extends State<SignPassScreen> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(children: [
           //===============================================================================
-          ArzanInputs(
-            validator: (String? value) => _validatorPass(),
+          const ArzanInputs(
+            // validator: (String? value) => _validatorPass(),
             tag: Tags.rISignPass,
             iconD: Icons.vpn_key_outlined,
             label: "Açar sözi",
@@ -116,8 +116,8 @@ class _SignPassScreenState extends State<SignPassScreen> {
           ),
           const SizedBox(height: 20),
           //===============================================================================
-          ArzanInputs(
-            validator: (String? value) => _validatorPass(),
+          const ArzanInputs(
+            // validator: (String? value) => _validatorPass(),
             tag: Tags.rISignPassAgain,
             iconD: Icons.vpn_key_outlined,
             label: "Açar sözi (tassykla)",

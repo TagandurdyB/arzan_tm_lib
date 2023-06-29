@@ -1,6 +1,6 @@
-import 'package:arzan/domanin/entities/user_entity.dart';
-import 'package:arzan/presentation/views/widgets/ReadyInput/ready_input_base.dart';
-import 'package:arzan/presentation/views/widgets/shimmer_img.dart';
+import '/domanin/entities/user_entity.dart';
+import '/presentation/views/widgets/ReadyInput/ready_input_base.dart';
+import '/presentation/views/widgets/shimmer_img.dart';
 
 import '../../../../domanin/entities/discounts/discount_detal_entity.dart';
 import '../../../providers/data/hive_provider.dart';
@@ -414,15 +414,15 @@ class _PostFormWidgetState extends State<PostFormWidget> {
               Navigator.pop(context);
               final hiveDo = HiveP.of(context, listen: false);
               final price = RIBase.getText(Tags.rIPostPrice);
-              final int priceInt = price.isEmpty ? 0 : int.parse(price);
+              final double priceInt = price.isEmpty ? 0.0 : double.parse(price);
               final discount = RIBase.getText(Tags.rIPostDiscount);
-              final int discountInt =
-                  discount.isEmpty ? 0 : int.parse(discount);
+              final double discountInt =
+                  discount.isEmpty ? 0 : double.parse(discount);
 
               final DiscountDetalEntity obj = DiscountDetalEntity(
                 id: 0,
                 user: UserEntity(
-                    id: hiveDo.readInt(Tags.hiveId) ?? 0,
+                    id: hiveDo.readInt(Tags.hiveUserId) ?? 0,
                     avatarImg: "",
                     name: "100haryt123",
                     role: Role.User),
@@ -430,8 +430,8 @@ class _PostFormWidgetState extends State<PostFormWidget> {
                 createdAt: DateTime.now(),
                 endedAt: providPostDo.endDate ?? DateTime.now(),
                 startedAt: providPostDo.startDate ?? DateTime.now(),
-                oldPrice: price.isEmpty ? 0 : int.parse(price),
-                newPrice: discount.isEmpty ? 0 : int.parse(discount),
+                oldPrice: price.isEmpty ? 0.0 : double.parse(price),
+                newPrice: discount.isEmpty ? 0.0 : double.parse(discount),
                 liked: 0,
                 chated: 0,
                 isOfficial: false,

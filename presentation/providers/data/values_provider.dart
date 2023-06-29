@@ -30,11 +30,11 @@ class ValuesP extends ChangeNotifier {
   //   }
   // }
 
-  Future<List<BanerEntity>> getBanner(int welayat, int page) async {
+  Future<List<BanerEntity>> getBanner(int welayat, int page, int category) async {
     try {
       // banners = await valuesCase.getBanners(welayat, page);
       // return banners;
-      final banner = await valuesCase.getBanners(welayat, page);
+      final banner = await valuesCase.getBanners(welayat, page, category);
       switch (page) {
         case 1:
           mainBanners = banner;

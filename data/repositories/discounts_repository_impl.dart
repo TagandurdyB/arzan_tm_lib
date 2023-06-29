@@ -14,23 +14,40 @@ class DiscountsRepositoryImpl implements DiscountsRepository {
   final DiscountsRemoteDataSource discountsRemoteDataSource;
   DiscountsRepositoryImpl(this.discountsRemoteDataSource);
   @override
-  Future<List<DiscountEntity>> getDiscounts() async {
-    return await discountsRemoteDataSource.getDiscounts();
+  Future<List<DiscountEntity>> getDiscounts(
+      int limit, int offset, int categoryId, int subId) async {
+    return await discountsRemoteDataSource.getDiscounts(
+        limit, offset, categoryId, subId);
   }
+
+  @override
+  Future<List<DiscountEntity>> searchPost(String text) async {
+    return await discountsRemoteDataSource.searchPost(text);
+  }
+
+  @override
+  Future<List<DiscountEntity>> selfPost(int id) async {
+    return await discountsRemoteDataSource.selfPost(id);
+  }
+
 
   @override
   Future<List<DiscountEntity>> categoryPost(int id) async {
     return await discountsRemoteDataSource.categoryPost(id);
   }
 
- @override
+  @override
   Future<List<DiscountEntity>> subCategoryPost(int id) async {
     return await discountsRemoteDataSource.subCategoryPost(id);
   }
 
   @override
   Future<DiscountDetalEntity> getDetal(int id) async {
-    return await discountsRemoteDataSource.getDetal(id);
+    try {
+      return await discountsRemoteDataSource.getDetal(id);
+    } catch (err) {
+      throw ("Error in getDetal($id):=$err");
+    }
   }
 
   @override
@@ -57,4 +74,9 @@ class DiscountsRepositoryImpl implements DiscountsRepository {
   //     throw ("DiscountsRepositoryImpl>discountSub Error :$err");
   //   }
   // }
+
+  @override
+  Future<int> badgePost() async {
+    return await discountsRemoteDataSource.badgePost();
+  }
 }

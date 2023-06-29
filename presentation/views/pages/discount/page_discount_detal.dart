@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../../../../domanin/entities/hive_boxes.dart';
 import '../../screens/discounts/screen_discout_detal.dart';
 import '/domanin/entities/discounts/discount_entity.dart';
 import '/presentation/views/pages/lotties/page_500.dart';
@@ -9,17 +12,15 @@ import '/presentation/providers/data/discount_data_provider.dart';
 import '../../../../config/routes/my_route.dart';
 import '/config/services/connection.dart';
 
-
 import '../../../../config/services/my_size.dart';
 import '../../../../domanin/entities/discounts/discount_detal_entity.dart';
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
-
 class DiscountDetal extends StatefulWidget {
-  final DiscountEntity parrentObj;
   final int id;
-  const DiscountDetal({required this.parrentObj, required this.id, super.key});
+  final bool isFavorite;
+  const DiscountDetal({required this.id, this.isFavorite = false, super.key});
 
   @override
   State<DiscountDetal> createState() => _DiscountDetalState();
@@ -32,6 +33,10 @@ class _DiscountDetalState extends State<DiscountDetal> {
   void initState() {
     super.initState();
     id = widget.id;
+    if (widget.isFavorite) {
+      parrentList =
+          Boxes.getFavoriteDiscounts().values.toList().cast<DiscountEntity>();
+    }
     checkConnect();
   }
 
@@ -62,6 +67,7 @@ class _DiscountDetalState extends State<DiscountDetal> {
   Widget build(BuildContext context) {
     this.context = context;
     // obj = DiscountDataP.of(context).detal;
+
     return ScaffoldNo(
       body: PageView.builder(
         controller: control,
@@ -70,7 +76,7 @@ class _DiscountDetalState extends State<DiscountDetal> {
         itemBuilder: (context, index) {
           if (index == 1) {
 ///////////////////////////////////////////////
-            return buildDetal(id);
+            return widget.isFavorite ? buildFavoriteDetal() : buildDetal(id);
 ///////////////////////////////////////////////
           } else {
             return const Align(
@@ -87,6 +93,7 @@ class _DiscountDetalState extends State<DiscountDetal> {
           // return null;
         },
         onPageChanged: (int index) {
+          final discountP = DiscountDataP.of(context, listen: false);
           setState(() {
             if (index == 0) {
               Future.delayed(const Duration(milliseconds: 200)).then((value) {
@@ -94,18 +101,51 @@ class _DiscountDetalState extends State<DiscountDetal> {
                     duration: const Duration(microseconds: 1),
                     curve: Curves.linear);
               });
-              id = 1;
+              discountP.pervious;
+              id = discountP.discoutID;
             } else if (index == 2) {
               Future.delayed(const Duration(milliseconds: 200)).then((value) {
                 control.previousPage(
                     duration: const Duration(milliseconds: 1),
                     curve: Curves.linear);
               });
-              id = 2;
+
+              widget.isFavorite
+                  ? discountP
+                      .nextFavorite(parrentList.length)
+                  : discountP.next;
+              id = discountP.discoutID;
             }
           });
         },
       ),
+    );
+  }
+
+  late List<DiscountEntity> parrentList;
+
+  Widget buildFavoriteDetal() {
+    final int index = DiscountDataP.of(context).discoutIndex;
+    return FutureBuilder(
+      future: DiscountDataP.of(context, listen: false)
+          .fetchDetal(parrentList[index].id),
+      builder: (context, ss) {
+        if (ss.hasError) {
+          print("error in detal favorite post :=${ss.error}");
+          return Page500();
+        } else if (ss.hasData) {
+          obj = ss.data!;
+          return DiscountDetalScreen(
+            obj: obj,
+            parrentObj: parrentList[index],
+          );
+        } else {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Colors.green,
+          ));
+        }
+      },
     );
   }
 
@@ -114,12 +154,14 @@ class _DiscountDetalState extends State<DiscountDetal> {
         future: DiscountDataP.of(context, listen: false).fetchDetal(id),
         builder: (context, ss) {
           if (ss.hasError) {
+            print("error in detal post :=${ss.error}");
             return Page500();
           } else if (ss.hasData) {
             obj = ss.data!;
+            print("Post Detal ${obj.id}");
             return DiscountDetalScreen(
-              obj: obj, 
-              parrentObj: widget.parrentObj,
+              obj: obj,
+              parrentObj: DiscountDataP.of(context).discout,
             );
             // return Column(children: [
             //   CustomAppBar(
@@ -139,7 +181,4 @@ class _DiscountDetalState extends State<DiscountDetal> {
           }
         });
   }
-
-
 }
-

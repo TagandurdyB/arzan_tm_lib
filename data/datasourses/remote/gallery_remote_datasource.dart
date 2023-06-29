@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:arzan/data/models/gallery_models/img_model.dart';
-import 'package:arzan/data/models/register/response_model.dart';
-import 'package:arzan/data/models/user_model.dart';
-import 'package:arzan/domanin/entities/register/response_entity.dart';
+import '/data/models/gallery_models/img_model.dart';
+import '/data/models/register/response_model.dart';
+import '/data/models/user_model.dart';
+import '/domanin/entities/register/response_entity.dart';
 import 'package:hive/hive.dart';
 
 import '../../../config/vars/constants.dart';
@@ -16,9 +16,14 @@ import 'http_vars.dart';
 abstract class GalleryRemoteDataSource {
   Future<List<ContentCardModel>> getImgFolders(int id);
   Future<List<ImgModel>> getImgs(int id);
-  Future<List<ContentCardModel>> getVideos(int id);
+  Future<List<ContentCardModel>> getVideos(int id, int limit, int offset);
   Future<VideoModel> getVideo(int id);
-  Future<ResponseModel> likePost(int id);
+  Future<ResponseModel> likeVideo(int id);
+  Future<ResponseModel> likeImage(int id);
+  Future<ResponseModel> viewVideo(int id);
+  Future<ResponseModel> viewImage(int id);
+  Future<int> badgeVideo();
+  Future<int> badgeImgs();
 }
 
 class GalleryDataSourceImpl implements GalleryRemoteDataSource {
@@ -60,11 +65,12 @@ class GalleryDataSourceImpl implements GalleryRemoteDataSource {
   }
 
   @override
-  Future<List<ContentCardModel>> getVideos(int id) async {
+  Future<List<ContentCardModel>> getVideos(
+      int id, int limit, int offset) async {
     final myBase = Hive.box(Tags.hiveBase);
     final String? token = myBase.get(Tags.hiveToken);
-    print("URL://${Uris.videoCards(id)}");
-    final response = await httpClient.get(Uris.videoCards(id),
+    print("URL://${Uris.videoCards(id, limit, offset)}");
+    final response = await httpClient.get(Uris.videoCards(id, limit, offset),
         headers: token != null ? Headers.bearer(token) : Headers.contentJson);
     final res = json.decode(response.body)["data"];
     if (response.statusCode == 200) {
@@ -104,44 +110,138 @@ class GalleryDataSourceImpl implements GalleryRemoteDataSource {
   }
 
   @override
-  Future<ResponseModel> likePost(int id) async {
+  Future<ResponseModel> likeVideo(int id) async {
     final myBase = Hive.box(Tags.hiveBase);
     final String? token = myBase.get(Tags.hiveToken);
-    print("URL://${Uris.likePost}");
+    print("URL://${Uris.likeVidoe}");
+    print("token:= $token");
     if (token != null) {
-      // final response =
-      //     await httpClient.get(Uris.likePost, headers: Headers.bearer(token));
-      // final res = json.decode(response.body);
-      // if (response.statusCode == 200) {
-      //   print("GalleryDataSourceImpl LikePost*** $res");
-      //   return ResponseModel.frowJson(res);
-      // } else {
-      //   print("Error in LikePost!!! statusCode:${response.statusCode}");
-      //   print("Error in LikePost!!!:${response.body}");
-      //   print("Error in LikePost!!! :$res");
-      //   return ResponseModel.frowJson(res);
-      // }
-
       return await httpClient
-          .post(Uris.checkAcaunt,
+          .post(Uris.likeVidoe,
               headers:
                   token != null ? Headers.bearer(token) : Headers.contentJson,
               body: jsonEncode({"id": id}))
           .then((response) {
         final res = json.decode(response.body);
-        print("response likePost:=$res");
+        print("response likeVideo:=$res");
         if (response.statusCode == 200) {
           print("*** $res");
           return ResponseModel.frowJson(res);
         } else {
-          print("Error in likePost!!! statusCode:${response.statusCode}");
-          print("Error in likePost!!! :${response.body}");
-          print("Error in likePost!!! :${id}");
+          print("Error in likeVideo!!! statusCode:${response.statusCode}");
+          print("Error in likeVideo!!! :${response.body}");
+          print("Error in likeVideo!!! :$id");
           return ResponseModel.frowJson(res);
         }
       });
     } else {
       return ResponseModel(result: "I need Token", status: false);
+    }
+  }
+
+   @override
+  Future<ResponseModel> likeImage(int id) async {
+    final myBase = Hive.box(Tags.hiveBase);
+    final String? token = myBase.get(Tags.hiveToken);
+    print("URL://${Uris.likeImage}");
+    print("token:= $token");
+    if (token != null) {
+      return await httpClient
+          .post(Uris.likeImage,
+              headers:
+                  token != null ? Headers.bearer(token) : Headers.contentJson,
+              body: jsonEncode({"id": id}))
+          .then((response) {
+        final res = json.decode(response.body);
+        print("response likeImage:=$res");
+        if (response.statusCode == 200) {
+          print("*** $res");
+          return ResponseModel.frowJson(res);
+        } else {
+          print("Error in likeImage!!! statusCode:${response.statusCode}");
+          print("Error in likeImage!!! :${response.body}");
+          print("Error in likeImage!!! :$id");
+          return ResponseModel.frowJson(res);
+        }
+      });
+    } else {
+      return ResponseModel(result: "I need Token", status: false);
+    }
+  }
+
+  @override
+  Future<ResponseModel> viewVideo(int id) async {
+    print("URL://${Uris.viewVideo}");
+    return await httpClient
+        .post(Uris.viewVideo,
+            headers: Headers.contentJson, body: jsonEncode({"id": id}))
+        .then((response) {
+      final res = json.decode(response.body);
+      print("response viewVideo:=$res");
+      if (response.statusCode == 200) {
+        print("*** $res");
+        return ResponseModel.frowJson(res);
+      } else {
+        print("Error in viewVideo!!! statusCode:${response.statusCode}");
+        print("Error in viewVideo!!! :${response.body}");
+        print("Error in viewVideo!!! :$id");
+        return ResponseModel.frowJson(res);
+      }
+    });
+  }
+
+  @override
+  Future<ResponseModel> viewImage(int id) async {
+    print("URL://${Uris.viewImage}");
+    return await httpClient
+        .post(Uris.viewImage,
+            headers: Headers.contentJson, body: jsonEncode({"id": id}))
+        .then((response) {
+      final res = json.decode(response.body);
+      print("response viewImage:=$res");
+      if (response.statusCode == 200) {
+        print("*** $res");
+        return ResponseModel.frowJson(res);
+      } else {
+        print("Error in viewImage!!! statusCode:${response.statusCode}");
+        print("Error in viewImage!!! :${response.body}");
+        print("Error in viewImage!!! :$id");
+        return ResponseModel.frowJson(res);
+      }
+    });
+  }
+
+  @override
+  Future<int> badgeVideo() async {
+    print("Video Badge = ${Uris.badgeVideo}");
+    final response =
+        await httpClient.get(Uris.badgeVideo, headers: Headers.contentJson);
+    final badge = json.decode(response.body)["data"]["count"];
+    if (response.statusCode == 200) {
+      print("GalleryDataSourceImpl badgeVideo*** $badge");
+      return badge;
+    } else {
+      print("Error in badgeVideo!!! statusCode:${response.statusCode}");
+      print("Error in badgeVideo!!!:${response.body}");
+      print("Error in badgeVideo!!! :$badge");
+      return 0;
+    }
+  }
+
+  @override
+  Future<int> badgeImgs() async {
+    print("Imgs Badge = ${Uris.badgeImgs}");
+    final response =
+        await httpClient.get(Uris.badgeVideo, headers: Headers.contentJson);
+    final badge = json.decode(response.body)["data"]["count"];
+    if (response.statusCode == 200) {
+      print("GalleryDataSourceImpl badgeImgs*** $badge");
+      return badge;
+    } else {
+      print("Error in badgeImgs!!! statusCode:${response.statusCode}");
+      print("Error in badgeImgs!!!:${response.body}");
+      print("Error in badgeImgs!!! :$badge");
+      return 0;
     }
   }
 }

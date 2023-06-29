@@ -6,7 +6,6 @@ import '/presentation/views/widgets/my_pop_widget.dart';
 import '../../../../config/routes/my_route.dart';
 import '../../../../config/services/my_size.dart';
 import '../../../../config/vars/constants.dart';
-import '../../../../domanin/entities/register/check_entity.dart';
 import '../../../providers/data/provider_acaunt.dart';
 import '../../scaffold/recovery_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,7 @@ class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
         haveError = false;
         MyPopUpp.popLoading(context);
         AcauntP.of(context, listen: false)
-            .exist(UserRequestEntity(phone: RIBase.getText(Tags.rISignPhone)))
+            .exist(UserRequestEntity(phone: "+993${RIBase.getText(Tags.rISignPhone)}"))
             .then((response) {
           if (!response.status) {
             MyPopUpp.popMessage(

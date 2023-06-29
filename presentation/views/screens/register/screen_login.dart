@@ -74,9 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     "+993${RIBase.getText(Tags.rILoginPhone)}", Tags.hivePhone);
                 hiveP.saveStr(response.token, Tags.hiveToken);
                 final String role =
-                    Formater.jWTDecode(response.token!)["subscription_type"]
-                        ["type"];
+                    Formater.jWTDecode(response.token!)["subscription_type"]["type"];
+                final int userId = Formater.jWTDecode(response.token!)["id"];
                 hiveP.saveStr(role, Tags.hiveRole);
+                hiveP.saveInt(userId, Tags.hiveUserId);
                 print("Role := $role");
                 hiveP.saveBool(true, Tags.isLogin);
                 acauntP.logIned;

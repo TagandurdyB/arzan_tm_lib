@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 
 import '../../scaffold/no_app_bar_scaffold.dart';
 
-class DiscountsInPage extends StatelessWidget {
+class DiscountsInPage extends StatefulWidget {
   final String title;
   final int id;
   final bool isSub;
@@ -30,12 +30,42 @@ class DiscountsInPage extends StatelessWidget {
     super.key,
   });
 
+  @override
+  State<DiscountsInPage> createState() => _DiscountsInPageState();
+}
+
+class _DiscountsInPageState extends State<DiscountsInPage> {
+  final _paginationControl = ScrollController();
   final double arentir = MySize.arentir;
+
   late DiscountProvid providD, providDdo;
 
   List<DiscountEntity> objs = [];
 
   late DiscountDataP providDD;
+
+@override
+void initState() {
+  super.initState();
+      _paginationControl.addListener(() {
+      if (_paginationControl.position.maxScrollExtent ==
+          _paginationControl.offset) {
+        fetch();
+      }
+    });
+}
+  
+
+    Future fetch() async {
+    final discountDo = DiscountDataP.of(context, listen: false);
+    if (!discountDo.isLast) {
+      discountDo.fatchPosts(
+        discountDo.discounts.length, 
+        0,
+        0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     providD = DiscountProvid.of(context);
@@ -43,15 +73,15 @@ class DiscountsInPage extends StatelessWidget {
     providDD = DiscountDataP.of(context);
     return ScaffoldNo(
       body: CustomFuture(
-          future: isSub
-              ? providDD.fetchSubCategory(id)
-              : providDD.fetchCategoryD(id),
+          future: widget.isSub
+              ? providDD.fetchSubCategory(widget.id)
+              : providDD.fetchCategoryD(widget.id),
           builder: (context, objs) {
             this.objs = objs;
             return Column(children: [
               CustomAppBar(
-                titleW: Row(children: const [
-                  SizedBox(
+                titleW: Row(children: [
+                  const SizedBox(
                     child: Text(
                       "Arzanladyşlar",
                       style: TextStyle(fontSize: 22),
@@ -60,8 +90,8 @@ class DiscountsInPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    " (135)",
-                    style: TextStyle(
+                    " (${providDD.badge})",
+                    style: const TextStyle(
                         fontSize: 21,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff008631)),
@@ -69,24 +99,24 @@ class DiscountsInPage extends StatelessWidget {
                 ]),
                 actions: const [WidgetBtn()],
               ),
-              Expanded(child: buildContent),
+              Expanded(child: buildContent(context)),
             ]);
           }),
     );
   }
 
-  Widget get buildContent {
+  Widget  buildContent(BuildContext context) {
     return CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
       // SliverPadding(padding: const EdgeInsets.all(10), sliver: buildBanner),
       SliverAppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).canvasColor,
         pinned: true,
         leading: const SizedBox(),
         flexibleSpace: FlexibleSpaceBar(
             background: Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            "$title (${Formater.rounder(count)})",
+            "${widget.title} ${widget.count>0?"(${Formater.rounder(widget.count)})":""}",
             style: TextStyle(
                 fontSize: arentir * 0.04, overflow: TextOverflow.ellipsis),
             maxLines: 1,

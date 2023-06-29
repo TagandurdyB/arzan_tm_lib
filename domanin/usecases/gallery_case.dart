@@ -15,10 +15,13 @@ class GalleryCase {
   Future<List<ImgEntity>> getImages(int folderID) async =>
       await repository.getImages(folderID);
 
-  Future<List<ContentCardEntity>> getVideos(int id) async =>
-      await repository.getVideos(id);
+  Future<List<ContentCardEntity>> getVideos(int id, int limit, int offset) async =>
+      await repository.getVideos(id, limit, offset);
   Future<VideoEntity> getVideo(int id) async => await repository.getVideo(id);
 
-  Future<ResponseEntity> likePost(int id) async =>
-      await repository.likePost(id);
+  Future<ResponseEntity> likeVidoe(int id) async =>
+      await repository.likeVideo(id);
+
+    Future<int> badgeVideo()async=>await repository.badgeVideo();  
+    Future<int> badgeImgs()async=>await repository.badgeImgs();  
 }

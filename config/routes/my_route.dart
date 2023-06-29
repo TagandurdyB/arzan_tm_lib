@@ -64,14 +64,14 @@ class Rout {
   static const String tops = "/TopsPage";
   static const String discounts = "/DiscountsPage";
   static const String legalInfo = "/LegalInfoPage";
-  static const String officials = "/OfficialsPage";
+  static const String officials = "/PageSoon";//"/OfficialsPage";
   static const String favorites = "/FavotitesPage";
-  static const String contact = "/ContactPage";
-  static const String share = "/SharePage";
+  static const String contact = "/PageSoon";//"/ContactPage";
+  static const String share = "/PageSoon";//"/SharePage";
   static const String contest = "/ContestPage";
 
-  static const String buyCoin = "/BuyCoinPage";
-  static const String buyService = "/BuyServicePage";
+  static const String buyCoin = "/PageSoon";//"/BuyCoinPage";
+  static const String buyService = "/PageSoon";//"/BuyServicePage";
   static const String bank = "/BankPage";
   static const String boughts = "/BoughtsPage";
 
@@ -111,7 +111,7 @@ class Rout {
     acaunt: (context) => AcauntPage(),
     images: (context) => const ImagesPage(),
     // imagesDetal:(context)=> const ImageDetalPage(),
-    videos: (context) => CanalVideosPage(),
+    videos: (context) => const CanalVideosPage(),
     tops: (context) => const TopsPage(),
     discounts: (context) => const DiscountsPage(),
     legalInfo: (context) => const LegalInfoPage(),

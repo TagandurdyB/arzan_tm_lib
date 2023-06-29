@@ -44,8 +44,22 @@ class GalleryP extends ChangeNotifier {
     _selectImgCategoryIndex = index;
     notifyListeners();
   }
-//=================================================================================
 
+//=================================================================================
+  int _badge = 0;
+  int get badge => _badge;
+
+  Future<void> fillBadge() async {
+    try {
+      _badge = await galleryCase.badgeImgs();
+      notifyListeners();
+      // return _badge;
+    } catch (err) {
+      throw ("Error GalleryP>fillBadge: $err");
+    }
+  }
+
+//=================================================================================
   static GalleryP of(BuildContext context, {bool listen = true}) =>
       Provider.of<GalleryP>(context, listen: listen);
 }

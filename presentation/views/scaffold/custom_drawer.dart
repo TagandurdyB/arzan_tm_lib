@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
+import 'package:arzan/presentation/providers/data/discount_data_provider.dart';
+import 'package:arzan/presentation/providers/data/video_data_provider.dart';
 import 'package:arzan/presentation/providers/view/provider_navigation.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +10,7 @@ import '../../../config/routes/my_route.dart';
 import '../../../config/vars/constants.dart';
 import '../../providers/data/hive_provider.dart';
 import '../../providers/data/provider_acaunt.dart';
+import '../../providers/data/provider_gallery.dart';
 import '../widgets/drawer_btn.dart';
 import '../widgets/my_container.dart';
 
@@ -86,21 +90,32 @@ class CustomDrawer extends StatelessWidget {
   Widget get buildContent {
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       DrawerBtn(Icons.star_border, "Top hasaplar", context,
-          num: 324, route: Rout.tops),
+          num: null, route: Rout.tops),
       DrawerBtn(Icons.favorite_border, "Saýlananlar", context,
-          num: 324, route: Rout.chosen),
+          num: null, 
+          onTap: (){
+ Fluttertoast.showToast(
+              msg: "Under development!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          },
+          ),
       DrawerBtn(Icons.label_outline, "Arzanladyşlar", context,
-          num: 324, route: Rout.discounts),
+          num: DiscountDataP.of(context).badge, route: Rout.discounts),
       DrawerBtn(Icons.image_outlined, "Foto", context,
-          num: 324, route: Rout.images),
+          num: GalleryP.of(context).badge, route: Rout.images),
       DrawerBtn(Icons.video_collection_outlined, "Wideo", context,
-          num: 324, route: Rout.videos),
+          num: VideoDataP.of(context).badge, route: Rout.videos),
       DrawerBtn(
           Icons.star_border,
           icon: buildStar(),
           "Resmiler",
           context,
-          num: 324,
+          num: null,
           route: Rout.officials),
       divided,
       DrawerBtn(
@@ -117,9 +132,8 @@ class CustomDrawer extends StatelessWidget {
       divided,
       DrawerBtn(Icons.mail_outline, "Habarlaşmak", context,
           route: Rout.contact),
-      // DrawerBtn(Icons.share_outlined, "Paýlaşmak", context, route: Rout.share),
-      DrawerBtn(Icons.share_outlined, "Paýlaşmak", context,
-          route: Rout.page500),
+      DrawerBtn(Icons.share_outlined, "Paýlaşmak", context, route: Rout.share),
+    
     ]);
   }
 

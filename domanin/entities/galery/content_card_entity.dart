@@ -11,6 +11,7 @@ class ContentCardEntity {
   final int allCount;
   final int likeCount;
   final bool pinnad;
+  final bool isLiked;
   final bool isPicture;
   final bool isEmpty;
 
@@ -24,6 +25,7 @@ class ContentCardEntity {
      this.videoUrl="",
     required this.allCount,
     required this.likeCount,
+    this.isLiked=false,
     this.pinnad = false,
     this.isPicture = false,
     this.isEmpty = true,
@@ -38,6 +40,8 @@ class ContentCardEntity {
       likeCount: 0,
       title: "",
       allCount: 0);
+
+
 
   // factory ContentCardEntity.frowJson(Map<String, dynamic> json) =>
   //     ContentCardEntity(

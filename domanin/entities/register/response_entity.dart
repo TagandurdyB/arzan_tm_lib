@@ -1,5 +1,5 @@
 class ResponseEntity {
-  final String result;
+  final String? result;
   final bool status;
   final String? token;
   final bool isEmpty;

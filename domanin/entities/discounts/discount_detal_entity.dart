@@ -11,8 +11,8 @@ class DiscountDetalEntity {
   final int liked;
   final int chated;
   final String title;
-  final int oldPrice;
-  final int newPrice;
+  final double oldPrice;
+  final double newPrice;
   final int mod;
   final bool isOfficial;
   final DateTime startedAt;
@@ -20,7 +20,8 @@ class DiscountDetalEntity {
   final String about;
   final List<String> tags;
   final String phone;
-
+  final int? nextId;
+  final int? prevId;
   final bool isEmpty;
   DiscountDetalEntity({
     required this.user,
@@ -42,6 +43,8 @@ class DiscountDetalEntity {
     required this.about,
     required this.tags,
     required this.phone,
+     this.nextId,
+     this.prevId,
     this.isEmpty = false,
   });
 

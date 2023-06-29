@@ -78,6 +78,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         builder: (context, box, _) {
           return DiscountView(
             // objs: objM.discountDatas,
+            isFavorite: true,
             objs: box.values.toList().cast<DiscountEntity>(),
           );
         });

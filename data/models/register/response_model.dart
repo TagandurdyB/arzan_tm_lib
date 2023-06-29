@@ -4,7 +4,7 @@ import '/domanin/entities/register/response_entity.dart';
 
 class ResponseModel extends ResponseEntity {
   @override
-  final String result;
+  final String? result;
   @override
   final bool status;
   @override

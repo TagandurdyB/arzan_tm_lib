@@ -14,12 +14,11 @@ import 'config/vars/constants.dart';
 import 'domanin/entities/discounts/discount_entity.dart';
 import 'injector.dart';
 import 'package:http_proxy/http_proxy.dart';
-import 'package:wakelock/wakelock.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 //All ways in display====================
-  Wakelock.enable();
+
 //proxy==================================
   print("IP:=${Uris.ip}    PORT:=${Uris.port}");
   HttpProxy httpProxy = await HttpProxy.createHttpProxy();

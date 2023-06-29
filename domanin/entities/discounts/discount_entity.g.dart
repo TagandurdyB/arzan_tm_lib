@@ -30,7 +30,7 @@ class DiscountEntityAdapter extends TypeAdapter<DiscountEntity> {
   @override
   void write(BinaryWriter writer, DiscountEntity obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)

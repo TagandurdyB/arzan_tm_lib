@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../config/routes/my_route.dart';
 import '/presentation/providers/data/provider_acaunt.dart';
 
@@ -33,7 +35,15 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           if (!providA.isSing && (index == 2 || index == 3)) {
             provid.changeScreen(4);
           } else if (index == 3) {
-            Navigator.pushNamed(context, Rout.buyCoin);
+            //Navigator.pushNamed(context, Rout.buyCoin);
+            Fluttertoast.showToast(
+                msg: "Under development!",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
           } else if (index == 1) {
             Navigator.pushNamed(context, Rout.discounts);
           } else {

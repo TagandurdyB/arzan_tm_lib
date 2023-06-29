@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:flutter_html/flutter_html.dart';
+
 import '../../../../config/routes/my_route.dart';
 import '../../../providers/view/provider_view_post.dart';
 import '../../pages/zoom/page_multi_zoom.dart';
@@ -10,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../config/services/launcher_service.dart';
-import '../../../../config/vars/constants.dart';
 import '../../../../config/vars/formater.dart';
 import '../../../../domanin/entities/discounts/discount_detal_entity.dart';
 import '../../../../domanin/entities/discounts/discount_entity.dart';
@@ -111,16 +112,18 @@ class DiscountDetalScreen extends StatelessWidget {
         const Divider(color: Color(0xffE5E5E5)),
         Padding(
           padding: EdgeInsets.all(arentir * 0.03),
-          child: Text(
-            obj.about == "" ? Words.disDetalAbout : obj.about,
-            style: TextStyle(fontSize: arentir * 0.041),
-          ),
+          // child: Text(
+          //   obj.about == "" ? Words.disDetalAbout : obj.about,
+          //   style: TextStyle(fontSize: arentir * 0.041),
+          // ),
+          child: Html(data: obj.about),
         ),
         const SizedBox(height: 10),
         Padding(
           padding: EdgeInsets.all(arentir * 0.03),
           child: Wrap(
             spacing: 8,
+            runSpacing: 5,
             children: obj.tags.map((tag) => buildTag(tag)).toList(),
           ),
         ),
@@ -224,7 +227,7 @@ class DiscountDetalScreen extends StatelessWidget {
             children: [
               Visibility(
                 visible: obj.newPrice > 0,
-                child: Text("${Formater.rounder(obj.oldPrice)} manat",
+                child: Text("${obj.oldPrice} manat",
                     style: const TextStyle(
                         color: Color(0xffAAAAAA),
                         decoration: TextDecoration.lineThrough)),
@@ -233,8 +236,7 @@ class DiscountDetalScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    Formater.rounder(
-                        obj.newPrice > 0 ? obj.newPrice : obj.oldPrice),
+                    "${obj.newPrice > 0 ? obj.newPrice : obj.oldPrice}",
                     style: TextStyle(
                         fontSize: arentir * 0.09,
                         fontWeight: FontWeight.bold,

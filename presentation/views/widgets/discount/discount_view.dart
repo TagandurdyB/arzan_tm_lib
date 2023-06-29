@@ -1,4 +1,5 @@
 import 'package:arzan/config/vars/constants.dart';
+import 'package:arzan/presentation/providers/data/discount_data_provider.dart';
 
 import '../../../providers/data/hive_provider.dart';
 import '../../pages/discount/page_discount_detal.dart';
@@ -16,7 +17,10 @@ import 'discount_3_card.dart';
 
 class DiscountView extends StatefulWidget {
   final List<DiscountEntity> objs;
-  const DiscountView({required this.objs, super.key});
+  final bool isFavorite;
+  const DiscountView({required this.objs,
+   this.isFavorite=false,
+   super.key});
 
   @override
   State<DiscountView> createState() => _DiscountViewState();
@@ -34,12 +38,16 @@ class _DiscountViewState extends State<DiscountView> {
         itemBuilder: (context, index) {
           return GestureDetector(
               onTap: () {
+                DiscountDataP.of(context, listen: false)
+                    .changeDiscountIndex(index);
+                    
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => DiscountDetal(
                               id: widget.objs[index].id,
-                              parrentObj: widget.objs[index],
+                              isFavorite:widget.isFavorite,
+                              // parrentObj: widget.objs[index],
                               // obj: DiscountDetalEntity(
                               //   userImg:
                               //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_E4eeQGKiE_bfmItiIM8uUXm3cYFTNQ8Siw&usqp=CAU",
@@ -68,7 +76,7 @@ class _DiscountViewState extends State<DiscountView> {
                               // ),
                             )));
               },
-              child:  buildDiscountCard(index, typeOfYou));
+              child: buildDiscountCard(index, typeOfYou));
           // return Entry.scale(
           //     visible: providD.scaleVisible,
           //     scale: 0,

@@ -97,7 +97,7 @@ class Tags {
   //================
   static const String hiveToken = "Hive Token";
   static const String hiveRole = "Hive Role";
-  static const String hiveId = "Hive ID";
+  static const String hiveUserId = "Hive user ID";
   static const String hiveName = "Hive User Name";
   static const String hivePhone = "Hive User Phone";
   static const String hiveAvatarImg = "Hive User Avatar Image";

@@ -154,11 +154,13 @@ return  CircleAvatar(
             ],
           ),
           SizedBox(height: arentir * 0.02),
-          Text(
-            obj.title,
-            style: TextStyle(fontSize: arentir * 0.036),
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
+          SizedBox(
+            child: Text(
+              obj.title,
+              style: TextStyle(fontSize: arentir * 0.03),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

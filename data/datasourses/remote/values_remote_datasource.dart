@@ -8,7 +8,7 @@ import '../../models/value_model.dart';
 import 'http_vars.dart';
 
 abstract class ValuesRemoteDataSource {
-  Future<List<BanerModel>> getBanners(int welayat, int page);
+  Future<List<BanerModel>> getBanners(int welayat, int page, int category);
   Future<List<ValueModel>> getLocations();
   Future<List<ValueModel>> getVideoCategories();
   Future<List<ValueModel>> getImgCategories();
@@ -18,8 +18,10 @@ class ValuesDataSourceImpl implements ValuesRemoteDataSource {
   final http.Client httpClient;
   ValuesDataSourceImpl(this.httpClient);
   @override
-  Future<List<BanerModel>> getBanners(int welayat, int page) async {
-    final response = await httpClient.get(Uris.banner(welayat, page),
+  Future<List<BanerModel>> getBanners(
+      int welayat, int page, int category) async {
+    print("${Uris.banner(welayat, page, category)}");
+    final response = await httpClient.get(Uris.banner(welayat, page, category),
         headers: Headers.contentJson);
     final res = json.decode(response.body)["data"] as List;
     // final resList = res.where((element) => element["type"] == "App").toList();

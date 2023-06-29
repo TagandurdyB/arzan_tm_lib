@@ -29,6 +29,7 @@ class VideoPlayerForground extends StatelessWidget {
       visible: providV.isForvardShow,
       child: GestureDetector(
         onDoubleTap: () => providVdo.forvordHidden,
+        onTap: _funcPlayPause,
         child: Container(
             alignment: Alignment.center,
             color: Colors.black54,

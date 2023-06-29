@@ -3,7 +3,6 @@
 import 'package:provider/provider.dart';
 
 import '../../../providers/data/discount_data_provider.dart';
-import '/domanin/entities/discounts/discount_entity.dart';
 
 import '/presentation/views/pages/discount/page_discounts_in.dart';
 import '/presentation/views/widgets/shimmer_img.dart';
@@ -64,18 +63,18 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        final List<DiscountEntity> objs = [
-          DiscountEntity(
-            id: 1,
-            createdAt: DateTime.now(),
-            img:
-                "https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg",
-            mod: 23,
-            title: "Mebel zakaz alyarys islendik gornusde",
-            description: "Mebel zakaz alyarys islendik gornusde",
-            viewed: 121,
-          ),
-        ];
+        // final List<DiscountEntity> objs = [
+        //   DiscountEntity(
+        //     id: 1,
+        //     createdAt: DateTime.now(),
+        //     img:
+        //         "https://img.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_1258-154643.jpg",
+        //     mod: 23,
+        //     title: "Mebel zakaz alyarys islendik gornusde",
+        //     description: "Mebel zakaz alyarys islendik gornusde",
+        //     viewed: 121,
+        //   ),
+        // ];
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -109,7 +108,7 @@ class CategoryCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "${obj.name} (${Formater.rounder(obj.count)})",
+                "${obj.name} ${obj.count>0?" (${Formater.rounder(obj.count)})":""}",
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             )

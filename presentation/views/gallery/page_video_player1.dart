@@ -1,6 +1,7 @@
 import 'package:arzan/presentation/providers/data/provider_acaunt.dart';
 import 'package:arzan/presentation/providers/view/provider_navigation.dart';
-import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wakelock/wakelock.dart';
 
 import '../../providers/view/provider_video.dart';
 import '../widgets/custom_avatar.dart';
@@ -26,6 +27,7 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
   @override
   void initState() {
     super.initState();
+    Wakelock.enable();
     MyOrientation.disableSystemUI;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // VideoDataP.of(context, listen: false).fillVideo(2);
@@ -40,6 +42,8 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
 
   @override
   void dispose() {
+    Wakelock.disable();
+
     MyOrientation.setPortraitUp();
     //  VideoDataP.of(context, listen: false).dispodeVideo;
     videoDo.dispodeVideo;
@@ -99,53 +103,34 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          buildLoad(true, index),
+          // buildLoad(true, index),
           // Container(color: Colors.white, child: Text("Index:=$index  videoIndex:=${VideoDataP.of(context).videoIndex}")),
           Expanded(
             child: GestureDetector(
-              onTap: () {
-                VideoP.of(context, listen: false).forvardShow;
-              },
-              child: Consumer<VideoDataP>(builder: (context, provider, child) {
-                final controller = provider.getControlByIndex;
-                if (controller != null && controller.value.isInitialized) {
-                  return Container(
-                    width: double.infinity,
-                    height: 100,
-                    color: Colors.black,
-                    child: Stack(
-                      children: [
-                        VideoPlayerWidget(controller: controller),
-                        buildTitle(index),
-                      ],
-                    ),
-                    // child: index == 1
-                    //     ? Stack(
-                    //         children: [
-                    //           VideoPlayerWidget(controller: controller),
-                    //           buildTitle,
-                    //         ],
-                    //       )
-                    //     : const SizedBox(),
-                  );
-                } else {
-                  return Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 16),
-                      // color: Colors.red,
-                      child: Lottie.asset("assets/loading4.json",
-                          reverse: true,
-                          width: MySize.arentir * 0.2,
-                          height: MySize.arentir * 0.2,
-                          fit: BoxFit.fill),
-                    ),
-                  );
-                }
-              }),
-            ),
+                onTap: () {
+                  VideoP.of(context, listen: false).forvardShow;
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 100,
+                  color: Colors.black,
+                  child: Stack(
+                    children: [
+                      // VideoPlayerWidget(),
+                      buildTitle(index),
+                    ],
+                  ),
+                  // child: index == 1
+                  //     ? Stack(
+                  //         children: [
+                  //           VideoPlayerWidget(controller: controller),
+                  //           buildTitle,
+                  //         ],
+                  //       )
+                  //     : const SizedBox(),
+                )),
           ),
-          buildLoad(false, index),
+          // buildLoad(false, index),
         ],
       ),
     );
@@ -162,6 +147,7 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
               BackButton(
                   color: Colors.white,
                   onPressed: () {
+                    VideoDataP.of(context, listen: false).dispodeVideo;
                     VideoP.of(context, listen: false).cleanVideo;
                     Navigator.pop(context);
                   }),
@@ -179,10 +165,19 @@ class _PageVidePlayer1State extends State<PageVidePlayer1> {
                 child: NextBtn(
                   func: () {
                     if (!AcauntP.of(context, listen: false).isSing) {
-                      ProviderNav.of(context, listen: false).changeScreen(4);
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                    }else{
+                          Fluttertoast.showToast(
+                            msg: "Agza boluň!",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                  //    ProviderNav.of(context, listen: false).changeScreen(4);
+                    //  Navigator.popUntil(context, (route) => route.isFirst);
+                    } else {
                       //Follow
+                          
                     }
                   },
                   text: "Yzarla",

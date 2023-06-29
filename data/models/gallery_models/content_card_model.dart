@@ -1,5 +1,6 @@
 // ignore_for_file: overridden_fields
 
+import '../../datasourses/remote/http_vars.dart';
 import '/data/models/user_model.dart';
 
 import '../../../domanin/entities/galery/content_card_entity.dart';
@@ -26,6 +27,8 @@ class ContentCardModel extends ContentCardEntity {
   @override
   final bool pinnad;
   @override
+  final bool isLiked;
+  @override
   final bool isPicture;
   @override
   final bool isEmpty;
@@ -39,6 +42,7 @@ class ContentCardModel extends ContentCardEntity {
     required this.title,
     required this.allCount,
     required this.likeCount,
+    this.isLiked = false,
     this.pinnad = false,
     this.isPicture = false,
     this.isEmpty = true,
@@ -66,11 +70,16 @@ class ContentCardModel extends ContentCardEntity {
       ContentCardModel(
         id: json["id"],
         user: UserModel.fromJson(json["user"]),
-        banerImg: "http://95.85.126.113:8080/${json["thumbnail"]["url"]}",
-        videoUrl: "http://95.85.126.113:8080/${json["video"]["url"]}",
+        banerImg: "http://${Uris.ip}:${Uris.port}/${json["thumbnail"]["url"]}",
+        videoUrl: "http://${Uris.ip}:${Uris.port}/${json["video"]["url"]}",
         createdAt: DateTime.parse(json["created_at"]),
         viewed: json["viewed_count"],
         likeCount: json["likes_count"],
+        isLiked: json["is_liked"] != null
+            ? json["is_liked"] == 0
+                ? false
+                : true
+            : false,
         title: json["title"],
         allCount: json["allCount"] ?? 0,
         pinnad: json["pinnad"] ?? false,
@@ -81,11 +90,17 @@ class ContentCardModel extends ContentCardEntity {
       ContentCardModel(
         id: json["id"],
         user: UserModel.fromJson(json["user"]),
-        banerImg: "http://95.85.126.113:8080/${json["avatar_image"]["url"]}",
+        banerImg:
+            "http://${Uris.ip}:${Uris.port}/${json["avatar_image"]["url"]}",
         videoUrl: "",
         createdAt: DateTime.parse(json["created_at"]),
         viewed: json["view_count"],
-        likeCount: 0,
+        likeCount: json["likes_count"] ?? 0,
+        isLiked: json["is_liked"] != null
+            ? json["is_liked"] == 0
+                ? false
+                : true
+            : false,
         title: json["title"],
         allCount: json["image_count"] ?? 0,
         pinnad: json["pinnad"] ?? false,
@@ -99,6 +114,10 @@ class ContentCardModel extends ContentCardEntity {
 
   static List<ContentCardModel> fromJsonListV(List jsonList) =>
       jsonList.map((json) => ContentCardModel.frowJsonV(json)).toList();
+  // jsonList.length > 11
+  //     ? List.generate(
+  //         12, (index) => ContentCardModel.frowJsonV(jsonList[index]))
+  //     : jsonList.map((json) => ContentCardModel.frowJsonV(json)).toList();
 
   static List<ContentCardModel> fromJsonListI(List jsonList) =>
       jsonList.map((json) => ContentCardModel.frowJsonI(json)).toList();

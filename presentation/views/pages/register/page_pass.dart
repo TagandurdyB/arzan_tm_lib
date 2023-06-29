@@ -37,7 +37,7 @@ class _PasswordPageState extends State<PasswordPage> {
         MyPopUpp.popLoading(context);
         AcauntP.of(context, listen: false)
             .recover(UserRequestEntity(
-          phone: RIBase.getText(Tags.rISignPhone),
+          phone: "+993${RIBase.getText(Tags.rISignPhone)}",
           pass: RIBase.getText(Tags.rISignPass),
         ))
             .then((response) {

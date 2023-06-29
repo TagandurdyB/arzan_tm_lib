@@ -18,6 +18,7 @@ class ProfilePage extends StatelessWidget {
   final List<Widget> _screens = [
     ProfileUser(
       obj: UserProfileEntity(
+        id:0,
         name: "Julian Herbst",
         phone: "+99361000000",
         avatarImg:

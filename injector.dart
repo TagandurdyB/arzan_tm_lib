@@ -1,11 +1,17 @@
-import 'package:arzan/domanin/usecases/gallery_case.dart';
+import '/domanin/usecases/profile_case.dart';
+
+import '/presentation/providers/data/provider_profile.dart';
+
+import '/domanin/usecases/gallery_case.dart';
 
 import '/presentation/providers/data/chosen_data_provider.dart';
 
 import '/domanin/usecases/discounts_case.dart';
 
 import 'data/datasourses/remote/gallery_remote_datasource.dart';
+import 'data/datasourses/remote/profile_remote_datasource.dart';
 import 'data/repositories/gellery_repository_impl.dart';
+import 'data/repositories/profile_repository_impl.dart';
 import 'domanin/usecases/values_case.dart';
 
 import 'presentation/providers/data/values_provider.dart';
@@ -99,6 +105,12 @@ class Injector extends StatelessWidget {
                     galleryCase: GalleryCase(GalleryRepositoryImpl(
                         GalleryDataSourceImpl(http.Client()))),
                   )),
+          ChangeNotifierProvider<ProfileP>(
+              create: (_) => ProfileP(
+                    profileCase: ProfileCase(ProfileRepositoryImpl(
+                        ProfileRemoteDataSourceImpl(http.Client()))),
+                  )),
+
           //=============================================
 
           ///////////////////////////////////////////////////////////////////////

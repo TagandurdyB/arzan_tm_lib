@@ -83,7 +83,7 @@ class DangerBtn extends StatelessWidget {
 class LikeBtn extends StatefulWidget {
   final Function? onTap;
   final int likeCount;
-  final bool isLiked, isTongel;
+  final bool isLiked, isTongel, isWork;
   final Color iconColor, textColor;
   final Color? activeIconColor, passivIconColor;
   final double iconSize, textSize, spacing;
@@ -92,6 +92,7 @@ class LikeBtn extends StatefulWidget {
   const LikeBtn({
     super.key,
     this.onTap,
+    this.isWork = true,
     this.likeCount = 0,
     this.iconColor = Colors.red,
     this.activeIconColor,
@@ -126,21 +127,24 @@ class _LikeBtnState extends State<LikeBtn> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (widget.isTongel) {
-            isLiked = !isLiked;
-            if (isLiked) {
+          if (widget.isWork) {
+            if (widget.isTongel) {
+              isLiked = !isLiked;
+              if (isLiked) {
+                likeCount++;
+              } else {
+                likeCount--;
+              }
+              SoundService.playLike;
+              //   if (widget.onTap != null) widget.onTap!(isLiked);
+            } else if (!isLiked) {
+              isLiked = true;
               likeCount++;
-            } else {
-              likeCount--;
+              SoundService.playLike;
+              //   if (widget.onTap != null) widget.onTap!(isLiked);
             }
-            SoundService.playLike;
-            if (widget.onTap != null) widget.onTap!(isLiked);
-          } else if (!isLiked) {
-            isLiked = true;
-            likeCount++;
-            SoundService.playLike;
-            if (widget.onTap != null) widget.onTap!(isLiked);
           }
+          if (widget.onTap != null) widget.onTap!(isLiked);
         });
       },
       child: Row(
@@ -158,7 +162,7 @@ class _LikeBtnState extends State<LikeBtn> {
             "$likeCount",
             style: TextStyle(
                 color: widget.textColor,
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
                 fontSize: widget.textSize),
           ),
         ],

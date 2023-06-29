@@ -29,7 +29,7 @@ class SendSmsPage extends StatelessWidget {
     // LauncherService.sms(Words.phone);
     if (isRecover) {
       LauncherService().sendSMS(Words.phone,
-          "Recover_arzan_tm:sdaijkrfynvsufamOIJH&*&TB^*OYVRnasicu389");
+          "RecoverArzanTm");
     } else {
       LauncherService().sendSMS(Words.phone, "ArzanTm2023");
     }

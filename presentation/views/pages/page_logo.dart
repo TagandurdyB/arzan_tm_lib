@@ -1,5 +1,7 @@
 import '../../../config/themes/styles.dart';
+import '../../providers/data/provider_gallery.dart';
 import '../../providers/data/values_provider.dart';
+import '../../providers/data/video_data_provider.dart';
 import '/presentation/providers/data/discount_data_provider.dart';
 
 import '../../../config/services/connection.dart';
@@ -42,8 +44,17 @@ class _LogoPageState extends State<LogoPage> {
     if (isConnect) {
       checkUserInfo();
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        DiscountDataP.of(context, listen: false).fillCategories();
-        ValuesP.of(context, listen: false).fillLocations();
+        final discountDo = DiscountDataP.of(context, listen: false);
+        discountDo.fillDiscounts(0,0);
+        discountDo.fillBadge();
+        discountDo.fillCategories();
+        VideoDataP.of(context, listen: false).fillBadge();
+        GalleryP.of(context, listen: false).fillBadge();
+        final int welayatId =
+            HiveP.of(context, listen: false).readInt(Tags.hiveLocationId) ?? 0;
+        final valueDo = ValuesP.of(context, listen: false);
+        valueDo.fillLocations();
+        valueDo.getBanner(welayatId, 1, 0);
       });
     }
   }
@@ -181,9 +192,10 @@ class _LogoPageState extends State<LogoPage> {
             child: SizedBox(
               width: arentir * 0.3,
               height: arentir * 0.3,
-              child: Lottie.asset("assets/loading0.json", 
-              repeat: true, 
-              // reverse: true,
+              child: Lottie.asset(
+                "assets/loading0.json",
+                repeat: true,
+                // reverse: true,
               ),
             )),
       ],

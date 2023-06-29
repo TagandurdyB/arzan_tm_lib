@@ -16,6 +16,7 @@ class DoubleCard extends StatelessWidget {
   final String secondImageUrl;
   final Function? firstOnTab;
   final Function? secondOnTab;
+  final bool isAssest;
 
   DoubleCard({
     super.key,
@@ -25,6 +26,7 @@ class DoubleCard extends StatelessWidget {
     required this.secondTitle,
     required this.secondCounter,
     required this.secondImageUrl,
+    this.isAssest=false,
     this.firstOnTab,
     this.secondOnTab,
   });
@@ -65,7 +67,9 @@ class DoubleCard extends StatelessWidget {
               color: ThemeP.of(context).colors.shimmerBg,
               width: arentir * 0.45,
               height: arentir * 0.34,
-              child: ShimmerImg(imageUrl: img),
+              child:isAssest?Image.asset(
+                fit:BoxFit.fitHeight,
+                img): ShimmerImg(imageUrl: img),
             ),
           ),
         ),

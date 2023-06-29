@@ -23,7 +23,7 @@ class _VideoLikeEffState extends State<VideoLikeEff> {
       onTap: (bool val) {
         final videoDo = VideoDataP.of(context, listen: false);
         final int index = videoDo.videoIndex;
-        videoDo.likePost(videoDo.videos![index].id);
+        videoDo.likeVidoe(videoDo.videos![index].id);
         setState(() => isLike = val);
       },
       child: Container(

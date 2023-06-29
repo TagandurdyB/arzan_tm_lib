@@ -10,8 +10,9 @@ class ValuesRepositoryImpl implements ValuesRepository {
   ValuesRepositoryImpl(this.valuesRemoteDataSource);
 
   @override
-  Future<List<BanerEntity>> getBanners(int welayat, int page) async {
-    return await valuesRemoteDataSource.getBanners(welayat, page);
+  Future<List<BanerEntity>> getBanners(
+      int welayat, int page, int category) async {
+    return await valuesRemoteDataSource.getBanners(welayat, page, category);
   }
 
   @override
@@ -24,8 +25,7 @@ class ValuesRepositoryImpl implements ValuesRepository {
     return await valuesRemoteDataSource.getVideoCategories();
   }
 
-
-    @override
+  @override
   Future<List<ValueEntity>> getImgCategories() async {
     return await valuesRemoteDataSource.getImgCategories();
   }

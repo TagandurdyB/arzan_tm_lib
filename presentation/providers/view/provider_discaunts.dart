@@ -18,6 +18,13 @@ class DiscountProvid extends ChangeNotifier {
     notifyListeners();
   }
 
+  int _favoriteIndex = 0;
+  int get favoriteIndex => _favoriteIndex;
+  changeFavoriteIndex(int index) {
+    _favoriteIndex = index;
+    notifyListeners();
+  }
+  
   // void _minScale() {
   //   _scaleVisible = false;
   //   notifyListeners();

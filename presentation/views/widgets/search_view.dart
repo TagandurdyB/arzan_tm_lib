@@ -1,6 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan/domanin/entities/discounts/discount_entity.dart';
+
 import '../../../config/vars/formater.dart';
+import '../../providers/data/discount_data_provider.dart';
+import '../pages/discount/page_discount_detal.dart';
 import '/domanin/entities/search_entity.dart';
 
 import '/presentation/views/widgets/shimmer_img.dart';
@@ -11,7 +15,8 @@ import '../../providers/view/provider_navigation.dart';
 import '../../providers/view/provider_theme.dart';
 
 class SearchView extends StatelessWidget {
-  final List<SearchEntity> objs;
+  final List<DiscountEntity> objs;
+  // final List<SearchEntity> objs;
   SearchView({required this.objs, super.key});
 
   late BuildContext context;
@@ -23,18 +28,20 @@ class SearchView extends StatelessWidget {
     return Visibility(
       visible: ProviderNav.of(context).isSaved,
       child: Column(children: [
-        buildTitle,
+        // buildTitle,
         Expanded(
             child: ListView(
           physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: arentir * 0.04),
           children: [
             Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              runSpacing: arentir * 0.03,
-              children: objs.map((obj) => buildCard(obj)).toList(),
-              // children: List.generate(20, (index) => buildCard(index)),
-            ),
+                alignment: WrapAlignment.spaceBetween,
+                runSpacing: arentir * 0.03,
+                children:
+                    List.generate(objs.length, (index) => buildCard(index))
+                // objs.map((obj) => buildCard(obj)).toList(),
+                // children: List.generate(20, (index) => buildCard(index)),
+                ),
           ],
         )),
 
@@ -70,62 +77,71 @@ class SearchView extends StatelessWidget {
     );
   }
 
-  Widget buildCard(SearchEntity obj) {
-    return SizedBox(
-      // color: Colors.red,
-      width: arentir * 0.44,
-      height: arentir * 0.46,
-      child: Column(children: [
-        Container(
-          color: ThemeP.of(context).colors.shimmerBg,
-          height: arentir * 0.28,
-          child: ShimmerImg(imageUrl: obj.imageUrl),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  obj.title,
-                  style: TextStyle(fontSize: arentir * 0.032),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      Formater.calendar(obj.created),
-                      style: TextStyle(
-                          fontSize: arentir * 0.025,
-                          color: const Color(0xff747474)),
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.remove_red_eye_outlined,
-                          size: arentir * 0.03,
-                          color: const Color(0xff747474),
-                        ),
-                        SizedBox(width: arentir * 0.01),
-                        Text(
-                          "${obj.viewed}",
-                          style: TextStyle(
-                              fontSize: arentir * 0.025,
-                              color: const Color(0xff747474)),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
+  Widget buildCard(int index) {
+    final obj = objs[index];
+    return GestureDetector(
+      onTap: () {
+        DiscountDataP.of(context, listen: false).changeDiscountIndex(index);
+
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => DiscountDetal(id: obj.id)));
+      },
+      child: SizedBox(
+        // color: Colors.red,
+        width: arentir * 0.44,
+        height: arentir * 0.46,
+        child: Column(children: [
+          Container(
+            color: ThemeP.of(context).colors.shimmerBg,
+            height: arentir * 0.28,
+            child: ShimmerImg(imageUrl: obj.img),
           ),
-        )
-      ]),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    obj.title,
+                    style: TextStyle(fontSize: arentir * 0.032),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        Formater.calendar(obj.createdAt),
+                        style: TextStyle(
+                            fontSize: arentir * 0.025,
+                            color: const Color(0xff747474)),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.remove_red_eye_outlined,
+                            size: arentir * 0.03,
+                            color: const Color(0xff747474),
+                          ),
+                          SizedBox(width: arentir * 0.01),
+                          Text(
+                            "${obj.viewed}",
+                            style: TextStyle(
+                                fontSize: arentir * 0.025,
+                                color: const Color(0xff747474)),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

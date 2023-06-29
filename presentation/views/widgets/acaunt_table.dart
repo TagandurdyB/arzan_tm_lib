@@ -61,8 +61,8 @@ class AcauntTable extends StatelessWidget {
   }
 
   Widget buildTableElem(int index) => GestureDetector(
-        onTap: () =>
-            _popExplanation(objs[index][1], objs[index][2], objs[index][4]),
+        // onTap: () =>
+        //     _popExplanation(objs[index][1], objs[index][2], objs[index][4]),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           margin: const EdgeInsets.all(4),

@@ -10,6 +10,7 @@ import '../../../domanin/entities/baner_entity.dart';
 import '../../../domanin/entities/value_entity.dart';
 import '../../providers/data/values_provider.dart';
 import '../../providers/view/provider_theme.dart';
+import '../widgets/carusel_with_indicator.dart';
 import '../widgets/shimmer_img.dart';
 import '../widgets/widget_btn.dart';
 import '/presentation/providers/data/provider_gallery.dart';
@@ -19,7 +20,6 @@ import '/presentation/views/widgets/galery/folder_cards/midle_folder_card.dart';
 import '/presentation/views/widgets/card_title.dart';
 
 import '../../providers/view/provider_discaunts.dart';
-import '../widgets/carusel_slider.dart';
 import 'page_image_detal.dart';
 
 import '../../../domanin/entities/galery/content_card_entity.dart';
@@ -85,7 +85,11 @@ class _ImagesPageState extends State<ImagesPage> {
     return ScaffoldNo(
         body: CustomFuture(
             future: valueP.getBanner(
-                HiveP.of(context).readInt(Tags.hiveLocationId)!, 2),
+                HiveP.of(context).readInt(Tags.hiveLocationId)!,
+                2,
+                categories[GalleryP.of(context, listen: false)
+                        .selectImgCategoryIndex]
+                    .id),
             builder: (context, data) {
               banners = data;
               return Column(
@@ -94,7 +98,7 @@ class _ImagesPageState extends State<ImagesPage> {
                     // title: "Surat",
                     titleW: CardTitle(
                       near: true,
-                      counter: 23,
+                      counter: 0,
                       title: "Surat",
                       txtSize: arentir * 0.05,
                     ),
@@ -148,6 +152,10 @@ class _ImagesPageState extends State<ImagesPage> {
         providGdo.chageSelectedImgCategoryIndex(index);
         providGdo.fillImgFolders(categories[index].id);
         // VideoDataP.of(context, listen: false).fillVideos(categories[index].id);
+        ValuesP.of(context, listen: false).getBanner(
+            HiveP.of(context, listen: false).readInt(Tags.hiveLocationId)!,
+            2,
+            categories[index].id);
       },
       child: Container(
           decoration: BoxDecoration(
@@ -170,8 +178,6 @@ class _ImagesPageState extends State<ImagesPage> {
 
   List<BanerEntity> banners = [];
 
-
-
   Widget get buildContent {
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -179,9 +185,10 @@ class _ImagesPageState extends State<ImagesPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildCategories(),
-           GalleryP.of(context).selectImgCategoryIndex != 0
-              ? buildBanner2
-              : buildBanner1,
+          //   GalleryP.of(context).selectImgCategoryIndex != 0
+          // ? buildBanner2
+          //  :
+          buildBanner1,
           // buildBanner,
           SizedBox(height: arentir * 0.02),
           Align(
@@ -196,7 +203,7 @@ class _ImagesPageState extends State<ImagesPage> {
     );
   }
 
-    Widget get buildBanner2 {
+  Widget get buildBanner2 {
     final int index = GalleryP.of(context).selectImgCategoryIndex;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -206,16 +213,20 @@ class _ImagesPageState extends State<ImagesPage> {
           borderRadius: BorderRadius.circular(arentir * 0.02)),
       width: double.infinity,
       height: arentir * 0.5,
-      child: ShimmerImg(imageUrl: categories[index].img ?? "", fit: BoxFit.fitWidth,),
+      child: ShimmerImg(
+        imageUrl: categories[index].img ?? "",
+        fit: BoxFit.fitWidth,
+      ),
     );
   }
 
   Widget get buildBanner1 {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: MyCarusel(
-        items: ValuesP.of(context).imgBanners,
-      ),
+      child: CarouselWithIndicator(data: ValuesP.of(context).imgBanners,)
+      // MyCarusel(
+      //   items: ValuesP.of(context).imgBanners,
+      // ),
     );
   }
 
@@ -231,6 +242,7 @@ class _ImagesPageState extends State<ImagesPage> {
   Widget buildLoading() {
     return Wrap(
         spacing: arentir * 0.03,
+        runSpacing: arentir * 0.03,
         children: List.generate(12, (index) {
           switch (HiveP.of(context).readInt(Tags.hiveTypeOfYou) ?? 2) {
             case 1:

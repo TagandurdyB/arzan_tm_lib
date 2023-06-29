@@ -36,7 +36,7 @@ class UserRequestModel extends UserRequestEntity {
   @override
   Map<String, dynamic> toJson() => {
         "phone": phone,
-        "pass": pass,
+        "password": pass,
         "token": token,
       };
 }

@@ -2,6 +2,7 @@
 
 import '../../../config/vars/formater.dart';
 import '../../../domanin/entities/discounts/discount_entity.dart';
+import '../../datasourses/remote/http_vars.dart';
 
 class DiscountModel extends DiscountEntity {
   @override
@@ -52,12 +53,12 @@ class DiscountModel extends DiscountEntity {
   factory DiscountModel.frowJson(Map<String, dynamic> json) {
     try {
       final int modPrice =
-          Formater.modFinder(json["price"] as int, json["discount"] as int);
+          Formater.modFinder(json["price"] + 0.0, json["discount"] + 0.0);
       return DiscountModel(
         id: json["id"],
         mod: modPrice,
         viewed: json["viewed_count"], //json["viewed"],
-        img: json["image"],
+        img: "http://${Uris.ip}:${Uris.port}/${json["image"]}",
         createdAt: DateTime.parse(json["created_at"]), //json["createdAt"],
         title: json["title"],
         description: json["description"] ?? "",

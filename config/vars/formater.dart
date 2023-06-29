@@ -167,7 +167,7 @@ class Formater {
     }
   }
 
-  static int modFinder(int price, int discount) {
+  static int modFinder(double price, double discount) {
     if (price > discount && discount > 0) {
       final double mod = (discount * 100 / price);
       if (mod.floor() == 100) {

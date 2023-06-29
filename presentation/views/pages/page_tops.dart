@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan/presentation/providers/data/provider_profile.dart';
+
 import '/presentation/views/screens/tpos/screen_officials.dart';
 import '/presentation/views/screens/tpos/screen_users.dart';
 
@@ -22,6 +24,37 @@ class TopsPage extends StatefulWidget {
 class _TopsPageState extends State<TopsPage> {
   // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNVbtuN_ECO3DzaBcdg-bF53vDuS1_clQodQ&usqp=CAU",
   final double arentir = MySize.arentir;
+  final _paginationControl = ScrollController();
+
+  late ProfileP profileP;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ProfileP.of(context, listen: false).fillTops();
+    });
+    profileP = ProfileP.of(context, listen: false);
+    _paginationControl.addListener(() {
+      if (_paginationControl.position.maxScrollExtent ==
+          _paginationControl.offset) {
+        fetch();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    profileP.tops = [];
+    super.dispose();
+  }
+
+  Future fetch() async {
+    final profileDo = ProfileP.of(context, listen: false);
+    if (!profileDo.isLast) {
+      profileDo.fetchTops(profileDo.tops.length);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +63,16 @@ class _TopsPageState extends State<TopsPage> {
       children: [
         CustomAppBar(
           title: "Top hasaplar",
-          actions: [
-            IconButton(onPressed: _showSortSheed, icon: const Icon(Icons.sort))
+          actions: const [
+            // IconButton(onPressed: _showSortSheed, icon: const Icon(Icons.sort))
           ],
         ),
         Expanded(
             child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(), child: buildContent)),
+          controller: _paginationControl,
+          physics: const BouncingScrollPhysics(),
+          child: buildContent,
+        )),
       ],
     ));
   }
@@ -64,27 +100,27 @@ class _TopsPageState extends State<TopsPage> {
   }
 
   final List _screens = [TopUsers(), TopOfficials()];
-  int _screenIndex = 0;
+  final int _screenIndex = 0;
 
   Widget get buildContent {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
         children: [
-          IndicatorBtns(
-            indicatorWidth: arentir * 0.46,
-            indicatorBorder:
-                Border.all(color: const Color(0xffE5E5E5), width: 1),
-            borderRadius: 8,
-            dynamicBorder: true,
-            height: arentir * 0.1,
-            activeColor: const Color(0xff00C52B),
-            items: [
-              IndicatorItem(text: "Ulanyjylar"),
-              IndicatorItem(text: "Resmiler"),
-            ],
-            onChange: (index) => setState(() => _screenIndex = index),
-          ),
+          // IndicatorBtns(
+          //   indicatorWidth: arentir * 0.46,
+          //   indicatorBorder:
+          //       Border.all(color: const Color(0xffE5E5E5), width: 1),
+          //   borderRadius: 8,
+          //   dynamicBorder: true,
+          //   height: arentir * 0.1,
+          //   activeColor: const Color(0xff00C52B),
+          //   items: [
+          //     IndicatorItem(text: "Ulanyjylar"),
+          //     IndicatorItem(text: "Resmiler"),
+          //   ],
+          //   onChange: (index) => setState(() => _screenIndex = index),
+          // ),
           _screens[_screenIndex],
           // SizedBox(height: arentir * 0.05),
           // AcauntCard(

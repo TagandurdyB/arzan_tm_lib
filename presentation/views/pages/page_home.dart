@@ -51,25 +51,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final provid = ProviderNav.of(context);
-    final welayatId = HiveP.of(context).readInt(Tags.hiveLocationId);
-    final valueDo = ValuesP.of(context, listen: false);
+    // final welayatId = HiveP.of(context).readInt(Tags.hiveLocationId);
+    // final valueDo = ValuesP.of(context, listen: false);
     return ScaffoldNo(
       drawer: CustomDrawer(),
       bottomNavigationBar: const CustomNavigationBar(),
-      body: CustomFuture(
-          future: valueDo.getBanner(welayatId ?? 0, 1),
-          builder: (context, banners) {
-            return Stack(
-              children: List.generate(
-                  screens.length,
-                  (index) => Builder(
-                        builder: (context) => Offstage(
-                          offstage: index != provid.selectScreen,
-                          child: screens[index],
-                        ),
-                      )),
-            );
-          }),
+      body: Stack(
+        children: List.generate(
+            screens.length,
+            (index) => Builder(
+                  builder: (context) => Offstage(
+                    offstage: index != provid.selectScreen,
+                    child: screens[index],
+                  ),
+                )),
+      ),
     );
   }
 }

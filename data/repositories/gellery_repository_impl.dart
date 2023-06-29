@@ -21,8 +21,9 @@ class GalleryRepositoryImpl implements GalleryRepository {
   }
 
   @override
-  Future<List<ContentCardEntity>> getVideos(int id) async {
-    return await galleryRemoteDataSource.getVideos(id);
+  Future<List<ContentCardEntity>> getVideos(
+      int id, int limit, int offset) async {
+    return await galleryRemoteDataSource.getVideos(id, limit, offset);
   }
 
   @override
@@ -30,7 +31,33 @@ class GalleryRepositoryImpl implements GalleryRepository {
     return await galleryRemoteDataSource.getVideo(id);
   }
 
-    Future<ResponseModel> likePost(int id) async {
-    return await galleryRemoteDataSource.likePost(id);
+  @override
+  Future<ResponseModel> likeVideo(int id) async {
+    return await galleryRemoteDataSource.likeVideo(id);
+  }
+
+  @override
+  Future<ResponseModel> likeImage(int id) async {
+    return await galleryRemoteDataSource.likeImage(id);
+  }
+
+  @override
+  Future<ResponseModel> viewVideo(int id) async {
+    return await galleryRemoteDataSource.viewVideo(id);
+  }
+
+  @override
+  Future<ResponseModel> viewImage(int id) async {
+    return await galleryRemoteDataSource.viewImage(id);
+  }
+
+  @override
+  Future<int> badgeImgs() async {
+    return await galleryRemoteDataSource.badgeImgs();
+  }
+
+  @override
+  Future<int> badgeVideo() async {
+    return await galleryRemoteDataSource.badgeVideo();
   }
 }

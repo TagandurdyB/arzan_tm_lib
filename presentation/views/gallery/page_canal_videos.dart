@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:arzan/presentation/views/widgets/carusel_with_indicator.dart';
 import 'package:arzan/presentation/views/widgets/shimmer_img.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../providers/data/video_data_provider.dart';
 import '../../providers/view/provider_theme.dart';
-import '../widgets/carusel_slider.dart';
 import '/presentation/views/widgets/custom_future.dart';
 
 import '../../providers/data/hive_provider.dart';
@@ -31,7 +31,7 @@ import '/presentation/views/scaffold/custom_app_bar.dart';
 import '/presentation/views/scaffold/no_app_bar_scaffold.dart';
 import 'package:flutter/material.dart';
 
-import 'page_video_player1.dart';
+import 'page_video_player2.dart';
 
 class CanalVideosPage extends StatefulWidget {
   const CanalVideosPage({super.key});
@@ -41,8 +41,9 @@ class CanalVideosPage extends StatefulWidget {
 }
 
 class _CanalVideosPageState extends State<CanalVideosPage> {
+  final _paginationControl = ScrollController();
   final double arentir = MySize.arentir;
-
+late VideoDataP videoDo;
   // final ScrollController _controller = ScrollController();
 
   final iteamControl = ItemScrollController();
@@ -51,7 +52,7 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      VideoDataP.of(context, listen: false).fillVideos(0);
+      VideoDataP.of(context, listen: false).fillVideos(0, 0);
       VideoDataP.of(context, listen: false).chageSelectedVideoCategoryIndex(0);
       ValuesP.of(context, listen: false).fillVideoCategories();
       // double minExtend = _controller.position.minScrollExtent;
@@ -60,6 +61,13 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
       //   animateToMaxMin(minExtend, maxExtend, 25, 1, _controller);
       // }
     });
+    videoDo=VideoDataP.of(context, listen: false);
+    _paginationControl.addListener(() {
+      if (_paginationControl.position.maxScrollExtent ==
+          _paginationControl.offset) {
+        fetch();
+      }
+    });
     // SchedulerBinding.instance.addPostFrameCallback((_) {
     //   if (controller.hasClients) {
     //     //do your stuff here
@@ -67,6 +75,20 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
     //         duration: const Duration(seconds: 1), curve: Curves.linear);
     //   }
     // });
+  }
+
+@override
+  void dispose() {
+    videoDo.videos=null;
+    super.dispose();
+  }
+
+  Future fetch() async {
+    final videoDo = VideoDataP.of(context, listen: false);
+    if (!videoDo.isLast) {
+      videoDo.fatchVideos(categories[videoDo.selectVideoCategoryIndex].id,
+          videoDo.videos!.length);
+    }
   }
 
   void scrollToIndex(int index) => iteamControl.scrollTo(
@@ -85,8 +107,12 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
 
   late DiscountProvid providD, providDdo;
 
+  List<ValueEntity> categories = [];
+
   @override
   Widget build(BuildContext context) {
+    categories = [ValueEntity(id: 0, name: "Hemmesi")] +
+        ValuesP.of(context).videoCategories;
     providD = DiscountProvid.of(context);
     providDdo = DiscountProvid.of(context, listen: false);
     return ScaffoldNo(
@@ -107,14 +133,18 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
             },
             child: CustomFuture(
                 future: ValuesP.of(context, listen: false).getBanner(
-                    HiveP.of(context).readInt(Tags.hiveLocationId)!, 3),
+                    HiveP.of(context).readInt(Tags.hiveLocationId)!,
+                    3,
+                    categories[VideoDataP.of(context, listen: false)
+                            .selectVideoCategoryIndex]
+                        .id),
                 builder: (context, banners) {
                   return Column(
                     children: [
                       CustomAppBar(
                         titleW: CardTitle(
                           near: true,
-                          counter: 23,
+                          counter: 0,
                           title: "Wideo",
                           txtSize: arentir * 0.05,
                         ),
@@ -122,6 +152,7 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
                       ),
                       Expanded(
                           child: SingleChildScrollView(
+                        controller: _paginationControl,
                         physics: const BouncingScrollPhysics(),
                         child: buildContent,
                       )),
@@ -139,14 +170,11 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
   //   ValueEntity(name: "Tehnalogiya", id: 6, count: 1),
   // ];
 
-  List<ValueEntity> categories = [];
-
   Widget get buildContent {
-    categories = [ValueEntity(id: 0, name: "Hemmesi")] +
-        ValuesP.of(context).videoCategories;
     //  double minExtend = _controller.position.minScrollExtent;
     // double maxExtend = _controller.position.maxScrollExtent;
     // animateToMaxMin(minExtend, maxExtend, 25, 1, _controller);
+    final videoP = VideoDataP.of(context);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -166,16 +194,18 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
               //     categories.length, (index) => buildCategoryCard(index)),
             ),
           ),
-          VideoDataP.of(context).selectVideoCategoryIndex != 0
-              ? buildBanner2
-              : buildBanner1,
-          Row(
-            children: [
-              Expanded(
-                  child: buildBtnGroup(Icons.play_arrow, "Meşhurlar (65)")),
-              Expanded(child: buildBtnGroup(Icons.star, "Resmiler (25)")),
-            ],
-          ),
+          // VideoDataP.of(context).selectVideoCategoryIndex != 0
+          // ? buildBanner2
+          // :
+          buildBanner1,
+          SizedBox(height: arentir * 0.02),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //         child: buildBtnGroup(Icons.play_arrow, "Meşhurlar (65)")),
+          //     Expanded(child: buildBtnGroup(Icons.star, "Resmiler (25)")),
+          //   ],
+          // ),
           SizedBox(height: arentir * 0.02),
           Align(
             alignment: Alignment.center,
@@ -191,7 +221,17 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
                 ? buildCards()
                 : buildLoading(),
           ),
-          SizedBox(height: arentir * 0.2),
+          Visibility(
+            visible: !videoP.isLast &&
+                videoP.videos != null &&
+                videoP.videos!.isNotEmpty,
+            child: const Padding(
+              padding: EdgeInsets.all(16),
+              child:
+                  Center(child: CircularProgressIndicator(color: Colors.green)),
+            ),
+          ),
+          const SizedBox(height: 50),
         ],
       ),
     );
@@ -207,7 +247,12 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
         scrollToIndex(index);
         VideoDataP.of(context, listen: false)
             .chageSelectedVideoCategoryIndex(index);
-        VideoDataP.of(context, listen: false).fillVideos(categories[index].id);
+        ValuesP.of(context, listen: false).getBanner(
+            HiveP.of(context, listen: false).readInt(Tags.hiveLocationId)!,
+            3,
+            categories[index].id);
+        VideoDataP.of(context, listen: false)
+            .fillVideos(categories[index].id, 0);
       },
       child: Container(
           decoration: BoxDecoration(
@@ -244,11 +289,14 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
 
   Widget get buildBanner1 {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: MyCarusel(
-        items: ValuesP.of(context).videoBanners,
-      ),
-    );
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: CarouselWithIndicator(
+          data: ValuesP.of(context).videoBanners,
+        )
+        // MyCarusel(
+        //   items: ValuesP.of(context).videoBanners,
+        // ),
+        );
   }
 
   Widget buildBtnGroup(IconData iconD, String text) {
@@ -479,12 +527,15 @@ class _CanalVideosPageState extends State<CanalVideosPage> {
   void _goImgDetal(ContentCardEntity obj, int index) {
     VideoDataP.of(context, listen: false).changeIndex(index);
     VideoDataP.of(context, listen: false).changePageIndex(index);
-    
+
     VideoDataP.of(context, listen: false).startVideo(index);
 
     print("Video 123123  $index  ${obj.videoUrl}");
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const PageVidePlayer1()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VideoPlayer2(initIndex: index)));
+    // MaterialPageRoute(builder: (context) => const PageVidePlayer1()));
 
     // Navigator.push(
     //   context,

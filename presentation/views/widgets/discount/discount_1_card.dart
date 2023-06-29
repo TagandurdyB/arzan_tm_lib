@@ -1,3 +1,5 @@
+import 'package:flutter_html/flutter_html.dart';
+
 import '../../../../config/services/my_size.dart';
 import 'package:flutter/material.dart';
 
@@ -64,14 +66,15 @@ class DiscountCardFirst extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                    obj.description,
-                    style: TextStyle(
-                        fontSize: arentir * 0.026,
-                        color: const Color(0xff333333)),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  Expanded(child: Html(data: obj.description)),
+                  // Text(
+                  //   obj.description,
+                  //   style: TextStyle(
+                  //       fontSize: arentir * 0.026,
+                  //       color: const Color(0xff333333)),
+                  //   maxLines: 2,
+                  //   overflow: TextOverflow.ellipsis,
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

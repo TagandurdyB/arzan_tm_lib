@@ -12,12 +12,14 @@ class LongCard extends StatelessWidget {
   final int counter;
   final String imageUrl;
   final Function? onTap;
+  final bool isAssest;
 
   LongCard(
       {super.key,
       required this.title,
       required this.imageUrl,
       required this.counter,
+      this.isAssest = false,
       this.onTap});
 
   late BuildContext context;
@@ -45,7 +47,9 @@ class LongCard extends StatelessWidget {
           color: ThemeP.of(context).colors.shimmerBg,
           width: double.infinity,
           height: arentir * 0.21,
-          child: ShimmerImg(imageUrl: imageUrl),
+          child: isAssest?Image.asset(
+            fit:BoxFit.fitWidth,
+            imageUrl):ShimmerImg(imageUrl: imageUrl),
         ),
       ),
     );

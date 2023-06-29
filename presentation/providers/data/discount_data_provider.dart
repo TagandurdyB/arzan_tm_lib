@@ -51,14 +51,100 @@ class DiscountDataP extends ChangeNotifier {
   //   ],
   // );
 
+  int _discoutIndex = 0;
+  int get discoutIndex => _discoutIndex;
+  void changeDiscountIndex(int index) {
+    _discoutIndex = index;
+    notifyListeners();
+  }
+
+  int get discoutID => discounts[_discoutIndex].id;
+
+  DiscountEntity get discout => discounts[_discoutIndex];
+
+  void get pervious {
+    if (_discoutIndex > 0) {
+      _discoutIndex--;
+    }
+    notifyListeners();
+  }
+
+  void get next {
+    if (_discoutIndex < discounts.length - 1) {
+      _discoutIndex++;
+    }
+    notifyListeners();
+  }
+
+  void nextFavorite(int favoriteLength) {
+    if (_discoutIndex < favoriteLength - 1) {
+      _discoutIndex++;
+    }
+    notifyListeners();
+  }
+
   List<DiscountEntity> discounts = [];
 
-  Future<void> fillDiscounts() async {
+  int limit = 12;
+
+  Future<void> fillDiscounts(int categoryId, int subID) async {
     try {
-      discounts = await discountsCase.get();
+      isLast = false;
+      discounts = [];
+      notifyListeners();
+      discounts = await discountsCase.get(12, 0, categoryId, subID);
       notifyListeners();
     } catch (err) {
       throw ("Error DiscountDataP: $err");
+    }
+  }
+
+  bool isLast = false;
+  Future fatchPosts(int offset, int categoryId, int subId) async {
+    try {
+      final List<DiscountEntity> objs =
+          await discountsCase.get(limit, offset, categoryId, subId);
+      if (objs.length < limit) isLast = true;
+      discounts.addAll(objs);
+      // fillSubs();
+      notifyListeners();
+    } catch (err) {
+      throw ("Error VideoDataP>fatchVideos(): $err");
+    }
+  }
+
+  List<DiscountEntity>? search;
+  Future<void> fillSearch(String text) async {
+    try {
+      // search = null;
+      discounts = [];
+      notifyListeners();
+      discounts = await discountsCase.searchPost(text);
+      notifyListeners();
+    } catch (err) {
+      throw ("Error DiscountDataP>fillSearch($text): $err");
+    }
+  }
+
+  Future<void> fillPostsSelf(int userId) async {
+    try {
+      // search = null;
+      discounts = [];
+      notifyListeners();
+      discounts = await discountsCase.selfPost(userId);
+      notifyListeners();
+    } catch (err) {
+      throw ("Error DiscountDataP>fillPostsSelf($userId): $err");
+    }
+  }
+
+    Future<List<DiscountEntity>> getPostsSelf(int userId) async {
+    try {
+      // search = null;
+      return  await discountsCase.selfPost(userId);
+      // notifyListeners();
+    } catch (err) {
+      throw ("Error DiscountDataP>getPostsSelf($userId): $err");
     }
   }
 
@@ -85,7 +171,8 @@ class DiscountDataP extends ChangeNotifier {
 //Sort==========================================================================
   Future<List<DiscountEntity>> fetchCategoryD(int categoryId) async {
     try {
-      return await discountsCase.categoryPost(categoryId);
+      return await discountsCase.get(limit, 0, categoryId, 0);
+      // return await discountsCase.categoryPost(categoryId);
     } catch (err) {
       throw ("Error DiscountDataP>fetchCategoryD: $err");
     }
@@ -93,7 +180,8 @@ class DiscountDataP extends ChangeNotifier {
 
   Future<List<DiscountEntity>> fetchSubCategory(int subId) async {
     try {
-      return await discountsCase.subCategoryPost(subId);
+      return await discountsCase.get(limit, 0, 0, subId);
+      // return await discountsCase.subCategoryPost(subId);
     } catch (err) {
       throw ("Error DiscountDataP>fetchSubCategory: $err");
     }
@@ -135,6 +223,19 @@ class DiscountDataP extends ChangeNotifier {
     final ResponseEntity entity = await discountsCase.postDiscount(obj);
     print("entity :=${entity.result} , ${entity.status}");
     return entity;
+  }
+
+  int _badge = 0;
+  int get badge => _badge;
+
+  Future<void> fillBadge() async {
+    try {
+      _badge = await discountsCase.badgePost();
+      notifyListeners();
+      // return _badge;
+    } catch (err) {
+      throw ("Error DiscountDataP>fillBadge: $err");
+    }
   }
 
   static DiscountDataP of(BuildContext context, {bool listen = true}) =>

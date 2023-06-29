@@ -1,3 +1,7 @@
+import 'package:arzan/presentation/views/pages/lotties/page_500.dart';
+
+import '/presentation/providers/data/provider_profile.dart';
+
 import '../../../../config/vars/constants.dart';
 import '../../../../domanin/entities/profiles/official_profile_entity.dart';
 
@@ -19,6 +23,7 @@ class ProfileScreens extends StatelessWidget {
     final List<Widget> screens = [
       ScreenUser(
         obj: UserProfileEntity(
+          id:hiveP.readInt(Tags.hiveUserId)??0,
           name: hiveP.readStr(Tags.hiveName) ?? "user",
           phone: hiveP.readStr(Tags.hivePhone) ?? "phone",
           avatarImg: hiveP.readStr(Tags.hiveAvatarImg),
@@ -73,6 +78,24 @@ class ProfileScreens extends StatelessWidget {
       ),
     ];
     final providA = AcauntP.of(context);
-    return screens[providA.profileIndex(context)];
+    final hiveDo = HiveP.of(context, listen: false);
+    return FutureBuilder<UserProfileEntity>(
+      future: ProfileP.of(context, listen: false)
+          .fillProfile(hiveP.readInt(Tags.hiveUserId) ?? 0),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          print("error acconut err:=${snapshot.error}");
+          return Page500();
+        } else if (snapshot.hasData) {
+          // return screens[providA.profileIndex(context)];
+          return ScreenUser(obj: snapshot.data!);
+        } else {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Colors.green,
+          ));
+        }
+      },
+    );
   }
 }
