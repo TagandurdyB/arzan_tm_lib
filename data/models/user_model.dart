@@ -38,7 +38,7 @@ class UserModel extends UserEntity {
       return UserModel(
         id: json["id"],
         avatarImg:
-            "http://${Uris.ip}:${Uris.port}/${json["image"]["url"] ?? ""}",
+            "https://${Uris.domain}/${json["image"]["url"] ?? ""}",
         name: json["name"],
         role: Formater.strToRole(json["role"] ?? "USER"),
       );

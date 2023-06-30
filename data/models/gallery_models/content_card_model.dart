@@ -70,8 +70,8 @@ class ContentCardModel extends ContentCardEntity {
       ContentCardModel(
         id: json["id"],
         user: UserModel.fromJson(json["user"]),
-        banerImg: "http://${Uris.ip}:${Uris.port}/${json["thumbnail"]["url"]}",
-        videoUrl: "http://${Uris.ip}:${Uris.port}/${json["video"]["url"]}",
+        banerImg: "https://${Uris.domain}/${json["thumbnail"]["url"]}",
+        videoUrl: "https://${Uris.domain}/${json["video"]["url"]}",
         createdAt: DateTime.parse(json["created_at"]),
         viewed: json["viewed_count"],
         likeCount: json["likes_count"],
@@ -91,7 +91,7 @@ class ContentCardModel extends ContentCardEntity {
         id: json["id"],
         user: UserModel.fromJson(json["user"]),
         banerImg:
-            "http://${Uris.ip}:${Uris.port}/${json["avatar_image"]["url"]}",
+            "https://${Uris.domain}/${json["avatar_image"]["url"]}",
         videoUrl: "",
         createdAt: DateTime.parse(json["created_at"]),
         viewed: json["view_count"],

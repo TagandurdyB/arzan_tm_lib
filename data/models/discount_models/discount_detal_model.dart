@@ -116,7 +116,7 @@ class DiscountDetalModel extends DiscountDetalEntity {
         user: UserModel.fromJsonForPostDetal(json["user"]),
         pictures: json["images"] != null
             ? json["images"]
-                .map((e) => "http://${Uris.ip}:${Uris.port}/${e["url"] ?? ""}")
+                .map((e) => "https://${Uris.domain}/${e["url"] ?? ""}")
                 .toList()
                 .cast<String>()
             : [],

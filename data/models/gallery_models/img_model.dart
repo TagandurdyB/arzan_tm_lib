@@ -25,7 +25,7 @@ class ImgModel extends ImgEntity {
 
   factory ImgModel.frowJson(Map<String, dynamic> json) => ImgModel(
         id: json["id"],
-        img: "http://95.85.126.113:8080/${json["url"]}",
+        img: "https://api.arzan.info/${json["url"]}",
         viewed: json["view_count"],
         liked: json["like_count"],
         isEmpty: false,

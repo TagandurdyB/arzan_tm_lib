@@ -58,7 +58,7 @@ class DiscountModel extends DiscountEntity {
         id: json["id"],
         mod: modPrice,
         viewed: json["viewed_count"], //json["viewed"],
-        img: "http://${Uris.ip}:${Uris.port}/${json["image"]}",
+        img: "https://${Uris.domain}/${json["image"]}",
         createdAt: DateTime.parse(json["created_at"]), //json["createdAt"],
         title: json["title"],
         description: json["description"] ?? "",

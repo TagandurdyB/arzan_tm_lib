@@ -5,11 +5,10 @@ class Uris {
   // static String ip2 = "http://172.16.11.144:8080/api/v1";
   // static String ip2 = "http://10.15.0.76:8080/api/v1";
   //Arzan server
-  static String ip = "95.85.126.113";
-  static String port = "8080";
+  static String domain = "api.arzan.info";
   //   static String ip = "10.15.0.76";
   // static String port = "8081";
-  static String api = "http://$ip:$port/api/v1";
+  static String api = "https://$domain/api/v1";
 
   //////////////////////////////////////////////////////////////////////
   static Uri mainPage = Uri.parse("$ip3/arzanapi/api/v1/mobile");

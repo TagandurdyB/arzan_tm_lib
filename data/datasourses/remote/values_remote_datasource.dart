@@ -56,7 +56,7 @@ class ValuesDataSourceImpl implements ValuesRemoteDataSource {
           .map((e) => ValueModel(
                 id: e["id"],
                 name: e["category"]["name"],
-                img: "http://${Uris.ip}:${Uris.port}/${e["image"]["url"]}",
+                img: "https://${Uris.domain}/${e["image"]["url"]}",
               ))
           .toList();
     } else {
@@ -76,7 +76,7 @@ class ValuesDataSourceImpl implements ValuesRemoteDataSource {
           .map((e) => ValueModel(
                 id: e["id"],
                 name: e["category"]["name"],
-                img: "http://${Uris.ip}:${Uris.port}/${e["image"]["url"]}",
+                img: "https://${Uris.domain}/${e["image"]["url"]}",
               ))
           .toList();
     } else {

@@ -263,7 +263,7 @@ class VideoDataP extends ChangeNotifier {
     title: "lo sdfsdfr sdf sdgsdy twer afzsdf g aszdgvzdsgfv zsdfcвп",
     videoUrl:
         // "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
-        "http://95.85.126.113:8080/static/video/f7a6a57195e8e6ffd372b072794fddf1.mp4",
+        "https://api.arzan.info/static/video/f7a6a57195e8e6ffd372b072794fddf1.mp4",
     likeCount: 14785,
     user: UserModel(
         id: 1, avatarImg: "", name: "100haryt.com", role: Role.Official),
